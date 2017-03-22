@@ -211,5 +211,14 @@ public class Setup {
         driver.findElementById("com.qolsys:id/ft_home_button").click();
         return current_version;
     }
+    public void Rename_Sensor(int number, String new_name) {
+        WebElement b = driver.findElement(By.className("android.widget.LinearLayout"));
+        List<WebElement> li1 = b.findElements(By.id("com.qolsys:id/imageView1"));
+        li1.get(number).click();
+        driver.findElement(By.id("com.qolsys:id/sensorDescText")).clear();
+        driver.findElement(By.id("com.qolsys:id/sensorDescText")).sendKeys(new_name);
+        driver.hideKeyboard();
+        driver.findElement(By.id("com.qolsys:id/addsensor")).click();
+    }
 
 }
