@@ -31,11 +31,11 @@ public class Secure_Delete_Images_Test extends Setup {
         home.DISARM.click();
         enter_default_user_code();
         swipeFromLefttoRight();
-        camera.camera_delete.click();
+        camera.Camera_delete.click();
         Thread.sleep(2000);
-        if (camera.camera_delete_title.isDisplayed()){
+        if (camera.Camera_delete_title.isDisplayed()){
             logger.info("Delete pop-up");}
-        camera.camera_delete_yes.click();
+        camera.Camera_delete_yes.click();
         if (home.Enter_Code_to_Access_the_Area.isDisplayed()){
             logger.info("Pass: Password is required to delete the image");
         }else {logger.info("Failed: Password is NOT required to delete the image");
@@ -56,11 +56,11 @@ public class Secure_Delete_Images_Test extends Setup {
         home.DISARM.click();
         enter_default_user_code();
         swipeFromLefttoRight();
-        camera.camera_delete.click();
+        camera.Camera_delete.click();
         Thread.sleep(2000);
-        if (camera.camera_delete_title.isDisplayed()){
+        if (camera.Camera_delete_title.isDisplayed()){
             logger.info("Delete pop-up");}
-        camera.camera_delete_yes.click();
+        camera.Camera_delete_yes.click();
         try {
             if (home.Enter_Code_to_Access_the_Area.isDisplayed())
                 logger.info("Failed: Password is required to delete the image");
