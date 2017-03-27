@@ -17,7 +17,6 @@ public class Sensors {
     public static final String adbPath = "/home/qolsys/android-sdk-linux/platform-tools/adb";
     public Runtime rt = Runtime.getRuntime();
 
-
     static int number_of_sensors = 0;
 
     public static List<Integer> door_window_zones;
@@ -218,8 +217,8 @@ public class Sensors {
         transmitter_sensor_int_map.put("heat", 10);
     }
 
-    public void add_primary_call(int zone, int group, int sencor_dec, int sensor_type) throws IOException {
-        String add_primary = "shell service call qservice 50 i32 " + zone + " i32 " + group + " i32 " + sencor_dec + " i32 " + sensor_type;
+    public void add_primary_call(int zone, int group, int sensor_dec, int sensor_type) throws IOException {
+        String add_primary = "shell service call qservice 50 i32 " + zone + " i32 " + group + " i32 " + sensor_dec + " i32 " + sensor_type;
         rt.exec(adbPath + " -s " + primary + add_primary);
         // shell service call qservice 50 i32 2 i32 10 i32 6619296 i32 1
     }

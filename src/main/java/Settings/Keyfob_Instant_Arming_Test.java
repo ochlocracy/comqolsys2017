@@ -19,7 +19,7 @@ public class Keyfob_Instant_Arming_Test extends  Setup{
 
     @BeforeMethod
     public void capabilities_setup() throws Exception {
-        setup_driver("8ebdbc76", "http://127.0.1.1", "4723");
+        setup_driver(udid_, "http://127.0.1.1", "4723");
         setup_logger(page_name);
     }
 
@@ -30,20 +30,21 @@ public class Keyfob_Instant_Arming_Test extends  Setup{
         Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
         Installation_Page inst = PageFactory.initElements(driver, Installation_Page.class);
         Home_Page home = PageFactory.initElements(driver, Home_Page.class);
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         logger.info("Verify that Keyfob Instant Arming works when enabled");
         logger.info("Adding sensors...");
         sensors.add_primary_call(1, 4, 6619386, 102);
         logger.info("Arm Stay the system");
+        Thread.sleep(3000);
         sensors.primary_call("65 00 AF", armstay);
-        Thread.sleep(2000);
+        Thread.sleep(5000);
         verify_armstay();
         home.DISARM.click();
         enter_default_user_code();
         Thread.sleep(2000);
         logger.info("Arm Away the system");
         sensors.primary_call("65 00 AF", armaway);
-        Thread.sleep(2000);
+        Thread.sleep(4000);
         verify_armaway();
         home.ArwAway_State.click();
         enter_default_user_code();
@@ -62,7 +63,7 @@ public class Keyfob_Instant_Arming_Test extends  Setup{
         Thread.sleep(2000);
         logger.info("Arm Stay the system");
         sensors.primary_call("65 00 AF", armstay);
-        Thread.sleep(2000);
+        Thread.sleep(4000);
         try {
             if (home.Disarmed_text.getText().equals("ARMED STAY"))
                 logger.info("Failed: System is ARMED STAY");
@@ -77,7 +78,7 @@ public class Keyfob_Instant_Arming_Test extends  Setup{
         Thread.sleep(2000);
         logger.info("Arm Away the system");
         sensors.primary_call("65 00 AF", armaway);
-        Thread.sleep(2000);
+        Thread.sleep(4000);
         try {
             if (home.ArwAway_State.isDisplayed())
                 logger.info("Failed: System is ARMED STAY");

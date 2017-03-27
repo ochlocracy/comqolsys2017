@@ -1,5 +1,6 @@
 package Panel;
 
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -7,8 +8,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.annotations.BeforeMethod;
-
 import java.net.URL;
 import java.io.File;
 import java.util.List;
@@ -17,14 +16,14 @@ import java.util.concurrent.TimeUnit;
 public class Setup {
 
     public String adbPath = "/home/qolsys/android-sdk-linux/platform-tools/adb";
-    public File appDir = new File("/home/qolsys/Desktop/comqolsysPOM/src/");
+    public File appDir = new File("/home/qolsys/Desktop/comqolsysPOM/src/main/java");
+    public String udid_ = "8ebdbc76";
 
     public AndroidDriver<WebElement> driver;
 
    public Log log = new Log();
    public Logger logger = Logger.getLogger("String");
 
-//    @BeforeMethod
     public void setup_driver(String udid_, String url_, String port_) throws Exception {
 
         DesiredCapabilities cap = new DesiredCapabilities();
@@ -78,6 +77,11 @@ public class Setup {
         int startx = 502;
         driver.swipe(startx, starty, startx, endy, 3000);
         Thread.sleep(2000);
+    }
+
+    public void tap (int x, int y){
+        TouchAction touch = new TouchAction (driver);
+        touch.tap(x,y).perform();
     }
 
     /* Navigation to the panel settings pages */
@@ -220,5 +224,19 @@ public class Setup {
         driver.hideKeyboard();
         driver.findElement(By.id("com.qolsys:id/addsensor")).click();
     }
-
+    public void delete_all_camera_photos() throws Exception {
+        Panel_Camera_Page camera = PageFactory.initElements(driver, Panel_Camera_Page.class);
+        swipeFromLefttoRight();
+        Thread.sleep(2000);
+        try {
+            while (camera.Photo_lable.isDisplayed()){
+                camera.Camera_delete.click();
+                camera.Camera_delete_yes.click();
+                enter_default_user_code();}
+        }catch (Exception e) {
+            System.out.println("No photos to delete...");
+        } finally {
+        }
+        swipeFromLefttoRight();
+    }
 }

@@ -15,19 +15,19 @@ public class Settings_Photos_Test extends Setup {
 
     @BeforeMethod
     public void capabilities_setup() throws Exception {
-        setup_driver("8ebdbc76", "http://127.0.1.1", "4723");
+        setup_driver(udid_, "http://127.0.1.1", "4723");
         setup_logger(page_name);
     }
     @Test
     public void Verify_Alarm_Photos_works() throws Exception {
-        Home_Page home = PageFactory.initElements(driver, Home_Page.class);
-        Emergency_Page emergency = PageFactory.initElements(driver, Emergency_Page.class);
         Panel_Camera_Page camera = PageFactory.initElements(driver, Panel_Camera_Page.class);
         Camera_Settings_Page set_cam = PageFactory.initElements(driver, Camera_Settings_Page.class);
         Settings_Page settings = PageFactory.initElements(driver, Settings_Page.class);
         Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
         Installation_Page inst = PageFactory.initElements(driver, Installation_Page.class);
         logger.info("Verifying Settings photo is NOT taken when setting in disabled...");
+        delete_all_camera_photos();
+        Thread.sleep(1000);
         navigate_to_Settings_page();
         settings.ADVANCED_SETTINGS.click();
         enter_default_user_code();

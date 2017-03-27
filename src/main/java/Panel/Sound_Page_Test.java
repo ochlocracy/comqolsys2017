@@ -12,9 +12,17 @@ public class Sound_Page_Test extends Setup {
     String page_name = "Sound page";
     Logger logger = Logger.getLogger(page_name);
 
+    public void swipe_up() throws InterruptedException {
+        int starty = 260;
+        int endy = 620;
+        int startx = 502;
+        driver.swipe(startx, starty, startx, endy, 3000);
+        Thread.sleep(2000);
+    }
+
     @BeforeMethod
     public void capabilities_setup() throws Exception {
-        setup_driver("8ebdbc76", "http://127.0.1.1", "4723");
+        setup_driver(udid_, "http://127.0.1.1", "4723");
         setup_logger(page_name);
     }
 
@@ -119,14 +127,13 @@ public class Sound_Page_Test extends Setup {
         sound.Activity_Sensor.click();
         swipe_vertical();
         Thread.sleep(1000);
-        if (sound.Trouble_beeps_summery_enabled.isDisplayed()) {
-            logger.info("Pass: Correct Trouble Beeps summery when ENABLED");
-        }
-        sound.Trouble_Beeps.click();
         if (sound.Trouble_beeps_summery_disabled.isDisplayed()) {
             logger.info("Pass: Correct Trouble Beeps summery when DISABLED");
         }
         sound.Trouble_Beeps.click();
+        if (sound.Trouble_beeps_summery_enabled.isDisplayed()) {
+            logger.info("Pass: Correct Trouble Beeps summery when ENABLED");
+        }
         if (sound.Sensor_Low_Battery_summery_enabled.isDisplayed()) {
             logger.info("Pass: Correct Sensors Low Battery summery when ENABLED");
         }
@@ -172,6 +179,8 @@ public class Sound_Page_Test extends Setup {
         if (sound.Touch_Sounds.isDisplayed()) {
             logger.info("Pass: Touch Sounds is present");
         }
+        swipe_up();
+        sound.Trouble_Beeps.click();
     }
     
     @AfterMethod

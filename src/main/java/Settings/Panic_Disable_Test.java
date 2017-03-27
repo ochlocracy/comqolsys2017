@@ -15,7 +15,7 @@ public class Panic_Disable_Test extends Setup {
 
     @BeforeMethod
     public void capabilities_setup() throws Exception {
-        setup_driver("8ebdbc76", "http://127.0.1.1", "4723");
+        setup_driver(udid_, "http://127.0.1.1", "4723");
         setup_logger(page_name);
     }
     @Test
@@ -25,12 +25,12 @@ public class Panic_Disable_Test extends Setup {
         Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
         Installation_Page inst = PageFactory.initElements(driver, Installation_Page.class);
         Emergency_Page emergency = PageFactory.initElements(driver, Emergency_Page.class);
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         logger.info("Verify panic disappears from the Emergency page when disabled");
         navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
         inst.SIREN_AND_ALARMS.click();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         swipe_vertical();
         Thread.sleep(1000);
         swipe_vertical();
@@ -50,7 +50,7 @@ public class Panic_Disable_Test extends Setup {
         navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
         inst.SIREN_AND_ALARMS.click();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         swipe_vertical();
         Thread.sleep(1000);
         swipe_vertical();
@@ -70,7 +70,7 @@ public class Panic_Disable_Test extends Setup {
         navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
         inst.SIREN_AND_ALARMS.click();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         swipe_vertical();
         Thread.sleep(1000);
         swipe_vertical();
@@ -90,7 +90,7 @@ public class Panic_Disable_Test extends Setup {
         navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
         inst.SIREN_AND_ALARMS.click();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         swipe_vertical();
         Thread.sleep(1000);
         swipe_vertical();
@@ -98,7 +98,7 @@ public class Panic_Disable_Test extends Setup {
         siren.Police_Panic.click();
         siren.Fire_Panic.click();
         siren.Auxiliary_Panic.click();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
     }
     @AfterMethod
     public void tearDown () throws IOException, InterruptedException {

@@ -29,7 +29,7 @@ public class WebSite extends Setup {
         PropertyConfigurator.configure(new File(appDir, "log4j.properties").getAbsolutePath());
         log.clearLog();
         log.startTestCase("ADC sensors name change");
-        setup_driver("8ebdbc76", "http://127.0.1.1", "4723");
+        setup_driver(udid_, "http://127.0.1.1", "4723");
     }
 
     public void swipingVertical() throws InterruptedException {

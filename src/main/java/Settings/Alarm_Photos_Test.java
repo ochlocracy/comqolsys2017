@@ -15,7 +15,7 @@ public class Alarm_Photos_Test extends Setup{
 
     @BeforeMethod
     public void capabilities_setup() throws Exception {
-        setup_driver("8ebdbc76", "http://127.0.1.1", "4723");
+        setup_driver(udid_,"http://127.0.1.1", "4723");
         setup_logger(page_name);
     }
     @Test
@@ -28,6 +28,8 @@ public class Alarm_Photos_Test extends Setup{
         Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
         Installation_Page inst = PageFactory.initElements(driver, Installation_Page.class);
         logger.info("Verifying Alarm photo is taken when setting in enabled...");
+        delete_all_camera_photos();
+        Thread.sleep(1000);
         home.Emergency_Button.click();
         emergency.Police_icon.click();
         Thread.sleep(1000);

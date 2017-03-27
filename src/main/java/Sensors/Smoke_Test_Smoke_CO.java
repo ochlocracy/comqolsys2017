@@ -25,7 +25,7 @@ public class Smoke_Test_Smoke_CO extends Setup {
 
     @BeforeMethod
     public void capabilitiesSetup() throws Exception {
-        setup_driver("8ebdbc76", "http://127.0.1.1", "4723");
+        setup_driver(udid_, "http://127.0.1.1", "4723");
         setup_logger(page_name);
     }
 
