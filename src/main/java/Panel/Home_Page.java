@@ -79,7 +79,12 @@ public class Home_Page {
     public WebElement Red_banner_sensor_name;
     @FindBy(id="com.qolsys:id/tv_status")
     public WebElement Red_banner_sensor_status;
-
+    @FindBy(xpath = "//android.widget.TextView[@text='Open Sensor']")
+    public WebElement Bypass_message;
+    @FindBy(id = "com.qolsys:id/cancel")
+    public WebElement Bypass_Cancel;
+    @FindBy(id = "com.qolsys:id/ok")
+    public WebElement Bypass_OK;
     @FindBy(id ="com.qolsys:id/txt_title")
     public WebElement Enter_Code_to_Access_the_Area;
 }

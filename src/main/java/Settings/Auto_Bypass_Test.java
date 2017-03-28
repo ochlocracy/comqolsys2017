@@ -55,7 +55,9 @@ public class Auto_Bypass_Test extends Setup {
         navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
         inst.SECURITY_AND_ARMING.click();
+        Thread.sleep(1000);
         swipe_vertical();
+        Thread.sleep(1000);
         arming.Auto_Bypass.click();
         Thread.sleep(3000);
         settings.Home_button.click();
@@ -65,10 +67,32 @@ public class Auto_Bypass_Test extends Setup {
         home.DISARM.click();
         home.ARM_STAY.click();
         Thread.sleep(2000);
-        //Poo-up message suppose to be here
-
+        element_verification(home.Bypass_message,"Bypass pop-up message");
+        Thread.sleep(2000);
+        home.Bypass_OK.click();
+        sensors.primary_call("65 00 0A",close);
+        Thread.sleep(1000);
+        sensors.primary_call("65 00 0A",open);
+        Thread.sleep(1000);
+        sensors.primary_call("65 00 0A",close);
+        Thread.sleep(1000);
+        sensors.primary_call("65 00 0A",open);
+        Thread.sleep(1000);
+        sensors.primary_call("65 00 0A",close);
+        Thread.sleep(1000);
+        verify_armstay();
+        home.DISARM.click();
+        enter_default_user_code();
+        Thread.sleep(1000);
+        navigate_to_Advanced_Settings_page();
+        adv.INSTALLATION.click();
+        inst.SECURITY_AND_ARMING.click();
+        swipe_vertical();
+        arming.Auto_Bypass.click();
+        Thread.sleep(1000);
+        settings.Home_button.click();
+        Thread.sleep(1000);
         sensors.delete_from_primary(1);
-
     }
 
     @AfterMethod

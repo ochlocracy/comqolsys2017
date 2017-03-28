@@ -51,7 +51,6 @@ public class Activity_Monitor_Page_Test extends Setup{
         Thread.sleep(2000);
         navigate_to_Settings_page();
         settings.ACTIVITY_MONITOR.click();
-
         element_verification(activity.Quick_Access, "Quick Access");
         element_verification(activity.Quick_Access_img, "Quick Access image");
         element_verification(activity.Safty_State, "Safety State icon");
@@ -83,6 +82,7 @@ public class Activity_Monitor_Page_Test extends Setup{
         enter_default_user_code();
         Thread.sleep(1000);
         sensors.delete_from_primary(1);
+        Thread.sleep(1000);
     }
 
     @Test
@@ -121,7 +121,6 @@ public class Activity_Monitor_Page_Test extends Setup{
         Thread.sleep(1000);
         WebElement occupancy7 = driver.findElement(By.xpath("//android.widget.TextView[@text='Occupancy Sensor 7']"));
         verify_sensor_is_displayed(occupancy7);
-
         Thread.sleep(2000);
         sensors.primary_call("65 02 7A",open); //open  DW2
         Thread.sleep(1000);
@@ -191,40 +190,8 @@ public class Activity_Monitor_Page_Test extends Setup{
         enter_default_user_code();
         Thread.sleep(1000);
         delete_all();
-
-
-//
-//        sensors.primary_call("65 02 6A","06 00"); //open  DW1
-//        Thread.sleep(1000);
-//
-//        sensors.primary_call("55 00 74","02 01"); //activate  Motion4
-//        Thread.sleep(1000);
-//        sensors.primary_call("61 12 33","03 01"); //activate  Auxiliary5
-//        Thread.sleep(1000);
-//        sensors.primary_call("61 BD AA","02 01"); //activate  Doorbell6
-//        Thread.sleep(1000);
-//        sensors.primary_call("85 00 1A","06 01"); //vacant  Occupancy7
-//        Thread.sleep(4000);
-//
-//
-//        sensors.primary_call("65 02 6A","04 00"); //close  DW1
-//        Thread.sleep(1000);
-//        sensors.primary_call("65 02 7A","04 00"); //close  DW2
-//        Thread.sleep(1000);
-//        sensors.primary_call("65 02 8A","04 00"); //open  DW3
-//        Thread.sleep(1000);
-//        sensors.primary_call("61 BD AA","04 01"); //close  Doorbell6
-//        Thread.sleep(1000);
-//        sensors.primary_call("85 00 1A","04 01"); //occupied  Occupancy7
-
-
-
         Thread.sleep(2000);
-
-
     }
-
-
 
     @AfterMethod
     public void tearDown () throws IOException, InterruptedException {

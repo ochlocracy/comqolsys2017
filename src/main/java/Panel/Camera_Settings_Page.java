@@ -22,6 +22,12 @@ public class Camera_Settings_Page {
     public WebElement Alarm_Photos_summery;
     @FindBy(xpath = "//android.widget.TextView[@text='Alarm Photos is Disabled']")
     public WebElement Alarm_Photos_summery_disabled;
+    @FindBy(xpath = "//android.widget.TextView[@text='Alarm Videos']")
+    public WebElement Alarm_Videos;
+    @FindBy(xpath = "//android.widget.TextView[@text='Alarm Videos is Disabled']")
+    public WebElement Alarm_Videos_summery;
+    @FindBy(xpath = "//android.widget.TextView[@text='Alarm Videos is Enabled']")
+    public WebElement Alarm_Videos_summery_enabled;
     @FindBy(xpath = "//android.widget.TextView[@text='Setting Photos']")
     public WebElement Setting_Photos;
     @FindBy(xpath = "//android.widget.TextView[@text='Settings Photos is Disabled']")
