@@ -40,6 +40,7 @@ public class Panic_Disable_Test extends Setup {
         settings.Emergency_button.click();
         try {
             if (emergency.Police_icon.isDisplayed())
+                take_screenshot();
                 logger.info("Failed: Police Emergency is displayed");
         } catch (Exception e) {
             logger.info("Pass: Police Emergency is NOT displayed");
@@ -60,6 +61,7 @@ public class Panic_Disable_Test extends Setup {
         settings.Emergency_button.click();
         try {
             if (emergency.Fire_icon.isDisplayed())
+                take_screenshot();
                 logger.info("Failed: Fire Emergency is displayed");
         } catch (Exception e) {
             logger.info("Pass: Fire Emergency is NOT displayed");
@@ -80,6 +82,7 @@ public class Panic_Disable_Test extends Setup {
         settings.Emergency_button.click();
         try {
             if (emergency.Auxiliary_icon.isDisplayed())
+                take_screenshot();
                 logger.info("Failed: Auxiliary Emergency is displayed");
         } catch (Exception e) {
             logger.info("Pass: Auxiliary Emergency is NOT displayed");

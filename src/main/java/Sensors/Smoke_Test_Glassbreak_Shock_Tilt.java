@@ -25,7 +25,9 @@ public class Smoke_Test_Glassbreak_Shock_Tilt extends Setup {
     private int Idle = 0;
     private int Open =1;
     private int Close =0;
-    int delay =20;
+
+    private int Normal_Entry_Delay = 13;
+    private int Long_Exit_Delay =16;
 
     @BeforeMethod
     public void capabilitiesSetup() throws Exception {
@@ -80,7 +82,7 @@ public class Smoke_Test_Glassbreak_Shock_Tilt extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tripping Glass_Break group 13 -> Expected result = Instant Alarm");
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.glassbreak_zones, 13, Activate);
         TimeUnit.SECONDS.sleep(3);
         verify_sensor_is_displayed(glass19);
@@ -92,7 +94,7 @@ public class Smoke_Test_Glassbreak_Shock_Tilt extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tripping Glass_Break group 17 -> Expected result = Instant Alarm");
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.glassbreak_zones, 17, Activate);
         TimeUnit.SECONDS.sleep(3);
         WebElement glass20 = driver.findElement(By.xpath("//android.widget.TextView[@text='Glass Break 20']"));
@@ -143,7 +145,7 @@ public class Smoke_Test_Glassbreak_Shock_Tilt extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tamper glassbreak group 13 -> Expected result = Instant Alarm");
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.glassbreak_zones, 13);
         TimeUnit.SECONDS.sleep(3);
         verify_sensor_is_tampered(glass19);
@@ -155,7 +157,7 @@ public class Smoke_Test_Glassbreak_Shock_Tilt extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tamper glassbreak group 17 -> Expected result = Instant Alarm");
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.glassbreak_zones, 17);
         TimeUnit.SECONDS.sleep(3);
         verify_sensor_is_tampered(glass20);
@@ -184,7 +186,7 @@ public class Smoke_Test_Glassbreak_Shock_Tilt extends Setup {
         ARM_STAY();
         TimeUnit.SECONDS.sleep(3);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 10, Open);
-        TimeUnit.SECONDS.sleep(10);
+        TimeUnit.SECONDS.sleep(Normal_Entry_Delay);
         WebElement tilt21 = driver.findElement(By.xpath("//android.widget.TextView[@text='Tilt 21']"));
         verify_sensor_is_displayed(tilt21);
         verify_status_open();
@@ -198,7 +200,7 @@ public class Smoke_Test_Glassbreak_Shock_Tilt extends Setup {
         ARM_STAY();
         TimeUnit.SECONDS.sleep(3);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 12, Open);
-        TimeUnit.SECONDS.sleep(15);
+        TimeUnit.SECONDS.sleep(Normal_Entry_Delay);
         WebElement tilt22 = driver.findElement(By.xpath("//android.widget.TextView[@text='Tilt 22']"));
         verify_sensor_is_displayed(tilt22);
         verify_status_open();
@@ -223,9 +225,9 @@ public class Smoke_Test_Glassbreak_Shock_Tilt extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tripping Tilt group 10 -> Expected result = 30 sec delay -> Alarm");
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 10, Open);
-        TimeUnit.SECONDS.sleep(10);
+        TimeUnit.SECONDS.sleep(Normal_Entry_Delay);
         verify_sensor_is_displayed(tilt21);
         verify_status_open();
         verify_in_alarm();
@@ -235,9 +237,9 @@ public class Smoke_Test_Glassbreak_Shock_Tilt extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tripping Tilt group 12 -> Expected result = 100 sec delay -> Alarm");
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 12, Open);
-        TimeUnit.SECONDS.sleep(15);
+        TimeUnit.SECONDS.sleep(Normal_Entry_Delay);
         verify_sensor_is_displayed(tilt22);
         verify_status_open();
         verify_in_alarm();
@@ -247,7 +249,7 @@ public class Smoke_Test_Glassbreak_Shock_Tilt extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tripping Tilt group 25 -> Arm Away");
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 25, Open);
         TimeUnit.SECONDS.sleep(3);
         verify_armaway();
@@ -307,7 +309,7 @@ public class Smoke_Test_Glassbreak_Shock_Tilt extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tamper tilt group 10 -> Expected result = Instant Alarm");
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.tilt_zones, 10);
         TimeUnit.SECONDS.sleep(3);
         verify_sensor_is_tampered(tilt21);
@@ -319,7 +321,7 @@ public class Smoke_Test_Glassbreak_Shock_Tilt extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tamper tilt group 12 -> Expected result = Instant Alarm");
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.tilt_zones, 12);
         TimeUnit.SECONDS.sleep(3);
         verify_sensor_is_tampered(tilt22);
@@ -331,7 +333,7 @@ public class Smoke_Test_Glassbreak_Shock_Tilt extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tamper tilt group 25 -> Expected result = ArmAway");
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.tilt_zones, 25);
         TimeUnit.SECONDS.sleep(3);
         verify_armaway();
@@ -364,7 +366,7 @@ public class Smoke_Test_Glassbreak_Shock_Tilt extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tripping Shock group 13 -> Instant Alarm");
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_other_zones, 13, Activate);
         TimeUnit.SECONDS.sleep(3);
         verify_sensor_is_displayed(other_shock35);
@@ -396,7 +398,7 @@ public class Smoke_Test_Glassbreak_Shock_Tilt extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tripping Shock group 17 -> Instant Alarm");
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_other_zones, 17, Activate);
         TimeUnit.SECONDS.sleep(3);
         WebElement other_shock36 = driver.findElement(By.xpath("//android.widget.TextView[@text='Other Shock 36']"));
@@ -445,7 +447,7 @@ public class Smoke_Test_Glassbreak_Shock_Tilt extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tamper Shock_other group 13 -> Instant Alarm");
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.shock_other_zones, 13);
         TimeUnit.SECONDS.sleep(3);
         verify_sensor_is_tampered(other_shock35);
@@ -458,7 +460,7 @@ public class Smoke_Test_Glassbreak_Shock_Tilt extends Setup {
         logger.info("********************************************************");
         logger.info("ArmAway mode tamper Shock_other group 17 -> Instant Alarm");
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_other_zones, 17, Idle);
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.shock_other_zones, 17);
         TimeUnit.SECONDS.sleep(3);
         verify_sensor_is_tampered(other_shock36);
@@ -493,7 +495,7 @@ public class Smoke_Test_Glassbreak_Shock_Tilt extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tripping Shock group 13 -> Instant Alarm");
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_IQ_zones, 13, Activate);
         TimeUnit.SECONDS.sleep(3);
         verify_sensor_is_displayed(iq_shock24);
@@ -525,7 +527,7 @@ public class Smoke_Test_Glassbreak_Shock_Tilt extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tripping Shock group 17 -> Instant Alarm");
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_IQ_zones, 17, Activate);
         TimeUnit.SECONDS.sleep(3);
         WebElement iq_shock25 = driver.findElement(By.xpath("//android.widget.TextView[@text='IQ Shock 25']"));
@@ -574,7 +576,7 @@ public class Smoke_Test_Glassbreak_Shock_Tilt extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tamper Shock_IQ group 13 -> Instant Alarm");
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.shock_IQ_zones, 13);
         TimeUnit.SECONDS.sleep(3);
         verify_sensor_is_tampered(iq_shock24);
@@ -587,7 +589,7 @@ public class Smoke_Test_Glassbreak_Shock_Tilt extends Setup {
         logger.info("********************************************************");
         logger.info("ArmAway mode tamper Shock_IQ group 17 -> Instant Alarm");
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_IQ_zones, 17, Idle);
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.shock_IQ_zones, 17);
         TimeUnit.SECONDS.sleep(3);
         verify_sensor_is_tampered(iq_shock25);

@@ -39,7 +39,8 @@ public class Alarm_Photos_Test extends Setup{
         camera.Alarms_photo.click();
         if (camera.Photo_lable.isDisplayed()){
             logger.info("Pass: Alarm photo is displayed");
-        }else { logger.info("Failed: Alarm photo is NOT displayed");}
+        }else { take_screenshot();
+            logger.info("Failed: Alarm photo is NOT displayed");}
         camera.Camera_delete.click();
         camera.Camera_delete_yes.click();
         enter_default_user_code();
@@ -62,6 +63,7 @@ public class Alarm_Photos_Test extends Setup{
         camera.Alarms_photo.click();
         try {
             if (camera.Photo_lable.isDisplayed())
+                take_screenshot();
                 logger.info("Failed: Alarm photo is displayed");
         } catch (Exception e) {
             logger.info("Pass: Alarm photo is NOT displayed");

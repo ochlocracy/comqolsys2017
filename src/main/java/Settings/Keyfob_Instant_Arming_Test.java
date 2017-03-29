@@ -66,6 +66,7 @@ public class Keyfob_Instant_Arming_Test extends  Setup{
         Thread.sleep(4000);
         try {
             if (home.Disarmed_text.getText().equals("ARMED STAY"))
+                take_screenshot();
                 logger.info("Failed: System is ARMED STAY");
         } catch (Exception e) {
             logger.info("Pass: System is NOT ARMED STAY");
@@ -81,6 +82,7 @@ public class Keyfob_Instant_Arming_Test extends  Setup{
         Thread.sleep(4000);
         try {
             if (home.ArwAway_State.isDisplayed())
+                take_screenshot();
                 logger.info("Failed: System is ARMED STAY");
         } catch (Exception e) {
             logger.info("Pass: System is NOT ARMED AWAY");

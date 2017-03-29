@@ -23,6 +23,9 @@ public class Smoke_Test_DW extends Setup {
     private int Open = 1;
     private int Close = 0;
 
+    private int Normal_Entry_Delay = 13;
+    private int Long_Exit_Delay =16;
+
     @BeforeMethod
     public void capabilitiesSetup() throws Exception {
         setup_driver(udid_, "http://127.0.1.1", "4723");
@@ -82,7 +85,7 @@ public class Smoke_Test_DW extends Setup {
         logger.info("********************************************************");
         logger.info("Disarm mode tripping sensors group 9 -> Expected result= 30 sec delay -> Alarm");
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 9, Open);
-        TimeUnit.SECONDS.sleep(10);
+        TimeUnit.SECONDS.sleep(Normal_Entry_Delay);
         WebElement Door3 = driver.findElementByXPath("//android.widget.TextView[@text='Door/Window 3']");
         verify_sensor_is_displayed(Door3);
         verify_status_open();
@@ -148,7 +151,7 @@ public class Smoke_Test_DW extends Setup {
         ARM_STAY();
         TimeUnit.SECONDS.sleep(3);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 10, Open);
-        TimeUnit.SECONDS.sleep(10);
+        TimeUnit.SECONDS.sleep(Normal_Entry_Delay);
         WebElement Door4 = driver.findElementByXPath("//android.widget.TextView[@text='Door/Window 4']");
         verify_sensor_is_displayed(Door4);
         verify_status_open();
@@ -162,7 +165,7 @@ public class Smoke_Test_DW extends Setup {
         ARM_STAY();
         TimeUnit.SECONDS.sleep(3);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 12, Open);
-        TimeUnit.SECONDS.sleep(15);
+        TimeUnit.SECONDS.sleep(Long_Exit_Delay);
         WebElement Door5 = driver.findElementByXPath("//android.widget.TextView[@text='Door/Window 5']");
         verify_sensor_is_displayed(Door5);
         verify_status_open();
@@ -235,7 +238,7 @@ public class Smoke_Test_DW extends Setup {
         ARM_STAY();
         TimeUnit.SECONDS.sleep(3);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 9, Open);
-        TimeUnit.SECONDS.sleep(10);
+        TimeUnit.SECONDS.sleep(Normal_Entry_Delay);
         WebElement Door3 = driver.findElementByXPath("//android.widget.TextView[@text='Door/Window 3']");
         verify_sensor_is_displayed(Door3);
         verify_status_open();
@@ -360,9 +363,9 @@ public class Smoke_Test_DW extends Setup {
         logger.info("********************************************************");
         logger.info("ArmAway mode tripping sensors group 10 -> Expected result = 30 sec delay -> Alarm");
         // autostayPref();
-        ARM_AWAY(20);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 10,Open);
-        TimeUnit.SECONDS.sleep(10);
+        TimeUnit.SECONDS.sleep(Normal_Entry_Delay);
         WebElement Door4 = driver.findElementByXPath("//android.widget.TextView[@text='Door/Window 4']");
         verify_sensor_is_displayed(Door4);
         verify_status_open();
@@ -373,9 +376,9 @@ public class Smoke_Test_DW extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tripping sensors group 12 -> Expected result = 100 sec delay -> Alarm");
-        ARM_AWAY(20);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 12,Open);
-        TimeUnit.SECONDS.sleep(15);
+        TimeUnit.SECONDS.sleep(Normal_Entry_Delay);
         WebElement Door5 = driver.findElementByXPath("//android.widget.TextView[@text='Door/Window 5']");
         verify_sensor_is_displayed(Door5);
         verify_status_open();
@@ -386,7 +389,7 @@ public class Smoke_Test_DW extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tripping sensors group 13 -> Expected result = Instant Alarm");
-        ARM_AWAY(20);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 13,Open);
         TimeUnit.SECONDS.sleep(3);
         WebElement Door6 = driver.findElementByXPath("//android.widget.TextView[@text='Door/Window 6']");
@@ -399,7 +402,7 @@ public class Smoke_Test_DW extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tripping sensors group 14 -> Expected result = Instant Alarm");
-        ARM_AWAY(20);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 14,Open);
         TimeUnit.SECONDS.sleep(5);
         WebElement Door9 = driver.findElementByXPath("//android.widget.TextView[@text='Door/Window 9']");
@@ -412,7 +415,7 @@ public class Smoke_Test_DW extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tripping sensors group 16 -> Expected result = Instant Alarm");
-        ARM_AWAY(20);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 16,Open);
         TimeUnit.SECONDS.sleep(3);
         WebElement Door7 = driver.findElementByXPath("//android.widget.TextView[@text='Door/Window 7']");
@@ -425,7 +428,7 @@ public class Smoke_Test_DW extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tripping sensors group 8 -> Expected result = Instant Alarm");
-        ARM_AWAY(20);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 8,Open);
         TimeUnit.SECONDS.sleep(3);
         WebElement Door2 = driver.findElementByXPath("//android.widget.TextView[@text='Door/Window 2']");
@@ -438,9 +441,9 @@ public class Smoke_Test_DW extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tripping sensors group 9 -> Expected result = 30 sec delay -> Alarm");
-        ARM_AWAY(20);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 9,Open);
-        TimeUnit.SECONDS.sleep(10);
+        TimeUnit.SECONDS.sleep(Normal_Entry_Delay);
         WebElement Door3 = driver.findElementByXPath("//android.widget.TextView[@text='Door/Window 3']");
         verify_sensor_is_displayed(Door3);
         verify_status_open();
@@ -452,7 +455,7 @@ public class Smoke_Test_DW extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tripping sensors group 25 -> Expected result = ArmAway");
-        ARM_AWAY(20);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 25,Open);
         TimeUnit.SECONDS.sleep(3);
         verify_armaway();
@@ -464,9 +467,9 @@ public class Smoke_Test_DW extends Setup {
 
         logger.info("********************TAMPER********************");
         logger.info("ArmAway mode tampering sensors group 10 -> Expected result = Instant Alarm");
-        ARM_AWAY(20);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 10);
-        TimeUnit.SECONDS.sleep(10);
+        TimeUnit.SECONDS.sleep(Normal_Entry_Delay);
         verify_sensor_is_tampered(Door4);
         verify_status_tampered();
         verify_in_alarm();
@@ -476,9 +479,9 @@ public class Smoke_Test_DW extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tampering sensors group 12 -> Expected result = Instant Alarm");
-        ARM_AWAY(20);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 12);
-        TimeUnit.SECONDS.sleep(10);
+        TimeUnit.SECONDS.sleep(Normal_Entry_Delay);
         verify_sensor_is_tampered(Door5);
         verify_status_tampered();
         verify_in_alarm();
@@ -488,7 +491,7 @@ public class Smoke_Test_DW extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tampering sensors group 13 -> Expected result = Instant Alarm");
-        ARM_AWAY(20);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 13);
         TimeUnit.SECONDS.sleep(3);
         verify_sensor_is_tampered(Door6);
@@ -500,7 +503,7 @@ public class Smoke_Test_DW extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tampering sensors group 14 -> Expected result = Instant Alarm");
-        ARM_AWAY(20);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 14);
         TimeUnit.SECONDS.sleep(5);
         verify_sensor_is_tampered(Door9);
@@ -512,7 +515,7 @@ public class Smoke_Test_DW extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tampering sensors group 16 -> Expected result = Instant Alarm");
-        ARM_AWAY(20);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 16);
         TimeUnit.SECONDS.sleep(3);
         verify_sensor_is_tampered(Door7);
@@ -524,7 +527,7 @@ public class Smoke_Test_DW extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tripping sensors group 25 -> Expected result = ArmAway");
-        ARM_AWAY(20);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 25);
         TimeUnit.SECONDS.sleep(3);
         verify_armaway();
@@ -535,7 +538,7 @@ public class Smoke_Test_DW extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tampering sensors group 8 -> Expected result = Instant Alarm");
-        ARM_AWAY(20);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 8);
         TimeUnit.SECONDS.sleep(3);
         verify_sensor_is_tampered(Door2);
@@ -547,9 +550,9 @@ public class Smoke_Test_DW extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tampering sensors group 9 -> Expected result = Instant Alarm");
-        ARM_AWAY(20);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 9);
-        TimeUnit.SECONDS.sleep(10);
+        TimeUnit.SECONDS.sleep(Normal_Entry_Delay);
         verify_sensor_is_tampered(Door3);
         verify_status_tampered();
         verify_in_alarm();

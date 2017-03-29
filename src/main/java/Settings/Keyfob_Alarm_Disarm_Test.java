@@ -40,7 +40,8 @@ public class Keyfob_Alarm_Disarm_Test extends  Setup{
         Thread.sleep(2000);
         if (emergency.Emergency_sent_text.isDisplayed()){
             logger.info("Pass: Police Emergency is displayed");
-        } else {logger.info("Failed: Police Emergency is NOT displayed");}
+        } else { take_screenshot();
+            logger.info("Failed: Police Emergency is NOT displayed");}
         emergency.Cancel_Emergency.click();
         enter_default_user_code();
         Thread.sleep(2000);

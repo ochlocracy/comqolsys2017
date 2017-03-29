@@ -57,7 +57,8 @@ public class Activity_Monitor_Page_Test extends Setup{
         element_verification(activity.Safety_State_txt, "Safety State text");
         if(activity.Safety_State_txt.getText().equals("Press to Deactivate")){
             logger.info("Pass: Correct Safety state text: "+activity.Safety_State_txt.getText());
-        } else {logger.info("Failed: Incorrect Safety state text: "+activity.Safety_State_txt.getText());}
+        } else { take_screenshot();
+            logger.info("Failed: Incorrect Safety state text: "+activity.Safety_State_txt.getText());}
         element_verification(activity.Safety_Active, "Safety Active tab");
         element_verification(activity.Safety_All, "Safety All tab");
         activity.Quick_Access_img.click();
@@ -73,7 +74,8 @@ public class Activity_Monitor_Page_Test extends Setup{
         element_verification(activity.Safety_State_txt, "Safety State text");
         if(activity.Safety_State_txt.getText().equals("Press to Activate")){
             logger.info("Pass: Correct Safety state text: "+activity.Safety_State_txt.getText());
-        } else {logger.info("Failed: Incorrect Safety state text: "+activity.Safety_State_txt.getText());}
+        } else { take_screenshot();
+            logger.info("Failed: Incorrect Safety state text: "+activity.Safety_State_txt.getText());}
         element_verification(activity.Safety_Active, "Safety Active tab");
         element_verification(activity.Safety_All, "Safety All tab");
         element_verification(activity.Safety_Bypass, "Safety Bypass tab");

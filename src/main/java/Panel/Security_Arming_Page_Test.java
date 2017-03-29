@@ -29,113 +29,57 @@ public class Security_Arming_Page_Test extends Setup{
 
         logger.info("Verifying elements on the page...");
         Thread.sleep(1000);
-        if (arming.Dealer_Code_summery.isDisplayed()) {
-            logger.info("Pass: Correct Dealer Code summery");
-        }
-        if (arming.Installer_Code_summery.isDisplayed()) {
-            logger.info("Pass: Correct Installer Code summery");
-        }
-
-        if (arming.Duress_Authentication_summery.isDisplayed()) {   //DISABLED by default
-            logger.info("Pass: Correct Duress Authentication summery when disabled");
-        }
+        element_verification(arming.Dealer_Code_summery, "Dealer Code summery");
+        element_verification(arming.Installer_Code_summery, "Installer Code summery");
+        element_verification(arming.Duress_Authentication_summery, "Duress Authentication summery"); //DISABLED by default
         arming.Duress_Authentication.click();
-        if (arming.Duress_Authentication_summery_enabled.isDisplayed()) {
-            logger.info("Pass: Correct Duress Authentication summery when enabled");
-        }
+        element_verification(arming.Duress_Authentication_summery_enabled, "Duress Authentication summery when enabled");
         arming.Duress_Authentication.click();
-
-        if (arming.Secure_Arming_summery.isDisplayed()) {  //DISABLED by default
-            logger.info("Pass: Correct Secure Arming summery when disabled");
-        }
+        element_verification(arming.Secure_Arming_summery, "Secure Arming summery");  //DISABLED by default
         arming.Secure_Arming.click();
-        if (arming.Secure_Arming_summery.isDisplayed()) {
-            logger.info("Pass: Correct Secure Arming summery when enabled");
-        }
+        element_verification(arming.Secure_Arming_summery, " Secure Arming summery when enabled");
         arming.Secure_Arming.click();
         swipe_vertical();
-
-        if (arming.Refuse_Arming_When_Battery_Low_summery.isDisplayed()) {  //DISABLED by default
-            logger.info("Pass: Correct Refuse Arming When Battery Low summery when disabled");
-        }
+        Thread.sleep(1000);
+        element_verification(arming.Refuse_Arming_When_Battery_Low_summery, "Refuse Arming When Battery Low summery"); //DISABLED by default
         arming.Refuse_Arming_When_Battery_Low.click();
-        if (arming.Refuse_Arming_When_Battery_Low_summery.isDisplayed()) {
-            logger.info("Pass: Correct Refuse Arming When Battery Low summery when enabled");
-        }
+        element_verification(arming.Refuse_Arming_When_Battery_Low_summery, "Refuse Arming When Battery Low summery");
         arming.Refuse_Arming_When_Battery_Low.click();
-
-        if (arming.Auto_Bypass_summery.isDisplayed()) {  //ENABLED by default
-            logger.info("Pass: Correct Auto Bypass summery when enabled");
-        }
+        element_verification(arming.Auto_Bypass_summery, "Auto Bypass summery"); //ENABLED by default
         arming.Auto_Bypass.click();
-        if (arming.Auto_Bypass_summery.isDisplayed()) {
-            logger.info("Pass: Correct Auto Bypass summery when disabled");
-        }
+        element_verification(arming.Auto_Bypass_summery, "Auto Bypass summery when disabled");
         arming.Auto_Bypass.click();
-
-        if (arming.Auto_Stay_summery.isDisplayed()) {  //ENABLED by default
-            logger.info("Pass: Correct Auto Stay summery when enabled");
-        }
+        element_verification(arming.Auto_Stay_summery, " Auto Stay summery"); //ENABLED by default
         arming.Auto_Stay.click();
-        if (arming.Auto_Stay_summery.isDisplayed()) {
-            logger.info("Pass: Correct Auto Stay summery when disabled");
-        }
+        element_verification(arming.Auto_Stay_summery, "Auto Stay summery when disabled");
         arming.Auto_Stay.click();
         swipe_vertical();
-
-        if (arming.Arm_Stay_No_Delay_summery.isDisplayed()) {  //ENABLED by default
-            logger.info("Pass: Correct Auto Stay No Delay summery when enabled");
-        }
+        Thread.sleep(1000);
+        element_verification(arming.Arm_Stay_No_Delay_summery, "Auto Stay No Delay summery when enabled");
         arming.Arm_Stay_No_Delay.click();
-        if (arming.Arm_Stay_No_Delay_summery.isDisplayed()) {
-            logger.info("Pass: Correct Auto Stay No Delay summery when disabled");
-        }
+        element_verification(arming.Arm_Stay_No_Delay_summery, "Auto Stay No Delay summery"); //ENABLED by default
         arming.Arm_Stay_No_Delay.click();
-
-        if (arming.Auto_Exit_Time_Extension_summery.isDisplayed()) {  //ENABLED by default
-            logger.info("Pass: Correct Auto Exit Time Extension summery when enabled");
-        }
+        element_verification(arming.Auto_Exit_Time_Extension_summery, "Auto Exit Time Extension summery"); //ENABLED by default
         arming.Auto_Exit_Time_Extension.click();
-        if (arming.Auto_Exit_Time_Extension_summery.isDisplayed()) {
-            logger.info("Pass: Correct Auto Exit Time Extension summery when disabled");
-        }
+        element_verification(arming.Auto_Exit_Time_Extension_summery, "Auto Exit Time Extension summery when disabled");
         arming.Auto_Exit_Time_Extension.click();
-
-        if (arming.Keyfob_Instant_Arming_summery.isDisplayed()) {  //ENABLED by default
-            logger.info("Pass: Correct Keyfob Instant Arming summery when enabled");
-        }
+        element_verification(arming.Keyfob_Instant_Arming_summery, "Keyfob Instant Arming");  //ENABLED by default
         arming.Keyfob_Instant_Arming.click();
-        if (arming.Keyfob_Instant_Arming_summery.isDisplayed()) {
-            logger.info("Pass: Correct Keyfob Instant Arming summery when disabled");
-        }
+        element_verification(arming.Keyfob_Instant_Arming_summery, "Keyfob Instant Arming summery when disabled");
         arming.Keyfob_Instant_Arming.click();
         swipe_vertical();
-
-        if (arming.Keyfob_Alarm_Disarm_summery.isDisplayed()) {  //ENABLED by default
-            logger.info("Pass: Correct Keyfob Alarm Disarm summery when disabled");
-        }
+        Thread.sleep(1000);
+        element_verification(arming.Keyfob_Alarm_Disarm_summery, "Keyfob Alarm Disarm summery");  //DISABLED by default
         arming.Keyfob_Alarm_Disarm.click();
-        if (arming.Keyfob_Alarm_Disarm_summery_enabled.isDisplayed()) {
-            logger.info("Pass: Correct Keyfob Alarm Disarm summery when enabled");
-        }
+        element_verification(arming.Keyfob_Alarm_Disarm_summery_enabled, "Keyfob Alarm Disarm summery when enabled");
         arming.Keyfob_Alarm_Disarm.click();
-
-        if (arming.Keyfob_Disarming_summery.isDisplayed()) { //ENABLED by default
-            logger.info("Pass: Correct Keyfob Disarming summery when enabled");
-        }
+        element_verification(arming.Keyfob_Disarming_summery, "Keyfob Disarming summery");  //ENABLED by default
         arming.Keyfob_Disarming.click();
-        if (arming.Keyfob_Disarming_summery.isDisplayed()) {
-            logger.info("Pass: Correct Keyfob Disarming summery when disabled");
-        }
+        element_verification(arming.Keyfob_Disarming_summery, "Keyfob Disarming summery when disabled");
         arming.Keyfob_Disarming.click();
-
-        if (arming.Allow_Master_Code_To_Access_Security_and_Arming_summery.isDisplayed()) { //DISABLED by default
-            logger.info("Pass: Correct Allow Master Code To Access Security and Arming summery when disabled");
-        }
+        element_verification(arming.Allow_Master_Code_To_Access_Security_and_Arming_summery, "Allow Master Code To Access Security and Arming summery");  //DISABLED by default
         arming.Allow_Master_Code_To_Access_Security_and_Arming.click();
-        if (arming.Allow_Master_Code_To_Access_Security_and_Arming_summery_enabled.isDisplayed()) {
-            logger.info("Pass: Correct Allow Master Code To Access Security and Arming summery when enabled");
-        }
+        element_verification(arming.Allow_Master_Code_To_Access_Security_and_Arming_summery_enabled, "Allow Master Code To Access Security and Arming summery when enabled");
         arming.Allow_Master_Code_To_Access_Security_and_Arming.click();
         swipe_vertical();
 

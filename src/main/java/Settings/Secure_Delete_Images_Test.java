@@ -40,7 +40,8 @@ public class Secure_Delete_Images_Test extends Setup {
         camera.Camera_delete_yes.click();
         if (home.Enter_Code_to_Access_the_Area.isDisplayed()){
             logger.info("Pass: Password is required to delete the image");
-        }else {logger.info("Failed: Password is NOT required to delete the image");
+        }else { take_screenshot();
+            logger.info("Failed: Password is NOT required to delete the image");
         }
         enter_default_user_code();
         Thread.sleep(1000);
@@ -65,6 +66,7 @@ public class Secure_Delete_Images_Test extends Setup {
         camera.Camera_delete_yes.click();
         try {
             if (home.Enter_Code_to_Access_the_Area.isDisplayed())
+                take_screenshot();
                 logger.info("Failed: Password is required to delete the image");
         } catch (Exception e) {
             logger.info("Pass: Password is NOT required to delete the image");

@@ -28,8 +28,8 @@ public class Camera_Settings_Page {
     public WebElement Alarm_Videos_summery;
     @FindBy(xpath = "//android.widget.TextView[@text='Alarm Videos is Enabled']")
     public WebElement Alarm_Videos_summery_enabled;
-    @FindBy(xpath = "//android.widget.TextView[@text='Setting Photos']")
-    public WebElement Setting_Photos;
+    @FindBy(xpath = "//android.widget.TextView[@text='Settings Photos']")
+    public WebElement Settings_Photos;
     @FindBy(xpath = "//android.widget.TextView[@text='Settings Photos is Disabled']")
     public WebElement Setting_Photos_summery;
     @FindBy(xpath = "//android.widget.TextView[@text='Settings Photos is Enabled']")

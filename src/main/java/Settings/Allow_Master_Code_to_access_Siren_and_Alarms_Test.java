@@ -44,7 +44,8 @@ public class Allow_Master_Code_to_access_Siren_and_Alarms_Test extends Setup {
         Thread.sleep(2000);
         if (inst.SIREN_AND_ALARMS.isDisplayed()){
             logger.info("Pass: Siren and Alarms icon is present");
-        }else {  logger.info("Failed: Siren and Alarms icon is NOT present");}
+        }else {  take_screenshot();
+            logger.info("Failed: Siren and Alarms icon is NOT present");}
         Thread.sleep(2000);
         settings.Home_button.click();
         navigate_to_Advanced_Settings_page();
@@ -65,6 +66,7 @@ public class Allow_Master_Code_to_access_Siren_and_Alarms_Test extends Setup {
         Thread.sleep(2000);
         try {
             if (inst.SIREN_AND_ALARMS.isDisplayed())
+                take_screenshot();
                 logger.info("Failed: Siren and Alarms icon is present");
         } catch(Exception e){
             logger.info("Pass: Siren and Alarms icon is NOT present");

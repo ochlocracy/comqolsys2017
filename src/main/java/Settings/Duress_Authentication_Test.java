@@ -72,7 +72,6 @@ public class Duress_Authentication_Test extends Setup{
         inst.SECURITY_AND_ARMING.click();
         arming.Duress_Authentication.click();
         Thread.sleep(2000);
-
     }
     @AfterMethod
     public void tearDown() throws IOException, InterruptedException {

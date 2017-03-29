@@ -46,6 +46,7 @@ public class Auto_Exit_Time_Extension_Test extends Setup{
         Thread.sleep(15000);
         try {
             if (home.ArwAway_State.isDisplayed())
+                take_screenshot();
                 logger.info("Failed: System is ARMED AWAY");
         } catch (Exception e) {
             logger.info("Pass: System is NOT ARMED AWAY");

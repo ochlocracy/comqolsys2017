@@ -13,8 +13,10 @@ public class Sensors {
 
     public static final String primary = "8ebdbc76 ";
     public static final String primary1 = "8ebdbc76 ";
+ //   public static final String primary = "628f4ae7 ";
     public static final String transmitter = "8f03bc79 ";
     public static final String adbPath = "/home/qolsys/android-sdk-linux/platform-tools/adb";
+
     public Runtime rt = Runtime.getRuntime();
 
     static int number_of_sensors = 0;

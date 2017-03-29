@@ -21,7 +21,7 @@ public class Smoke_Test_Smoke_CO extends Setup {
     int Idle = 0;
     int Alarm = 1;
 
-    int delay =20;
+    private int Long_Exit_Delay =16;
 
     @BeforeMethod
     public void capabilitiesSetup() throws Exception {
@@ -47,7 +47,8 @@ public class Smoke_Test_Smoke_CO extends Setup {
         if (emergency.Emergency_sent_text.getText().equals("Fire Emergency Sent")){
             logger.info("Pass: Fire emergency is sent in Disarm mode");
         }
-        else { logger.info("Failed: Fire emergency is NOT sent in Disarm mode");
+        else { take_screenshot();
+            logger.info("Failed: Fire emergency is NOT sent in Disarm mode");
         }
         emergency.Cancel_Emergency.click();
         enter_default_user_code();
@@ -63,7 +64,8 @@ public class Smoke_Test_Smoke_CO extends Setup {
         if (emergency.Emergency_sent_text.getText().equals("Fire Emergency Sent")){
             logger.info("Pass: Fire emergency is sent in ArmStay mode");
         }
-        else { logger.info("Failed: Fire emergency is NOT sent in ArmStay mode");
+        else { take_screenshot();
+            logger.info("Failed: Fire emergency is NOT sent in ArmStay mode");
         }
         emergency.Cancel_Emergency.click();
         enter_default_user_code();
@@ -71,7 +73,7 @@ public class Smoke_Test_Smoke_CO extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway activate Smoke Sensor -> Expected result = Instant Alarm");
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         TimeUnit.SECONDS.sleep(2);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.smoke_detector_zones, 26,Alarm);
         TimeUnit.SECONDS.sleep(2);
@@ -79,7 +81,8 @@ public class Smoke_Test_Smoke_CO extends Setup {
         if (emergency.Emergency_sent_text.getText().equals("Fire Emergency Sent")){
             logger.info("Pass: Fire emergency is sent in ArmAway mode");
         }
-        else { logger.info("Failed: Fire emergency is NOT sent in ArmAway mode");
+        else { take_screenshot();
+            logger.info("Failed: Fire emergency is NOT sent in ArmAway mode");
         }
         emergency.Cancel_Emergency.click();
         enter_default_user_code();
@@ -110,7 +113,7 @@ public class Smoke_Test_Smoke_CO extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway state tamper Smoke Sensor -> Expected result = Instant Alarm ");
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.smoke_detector_zones, 26);
         TimeUnit.SECONDS.sleep(3);
         verify_sensor_is_tampered(smoke_detector15);
@@ -148,7 +151,7 @@ public class Smoke_Test_Smoke_CO extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway activate CO Sensor -> Expected result = Instant Alarm");
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         TimeUnit.SECONDS.sleep(3);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.co_detector_zones, 34,Alarm);
         TimeUnit.SECONDS.sleep(2);
@@ -182,7 +185,7 @@ public class Smoke_Test_Smoke_CO extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway state tamper CO Sensor -> Expected result = Instant Alarm ");
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.co_detector_zones, 34);
         TimeUnit.SECONDS.sleep(3);
         verify_sensor_is_tampered(CO_Detector16);

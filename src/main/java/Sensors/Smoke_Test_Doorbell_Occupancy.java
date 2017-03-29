@@ -25,6 +25,8 @@ public class Smoke_Test_Doorbell_Occupancy extends Setup {
     private int Idle = 0;
     private int Vacant = 0;
 
+    private int Long_Exit_Delay =16;
+
     @BeforeMethod
     public void capabilitiesSetup() throws Exception {
         setup_driver(udid_, "http://127.0.1.1", "4723");
@@ -82,7 +84,7 @@ public class Smoke_Test_Doorbell_Occupancy extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode trigger doorbell group 25 -> ArmAway");
-        ARM_AWAY(20);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.doorbell_zones, 25,Ring);
         TimeUnit.SECONDS.sleep(3);
         verify_armaway();
@@ -93,7 +95,7 @@ public class Smoke_Test_Doorbell_Occupancy extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode trigger occupancy sensor group 25 -> ArmAway");
-        ARM_AWAY(20);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.occupancy_zones, 25,Vacant);
         TimeUnit.SECONDS.sleep(3);
         verify_armaway();
@@ -124,7 +126,7 @@ public class Smoke_Test_Doorbell_Occupancy extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tamper doorbell group 25 -> ArmAway");
-        ARM_AWAY(20);
+        ARM_AWAY(Long_Exit_Delay);
         TimeUnit.SECONDS.sleep(2);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.doorbell_zones, 25);
         TimeUnit.SECONDS.sleep(3);

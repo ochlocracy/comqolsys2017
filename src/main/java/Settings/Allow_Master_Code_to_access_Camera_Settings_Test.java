@@ -44,7 +44,8 @@ public class Allow_Master_Code_to_access_Camera_Settings_Test extends Setup {
         Thread.sleep(2000);
         if (inst.CAMERA_SETTINGS.isDisplayed()){
             logger.info("Pass: Camera Settings icon is present");
-        }else {  logger.info("Failed: Camera Settings icon is NOT present");}
+        }else { take_screenshot();
+            logger.info("Failed: Camera Settings icon is NOT present");}
         Thread.sleep(2000);
         settings.Home_button.click();
         navigate_to_Advanced_Settings_page();
@@ -63,6 +64,7 @@ public class Allow_Master_Code_to_access_Camera_Settings_Test extends Setup {
         Thread.sleep(2000);
         try {
             if (inst.CAMERA_SETTINGS.isDisplayed())
+                take_screenshot();
                 logger.info("Failed: Camera Settings icon is present");
         } catch(Exception e){
             logger.info("Pass: Camera Settings icon is NOT present");

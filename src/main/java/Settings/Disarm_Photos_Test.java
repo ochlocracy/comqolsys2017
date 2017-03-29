@@ -37,7 +37,8 @@ public class Disarm_Photos_Test extends Setup {
         camera.Disarm_photos.click();
         if (camera.Photo_lable.isDisplayed()){
             logger.info("Pass: Disarm photo is displayed");
-        }else { logger.info("Failed: Disarm photo is NOT displayed");}
+        }else { take_screenshot();
+            logger.info("Failed: Disarm photo is NOT displayed");}
         camera.Camera_delete.click();
         camera.Camera_delete_yes.click();
         enter_default_user_code();
@@ -58,6 +59,7 @@ public class Disarm_Photos_Test extends Setup {
         camera.Disarm_photos.click();
         try {
             if (camera.Photo_lable.isDisplayed())
+                take_screenshot();
                 logger.info("Failed: Disarm photo is displayed");
         } catch (Exception e) {
             logger.info("Pass: Disarm photo is NOT displayed");

@@ -46,6 +46,7 @@ public class Arm_Stay_No_Delay_Test extends Setup {
         ARM_STAY();
         try {
             if (home.Disarmed_text.getText().equals("ARMED STAY"))
+                take_screenshot();
                 logger.info("Failed: System is ARMED STAY");
         } catch (Exception e) {
             logger.info("Pass: System is NOT ARMED STAY");

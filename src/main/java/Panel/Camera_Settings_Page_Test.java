@@ -27,60 +27,45 @@ public class Camera_Settings_Page_Test extends  Setup{
         inst.CAMERA_SETTINGS.click();
         logger.info("Verifying elements on the page...");
         Thread.sleep(1000);
-        if (camera.Secure_Delete_Images_summery.isDisplayed()) {
-            logger.info("Pass: Correct Secure Delete Images summery");
-        }
+        element_verification(camera.Secure_Delete_Images_summery, "Secure Delete Images summery");
         camera.Secure_Delete_Images.click();
         Thread.sleep(1000);
-        if (camera.Secure_Delete_Images_summery_disabled.isDisplayed()) {
-            logger.info("Pass: Correct Secure Delete Images summery when disabled");
-        }
+        element_verification(camera.Secure_Delete_Images_summery_disabled, "Secure Delete Images summery when disabled");
         camera.Secure_Delete_Images.click();
         Thread.sleep(1000);
-        if (camera.Disarm_Photos_summery.isDisplayed()) {
-            logger.info("Pass: Correct Disarm Photos summery");
-        }
+        element_verification(camera.Disarm_Photos_summery,"Disarm Photos summery");
         camera.Disarm_Photos.click();
         Thread.sleep(1000);
-        if (camera.Disarm_Photos_summery_disabled.isDisplayed()) {
-            logger.info("Pass: Correct Disarm Photos summery when disabled");
-        }
+        element_verification(camera.Disarm_Photos_summery_disabled, "Disarm Photos summery when disabled");
         camera.Disarm_Photos.click();
         Thread.sleep(1000);
-        if (camera.Alarm_Photos_summery.isDisplayed()) {
-            logger.info("Pass: Correct Alarm Photos summery");
-        }
+        element_verification(camera.Alarm_Photos_summery, "Alarm Photos summery");
         camera.Alarm_Photos.click();
         Thread.sleep(1000);
-        if (camera.Alarm_Photos_summery_disabled.isDisplayed()) {
-            logger.info("Pass: Correct Alarm Photos summery when disabled");
-        }
+        element_verification(camera.Alarm_Photos_summery_disabled, "Alarm Photos summery when disable");
         camera.Alarm_Photos.click();
         Thread.sleep(1000);
-        if (camera.Setting_Photos_summery.isDisplayed()) {
-            logger.info("Pass: Correct Setting Photos summery");
-        }
-        camera.Setting_Photos.click();
+        element_verification(camera.Alarm_Videos_summery, "Alarm Videos summery");
+        camera.Alarm_Videos.click();
         Thread.sleep(1000);
-        if (camera.Setting_Photos_summery_enabled.isDisplayed()) {
-            logger.info("Pass: Correct Setting Photos summery when enabled");
-        }
-        camera.Setting_Photos.click();
+        element_verification(camera.Alarm_Videos_summery_enabled, "Alarm Videos summery Enabled");
+        camera.Alarm_Videos.click();
         Thread.sleep(1000);
         swipe_vertical();
+        element_verification(camera.Setting_Photos_summery, "Setting Photos summery");
+        camera.Settings_Photos.click();
         Thread.sleep(1000);
-        if (camera.Allow_Master_Code_to_access_Camera_Settings_summery.isDisplayed()) {
-            logger.info("Pass: Correct Allow Master Code to access Camera Settings summery");
-        }
+        element_verification(camera.Setting_Photos_summery_enabled, "Setting Photos summery when enabled");
+        camera.Settings_Photos.click();
+        Thread.sleep(1000);
+        Thread.sleep(1000);
+        element_verification(camera.Allow_Master_Code_to_access_Camera_Settings_summery, "Allow Master Code to access Camera Settings summery");
         camera.Allow_Master_Code_to_access_Camera_Settings.click();
         Thread.sleep(1000);
-        if (camera.Allow_Master_Code_to_access_Camera_Settings_summery_enabled.isDisplayed()) {
-            logger.info("Pass: Correct Allow Master Code to access Camera Settings summery when enabled");
-        }
+        element_verification(camera.Allow_Master_Code_to_access_Camera_Settings_summery_enabled, "Allow Master Code to access Camera Settings summery when enabled");
         camera.Allow_Master_Code_to_access_Camera_Settings.click();
         Thread.sleep(1000);
     }
-    
     @AfterMethod
     public void tearDown () throws IOException, InterruptedException {
         log.endTestCase(page_name);

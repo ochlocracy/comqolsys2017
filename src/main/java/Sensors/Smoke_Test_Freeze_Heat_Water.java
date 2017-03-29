@@ -20,7 +20,8 @@ public class Smoke_Test_Freeze_Heat_Water extends Setup {
 
     private int Activate = 1;
     private int Idle = 0;
-    private int delay=20;
+
+    private int Long_Exit_Delay =16;
 
     @BeforeMethod
     public void capabilitiesSetup() throws Exception {
@@ -62,7 +63,7 @@ public class Smoke_Test_Freeze_Heat_Water extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tripping Freeze group 52 -> Expected result = Instant Alarm");
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.freeze_zones, 52,Activate);
         verify_sensor_is_displayed(freeze27);
         verify_status_alarmed();
@@ -94,7 +95,7 @@ public class Smoke_Test_Freeze_Heat_Water extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tampering Freeze group 52  -> Expected result = Instant Alarm");
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.freeze_zones, 52);
         TimeUnit.SECONDS.sleep(3);
         verify_sensor_is_tampered(freeze27);
@@ -109,7 +110,8 @@ public class Smoke_Test_Freeze_Heat_Water extends Setup {
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.heat_zones, 26,Activate);
         if (emergency.Emergency_sent_text.getText().equals("Fire Emergency Sent")){
             logger.info("Pass: Fire emergency is sent in Disarm mode");}
-        else { logger.info("Failed: Fire emergency is NOT sent in Disarm mode");}
+        else { take_screenshot();
+            logger.info("Failed: Fire emergency is NOT sent in Disarm mode");}
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.heat_zones, 26,Idle);
         emergency.Cancel_Emergency.click();
         enter_default_user_code();
@@ -121,7 +123,8 @@ public class Smoke_Test_Freeze_Heat_Water extends Setup {
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.heat_zones, 26,Activate);
         if (emergency.Emergency_sent_text.getText().equals("Fire Emergency Sent")){
             logger.info("Pass: Fire emergency is sent in ArmStay mode");}
-        else { logger.info("Failed: Fire emergency is NOT sent in ArmStay mode");}
+        else { take_screenshot();
+            logger.info("Failed: Fire emergency is NOT sent in ArmStay mode");}
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.heat_zones, 26,Idle);
         emergency.Cancel_Emergency.click();
         enter_default_user_code();
@@ -129,11 +132,12 @@ public class Smoke_Test_Freeze_Heat_Water extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tripping Heat group 26 -> Expected result = Instant Alarm");
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.heat_zones, 26,Activate);
         if (emergency.Emergency_sent_text.getText().equals("Fire Emergency Sent")){
             logger.info("Pass: Fire emergency is sent in ArmAway mode");}
-        else { logger.info("Failed: Fire emergency is NOT sent in ArmAway mode");}
+        else { take_screenshot();
+            logger.info("Failed: Fire emergency is NOT sent in ArmAway mode");}
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.heat_zones, 26,Idle);
         emergency.Cancel_Emergency.click();
         enter_default_user_code();
@@ -163,7 +167,7 @@ public class Smoke_Test_Freeze_Heat_Water extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tampering Heat group 26  -> Expected result = Instant Alarm");
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.heat_zones, 26);
         TimeUnit.SECONDS.sleep(3);
         verify_sensor_is_tampered(heat26);
@@ -197,7 +201,7 @@ public class Smoke_Test_Freeze_Heat_Water extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tripping Water_flood group 38 -> Expected result = Instant Alarm");
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.water_flood_zones, 38,Activate);
         verify_sensor_is_displayed(water18);
         verify_status_alarmed();
@@ -229,7 +233,7 @@ public class Smoke_Test_Freeze_Heat_Water extends Setup {
 
         logger.info("********************************************************");
         logger.info("ArmAway mode tampering Water group 38 -> Expected result = Alarm");
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.water_flood_zones, 38);
         verify_sensor_is_tampered(water18);
         verify_status_tampered();

@@ -2,27 +2,35 @@ package Panel;
 
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.PageFactory;
+
+import java.io.IOException;
 import java.net.URL;
 import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Setup {
 
     public String adbPath = "/home/qolsys/android-sdk-linux/platform-tools/adb";
     public File appDir = new File("/home/qolsys/Desktop/comqolsysPOM/src/main/java");
     public String udid_ = "8ebdbc76";
+ //   public String udid_ = "628f4ae7";
 
     public AndroidDriver<WebElement> driver;
 
    public Log log = new Log();
    public Logger logger = Logger.getLogger("String");
+
+   private static final SimpleDateFormat sdf = new SimpleDateFormat("MM.dd_HH.mm.ss");
 
     public void setup_driver(String udid_, String url_, String port_) throws Exception {
 
@@ -64,6 +72,7 @@ public class Setup {
                 logger.info("Pass: " + element_name + " is present, value = " + element.getText());
             }
         } catch (Exception e){
+            take_screenshot();
             Log.error("*" +element_name+"* - Element is not found!");
             throw(e);
         } finally {
@@ -74,6 +83,13 @@ public class Setup {
     public void swipe_vertical() throws InterruptedException {
         int starty = 660;
         int endy = 260;
+        int startx = 502;
+        driver.swipe(startx, starty, startx, endy, 3000);
+        Thread.sleep(2000);
+    }
+    public void swipe_vertical_up() throws InterruptedException {
+        int starty = 260;
+        int endy = 660;
         int startx = 502;
         driver.swipe(startx, starty, startx, endy, 3000);
         Thread.sleep(2000);
@@ -125,74 +141,86 @@ public class Setup {
         home_page.Four.click();
     }
 
-    public void verify_disarm() {
+    public void verify_disarm() throws Exception {
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         if (home_page.Disarmed_text.getText().equals("DISARMED")) {
             logger.info("Pass: System is DISARMED");
         } else {
+            take_screenshot();
             logger.info("Failed: System is not DISARMED " + home_page.Disarmed_text.getText());
         }
     }
 
-    public void verify_armstay(){
+    public void verify_armstay() throws Exception {
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         if (home_page.Disarmed_text.getText().equals("ARMED STAY")) {
             logger.info("Pass: System is ARMED STAY");
         } else {
+            take_screenshot();
             logger.info("Failed: System is NOT ARMED STAY");}
     }
 
-    public void verify_armaway(){
+    public void verify_armaway() throws Exception {
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         if (home_page.ArwAway_State.isDisplayed()) {
             logger.info("Pass: Panel is in Arm Away mode");
         } else {
+            take_screenshot();
             logger.info("Failed: Panel is not in Arm Away mode");}
     }
-    public void verify_in_alarm() {
+    public void verify_in_alarm() throws Exception {
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         if (home_page.ALARM.isDisplayed()) {
             logger.info("Pass: System is in ALARM");
         } else {
+            take_screenshot();
             logger.info("Failed: System is NOT in ALARM");}
     }
-    public void verify_sensor_is_displayed(WebElement sensor_name){
+    public void verify_sensor_is_displayed(WebElement sensor_name) throws Exception {
         if (sensor_name.isDisplayed()) {
             logger.info(sensor_name.getText() +" is successfully opened/activated");
         } else {
+            take_screenshot();
             logger.info(sensor_name +" is NOT opened/activated");}
     }
-    public void verify_sensor_is_tampered(WebElement sensor_name){
+    public void verify_sensor_is_tampered(WebElement sensor_name) throws Exception {
         if (sensor_name.isDisplayed()) {
             logger.info(sensor_name.getText() + " is successfully tampered");
         } else {
+            take_screenshot();
             logger.info(sensor_name +" is NOT tampered");}
     }
 
-    public void verify_status_open(){
+    public void verify_status_open() throws Exception {
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         if (home_page.Red_banner_sensor_status.getText().equals("Open")) {
             logger.info("Pass: Correct status is Open");
-        }else { logger.info("Failed: Incorrect status: " + home_page.Red_banner_sensor_status.getText());}
+        }else {
+            take_screenshot();
+            logger.info("Failed: Incorrect status: " + home_page.Red_banner_sensor_status.getText());}
     }
 
-    public void verify_status_activated(){
+    public void verify_status_activated() throws Exception {
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         if (home_page.Red_banner_sensor_status.getText().equals("Activated")) {
             logger.info("Pass: Correct status is Activated");
-        }else { logger.info("Failed: Incorrect status: " + home_page.Red_banner_sensor_status.getText());}
+        }else {
+            take_screenshot();
+            logger.info("Failed: Incorrect status: " + home_page.Red_banner_sensor_status.getText());}
     }
-    public void verify_status_tampered(){
+    public void verify_status_tampered() throws Exception {
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         if (home_page.Red_banner_sensor_status.getText().equals("Tampered")) {
             logger.info("Pass: Correct status is Tampered");
-        }else { logger.info("Failed: Incorrect status: " + home_page.Red_banner_sensor_status.getText());}
+        }else { take_screenshot();
+            logger.info("Failed: Incorrect status: " + home_page.Red_banner_sensor_status.getText());}
     }
-    public void verify_status_alarmed(){
+    public void verify_status_alarmed() throws Exception {
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         if (home_page.Red_banner_sensor_status.getText().equals("Alarmed")) {
             logger.info("Pass: Correct status is Alarmed");
-        }else { logger.info("Failed: Incorrect status: " + home_page.Red_banner_sensor_status.getText());}
+        }else { take_screenshot();
+            logger.info("Failed: Incorrect status: " + home_page.Red_banner_sensor_status.getText());}
     }
 
     public String Software_Version () throws InterruptedException {
@@ -238,5 +266,15 @@ public class Setup {
         } finally {
         }
         swipeFromLefttoRight();
+    }
+    public void take_screenshot() throws Exception {
+        File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        try {
+            // now copy the  screenshot to desired location using copyFile //method
+            FileUtils.copyFile(src, new File("/home/qolsys/Desktop/comqolsysPOM/screenshots/"+sdf.format(timestamp)+".png"));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

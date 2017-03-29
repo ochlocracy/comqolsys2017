@@ -45,7 +45,8 @@ public class Allow_Master_Code_to_access_Security_and_Arming_Test extends Setup 
         Thread.sleep(2000);
         if (inst.SECURITY_AND_ARMING.isDisplayed()){
             logger.info("Pass: Security and Arming icon is present");
-        }else {  logger.info("Failed: Security and Arming icon is NOT present");}
+        }else { take_screenshot();
+            logger.info("Failed: Security and Arming icon is NOT present");}
         Thread.sleep(2000);
         settings.Home_button.click();
         navigate_to_Advanced_Settings_page();
@@ -67,6 +68,7 @@ public class Allow_Master_Code_to_access_Security_and_Arming_Test extends Setup 
         Thread.sleep(2000);
         try {
             if (inst.SECURITY_AND_ARMING.isDisplayed())
+                take_screenshot();
                 logger.info("Failed: Security and Arming icon is present");
             } catch(Exception e){
                 logger.info("Pass: Security and Arming icon is NOT present");

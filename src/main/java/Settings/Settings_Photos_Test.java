@@ -37,6 +37,7 @@ public class Settings_Photos_Test extends Setup {
         camera.Settings_photos.click();
         try {
             if (camera.Photo_lable.isDisplayed())
+                take_screenshot();
                 logger.info("Failed: Disarm photo is displayed");
         } catch (Exception e) {
             logger.info("Pass: Disarm photo is NOT displayed");
@@ -46,7 +47,7 @@ public class Settings_Photos_Test extends Setup {
         navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
         inst.CAMERA_SETTINGS.click();
-        set_cam.Setting_Photos.click();
+        set_cam.Settings_Photos.click();
         Thread.sleep(1000);
         settings.Home_button.click();
         navigate_to_Settings_page();
@@ -58,14 +59,15 @@ public class Settings_Photos_Test extends Setup {
         camera.Settings_photos.click();
         if (camera.Photo_lable.isDisplayed()){
             logger.info("Pass: Settings photo is displayed");
-        }else { logger.info("Failed: Settings photo is NOT displayed");}
+        }else { take_screenshot();
+            logger.info("Failed: Settings photo is NOT displayed");}
         camera.Camera_delete.click();
         camera.Camera_delete_yes.click();
         enter_default_user_code();
         navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
         inst.CAMERA_SETTINGS.click();
-        set_cam.Setting_Photos.click();
+        set_cam.Settings_Photos.click();
         Thread.sleep(1000);
         settings.Home_button.click();
     }

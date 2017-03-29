@@ -25,7 +25,7 @@ public class Smoke_Test_Keyfob_Keypad_Pendant extends Setup {
     private int Keypad_Panic = 3;
     private int Activate = 1;
 
-    int delay = 20;
+    private int Long_Exit_Delay =16;
 
     @BeforeMethod
     public void capabilitiesSetup() throws Exception {
@@ -33,19 +33,19 @@ public class Smoke_Test_Keyfob_Keypad_Pendant extends Setup {
         setup_logger(page_name);
     }
 
-    public void verify_police_emergency(){
+    public void verify_police_emergency() throws Exception {
         Emergency_Page emergency = PageFactory.initElements(driver, Emergency_Page.class);
         if (emergency.Emergency_sent_text.getText().equals("Police Emergency Sent")){
             logger.info("Pass: Police Emergency is Sent");
-        } else {
+        } else { take_screenshot();
             logger.info("Failed: Police Emergency is NOT Sent");}
     }
 
-    public void verify_auxiliary_emergency(){
+    public void verify_auxiliary_emergency() throws Exception {
         Emergency_Page emergency = PageFactory.initElements(driver, Emergency_Page.class);
         if (emergency.Emergency_sent_text.getText().equals("Auxiliary Emergency Sent")) {
             logger.info("Pass: Auxiliary Emergency is Sent");
-        } else {
+        } else { take_screenshot();
             logger.info("Failed: Auxiliary Emergency is NOT Sent");}
     }
 
@@ -350,7 +350,7 @@ public class Smoke_Test_Keyfob_Keypad_Pendant extends Setup {
 
         logger.info("********************************************************");
         logger.info("Auxiliary pendant group 0: ArmAway mode activated -> Police emergency ");
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.pendant_zones, 0,Activate);
         TimeUnit.SECONDS.sleep(5);
         verify_police_emergency();
@@ -360,7 +360,7 @@ public class Smoke_Test_Keyfob_Keypad_Pendant extends Setup {
 
         logger.info("********************************************************");
         logger.info("Auxiliary pendant group 6: ArmAway mode activated -> Auxiliary emergency ");
-        ARM_AWAY(delay);
+        ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.pendant_zones, 6,Activate);
         TimeUnit.SECONDS.sleep(5);
         verify_auxiliary_emergency();
