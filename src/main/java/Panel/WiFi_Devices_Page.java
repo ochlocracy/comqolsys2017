@@ -16,7 +16,7 @@ public class WiFi_Devices_Page {
     public WebElement Wifi_Access_Point_summery_Enabled;
     @FindBy(xpath = "//android.widget.TextView[@text='SSID']")
     public WebElement SSID;
-    @FindBy(className = "//android.widget.EditText']")
+    @FindBy(id = "com.qolsys:id/ui_di_body_sc")
     public WebElement SSID_txt_field;
     @FindBy(xpath = "//android.widget.TextView[@text='DHCP Range']")
     public WebElement DHCP_Range;
@@ -39,7 +39,9 @@ public class WiFi_Devices_Page {
     @FindBy(xpath = "//android.widget.TextView[@text='AP MODE']")
     public WebElement AP_MODE;
     @FindBy(xpath = "//android.widget.TextView[@text='Ap Mode set to HIDDEN']")
-    public WebElement AP_MODE_summery;
+    public WebElement AP_MODE_summery_Hidden;
+    @FindBy(xpath = "//android.widget.TextView[@text='Ap Mode set to BROADCAST']")
+    public WebElement AP_MODE_summery_Broadcast;
     @FindBy(xpath = "//android.widget.TextView[@text='BROADCAST']")
     public WebElement AP_MODE_BROADCAST;
     @FindBy(xpath = "//android.widget.TextView[@text='HIDDEN']")
@@ -49,6 +51,16 @@ public class WiFi_Devices_Page {
     @FindBy(xpath = "//android.widget.TextView[@text='AP PASSWORD']")
     public WebElement AP_PASSWORD;
 
+    @FindBy(xpath = "//android.widget.TextView[@text='No']")
+    public WebElement No;
+    @FindBy(xpath = "//android.widget.TextView[@text='MAC Address']")
+    public WebElement MAC_Address;
+    @FindBy(xpath = "//android.widget.TextView[@text='IP Address']")
+    public WebElement IP_Address;
+    @FindBy(xpath = "//android.widget.TextView[@text='Connected Time(MM:DD:HH:mm)']")
+    public WebElement Connected_Time;
+    @FindBy(xpath = "//android.widget.TextView[@text='Actions']")
+    public WebElement Actions;
 
 
 

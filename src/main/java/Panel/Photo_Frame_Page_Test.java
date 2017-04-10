@@ -15,8 +15,7 @@ public class Photo_Frame_Page_Test extends Setup {
     @BeforeMethod
     public void capabilities_setup() throws Exception {
         setup_driver(udid_, "http://127.0.1.1", "4723");
-        setup_logger(page_name);
-    }
+        setup_logger(page_name);}
 
     @Test
     public void Check_all_elements_on_Photo_Frame_page() throws Exception {
@@ -104,7 +103,6 @@ public class Photo_Frame_Page_Test extends Setup {
         element_verification(frame.Automatically_turn_on_display, "Automatically Turn On display");
         element_verification(frame.Automatically_turn_on_display_summery, "Automatically Turn On display summery");
     }
-
     @AfterMethod
     public void tearDown () throws IOException, InterruptedException {
         log.endTestCase(page_name);

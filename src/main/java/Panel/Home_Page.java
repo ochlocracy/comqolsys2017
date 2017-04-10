@@ -87,5 +87,11 @@ public class Home_Page {
     public WebElement Bypass_OK;
     @FindBy(id ="com.qolsys:id/txt_title")
     public WebElement Enter_Code_to_Access_the_Area;
+    @FindBy(id = "com.qolsys:id/ft_back")
+    public WebElement Back_button;
+    @FindBy(id = "com.qolsys:id/ft_emergency")
+    public WebElement Emergency_button;
+    @FindBy(id = "com.qolsys:id/ft_home_button")
+    public WebElement Home_button;
 }
 

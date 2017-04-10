@@ -82,19 +82,10 @@ public class Security_Arming_Page_Test extends Setup{
         element_verification(arming.Allow_Master_Code_To_Access_Security_and_Arming_summery_enabled, "Allow Master Code To Access Security and Arming summery when enabled");
         arming.Allow_Master_Code_To_Access_Security_and_Arming.click();
         swipe_vertical();
-
-        if (arming.Normal_Entry_Delay.isDisplayed()) {
-            logger.info("Pass: Normal Entry Delay is present");
-        }
-        if (arming.Normal_Exit_Delay.isDisplayed()) {
-            logger.info("Pass: Normal Exit Delay is present");
-        }
-        if (arming.Long_Entry_Delay.isDisplayed()) {
-            logger.info("Pass: Long Entry Delay is present");
-        }
-        if (arming.Long_Exit_Delay.isDisplayed()) {
-            logger.info("Pass: Long Exit Delay is present");
-        }
+        element_verification(arming.Normal_Entry_Delay, "Normal Entry Delay");
+        element_verification(arming.Normal_Exit_Delay, "Normal Exit Delay");
+        element_verification(arming.Long_Entry_Delay, "Long Entry Delay");
+        element_verification(arming.Long_Exit_Delay, " Long Exit Delay");
     }
     @AfterMethod
     public void tearDown () throws IOException, InterruptedException {

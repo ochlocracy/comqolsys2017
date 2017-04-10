@@ -76,8 +76,7 @@ public class User_Management_Page_Test extends  Setup {
        WebElement new_user = driver.findElement(By.xpath("//android.widget.TextView[@text='2']"));
        new_user.isDisplayed();
        Thread.sleep(2000);
-       TouchAction touch = new TouchAction(driver);
-       touch.tap(1185, 373).perform();
+       tap(1185, 373);
        Thread.sleep(1000);
        element_verification(um.User_Management_Delete_User_title, "Delete User message title");
        element_verification(um.User_Management_Delete_User_message, "Delete User message text");

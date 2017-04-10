@@ -66,8 +66,6 @@ public class SensorObject  {
     public void setProtocol_Int(int setProtocol) {Protocol_Int = setProtocol;}
 
 
-
-
     public void printSensorDetails() {
         System.out.println("Zone: " + Zone);
         System.out.println("DLID: " + DLID);

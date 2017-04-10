@@ -27,120 +27,86 @@ public class Siren_Alarms_Page_Test extends Setup{
         inst.SIREN_AND_ALARMS.click();
         logger.info("Verifying elements on the page...");
         Thread.sleep(1000);
-        if (siren.Disable_Siren_summery.isDisplayed()) {
-            logger.info("Pass: Correct Disable Siren summery");
-        }
+        element_verification(siren.Disable_Siren_summery, "Disable Siren summery");
         siren.Disable_Siren.click();
         Thread.sleep(1000);
-        if (siren.Disable_Siren_summery_enabled.isDisplayed()) {
-            logger.info("Pass: Correct Disable Siren summery when enabled");
-        }
+        element_verification(siren.ALL_SIRENS_OFF, "ALL SIRENS OFF");
+        element_verification(siren.ALL_SIRENS_ON, "ALL SIRENS ON");
+        element_verification(siren.INSTALLER_TEST_MODE, "INSTALLER TEST MODE");
+        siren.ALL_SIRENS_OFF.click();
+        Thread.sleep(1000);
+        element_verification(siren.Disable_Siren_summery_disabled, "Disable Siren summery when Disabled");
         siren.Disable_Siren.click();
         Thread.sleep(1000);
-        if (siren.Siren_Annunciation_summery.isDisplayed()) {
-            logger.info("Pass: Correct Siren Annunciation summery");
-        }
+        siren.INSTALLER_TEST_MODE.click();
+        element_verification(siren.Disable_Siren_summery_Installer_Mode, "Disable Siren summery in Installer mode");
+        siren.Disable_Siren.click();
+        Thread.sleep(1000);
+        siren.ALL_SIRENS_ON.click();
+        Thread.sleep(1000);
+        element_verification(siren.Siren_Annunciation_summery, "Siren Annunciation summery");
         siren.Siren_Annunciation.click();
         Thread.sleep(1000);
-        if (siren.Siren_Annunciation_summery_enabled.isDisplayed()) {
-            logger.info("Pass: Correct Siren Annunciation summery when enabled");
-        }
+        element_verification(siren.Siren_Annunciation_summery_enabled, "Siren Annunciation summery when enabled");
         siren.Siren_Annunciation.click();
-        Thread.sleep(2000);
-
-        if (siren.Fire_Verification_summery.isDisplayed()) {
-            logger.info("Pass: Correct Fire Verification summery");
-        }
+        Thread.sleep(1000);
+        element_verification(siren.Fire_Verification_summery, "Fire Verification summery");
         siren.Fire_Verification.click();
         Thread.sleep(1000);
-        if (siren.Fire_Verification_summery_enabled.isDisplayed()) {
-            logger.info("Pass: Correct Fire Verification summery when enabled");
-        }
+        element_verification(siren.Fire_Verification_summery_enabled, "Fire Verification summery when enabled");
         siren.Fire_Verification.click();
-        Thread.sleep(2000);
-        if (siren.Severe_Weather_Siren_Warning_summery.isDisplayed()) {
-            logger.info("Pass: Correct Severe Weather Siren Warning summery");
-        }
+        Thread.sleep(1000);
+        element_verification(siren.Severe_Weather_Siren_Warning_summery, "Severe Weather Siren Warning summery");
         siren.Severe_Weather_Siren_Warning.click();
         Thread.sleep(1000);
-        if (siren.Severe_Weather_Siren_Warning_summery_disabled.isDisplayed()) {
-            logger.info("Pass: Correct Severe Weather Siren Warning summery when disabled");
-        }
+        element_verification(siren.Severe_Weather_Siren_Warning_summery_disabled, "Severe Weather Siren Warning summery when disabled");
         siren.Severe_Weather_Siren_Warning.click();
         Thread.sleep(1000);
-        if (siren.Dialer_Delay_summery.isDisplayed()) {
-            logger.info("Pass: Correct Dialer Delay summery");
-        }
-        Thread.sleep(2000);
+        element_verification(siren.Dialer_Delay_summery, "Dialer Delay summery");
+        Thread.sleep(1000);
         siren.Dialer_Delay.click();
-        Thread.sleep(2000);
-        if (siren.Set_value_title.isDisplayed()) {
-            logger.info("Pass: Set Value in sec window is present ");
-        }
+        Thread.sleep(1000);
+        element_verification(siren.Set_value_title, "Set Value in sec");
         siren.Cancel.click();
         Thread.sleep(1000);
         swipe_vertical();
-        Thread.sleep(2000);
-        if (siren.Siren_Timeout_summery.isDisplayed()) {
-            logger.info("Pass: Correct Siren Timeout summery");
-        }
+        Thread.sleep(1000);
+        element_verification(siren.Siren_Timeout_summery, "Siren Timeout summery");
         siren.Siren_Timeout.click();
         Thread.sleep(1000);
-        if (siren.Siren_Timeout_title.isDisplayed()) {
-            logger.info("Pass: Siren Timeout options are displayed");
-        }
-        siren.Siren_Timeout_Cancel.click();
+        element_verification(siren.Siren_Timeout_title, "Siren Timeout options");
+        siren.Siren_Cancel.click();
         Thread.sleep(1000);
-        if (siren.Water_Freeze_Siren_summery.isDisplayed()) {
-            logger.info("Pass: Correct Water/Freeze Siren summery");
-        }
+        element_verification(siren.Water_Freeze_Siren_summery, "Water/Freeze Siren summery");
         siren.Water_Freeze_Siren.click();
         Thread.sleep(1000);
-        if (siren.Water_Freeze_Siren_summery_enabled.isDisplayed()) {
-            logger.info("Pass: Correct Water/Freeze Siren summery when enabled");
-        }
+        element_verification(siren.Water_Freeze_Siren_summery_enabled, " Water/Freeze Siren summery when enabled");
         siren.Water_Freeze_Siren.click();
         Thread.sleep(1000);
-        if (siren.Police_Panic_summery.isDisplayed()) {
-            logger.info("Pass: Correct Police Panic summery");
-        }
+        element_verification(siren.Police_Panic_summery, "Police Panic summery");
         siren.Police_Panic.click();
         Thread.sleep(1000);
-        if (siren.Police_Panic_summery_disabled.isDisplayed()) {
-            logger.info("Pass: Correct Police Panic summery when disabled");
-        }
+        element_verification(siren.Police_Panic_summery_disabled, "Police Panic summery when disable");
         siren.Police_Panic.click();
         Thread.sleep(1000);
         swipe_vertical();
-        Thread.sleep(2000);
-        if (siren.Fire_Panic_summery.isDisplayed()) {
-            logger.info("Pass: Correct Fire Panic summery");
-        }
+        Thread.sleep(1000);
+        element_verification(siren.Fire_Panic_summery, "Fire Panic summery");
         siren.Fire_Panic.click();
         Thread.sleep(1000);
-        if (siren.Fire_Panic_summery_disabled.isDisplayed()) {
-            logger.info("Pass: Correct Fire Panic summery when disabled");
-        }
+        element_verification(siren.Fire_Panic_summery_disabled, "Fire Panic summery when disabled");
         siren.Fire_Panic.click();
         Thread.sleep(1000);
-        if (siren.Auxiliary_Panic_summery.isDisplayed()) {
-            logger.info("Pass: Correct Auxiliary Panic summery");
-        }
+        element_verification(siren.Auxiliary_Panic_summery, "Auxiliary Panic summery");
         siren.Auxiliary_Panic.click();
         Thread.sleep(1000);
-        if (siren.Auxiliary_Panic_summery_disabled.isDisplayed()) {
-            logger.info("Pass: Correct Auxiliary Panic summery when disabled");
-        }
+        element_verification(siren.Auxiliary_Panic_summery_disabled, "Auxiliary Panic summery when disabled");
         siren.Auxiliary_Panic.click();
         Thread.sleep(1000);
-        if (siren.Allow_Master_Code_To_Access_Siren_and_Alarms_summery.isDisplayed()) {
-            logger.info("Pass: Correct Allow Master Code To Access Siren and Alarms summery");
-        }
+        element_verification(siren.Allow_Master_Code_To_Access_Siren_and_Alarms_summery, "Allow Master Code To Access Siren and Alarms summery");
         siren.Allow_Master_Code_To_Access_Siren_and_Alarms.click();
         Thread.sleep(1000);
-        if (siren.Allow_Master_Code_To_Access_Siren_and_Alarms_summery_enabled.isDisplayed()) {
-            logger.info("Pass: Correct Allow Master Code To Access Siren and Alarms summery when enabled");
-        }
+        element_verification(siren.Allow_Master_Code_To_Access_Siren_and_Alarms_summery_enabled, "Allow Master Code To Access Siren and Alarms summery when enabled");
         siren.Allow_Master_Code_To_Access_Siren_and_Alarms.click();
         Thread.sleep(2000);
     }

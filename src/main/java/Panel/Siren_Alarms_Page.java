@@ -6,10 +6,18 @@ import org.openqa.selenium.support.FindBy;
 public class Siren_Alarms_Page {
     @FindBy(xpath = "//android.widget.TextView[@text='Disable Siren']")
     public WebElement Disable_Siren;
-    @FindBy(xpath = "//android.widget.TextView[@text='Enables the siren for the intrusion alarm siren, all other sirens still sound']")
+    @FindBy(xpath = "//android.widget.TextView[@text='Currently all sirens are Enabled']")
     public WebElement Disable_Siren_summery;
-    @FindBy(xpath = "//android.widget.TextView[@text='Disables the siren for the intrusion alarm siren, all other sirens still sound']")
-    public WebElement Disable_Siren_summery_enabled;
+    @FindBy(xpath = "//android.widget.TextView[@text='ALL SIRENS OFF']")
+    public WebElement ALL_SIRENS_OFF;
+    @FindBy(xpath = "//android.widget.TextView[@text='ALL SIRENS ON']")
+    public WebElement ALL_SIRENS_ON;
+    @FindBy(xpath = "//android.widget.TextView[@text='INSTALLER/TEST MODE ( all sirens off for only 30 MIN)']")
+    public WebElement INSTALLER_TEST_MODE;
+    @FindBy(xpath = "//android.widget.TextView[@text='Currently all sirens are Disabled']")
+    public WebElement Disable_Siren_summery_disabled;
+    @FindBy(xpath = "//android.widget.TextView[@text='All sirens are temporarily Disabled and will automatically return to the Enabled state after 30 minutes']")
+    public WebElement Disable_Siren_summery_Installer_Mode;
     @FindBy(xpath = "//android.widget.TextView[@text='Siren Annunciation']")
     public WebElement Siren_Annunciation;
     @FindBy(xpath = "//android.widget.TextView[@text='Siren Annunciation is Disabled']")
@@ -45,7 +53,7 @@ public class Siren_Alarms_Page {
     @FindBy(id= "com.qolsys:id/title")
     public WebElement Siren_Timeout_title;
     @FindBy(id="com.qolsys:id/negative_button")
-    public WebElement Siren_Timeout_Cancel;
+    public WebElement Siren_Cancel;
     @FindBy(xpath = "//android.widget.TextView[@text='Water/Freeze Siren']")
     public WebElement Water_Freeze_Siren;
     @FindBy(xpath = "//android.widget.TextView[@text='Water/Freeze Siren is Disabled']")

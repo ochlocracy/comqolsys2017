@@ -9,14 +9,17 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.PageFactory;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import org.openqa.selenium.logging.LogEntry;
 import java.io.IOException;
 import java.net.URL;
-import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+
 
 public class Setup {
 
@@ -29,6 +32,7 @@ public class Setup {
 
    public Log log = new Log();
    public Logger logger = Logger.getLogger("String");
+    public Runtime rt = Runtime.getRuntime();
 
    private static final SimpleDateFormat sdf = new SimpleDateFormat("MM.dd_HH.mm.ss");
 
@@ -255,7 +259,7 @@ public class Setup {
     public void delete_all_camera_photos() throws Exception {
         Panel_Camera_Page camera = PageFactory.initElements(driver, Panel_Camera_Page.class);
         swipeFromLefttoRight();
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         try {
             while (camera.Photo_lable.isDisplayed()){
                 camera.Camera_delete.click();
@@ -276,5 +280,36 @@ public class Setup {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public void eventLogsGenerating(String fileName,String[] findEvent, int length) throws Exception{
+        Thread.sleep(2000);
+        List<LogEntry> logEntries = driver.manage().logs().get("logcat").getAll();
+        BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
+        for(int i=0;i<logEntries.size();i++)
+        {
+            String text = logEntries.get(i).getMessage();
+            bw.write(text);
+            bw.newLine();
+            displayingEvent(text,findEvent,length);
+        }
+        bw.close();
+    }
+
+    private void displayingEvent(String text, String[] findEvent, int length){
+        for(int j=0;j<length;j++){
+            if (text.contains(findEvent[j])) {
+                System.out.println(findEvent[j]+" RECEIVED");
+            }
+        }
+    }
+    private void deleteLogFile (String fileName){}
+
+    public void LogcatClear() throws Exception{
+        rt.exec(adbPath+" logcat -c &");
+    }
+
+    public void killLogcat() throws Exception{
+        rt.exec(adbPath+" shell busybox pkill logcat");
     }
 }

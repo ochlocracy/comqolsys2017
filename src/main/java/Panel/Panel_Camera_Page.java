@@ -25,4 +25,13 @@ public class Panel_Camera_Page {
     public WebElement Camera_delete_yes;
     @FindBy (id ="com.qolsys:id/noBt")
     public WebElement Camera_delete_no;
+    @FindBy(xpath = "//android.widget.TextView[@text=' DISARMED BY ADMIN']")
+    public  WebElement  DISARMED_BY_ADMIN;
+    @FindBy(xpath = "//android.widget.TextView[@text='POLICE EMERGENCY (PANEL)']")
+    public  WebElement  POLICE_EMERGENCY_PANEL;
+
+    @FindBy(id ="com.qolsys:id/alarm_videos_title")
+    public WebElement Alarm_Videos_title;
+    @FindBy(id ="com.qolsys:id/imageView")
+    public WebElement Alarm_Video_img;
 }
