@@ -1,6 +1,7 @@
 package Panel;
 
 import Sensors.Sensors;
+import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -17,6 +18,9 @@ public class Activity_Monitor_Page_Test extends Setup{
     Sensors sensors = new Sensors();
     private String open = "06 00";
     private String close = "04 00";
+
+    public Activity_Monitor_Page_Test() throws IOException, BiffException {
+    }
 
     public void swipe_vertical1() throws InterruptedException, IOException {
         int starty = 620;

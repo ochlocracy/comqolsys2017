@@ -1,6 +1,7 @@
 package Sensors;
 
 import Panel.*;
+import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -26,6 +27,9 @@ public class Smoke_Test_Keyfob_Keypad_Pendant extends Setup {
     private int Activate = 1;
 
     private int Long_Exit_Delay =16;
+
+    public Smoke_Test_Keyfob_Keypad_Pendant() throws IOException, BiffException {
+    }
 
     @BeforeMethod
     public void capabilitiesSetup() throws Exception {

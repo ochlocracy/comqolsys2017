@@ -2,6 +2,7 @@ package ADC;
 
 import Panel.Setup;
 import Sensors.Sensors;
+import jxl.read.biff.BiffException;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
@@ -67,6 +68,9 @@ public class ADC extends Setup {
     String new_doorbell_name = "NewDoorBell1";
     String new_occupancy_name = "NewOccupancy1";
     String new_iq_shock_name = "NewIQShock1";
+
+    public ADC() throws IOException, BiffException {
+    }
 
     public void add_sensor(int zone, int group, int DLID, int sensor_type) throws IOException {
         String add_sensor = "shell service call qservice 50 i32 " + zone + " i32 " + group + " i32 " + DLID + " i32 " + sensor_type;

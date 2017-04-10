@@ -9,23 +9,24 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.PageFactory;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
+import java.io.*;
 import org.openqa.selenium.logging.LogEntry;
-import java.io.IOException;
+
 import java.net.URL;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
 
 public class Setup {
 
-    public String adbPath = "/home/qolsys/android-sdk-linux/platform-tools/adb";
-    public File appDir = new File("/home/qolsys/Desktop/comqolsysPOM/src/main/java");
-    public String udid_ = "8ebdbc76";
+    private String  config = "/home/qolsys/Desktop/config.xls";
+    public String adbPath = getAdbPath();   //"/home/qolsys/android-sdk-linux/platform-tools/adb";
+    public String appDir = getAppDir();
+    public String udid_ =  getudid_(); //"8ebdbc76";
  //   public String udid_ = "628f4ae7";
 
     public AndroidDriver<WebElement> driver;
@@ -35,6 +36,31 @@ public class Setup {
     public Runtime rt = Runtime.getRuntime();
 
    private static final SimpleDateFormat sdf = new SimpleDateFormat("MM.dd_HH.mm.ss");
+
+    public Setup() throws IOException, BiffException {
+    }
+
+
+    public String getAdbPath () throws IOException, BiffException {
+       Workbook wb = Workbook.getWorkbook(new File(config));
+       Sheet sh = wb.getSheet(0);
+       String CellGetContent = sh.getCell(0,0).getContents();
+       return  CellGetContent;
+   }
+
+    public String getAppDir () throws IOException, BiffException {
+        Workbook wb = Workbook.getWorkbook(new File(config));
+        Sheet sh = wb.getSheet(0);
+        String CellGetContent = sh.getCell(0, 1).getContents();
+        return CellGetContent;
+    }
+
+    public String getudid_ () throws IOException, BiffException {
+        Workbook wb = Workbook.getWorkbook(new File(config));
+        Sheet sh = wb.getSheet(0);
+        String CellGetContent = sh.getCell(1, 0).getContents();
+        return CellGetContent;
+    }
 
     public void setup_driver(String udid_, String url_, String port_) throws Exception {
 
@@ -122,6 +148,11 @@ public class Setup {
         settings.Two.click();
         settings.Two.click();
         settings.Two.click();
+    }
+    public void DISARM (){
+        Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        home_page.DISARM.click();
+        enter_default_user_code();
     }
 
     public void ARM_STAY (){
@@ -283,27 +314,29 @@ public class Setup {
     }
 
     public void eventLogsGenerating(String fileName,String[] findEvent, int length) throws Exception{
-        Thread.sleep(2000);
         List<LogEntry> logEntries = driver.manage().logs().get("logcat").getAll();
         BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
-        for(int i=0;i<logEntries.size();i++)
-        {
-            String text = logEntries.get(i).getMessage();
-            bw.write(text);
+        for(int i=0; i<logEntries.size(); i++) {
+            String log = logEntries.get(i).getMessage();
+            bw.write(log);
             bw.newLine();
-            displayingEvent(text,findEvent,length);
+            displayingEvent(log,findEvent,length);
         }
         bw.close();
     }
 
-    private void displayingEvent(String text, String[] findEvent, int length){
+    private void displayingEvent(String log, String[] findEvent, int length){
         for(int j=0;j<length;j++){
-            if (text.contains(findEvent[j])) {
+            if (log.contains(findEvent[j])) {
                 System.out.println(findEvent[j]+" RECEIVED");
             }
         }
     }
-    private void deleteLogFile (String fileName){}
+    protected void deleteLogFile(String fileName) throws FileNotFoundException {
+        PrintWriter writer = new PrintWriter(fileName);
+        writer.print("");
+        writer.close();
+    }
 
     public void LogcatClear() throws Exception{
         rt.exec(adbPath+" logcat -c &");

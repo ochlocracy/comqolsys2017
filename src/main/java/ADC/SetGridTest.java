@@ -4,6 +4,7 @@ import Panel.Setup;
 import Panel.Log;
 import Sensors.Sensors;
 import io.appium.java_client.android.AndroidDriver;
+import jxl.read.biff.BiffException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -28,6 +29,9 @@ public class SetGridTest extends Setup {
     String panel1 = "8ebdbc9c ";
 
     WebDriver driver = null;
+
+    public SetGridTest() throws IOException, BiffException {
+    }
 
     public void add_primary_call(int zone, int group, int sencor_dec, int sensor_type, String panel) throws IOException {
         String add_primary = "shell service call qservice 50 i32 " + zone + " i32 " + group + " i32 " + sencor_dec + " i32 " + sensor_type;

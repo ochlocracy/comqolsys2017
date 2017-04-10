@@ -1,6 +1,7 @@
 package Settings;
 
 import Panel.*;
+import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterMethod;
@@ -12,6 +13,9 @@ public class Panic_Disable_Test extends Setup {
 
     String page_name = "Panic Disable testing";
     Logger logger = Logger.getLogger(page_name);
+
+    public Panic_Disable_Test() throws IOException, BiffException {
+    }
 
     @BeforeMethod
     public void capabilities_setup() throws Exception {

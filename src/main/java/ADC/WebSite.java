@@ -1,6 +1,7 @@
 package ADC;
 
 import Panel.*;
+import jxl.read.biff.BiffException;
 import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -23,6 +24,9 @@ public class WebSite extends Setup {
     String close = "04";
     String restore = "00";
     String tamper = "01";
+
+    public WebSite() throws IOException, BiffException {
+    }
 
     @BeforeMethod
     public void capabilitiesSetup() throws Exception {

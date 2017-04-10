@@ -1,6 +1,7 @@
 package Settings;
 
 import Panel.*;
+import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.PageFactory;
@@ -13,6 +14,9 @@ public class Duress_Authentication_Test extends Setup{
 
     String page_name = "Duress Authentication testing";
     Logger logger = Logger.getLogger(page_name);
+
+    public Duress_Authentication_Test() throws IOException, BiffException {
+    }
 
     @BeforeMethod
     public void capabilities_setup() throws Exception {

@@ -1,5 +1,6 @@
 package Panel;
 
+import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -14,6 +15,10 @@ public class About_Page_Test extends Setup {
 
     String page_name = "About page testing";
     Logger logger = Logger.getLogger(page_name);
+
+    public About_Page_Test() throws IOException, BiffException {
+    }
+
 
     public void swipe_vertical1() throws InterruptedException {
         int starty = 620;

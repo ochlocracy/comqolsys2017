@@ -2,6 +2,7 @@ package Settings;
 
 import Panel.*;
 import Sensors.Sensors;
+import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterMethod;
@@ -16,6 +17,9 @@ public class Auto_Exit_Time_Extension_Test extends Setup{
     Sensors sensors = new Sensors();
     private String open = "06 00";
     private String close = "04 00";
+
+    public Auto_Exit_Time_Extension_Test() throws IOException, BiffException {
+    }
 
     @BeforeMethod
     public void capabilities_setup() throws Exception {

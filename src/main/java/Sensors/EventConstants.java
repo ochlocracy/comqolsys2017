@@ -6,8 +6,8 @@ public class EventConstants {
     public static final String EVENT_TO_ADC_AWAY = "EVENT_ARM_AWAY, userID = 0, keyfob = FALSE";
     public static final String EVENT_TO_ADC_STAY_materpin = "EVENT_ARM_STAY, userID = 1, keyfob = FALSE";
     public static final String EVENT_TO_ADC_AWAY_masterpin = "EVENT_ARM_AWAY, userID = 1, keyfob = FALSE";
+    public static final String EVENT_TO_ADC_DISARM = "EVENT_DISARM, userID = 1, keyfob = FALSE.";
 
-    public static final String EVENT_TO_ADC_DISARM = "EVENT_DISARM, userID = 1, keyfob = FALSE";
     public static final String Duress_Authentication = "EVENT_SETTINGS_UPDATED: payload0 = 0x003D0000, payload1 = 0x00000001";
     public static final String Secure_Arming = "EVENT_SETTINGS_UPDATED: payload0 = 0x00230000, payload1 = 0x00000001";
     public static final String Autobypass = "EVENT_SETTINGS_UPDATED: payload0 = 0x00130000, payload1 = 0x00000001";

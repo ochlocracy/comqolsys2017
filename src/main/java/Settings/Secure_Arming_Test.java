@@ -1,6 +1,7 @@
 package Settings;
 
 import Panel.*;
+import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterMethod;
@@ -12,6 +13,9 @@ public class Secure_Arming_Test extends Setup {
 
     String page_name = "Secure Arming testing";
     Logger logger = Logger.getLogger(page_name);
+
+    public Secure_Arming_Test() throws IOException, BiffException {
+    }
 
     @BeforeMethod
     public void capabilities_setup() throws Exception {

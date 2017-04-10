@@ -2,6 +2,7 @@ package Settings;
 
 import Panel.*;
 import Sensors.Sensors;
+import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterMethod;
@@ -16,6 +17,9 @@ public class Keyfob_Disarming_Test extends Setup{
     Sensors sensors = new Sensors();
     private int delay = 15;
     private String disarm = "08 01";
+
+    public Keyfob_Disarming_Test() throws IOException, BiffException {
+    }
 
     @BeforeMethod
     public void capabilities_setup() throws Exception {

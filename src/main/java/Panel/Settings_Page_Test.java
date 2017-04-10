@@ -1,5 +1,6 @@
 package Panel;
 
+import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterMethod;
@@ -11,6 +12,9 @@ public class Settings_Page_Test extends Setup {
 
     String page_name = "Settings page";
     Logger logger = Logger.getLogger(page_name);
+
+    public Settings_Page_Test() throws IOException, BiffException {
+    }
 
     @BeforeMethod
     public void capabilities_setup() throws Exception {

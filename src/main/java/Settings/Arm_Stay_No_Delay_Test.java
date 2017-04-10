@@ -1,6 +1,7 @@
 package Settings;
 
 import Panel.*;
+import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterMethod;
@@ -13,6 +14,9 @@ public class Arm_Stay_No_Delay_Test extends Setup {
 
     String page_name = "Arm Stay No Delay testing";
     Logger logger = Logger.getLogger(page_name);
+
+    public Arm_Stay_No_Delay_Test() throws IOException, BiffException {
+    }
 
     @BeforeMethod
     public void capabilities_setup() throws Exception {

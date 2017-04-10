@@ -1,6 +1,12 @@
 package Sensors;
 
+import Panel.Setup;
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
+
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,11 +17,12 @@ import java.util.concurrent.TimeUnit;
 
 public class Sensors {
 
-    public static final String primary = "8ebdbc76 ";
+    private String config = "/home/qolsys/Desktop/config.xls";
+    public String primary = getudid_();
     public static final String primary1 = "8ebdbc76 ";
  //   public static final String primary = "628f4ae7 ";
     public static final String transmitter = "8f03bc79 ";
-    public static final String adbPath = "/home/qolsys/android-sdk-linux/platform-tools/adb";
+    public final String adbPath = getAdbPath();
 
     public Runtime rt = Runtime.getRuntime();
 
@@ -44,6 +51,9 @@ public class Sensors {
 
     HashMap<String, Integer> primary_sensor_int_map = new HashMap<String, Integer>();
     HashMap<String, Integer> transmitter_sensor_int_map = new HashMap<String, Integer>();
+
+    public Sensors() throws IOException, BiffException {
+    }
 
     public void read_sensors_from_csv() throws IOException {
 
@@ -221,7 +231,7 @@ public class Sensors {
 
     public void add_primary_call(int zone, int group, int sensor_dec, int sensor_type) throws IOException {
         String add_primary = "shell service call qservice 50 i32 " + zone + " i32 " + group + " i32 " + sensor_dec + " i32 " + sensor_type;
-        rt.exec(adbPath + " -s " + primary + add_primary);
+        rt.exec(adbPath + " -s " + primary+" " + add_primary);
         // shell service call qservice 50 i32 2 i32 10 i32 6619296 i32 1
     }
 
@@ -253,7 +263,7 @@ public class Sensors {
             inicialize_primary_sensor_int_map();
             initialize_transmitter_sensor_int_map();
             String add_primary = "shell service call qservice 50 i32 " + zone + " i32 " + newGroup + " i32 " + newDLID_dec + " i32 " + primary_sensor_int_map.get(sensor_type);
-            rt.exec(adbPath + " -s " + primary + add_primary);
+            rt.exec(adbPath + " -s " + primary + " " + add_primary);
             System.out.println(add_primary);
             TimeUnit.SECONDS.sleep(1);
             String add_transmitter = "shell service call srftransmitservice 2 s16 " + newDLID + " i32 0 i32 " + transmitter_sensor_int_map.get(sensor_type) + " i32 0 i32 " + supervisory_time;
@@ -395,4 +405,18 @@ public class Sensors {
             String deleteFromPrimary = " shell service call qservice 51 i32 " + zone;
             rt.exec(adbPath + deleteFromPrimary);
             System.out.println(deleteFromPrimary);}
+
+    private String getAdbPath () throws IOException, BiffException {
+        Workbook wb = Workbook.getWorkbook(new File(config));
+        Sheet sh = wb.getSheet(0);
+        String CellGetContent = sh.getCell(0,0).getContents();
+        return  CellGetContent;
+    }
+
+    private String getudid_ () throws IOException, BiffException {
+        Workbook wb = Workbook.getWorkbook(new File(config));
+        Sheet sh = wb.getSheet(0);
+        String CellGetContent = sh.getCell(1, 0).getContents();
+        return CellGetContent;
+    }
 }

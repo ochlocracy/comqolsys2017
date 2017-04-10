@@ -4,6 +4,7 @@ import Panel.Contact_Us;
 import Panel.Home_Page;
 import Panel.Log;
 import Panel.Setup;
+import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -25,6 +26,9 @@ public class Smoke_Test_Motion extends Setup {
 
     private int Normal_Entry_Delay = 13;
     private int Long_Exit_Delay =16;
+
+    public Smoke_Test_Motion() throws IOException, BiffException {
+    }
 
     @BeforeMethod
     public void capabilitiesSetup() throws Exception {

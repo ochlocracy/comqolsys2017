@@ -1,5 +1,6 @@
 
 import Panel.Setup;
+import jxl.read.biff.BiffException;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -7,6 +8,9 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 
 public class Useful extends Setup{
+
+    public Useful() throws IOException, BiffException {
+    }
 
     @BeforeMethod
     public void capabilitiesSetup() throws Exception {

@@ -2,6 +2,7 @@ package Sensors;
 
 import Panel.Contact_Us;
 import Panel.Log;
+import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -27,7 +28,10 @@ public class Smoke_Test_Doorbell_Occupancy extends Setup {
 
     private int Long_Exit_Delay =16;
 
-    @BeforeMethod
+ public Smoke_Test_Doorbell_Occupancy() throws IOException, BiffException {
+ }
+
+ @BeforeMethod
     public void capabilitiesSetup() throws Exception {
         setup_driver(udid_, "http://127.0.1.1", "4723");
         setup_logger(page_name);

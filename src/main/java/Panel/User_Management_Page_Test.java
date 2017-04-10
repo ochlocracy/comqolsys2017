@@ -1,6 +1,7 @@
 package Panel;
 
 import io.appium.java_client.TouchAction;
+import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -15,6 +16,9 @@ public class User_Management_Page_Test extends  Setup {
 
     String page_name = "User Management page";
     Logger logger = Logger.getLogger(page_name);
+
+    public User_Management_Page_Test() throws IOException, BiffException {
+    }
 
 
     @BeforeMethod

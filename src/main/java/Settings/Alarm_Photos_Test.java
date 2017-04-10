@@ -1,6 +1,7 @@
 package Settings;
 
 import Panel.*;
+import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterMethod;
@@ -12,6 +13,9 @@ public class Alarm_Photos_Test extends Setup{
 
     String page_name = "Alarm Photos testing";
     Logger logger = Logger.getLogger(page_name);
+
+    public Alarm_Photos_Test() throws IOException, BiffException {
+    }
 
     @BeforeMethod
     public void capabilities_setup() throws Exception {

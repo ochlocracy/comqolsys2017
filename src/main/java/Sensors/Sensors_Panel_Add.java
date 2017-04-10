@@ -1,6 +1,7 @@
 package Sensors;
 
 import Panel.Log;
+import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.By;
@@ -21,6 +22,9 @@ public class Sensors_Panel_Add extends Setup {
     private String door_window_dlid = "6500A0";
     String page_name = "Adding sensors from panel UIr";
     Logger logger = Logger.getLogger(page_name);
+
+    public Sensors_Panel_Add() throws IOException, BiffException {
+    }
 
     @BeforeMethod
     public void capabilitiesSetup() throws Exception {

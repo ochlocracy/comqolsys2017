@@ -2,6 +2,7 @@ package Settings;
 
 
 import Panel.*;
+import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterMethod;
@@ -14,6 +15,9 @@ public class Allow_Master_Code_to_access_Camera_Settings_Test extends Setup {
 
     String page_name = "Allow Master Code to access Camera Settings testing";
     Logger logger = Logger.getLogger(page_name);
+
+    public Allow_Master_Code_to_access_Camera_Settings_Test() throws IOException, BiffException {
+    }
 
     @BeforeMethod
     public void capabilities_setup() throws Exception {
