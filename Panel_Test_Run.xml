@@ -6,14 +6,21 @@
         <classes>
             <class name="Panel.Home_Page_Test" />
             <class name="Panel.Emergency_Page_Test" />
+            <class name="Panel.Panel_Camera_Page_Test" />
             <class name="Panel.Contact_Us_Test" />
             <class name="Panel.Slide_Menu_Test" />
             <class name="Panel.Photo_Frame_Page_Test" />
             <class name="Panel.Settings_Page_Test" />
+            <class name="Panel.Display_Page_Test" />
+            <class name="Panel.Activity_Monitor_Page_Test" />
             <class name="Panel.Advanced_Settings_Page_Test" />
             <class name="Panel.Installation_Page_Test" />
-            <class name="Panel.Security_Arming_Page" />
+            <class name="Panel.WiFi_Devices_Page" />
             <class name="Panel.User_Management_Page_Test" />
+            <class name="Panel.About_Page_Test" />
+            <class name="Panel.Security_Arming_Page" />
+            <class name="Panel.Siren_Alarms_Page_Test" />
+            <class name="Panel.Camera_Settings_Page_Test" />
             <class name="Panel.Sound_Page_Test" />
         </classes>
     </test>

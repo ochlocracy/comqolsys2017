@@ -91,7 +91,9 @@ public class Auto_Bypass_Test extends Setup {
         navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
         inst.SECURITY_AND_ARMING.click();
+        Thread.sleep(1000);
         swipe_vertical();
+        Thread.sleep(1000);
         arming.Auto_Bypass.click();
         Thread.sleep(1000);
         settings.Home_button.click();

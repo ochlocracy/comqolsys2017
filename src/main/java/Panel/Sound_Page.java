@@ -23,7 +23,7 @@ public class Sound_Page {
     public WebElement ZWave_Remote_Voice_Prompts;
     @FindBy(xpath = "//android.widget.TextView[@text='All Chimes']")
     public WebElement All_Chimes;
-    @FindBy(xpath = "//android.widget.TextView[@text='Sensor']")
+    @FindBy(xpath = "//android.widget.TextView[@text='Sensor Chimes']")
     public WebElement Sensor_Chimes;
     @FindBy(xpath = "//android.widget.TextView[@text='Panel']")
     public WebElement Panel_Chimes;

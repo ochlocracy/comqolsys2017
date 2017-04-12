@@ -131,7 +131,7 @@ public class Activity_Monitor_Page_Test extends Setup{
         sensors.primary_call("65 02 7A",open); //open  DW2
         Thread.sleep(1000);
         sensors.primary_call("65 02 8A",open); //open  DW3
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         verify_in_alarm();
         Thread.sleep(1000);
         verify_sensor_is_displayed(dw2);

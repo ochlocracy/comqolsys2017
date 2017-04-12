@@ -52,22 +52,22 @@ public class ADC extends Setup {
     public int doorbell = 109;
     public int occupancy = 114;
 
-    String new_dw_name = "NewDoor1";
-    String new_motion_name = "NewMotion1";
-    String new_smoke_name = "NewSmoke1";
-    String new_co_name = "NewCO1";
-    String new_glassbreak_name = "NewGlassBreak1";
-    String new_tilt_name = "NewTilt1";
-    String new_shock_other_name = "NewShockOther1";
-    String new_freeze_name = "NewFreeze1";
-    String new_heat_name = "NewHeat1";
-    String new_water_flood_name = "NewWaterFlood1";
-    String new_keyfob_name = "NewKeyFob1";
-    String new_keypad_name = "NewKeyPad1";
-    String new_med_pendant_name = "NewAuxiliaryPendant1";
-    String new_doorbell_name = "NewDoorBell1";
-    String new_occupancy_name = "NewOccupancy1";
-    String new_iq_shock_name = "NewIQShock1";
+    public String new_dw_name = "NewDoor1";
+    public String new_motion_name = "NewMotion1";
+    public String new_smoke_name = "NewSmoke1";
+    public String new_co_name = "NewCO1";
+    public String new_glassbreak_name = "NewGlassBreak1";
+    public String new_tilt_name = "NewTilt1";
+    public String new_shock_other_name = "NewShockOther1";
+    public String new_freeze_name = "NewFreeze1";
+    public String new_heat_name = "NewHeat1";
+    public String new_water_flood_name = "NewWaterFlood1";
+    public String new_keyfob_name = "NewKeyFob1";
+    public String new_keypad_name = "NewKeyPad1";
+    public String new_med_pendant_name = "NewAuxiliaryPendant1";
+    public String new_doorbell_name = "NewDoorBell1";
+    public String new_occupancy_name = "NewOccupancy1";
+    public String new_iq_shock_name = "NewIQShock1";
 
     public ADC() throws IOException, BiffException {
     }

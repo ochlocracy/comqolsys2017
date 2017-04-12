@@ -37,6 +37,7 @@ public class Access_Point_Test extends  Setup{
 
         element_verification(access.Wifi_Access_Point_summery,"Access Point default summery"); //????
         access.Wifi_Access_Point.click();
+        TimeUnit.SECONDS.sleep(2);
         logger.info("Verifying elements on the page...");
         element_verification(access.Wifi_Access_Point_summery_Enabled,"Access Point summery when Enabled");
         element_verification(access.SSID,"SSID");
