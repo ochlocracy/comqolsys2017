@@ -35,22 +35,86 @@ public class ADC extends Setup {
     String occupancy_DLID = "85 00 1A";
 
 
-    public int door_window = 1;
-    public int motion = 2;
-    public int smoke_detector = 5;
-    public int co_detector = 6;
-    public int glassbreak = 19;
-    public int tilt = 16;
-    public int shock_IQ = 107;
-    public int shock_other = 113;
-    public int freeze = 17;
-    public int heat = 111;
-    public int water_flood = 22;
-    public int keyfob = 102;
-    public int keypad = 104;
-    public int med_pendant = 21;
-    public int doorbell = 109;
-    public int occupancy = 114;
+    private int door_window = 1;
+    private int motion = 2;
+    private int smoke_detector = 5;
+    private int co_detector = 6;
+    private int glassbreak = 19;
+    private int tilt = 16;
+    private int shock_IQ = 107;
+    private int shock_other = 113;
+    private int freeze = 17;
+    private int heat = 111;
+    private int water_flood = 22;
+    private int keyfob = 102;
+    private int keypad = 104;
+    private int med_pendant = 21;
+    private int doorbell = 109;
+    private int occupancy = 114;
+
+    public int getDoor_window() {
+        return door_window;
+    }
+
+    public int getMotion() {
+        return motion;
+    }
+
+    public int getSmoke_detector() {
+        return smoke_detector;
+    }
+
+    public int getCo_detector() {
+        return co_detector;
+    }
+
+    public int getGlassbreak() {
+        return glassbreak;
+    }
+
+    public int getTilt() {
+        return tilt;
+    }
+
+    public int getShock_IQ() {
+        return shock_IQ;
+    }
+
+    public int getShock_other() {
+        return shock_other;
+    }
+
+    public int getFreeze() {
+        return freeze;
+    }
+
+    public int getHeat() {
+        return heat;
+    }
+
+    public int getWater_flood() {
+        return water_flood;
+    }
+
+    public int getKeyfob() {
+        return keyfob;
+    }
+
+    public int getKeypad() {
+        return keypad;
+    }
+
+    public int getMed_pendant() {
+        return med_pendant;
+    }
+
+    public int getDoorbell() {
+        return doorbell;
+    }
+
+    public int getOccupancy() {
+        return occupancy;
+    }
 
     public String new_dw_name = "NewDoor1";
     public String new_motion_name = "NewMotion1";

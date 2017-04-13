@@ -77,14 +77,14 @@ public class SetGridTest extends Setup {
         driver.findElement(By.id("com.qolsys:id/ft_home_button")).click();
 
         TimeUnit.SECONDS.sleep(3);
-        add_primary_call(1, 10, 6619305, myADC.door_window, panel); //default name Door/Window 1
-        add_primary_call(1, 10, 6619305, myADC.door_window, panel1);
-        add_primary_call(2, 17, 5570628, myADC.motion, panel); //default name Motion 2
-        add_primary_call(2, 17, 5570628, myADC.motion, panel1);
-        add_primary_call(3, 26, 6750242, myADC.smoke_detector, panel);
-        add_primary_call(3, 26, 6750242, myADC.smoke_detector, panel1);
-        add_primary_call(4, 34, 7667882, myADC.co_detector, panel); //default name CO Detector 4
-        add_primary_call(4, 34, 7667882, myADC.co_detector, panel1);
+        add_primary_call(1, 10, 6619305, myADC.getDoor_window(), panel); //default name Door/Window 1
+        add_primary_call(1, 10, 6619305, myADC.getDoor_window(), panel1);
+        add_primary_call(2, 17, 5570628, myADC.getMotion(), panel); //default name Motion 2
+        add_primary_call(2, 17, 5570628, myADC.getMotion(), panel1);
+        add_primary_call(3, 26, 6750242, myADC.getSmoke_detector(), panel);
+        add_primary_call(3, 26, 6750242, myADC.getSmoke_detector(), panel1);
+        add_primary_call(4, 34, 7667882, myADC.getCo_detector(), panel); //default name CO Detector 4
+        add_primary_call(4, 34, 7667882, myADC.getCo_detector(), panel1);
 
         TimeUnit.SECONDS.sleep(3);
         System.out.println("Go to the settings");
