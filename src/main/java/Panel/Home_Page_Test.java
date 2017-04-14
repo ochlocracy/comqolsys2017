@@ -11,7 +11,7 @@ import java.io.IOException;
 public class Home_Page_Test extends Setup {
 
     String page_name = "Home page";
-    Logger logger = Logger.getLogger(page_name);
+   // Logger logger = Logger.getLogger(page_name);
 
     public Home_Page_Test() throws IOException, BiffException {
     }
