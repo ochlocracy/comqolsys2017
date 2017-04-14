@@ -2,8 +2,6 @@ package Panel;
 
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
-import jxl.Sheet;
-import jxl.Workbook;
 import jxl.read.biff.BiffException;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
@@ -89,7 +87,7 @@ public class Setup1 {
 
 
     public void setup_logger(String test_case_name) throws Exception {
-        PropertyConfigurator.configure(new File(appDir, "log4j.properties").getAbsolutePath());
+        PropertyConfigurator.configure(new File(appDir, "src/log4j.properties").getAbsolutePath());
         log.clearLog();
         log.startTestCase(" " +test_case_name+ " ");
     }

@@ -35,14 +35,14 @@ public class Setup {
 
     private String  config = "/home/qolsys/Desktop/config.xls";
     public String adbPath = getAdbPath();   //"/home/qolsys/android-sdk-linux/platform-tools/adb";
-    public String appDir = "/home/qolsys/Desktop/comqolsysPOM/src/main/java/log4j.properties";
+    public File appDir = new File("src");
     public String udid_ =  getudid_(); //"8ebdbc76";
  //   public String udid_ = "628f4ae7";
 
     public AndroidDriver<WebElement> driver;
 
-   public Log log = new Log();
-   public Logger logger = Logger.getLogger("String");
+    public Log log = new Log();
+    public Logger logger = Logger.getLogger(this.getClass().getName());
     public Runtime rt = Runtime.getRuntime();
 
    private static final SimpleDateFormat sdf = new SimpleDateFormat("MM.dd_HH.mm.ss");
@@ -85,7 +85,7 @@ public class Setup {
 
     public void setup_logger(String test_case_name) throws Exception {
         PropertyConfigurator.configure(new File(appDir, "log4j.properties").getAbsolutePath());
-  //      log.clearLog();
+      //  log.clearLog();
         log.startTestCase(" " +test_case_name+ " ");
     }
 
