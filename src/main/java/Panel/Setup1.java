@@ -2,86 +2,91 @@ package Panel;
 
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
-import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
-import org.openqa.selenium.*;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.PageFactory;
-
-import java.io.*;
-import org.openqa.selenium.logging.LogEntry;
-
-import java.net.URL;
-import java.util.List;
-import java.util.Properties;
-import java.util.concurrent.TimeUnit;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
+import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.logging.LogEntry;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.PageFactory;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-public class Setup {
+public class Setup1 {
 
     private String  config = "/home/qolsys/Desktop/config.xls";
-    public String adbPath = getAdbPath();   //"/home/qolsys/android-sdk-linux/platform-tools/adb";
-    public String appDir = getAppDir();
-    public String udid_ =  getudid_(); //"8ebdbc76";
+    public String adbPath = "/home/qolsys/android-sdk-linux/platform-tools/adb";
+    public String appDir = "/home/qolsys/Desktop/comqolsysPOM/src/main/java";
  //   public String udid_ = "628f4ae7";
 
     public AndroidDriver<WebElement> driver;
+    DesiredCapabilities capabilities = new DesiredCapabilities();
 
-   public Log log = new Log();
+    public AndroidDriver<WebElement> getDriver() {return driver;}
+
+    public Setup1() throws IOException, BiffException { this.driver = driver;}
+
+    public DesiredCapabilities getCapabilities() {
+        return capabilities;
+    }
+
+    public Log log = new Log();
    public Logger logger = Logger.getLogger("String");
     public Runtime rt = Runtime.getRuntime();
 
    private static final SimpleDateFormat sdf = new SimpleDateFormat("MM.dd_HH.mm.ss");
 
-    public Setup() throws IOException, BiffException {
+
+//    public String getAdbPath () throws IOException, BiffException {
+//       Workbook wb = Workbook.getWorkbook(new File(config));
+//       Sheet sh = wb.getSheet(0);
+//       String CellGetContent = sh.getCell(0,0).getContents();
+//       return  CellGetContent;
+//   }
+//
+//    public String getAppDir () throws IOException, BiffException {
+//        Workbook wb = Workbook.getWorkbook(new File(config));
+//        Sheet sh = wb.getSheet(0);
+//        String CellGetContent = sh.getCell(0, 1).getContents();
+//        return CellGetContent;
+//    }
+//
+//    public String getudid_ () throws IOException, BiffException {
+//        Workbook wb = Workbook.getWorkbook(new File(config));
+//        Sheet sh = wb.getSheet(0);
+//        String CellGetContent = sh.getCell(1, 0).getContents();
+//        return CellGetContent;
+//    }
+
+
+    @Parameters({"deviceName_", "applicationName_", "UDID_", "platformVersion_", "URL_", "PORT_" })
+    @BeforeClass(alwaysRun=true)
+    public void setCapabilities(String URL_) throws MalformedURLException {
+        capabilities.setCapability("BROWSER_NAME", "Android");
+        capabilities.setCapability("deviceName", "deviceName_");
+        capabilities.setCapability("UDID", "UDID_");
+        capabilities.setVersion("platformVersion_");
+        capabilities.setCapability("applicationName", "applicationName_");
+        capabilities.setCapability("appPackage", "com.qolsys");
+        capabilities.setCapability("appActivity", "com.qolsys.activites.Theme3HomeActivity");
+        capabilities.setCapability("PORT", "PORT_");
+        this.driver = new AndroidDriver<WebElement>(new URL(URL_), getCapabilities());
     }
 
-
-    public String getAdbPath () throws IOException, BiffException {
-       Workbook wb = Workbook.getWorkbook(new File(config));
-       Sheet sh = wb.getSheet(0);
-       String CellGetContent = sh.getCell(0,0).getContents();
-       return  CellGetContent;
-   }
-
-    public String getAppDir () throws IOException, BiffException {
-        Workbook wb = Workbook.getWorkbook(new File(config));
-        Sheet sh = wb.getSheet(0);
-        String CellGetContent = sh.getCell(0, 1).getContents();
-        return CellGetContent;
-    }
-
-    public String getudid_ () throws IOException, BiffException {
-        Workbook wb = Workbook.getWorkbook(new File(config));
-        Sheet sh = wb.getSheet(0);
-        String CellGetContent = sh.getCell(1, 0).getContents();
-        return CellGetContent;
-    }
-
-    public void setup_driver(String udid_, String url_, String port_) throws Exception {
-
-        DesiredCapabilities cap = new DesiredCapabilities();
-        cap.setCapability("deviceName", "IQPanel2");
-        cap.setCapability("BROWSER_NAME", "Android");
-        cap.setCapability("udid", udid_);
-        cap.setCapability("appPackage", "com.qolsys");
-        cap.setCapability("appActivity", "com.qolsys.activites.Theme3HomeActivity");
-        driver = new AndroidDriver<WebElement>(new URL(url_+":"+port_+"/wd/hub"), cap);
-    }
 
     public void setup_logger(String test_case_name) throws Exception {
         PropertyConfigurator.configure(new File(appDir, "log4j.properties").getAbsolutePath());
@@ -355,41 +360,15 @@ public class Setup {
     public void killLogcat() throws Exception{
         rt.exec(adbPath+" shell busybox pkill logcat");
     }
-
-    public static void SendReport(String email) {
-
-        Properties props = new Properties();
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.socketFactory.port", "465");
-        props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.port", "465");
-        Session session = Session.getDefaultInstance(props,
-                new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication("adyshleva@gmail.com", "Deutschland1983!");
-                    }
-                });
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("adyshleva@gmail.com"));
-            message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(email));
-            message.setSubject("Test Automation Report");
-            BodyPart messageBodyPart1 = new MimeBodyPart();
-            messageBodyPart1.setText("Hello, \nplease find in the attachment test automation results for the current build");
-            MimeBodyPart messageBodyPart2 = new MimeBodyPart();
-            String filename = "/home/qolsys/Desktop/comqolsysPOM/log/testlog1.log";
-            DataSource source = new FileDataSource(filename);
-            messageBodyPart2.setDataHandler(new DataHandler(source));
-            messageBodyPart2.setFileName(filename);
-            Multipart multipart = new MimeMultipart();
-            multipart.addBodyPart(messageBodyPart2);
-            multipart.addBodyPart(messageBodyPart1);
-            message.setContent(multipart);
-            Transport.send(message);
-            System.out.println("=====Email Sent=====");
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        }
+    public void add_primary_call(int zone, int group, int sencor_dec, int sensor_type, String UDID_) throws IOException {
+        String add_primary = " shell service call qservice 50 i32 " + zone + " i32 " + group + " i32 " + sencor_dec + " i32 " + sensor_type;
+        rt.exec(adbPath + " -s " + UDID_ + add_primary);
+        // shell service call qservice 50 i32 2 i32 10 i32 6619296 i32 1
     }
+
+    public void primary_call(String UDID_, String DLID, String State) throws IOException {
+        String primary_send =" shell rfinjector 02 "+DLID+" "+State;
+        rt.exec(adbPath + " -s " +UDID_+ primary_send);
+        // shell service call qservice 50 i32 2 i32 10 i32 6619296 i32 1
+        System.out.println(adbPath + " -s " +UDID_+ primary_send); }
 }

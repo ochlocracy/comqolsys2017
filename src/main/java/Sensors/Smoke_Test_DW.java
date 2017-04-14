@@ -37,7 +37,7 @@ public class Smoke_Test_DW extends Setup {
     }
 
     @Test
-    public void Disarm_Mode() throws Exception {
+    public void a_Disarm_Mode() throws Exception {
 
         logger.info("Current software version: " + Software_Version());
         MySensors.read_sensors_from_csv();
@@ -145,7 +145,7 @@ public class Smoke_Test_DW extends Setup {
     }
 
     @Test
-    public void Armed_Stay_Mode () throws Exception {
+    public void b_Armed_Stay_Mode () throws Exception {
 
         MySensors.read_sensors_from_csv();
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
@@ -358,7 +358,7 @@ public class Smoke_Test_DW extends Setup {
     }
 
     @Test
-    public void Armed_Away_Mode() throws Exception {
+    public void c_Armed_Away_Mode() throws Exception {
 
         MySensors.read_sensors_from_csv();
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);

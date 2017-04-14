@@ -51,6 +51,7 @@ public class GridSetup {
     final int doorbell = 109;
     final int occupancy = 114;
 
+
     public String adbPath = "/home/qolsys/android-sdk-linux/platform-tools/adb";
     public Runtime rt = Runtime.getRuntime();
     public Log log = new Log();
@@ -86,6 +87,7 @@ public class GridSetup {
     public DesiredCapabilities getCapabilities() {
         return capabilities;
     }
+
     public void add_primary_call(int zone, int group, int sencor_dec, int sensor_type, String UDID_) throws IOException {
         String add_primary = " shell service call qservice 50 i32 " + zone + " i32 " + group + " i32 " + sencor_dec + " i32 " + sensor_type;
         rt.exec(adbPath + " -s " + UDID_ + add_primary);
@@ -126,7 +128,60 @@ public class GridSetup {
         driver.hideKeyboard();
         driver.findElement(By.id("com.qolsys:id/addsensor")).click();
     }
-
+    public void verify_disarm() throws Exception {
+        Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        if (home_page.Disarmed_text.getText().equals("DISARMED")) {
+            logger.info("Pass: System is DISARMED");
+        } else {
+            //         take_screenshot();
+            logger.info("Failed: System is not DISARMED " + home_page.Disarmed_text.getText());
+        }
+    }
+    public void verify_sensor_is_displayed(WebElement sensor_name) throws Exception {
+        if (sensor_name.isDisplayed()) {
+            logger.info(sensor_name.getText() +" is successfully opened/activated");
+        } else {
+            //         take_screenshot();
+            logger.info(sensor_name +" is NOT opened/activated");}
+    }
+    public void verify_status_open() throws Exception {
+        Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        if (home_page.Red_banner_sensor_status.getText().equals("Open")) {
+            logger.info("Pass: Correct status is Open");
+        }else {
+            //       take_screenshot();
+            logger.info("Failed: Incorrect status: " + home_page.Red_banner_sensor_status.getText());}
+    }
+    public void verify_in_alarm() throws Exception {
+        Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        if (home_page.ALARM.isDisplayed()) {
+            logger.info("Pass: System is in ALARM");
+        } else {
+            //       take_screenshot();
+            logger.info("Failed: System is NOT in ALARM");}
+    }
+    public void enter_default_user_code (){
+        Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        home_page.One.click();
+        home_page.Two.click();
+        home_page.Three.click();
+        home_page.Four.click();
+    }
+    public void verify_sensor_is_tampered(WebElement sensor_name) throws Exception {
+        if (sensor_name.isDisplayed()) {
+            logger.info(sensor_name.getText() + " is successfully tampered");
+        } else {
+            //        take_screenshot();
+            logger.info(sensor_name +" is NOT tampered");}
+    }
+    public void verify_status_tampered() throws Exception {
+        Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        if (home_page.Red_banner_sensor_status.getText().equals("Tampered")) {
+            logger.info("Pass: Correct status is Tampered");
+        }else {
+            //      take_screenshot();
+            logger.info("Failed: Incorrect status: " + home_page.Red_banner_sensor_status.getText());}
+    }
 
     @AfterClass
     public void tearDown () throws IOException, InterruptedException {
