@@ -35,7 +35,7 @@ public class Setup {
 
     private String  config = "/home/qolsys/Desktop/config.xls";
     public String adbPath = getAdbPath();   //"/home/qolsys/android-sdk-linux/platform-tools/adb";
-    public String appDir = getAppDir();
+    public String appDir = "/home/qolsys/Desktop/comqolsysPOM/src/main/java/log4j.properties";
     public String udid_ =  getudid_(); //"8ebdbc76";
  //   public String udid_ = "628f4ae7";
 
