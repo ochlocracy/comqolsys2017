@@ -29,7 +29,7 @@
         </profile>
 
         <profile>
-            <id>PanelTest</id>
+            <id>DoorWindowSmoke</id>
             <build>
                 <plugins>
                     <plugin>
