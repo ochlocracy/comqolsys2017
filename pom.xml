@@ -64,6 +64,24 @@
             </build>
         </profile>
 
+        <profile>
+            <id>SmokeCo</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.19.1</version>
+                        <configuration>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>SmokeCo_Smoke.xml</suiteXmlFile>
+                            </suiteXmlFiles>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
 
     </profiles>
     <dependencies>
