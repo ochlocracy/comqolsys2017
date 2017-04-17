@@ -38,7 +38,7 @@
                         <version>2.19.1</version>
                         <configuration>
                             <suiteXmlFiles>
-                                <suiteXmlFile>Panel_Test_Run.xml</suiteXmlFile>
+                                <suiteXmlFile>DWSmoke.xml</suiteXmlFile>
                             </suiteXmlFiles>
                         </configuration>
                     </plugin>
