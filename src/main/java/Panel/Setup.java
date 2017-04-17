@@ -317,7 +317,8 @@ public class Setup {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         try {
             // now copy the  screenshot to desired location using copyFile //method
-            FileUtils.copyFile(src, new File("/home/qolsys/Desktop/comqolsysPOM/screenshots/"+sdf.format(timestamp)+".png"));
+     //       FileUtils.copyFile(src, new File("/home/qolsys/Desktop/comqolsysPOM/screenshots/"+sdf.format(timestamp)+".png"));
+            FileUtils.copyFile(src, new File("src/screenshots/"+sdf.format(timestamp)+".png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
