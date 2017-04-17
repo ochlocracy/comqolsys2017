@@ -2,7 +2,7 @@
 
 <suite name="Sensors_Smoke">
 
-    <test name="Sensors_Smoke">
+    <test name="DWSmoke">
         <classes>
             <class name="Sensors.Smoke_Test_DW" />
         </classes>
