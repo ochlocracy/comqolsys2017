@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="TestAll">
+
+    <test name="Settings_Testing">
+        <classes>
+            <class name="Settings.Panic_Disable_Test" />
+            <class name="Settings.Secure_Arming_Test" />
+            <!--<class name="Settings.Auto_Bypass_Test" />-->
+            <class name="Settings.Auto_Stay_Test" />
+            <class name="Settings.Arm_Stay_No_Delay_Test" />
+            <class name="Settings.Auto_Exit_Time_Extension_Test" />
+        </classes>
+    </test>
+</suite>
