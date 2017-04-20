@@ -26,9 +26,9 @@ import java.util.concurrent.TimeUnit;
 
 public class Setup1 {
 
-    private String  config = "/home/qolsys/Desktop/config.xls";
+ //   private String  config = "/home/qolsys/Desktop/config.xls";
     public String adbPath = "/home/qolsys/android-sdk-linux/platform-tools/adb";
-    public String appDir = "/home/qolsys/Desktop/comqolsysPOM/src/main/java";
+    public String appDir = "src";
  //   public String udid_ = "628f4ae7";
 
     public AndroidDriver<WebElement> driver;
@@ -87,7 +87,7 @@ public class Setup1 {
 
 
     public void setup_logger(String test_case_name) throws Exception {
-        PropertyConfigurator.configure(new File(appDir, "src/log4j.properties").getAbsolutePath());
+        PropertyConfigurator.configure(new File(appDir, "log4j.properties").getAbsolutePath());
         log.clearLog();
         log.startTestCase(" " +test_case_name+ " ");
     }
