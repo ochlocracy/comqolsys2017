@@ -88,7 +88,6 @@ public class Setup1 {
 
     public void setup_logger(String test_case_name) throws Exception {
         PropertyConfigurator.configure(new File(appDir, "log4j.properties").getAbsolutePath());
-        log.clearLog();
         log.startTestCase(" " +test_case_name+ " ");
     }
 
