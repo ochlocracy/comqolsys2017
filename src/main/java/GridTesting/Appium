@@ -1,0 +1,5 @@
+java -jar ~/Desktop/comqolsys/selenium-server-standalone-2.53.0.jar -port 4444 -role hub
+
+appium --nodeconfig ~/Desktop/comqolsysPOM/src/main/java/GridTesting/android1.json -p 4725 -bp 5725 --udid 8ebdbc76
+appium --nodeconfig ~/Desktop/comqolsysPOM/src/main/java/GridTesting/android1.json -p 4727 -bp 5727 --udid 8ebdbc7f
+appium --nodeconfig ~/Desktop/comqolsysPOM/src/main/java/GridTesting/android1.json -p 4729 -bp 5729 --udid 8ebdbce0

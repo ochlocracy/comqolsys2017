@@ -22,26 +22,28 @@ public class Test3 {
     @Test(threadPoolSize = 3)
     public void Test1 (String UDID_) throws InterruptedException, MalformedURLException {
 
-        setup.Software_Version();
-        TimeUnit.SECONDS.sleep(3);
-        setup.getDriver().findElement(By.id("com.qolsys:id/btn_drop")).click();
-        setup.getDriver().findElement(By.id("com.qolsys:id/tv_tray_settings")).click();
-        WebElement a = setup.getDriver().findElement(By.id("com.qolsys:id/gridview"));
-        List<WebElement> li = a.findElements(By.className("android.widget.TextView"));
-        li.get(8).click();
-        setup.getDriver().findElement(By.id("com.qolsys:id/tv_keyOne")).click();
-        setup.getDriver().findElement(By.id("com.qolsys:id/tv_keyOne")).click();
-        setup.getDriver().findElement(By.id("com.qolsys:id/tv_keyOne")).click();
-        setup.getDriver().findElement(By.id("com.qolsys:id/tv_keyOne")).click();
-        li.get(2).click();
-        setup.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Software']")).click();
-        WebElement soft_version =  setup.getDriver().findElement(By.id("com.qolsys:id/summary"));
-        String current_version = soft_version.getText();
-        System.out.println(current_version);
-        setup.getDriver().findElement(By.id("com.qolsys:id/ft_home_button")).click();
-        TimeUnit.SECONDS.sleep(3);
-        setup.getDriver().findElement(By.id("com.qolsys:id/t3_home_tab2")).click();
-        TimeUnit.SECONDS.sleep(1);
+        for (int i = 30; i > 0; i--) {
+            setup.Software_Version();
+            TimeUnit.SECONDS.sleep(3);
+            setup.getDriver().findElement(By.id("com.qolsys:id/btn_drop")).click();
+            setup.getDriver().findElement(By.id("com.qolsys:id/tv_tray_settings")).click();
+            WebElement a = setup.getDriver().findElement(By.id("com.qolsys:id/gridview"));
+            List<WebElement> li = a.findElements(By.className("android.widget.TextView"));
+            li.get(8).click();
+            setup.getDriver().findElement(By.id("com.qolsys:id/tv_keyOne")).click();
+            setup.getDriver().findElement(By.id("com.qolsys:id/tv_keyOne")).click();
+            setup.getDriver().findElement(By.id("com.qolsys:id/tv_keyOne")).click();
+            setup.getDriver().findElement(By.id("com.qolsys:id/tv_keyOne")).click();
+            li.get(2).click();
+            setup.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Software']")).click();
+            WebElement soft_version = setup.getDriver().findElement(By.id("com.qolsys:id/summary"));
+            String current_version = soft_version.getText();
+            System.out.println(current_version);
+            setup.getDriver().findElement(By.id("com.qolsys:id/ft_home_button")).click();
+            TimeUnit.SECONDS.sleep(3);
+            setup.getDriver().findElement(By.id("com.qolsys:id/t3_home_tab2")).click();
+            TimeUnit.SECONDS.sleep(1);
+        }
     }
     @AfterClass(alwaysRun = true)
     public void TearDown(){
