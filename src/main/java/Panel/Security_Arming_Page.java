@@ -72,4 +72,9 @@ public class Security_Arming_Page {
     public WebElement Long_Entry_Delay;
     @FindBy(xpath = "//android.widget.TextView[@text='Long Exit Delay']")
     public WebElement Long_Exit_Delay;
+    @FindBy(id = "android:id/numberpicker_input")
+    public WebElement Input_Field;
+    @FindBy(id = "com.qolsys:id/Set")
+    public WebElement Delay_Set;
+
 }

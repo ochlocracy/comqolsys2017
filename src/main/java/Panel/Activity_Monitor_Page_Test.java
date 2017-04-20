@@ -202,7 +202,6 @@ public class Activity_Monitor_Page_Test extends Setup{
     @AfterMethod
     public void tearDown () throws IOException, InterruptedException {
         log.endTestCase(page_name);
-
         driver.quit();
     }
 }

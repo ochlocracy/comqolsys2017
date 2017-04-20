@@ -34,4 +34,7 @@ public class Dealer_Settings_Page {
     public WebElement DSettings_Cancel;
     @FindBy(xpath = "//android.widget.TextView[@text='Loss of supervisory signals for non-emergency sensors']")
     public WebElement  Loss_of_supervisory_signals_for_non_emergency_sensors;
+
+    @FindBy(xpath = "//android.widget.TextView[@text='SIA Limits']")
+    public WebElement  SIA_Limits;
 }

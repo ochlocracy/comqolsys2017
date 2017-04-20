@@ -17,6 +17,8 @@ import java.util.concurrent.TimeUnit;
 
 public class WebSite extends Setup {
 
+    public File appDir = new File("src");
+
     Log log = new Log();
     ADC myADC = new ADC();
     String open = "06";
@@ -30,7 +32,7 @@ public class WebSite extends Setup {
 
     @BeforeMethod
     public void capabilitiesSetup() throws Exception {
-        PropertyConfigurator.configure(new File(appDir, "src/log4j.properties").getAbsolutePath());
+        PropertyConfigurator.configure(new File(appDir, "log4j.properties").getAbsolutePath());
         log.clearLog();
         log.startTestCase("ADC sensors name change");
         setup_driver(udid_, "http://127.0.1.1", "4723");

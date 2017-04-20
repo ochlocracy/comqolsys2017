@@ -393,4 +393,96 @@ public class Setup {
             throw new RuntimeException(e);
         }
     }
-}
+
+    public void setDelay() throws InterruptedException {
+        Home_Page home = PageFactory.initElements(driver, Home_Page.class);
+        Dealer_Settings_Page dealer = PageFactory.initElements(driver, Dealer_Settings_Page.class);
+        Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
+        Installation_Page inst = PageFactory.initElements(driver, Installation_Page.class);
+        Security_Arming_Page arming = PageFactory.initElements(driver, Security_Arming_Page.class);
+        navigate_to_Advanced_Settings_page();
+        adv.INSTALLATION.click();
+        inst.DEALER_SETTINGS.click();
+        Thread.sleep(1000);
+        swipe_vertical();
+        Thread.sleep(1000);
+        swipe_vertical();
+        Thread.sleep(1000);
+        dealer.SIA_Limits.click();
+        Thread.sleep(1000);
+        home.Back_button.click();
+        Thread.sleep(1000);
+        inst.SECURITY_AND_ARMING.click();
+        Thread.sleep(1000);
+        swipe_vertical();
+        Thread.sleep(1000);
+        swipe_vertical();
+        Thread.sleep(1000);
+        swipe_vertical();
+        Thread.sleep(1000);
+        swipe_vertical();
+        Thread.sleep(1000);
+        arming.Normal_Entry_Delay.click();
+        Thread.sleep(1000);
+        tap(1081,504);
+        Thread.sleep(1000);
+        tap(540,504);
+        Thread.sleep(1000);
+        tap(540,504);
+        arming.Delay_Set.click();
+        Thread.sleep(1000);
+        arming.Normal_Exit_Delay.click();
+        Thread.sleep(1000);
+        tap(1081,504);
+        Thread.sleep(1000);
+        tap(540,504);
+        Thread.sleep(1000);
+        tap(725,504);
+        arming.Delay_Set.click();
+        Thread.sleep(1000);
+        arming.Long_Entry_Delay.click();
+        Thread.sleep(1000);
+        tap(1081,504);
+        Thread.sleep(1000);
+        tap(540,504);
+        Thread.sleep(1000);
+        tap(908,504);
+        arming.Delay_Set.click();
+        Thread.sleep(1000);
+        arming.Long_Exit_Delay.click();
+        Thread.sleep(1000);
+        tap(1081,504);
+        Thread.sleep(1000);
+        tap(540,504);
+        Thread.sleep(1000);
+        tap(908,504);
+        arming.Delay_Set.click();
+        Thread.sleep(1000);
+        home.Home_button.click();
+    }
+    public void autoStaySetting () throws InterruptedException {
+        Home_Page home = PageFactory.initElements(driver, Home_Page.class);
+        Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
+        Installation_Page inst = PageFactory.initElements(driver, Installation_Page.class);
+        Security_Arming_Page arming = PageFactory.initElements(driver, Security_Arming_Page.class);
+        navigate_to_Advanced_Settings_page();
+        adv.INSTALLATION.click();
+        inst.SECURITY_AND_ARMING.click();
+        Thread.sleep(1000);
+        swipe_vertical();
+        Thread.sleep(1000);
+        arming.Auto_Stay.click();
+        Thread.sleep(1000);
+        home.Home_button.click();
+    }
+    public void enableWiFi () throws InterruptedException {
+        Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
+        navigate_to_Advanced_Settings_page();
+        adv.WI_FI.click();
+        driver.findElement(By.id("com.qolsys:id/wire_less_toggle")).click();
+        Thread.sleep(3000);
+
+    }
+
+
+    }

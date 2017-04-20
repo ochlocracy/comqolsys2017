@@ -22,6 +22,13 @@ public class Useful extends Setup{
         delete_all_camera_photos();
     }
 
+    @Test
+    public void afterMasterReset() throws InterruptedException {
+        setDelay(); //11, 12, 13, 13
+        enableWiFi();
+
+    }
+
     @AfterMethod
     public void tearDown () throws IOException, InterruptedException {
         driver.quit();
