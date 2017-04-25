@@ -3,11 +3,11 @@
   "capabilities": [
     {
       "seleniumProtocol": "WebDriver",
-      "deviceName_": "8ebdbce0",
+      "deviceName_": "test3",
       "version": "5.1",
       "maxInstances": 1,
       "platform": "ANDROID",
-      "applicationName": "8ebdbce0",
+      "applicationName": "test3",
       "newCommandTimeout":"30",
       "deviceReadyTimeout":5
     }
@@ -17,8 +17,8 @@
     "port": 4729,
     "hubPort": 4444,
     "proxy": "org.openqa.grid.selenium.proxy.DefaultRemoteProxy",
-    "url": "http://172.16.101.81:4729/wd/hub",
-    "hubHost": "172.16.101.81",
+    "url": "http://127.0.1.1:4729/wd/hub",
+    "hubHost": "127.0.1.1",
     "nodePolling": 2000,
     "registerCycle": 10000,
     "register": true,

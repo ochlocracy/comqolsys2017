@@ -1,7 +1,9 @@
 package Panel;
 
+import GridTesting.AppiumServerJava;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.service.local.AppiumDriverLocalService;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -44,6 +46,7 @@ public class Setup {
     public Log log = new Log();
     public Logger logger = Logger.getLogger(this.getClass().getName());
     public Runtime rt = Runtime.getRuntime();
+    public AppiumDriverLocalService service = AppiumDriverLocalService.buildDefaultService();
 
    private static final SimpleDateFormat sdf = new SimpleDateFormat("MM.dd_HH.mm.ss");
 

@@ -19,9 +19,10 @@ public class Alarm_Photos_Test extends Setup{
 
     @BeforeMethod
     public void capabilities_setup() throws Exception {
-        setup_driver(udid_,"http://127.0.1.1", "4723");
+        setup_driver(udid_, "http://127.0.1.1", "4723");
         setup_logger(page_name);
     }
+
     @Test
     public void Verify_Alarm_Photos_works() throws Exception {
         Home_Page home = PageFactory.initElements(driver, Home_Page.class);

@@ -34,6 +34,7 @@ public class Setup1 {
     public AndroidDriver<WebElement> driver;
     DesiredCapabilities capabilities = new DesiredCapabilities();
 
+
     public AndroidDriver<WebElement> getDriver() {return driver;}
 
     public Setup1() throws IOException, BiffException { this.driver = driver;}
@@ -84,7 +85,6 @@ public class Setup1 {
         capabilities.setCapability("PORT", "PORT_");
         this.driver = new AndroidDriver<WebElement>(new URL(URL_), getCapabilities());
     }
-
 
     public void setup_logger(String test_case_name) throws Exception {
         PropertyConfigurator.configure(new File(appDir, "log4j.properties").getAbsolutePath());

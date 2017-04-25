@@ -23,7 +23,7 @@ public class Settings_Photos_Test extends Setup {
         setup_logger(page_name);
     }
     @Test
-    public void Verify_Alarm_Photos_works() throws Exception {
+    public void Verify_Settings_Photos_works() throws Exception {
         Panel_Camera_Page camera = PageFactory.initElements(driver, Panel_Camera_Page.class);
         Camera_Settings_Page set_cam = PageFactory.initElements(driver, Camera_Settings_Page.class);
         Settings_Page settings = PageFactory.initElements(driver, Settings_Page.class);

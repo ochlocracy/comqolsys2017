@@ -64,6 +64,7 @@ public class Auto_Stay_Test extends Setup {
         arming.Auto_Stay.click();
         Thread.sleep(2000);
         settings.Home_button.click();
+        sensors.delete_from_primary(1);
         Thread.sleep(2000);
     }
 

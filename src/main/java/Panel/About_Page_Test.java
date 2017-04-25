@@ -15,6 +15,7 @@ public class About_Page_Test extends Setup {
 
     String page_name = "About page testing";
     Logger logger = Logger.getLogger(page_name);
+    Setup s =new Setup();
 
     public About_Page_Test() throws IOException, BiffException {
     }
