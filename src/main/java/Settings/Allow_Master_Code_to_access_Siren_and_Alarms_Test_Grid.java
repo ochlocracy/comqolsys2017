@@ -1,6 +1,5 @@
 package Settings;
 
-
 import Panel.*;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
@@ -28,7 +27,6 @@ public class Allow_Master_Code_to_access_Siren_and_Alarms_Test_Grid {
         s.setup_logger(page_name);
     }
 
-    @Parameters ({"UDID_"})
     @Test
     public void Verify_Master_Code_gets_access_to_Siren_and_Alarms_page() throws Exception {
         Siren_Alarms_Page siren = PageFactory.initElements(s.getDriver(), Siren_Alarms_Page.class);
@@ -49,6 +47,7 @@ public class Allow_Master_Code_to_access_Siren_and_Alarms_Test_Grid {
         Thread.sleep(2000);
         settings.Home_button.click();
         Thread.sleep(2000);
+        logger.info("Navigate to the Advanced setting page to check Siren and Alarms icon");
         s.navigate_to_Settings_page();
         settings.ADVANCED_SETTINGS.click();
         s.enter_default_user_code();
@@ -59,6 +58,7 @@ public class Allow_Master_Code_to_access_Siren_and_Alarms_Test_Grid {
             logger.info("Failed: Siren and Alarms icon is NOT present");}
         Thread.sleep(2000);
         settings.Home_button.click();
+        logger.info("Verify Siren and Alarms icon disappears after disabling the setting");
         s.navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
         inst.SIREN_AND_ALARMS.click();
@@ -70,7 +70,7 @@ public class Allow_Master_Code_to_access_Siren_and_Alarms_Test_Grid {
         siren.Allow_Master_Code_To_Access_Siren_and_Alarms.click();
         Thread.sleep(2000);
         settings.Home_button.click();
-        logger.info("Verify Siren and Alarms icon disappears after disabling the setting");
+        logger.info("Navigate to the Advanced setting page to check Siren and Alarms icon");
         s.navigate_to_Settings_page();
         settings.ADVANCED_SETTINGS.click();
         s.enter_default_user_code();
@@ -81,8 +81,7 @@ public class Allow_Master_Code_to_access_Siren_and_Alarms_Test_Grid {
             logger.info("Failed: Siren and Alarms icon is present");
         } catch(Exception e){
             logger.info("Pass: Siren and Alarms icon is NOT present");
-        } finally{
-        }
+        } finally{}
     }
 
     @AfterClass

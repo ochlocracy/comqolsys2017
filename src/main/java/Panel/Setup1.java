@@ -368,4 +368,9 @@ public class Setup1 {
         rt.exec(adbPath + " -s " +UDID_+ primary_send);
         // shell service call qservice 50 i32 2 i32 10 i32 6619296 i32 1
         System.out.println(adbPath + " -s " +UDID_+ primary_send); }
+
+    public void delete_from_primary(String UDID_, int zone) throws IOException, InterruptedException {
+        String deleteFromPrimary = " shell service call qservice 51 i32 " + zone;
+        rt.exec(adbPath + " -s " +UDID_+ deleteFromPrimary);
+        System.out.println(deleteFromPrimary);}
 }

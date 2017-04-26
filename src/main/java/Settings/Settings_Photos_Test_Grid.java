@@ -16,15 +16,13 @@ public class Settings_Photos_Test_Grid {
     String page_name = "Settings Photos testing";
     Logger logger = Logger.getLogger(page_name);
 
-    public Settings_Photos_Test_Grid() throws IOException, BiffException {
-    }
+    public Settings_Photos_Test_Grid() throws IOException, BiffException {}
     @Parameters({"deviceName_", "applicationName_", "UDID_", "platformVersion_", "URL_", "PORT_" })
     @BeforeClass
     public void setUp(String deviceName_, String applicationName_, String UDID_, String platformVersion_, String URL_, String PORT_) throws Exception {
         s.setCapabilities(URL_);
         s.setup_logger(page_name);
     }
-    @Parameters ({"UDID_"})
     @Test
     public void Verify_Settings_Photos_works() throws Exception {
         Panel_Camera_Page camera = PageFactory.initElements(s.getDriver(), Panel_Camera_Page.class);

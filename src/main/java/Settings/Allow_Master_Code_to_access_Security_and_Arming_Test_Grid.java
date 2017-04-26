@@ -27,7 +27,6 @@ public class Allow_Master_Code_to_access_Security_and_Arming_Test_Grid {
         s.setup_logger(page_name);
     }
 
-    @Parameters ({"UDID_"})
     @Test
     public void Verify_Master_Code_gets_access_to_Security_and_Arming_page() throws Exception {
         Security_Arming_Page arming = PageFactory.initElements(s.getDriver(), Security_Arming_Page.class);
@@ -49,6 +48,7 @@ public class Allow_Master_Code_to_access_Security_and_Arming_Test_Grid {
         Thread.sleep(2000);
         settings.Home_button.click();
         Thread.sleep(2000);
+        logger.info("Navigate to the Advanced setting page to check Security and Arming icon");
         s.navigate_to_Settings_page();
         settings.ADVANCED_SETTINGS.click();
         s.enter_default_user_code();
@@ -59,6 +59,7 @@ public class Allow_Master_Code_to_access_Security_and_Arming_Test_Grid {
             logger.info("Failed: Security and Arming icon is NOT present");}
         Thread.sleep(2000);
         settings.Home_button.click();
+        logger.info("Verify Security and Arming icon disappears after disabling the setting");
         s.navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
         inst.SECURITY_AND_ARMING.click();
@@ -71,7 +72,7 @@ public class Allow_Master_Code_to_access_Security_and_Arming_Test_Grid {
         arming.Allow_Master_Code_To_Access_Security_and_Arming.click();
         Thread.sleep(2000);
         settings.Home_button.click();
-        logger.info("Verify Security and Arming icon disappears after disabling the setting");
+        logger.info("Navigate to the Advanced setting page to check Security and Arming icon");
         s.navigate_to_Settings_page();
         settings.ADVANCED_SETTINGS.click();
         s.enter_default_user_code();

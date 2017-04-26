@@ -17,8 +17,7 @@ public class Arm_Stay_No_Delay_Test_Grid {
     String page_name = "Arm Stay No Delay testing";
     Logger logger = Logger.getLogger(page_name);
 
-    public Arm_Stay_No_Delay_Test_Grid() throws IOException, BiffException {
-    }
+    public Arm_Stay_No_Delay_Test_Grid() throws IOException, BiffException {}
 
     @Parameters({"deviceName_", "applicationName_", "UDID_", "platformVersion_", "URL_", "PORT_" })
     @BeforeClass
@@ -27,9 +26,8 @@ public class Arm_Stay_No_Delay_Test_Grid {
         s.setup_logger(page_name);
     }
 
-    @Parameters ({"UDID_"})
     @Test
-    public void Verify_Arm_Stay_No_Delay_works(String UDID_) throws Exception {
+    public void Verify_Arm_Stay_No_Delay_works() throws Exception {
         Security_Arming_Page arming = PageFactory.initElements(s.getDriver(), Security_Arming_Page.class);
         Settings_Page settings = PageFactory.initElements(s.getDriver(), Settings_Page.class);
         Advanced_Settings_Page adv = PageFactory.initElements(s.getDriver(), Advanced_Settings_Page.class);

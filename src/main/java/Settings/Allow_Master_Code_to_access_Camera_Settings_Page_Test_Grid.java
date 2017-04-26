@@ -17,8 +17,7 @@ public class Allow_Master_Code_to_access_Camera_Settings_Page_Test_Grid {
     String page_name = "Allow Master Code to access Camera Settings testing";
     Logger logger = Logger.getLogger(page_name);
 
-    public Allow_Master_Code_to_access_Camera_Settings_Page_Test_Grid() throws IOException, BiffException {
-    }
+    public Allow_Master_Code_to_access_Camera_Settings_Page_Test_Grid() throws IOException, BiffException{}
 
         @Parameters({"deviceName_", "applicationName_", "UDID_", "platformVersion_", "URL_", "PORT_" })
         @BeforeClass
@@ -46,16 +45,21 @@ public class Allow_Master_Code_to_access_Camera_Settings_Page_Test_Grid {
             Thread.sleep(1000);
             settings.Home_button.click();
             Thread.sleep(1000);
+            logger.info("Navigate to the Advanced setting page to check Camera Settings icon");
             s.navigate_to_Settings_page();
             settings.ADVANCED_SETTINGS.click();
             s.enter_default_user_code();
             Thread.sleep(2000);
-            if (inst.CAMERA_SETTINGS.isDisplayed()){
+            try {
+                if (inst.CAMERA_SETTINGS.isDisplayed())
                 logger.info("Pass: Camera Settings icon is present");
-            }else { s.take_screenshot();
-                logger.info("Failed: Camera Settings icon is NOT present");}
+            } catch(Exception e){
+                s.take_screenshot();
+                logger.info("Failed: Camera Settings icon is NOT present");
+            }
             Thread.sleep(2000);
             settings.Home_button.click();
+            logger.info("Verify Camera Settings icon disappears after disabling the setting");
             s.navigate_to_Advanced_Settings_page();
             adv.INSTALLATION.click();
             inst.CAMERA_SETTINGS.click();
@@ -65,7 +69,7 @@ public class Allow_Master_Code_to_access_Camera_Settings_Page_Test_Grid {
             set_cam.Allow_Master_Code_to_access_Camera_Settings.click();
             Thread.sleep(2000);
             settings.Home_button.click();
-            logger.info("Verify Camera Settings icon disappears after disabling the setting");
+            logger.info("Navigate to the Advanced setting page to check Camera Settings icon");
             s.navigate_to_Settings_page();
             settings.ADVANCED_SETTINGS.click();
             s.enter_default_user_code();

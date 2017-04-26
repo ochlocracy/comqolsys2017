@@ -19,8 +19,7 @@ public class Keyfob_Alarm_Disarm_Test_Grid {
     Sensors sensors = new Sensors();
     private String disarm = "08 01";
 
-    public Keyfob_Alarm_Disarm_Test_Grid() throws IOException, BiffException {
-    }
+    public Keyfob_Alarm_Disarm_Test_Grid() throws IOException, BiffException {}
     @Parameters({"deviceName_", "applicationName_", "UDID_", "platformVersion_", "URL_", "PORT_" })
     @BeforeClass
     public void setUp(String deviceName_, String applicationName_, String UDID_, String platformVersion_, String URL_, String PORT_) throws Exception {
@@ -81,7 +80,7 @@ public class Keyfob_Alarm_Disarm_Test_Grid {
             arming.Keyfob_Alarm_Disarm.click();
             Thread.sleep(2000);
             settings.Home_button.click();
-            sensors.delete_from_primary(1);
+            s.delete_from_primary(UDID_,1);
             Thread.sleep(2000);
         }
     @AfterClass
@@ -90,4 +89,3 @@ public class Keyfob_Alarm_Disarm_Test_Grid {
         s.getDriver().quit();
     }
     }
-

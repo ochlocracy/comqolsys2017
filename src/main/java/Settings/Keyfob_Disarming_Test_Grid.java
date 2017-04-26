@@ -27,7 +27,6 @@ public class Keyfob_Disarming_Test_Grid {
             s.setCapabilities(URL_);
             s.setup_logger(page_name);
         }
-
         @Parameters ({"UDID_"})
         @Test
         public void Verify_Keyfob_Disarming_works(String UDID_) throws Exception {
@@ -89,7 +88,7 @@ public class Keyfob_Disarming_Test_Grid {
             s.swipe_vertical();
             arming.Keyfob_Disarming.click();
             Thread.sleep(2000);
-            sensors.delete_from_primary(1);
+            s.delete_from_primary(UDID_,1);
             settings.Home_button.click();
             Thread.sleep(2000);
         }

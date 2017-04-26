@@ -17,8 +17,7 @@ public class Alarm_Photos_Test_Grid {
     String page_name = "Alarm Photos testing";
     Logger logger = Logger.getLogger(page_name);
 
-    public Alarm_Photos_Test_Grid() throws IOException, BiffException {
-    }
+    public Alarm_Photos_Test_Grid() throws IOException, BiffException {}
 
     @Parameters({"deviceName_", "applicationName_", "UDID_", "platformVersion_", "URL_", "PORT_" })
     @BeforeClass
@@ -27,9 +26,8 @@ public class Alarm_Photos_Test_Grid {
         s.setup_logger(page_name);
     }
 
-    @Parameters ({"UDID_"})
-    @Test(threadPoolSize = 3)
-    public void Verify_Alarm_Photos_works(String UDID_) throws Exception {
+    @Test
+    public void Verify_Alarm_Photos_works() throws Exception {
         Home_Page home = PageFactory.initElements(s.driver, Home_Page.class);
         Emergency_Page emergency = PageFactory.initElements(s.getDriver(), Emergency_Page.class);
         Panel_Camera_Page camera = PageFactory.initElements(s.getDriver(), Panel_Camera_Page.class);
@@ -40,12 +38,14 @@ public class Alarm_Photos_Test_Grid {
         logger.info("Verifying Alarm photo is taken when setting in enabled...");
         s.delete_all_camera_photos();
         Thread.sleep(1000);
+        logger.info("Generating an Alarm...");
         home.Emergency_Button.click();
         emergency.Police_icon.click();
         Thread.sleep(1000);
         emergency.Cancel_Emergency.click();
         s.enter_default_user_code();
         s.swipeFromLefttoRight();
+        logger.info("Verifying Alarm photo is taken...");
         camera.Alarms_photo.click();
         if (camera.Photo_lable.isDisplayed()) {
             logger.info("Pass: Alarm photo is displayed");
@@ -62,6 +62,7 @@ public class Alarm_Photos_Test_Grid {
         adv.INSTALLATION.click();
         inst.CAMERA_SETTINGS.click();
         Thread.sleep(1000);
+        logger.info("Generating an Alarm...");
         set_cam.Alarm_Photos.click();
         Thread.sleep(1000);
         settings.Home_button.click();
@@ -72,6 +73,7 @@ public class Alarm_Photos_Test_Grid {
         emergency.Cancel_Emergency.click();
         s.enter_default_user_code();
         s.swipeFromLefttoRight();
+        logger.info("Verifying Alarm photo is not taken...");
         camera.Alarms_photo.click();
         try {
             if (camera.Photo_lable.isDisplayed())
@@ -94,5 +96,4 @@ public class Alarm_Photos_Test_Grid {
         s.log.endTestCase(page_name);
         s.getDriver().quit();
     }
-
 }

@@ -17,15 +17,13 @@ public class Panic_Disable_Test_Grid {
     String page_name = "Panic Disable testing";
     Logger logger = Logger.getLogger(page_name);
 
-    public Panic_Disable_Test_Grid() throws IOException, BiffException {
-    }
+    public Panic_Disable_Test_Grid() throws IOException, BiffException {}
     @Parameters({"deviceName_", "applicationName_", "UDID_", "platformVersion_", "URL_", "PORT_" })
     @BeforeClass
     public void setUp(String deviceName_, String applicationName_, String UDID_, String platformVersion_, String URL_, String PORT_) throws Exception {
         s.setCapabilities(URL_);
         s.setup_logger(page_name);
     }
-    @Parameters ({"UDID_"})
     @Test
     public void Verify_Keyfob_Alarm_Disarm_works() throws Exception {
         Siren_Alarms_Page siren = PageFactory.initElements(s.getDriver(), Siren_Alarms_Page.class);

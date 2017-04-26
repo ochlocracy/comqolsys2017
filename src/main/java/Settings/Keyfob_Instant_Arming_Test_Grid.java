@@ -20,8 +20,7 @@ public class Keyfob_Instant_Arming_Test_Grid {
     private String armstay = "04 01";
     private String armaway = "04 04";
 
-    public Keyfob_Instant_Arming_Test_Grid() throws IOException, BiffException {
-    }
+    public Keyfob_Instant_Arming_Test_Grid() throws IOException, BiffException {}
     @Parameters({"deviceName_", "applicationName_", "UDID_", "platformVersion_", "URL_", "PORT_" })
     @BeforeClass
     public void setUp(String deviceName_, String applicationName_, String UDID_, String platformVersion_, String URL_, String PORT_) throws Exception {
@@ -109,7 +108,7 @@ public class Keyfob_Instant_Arming_Test_Grid {
         arming.Keyfob_Instant_Arming.click();
         Thread.sleep(2000);
         settings.Home_button.click();
-        sensors.delete_from_primary(1);
+        s.delete_from_primary(UDID_,1);
         Thread.sleep(2000);
     }
     @AfterClass

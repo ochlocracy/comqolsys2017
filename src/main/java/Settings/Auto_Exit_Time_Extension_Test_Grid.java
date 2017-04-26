@@ -1,6 +1,5 @@
 package Settings;
 
-
 import Panel.*;
 import Sensors.Sensors;
 import jxl.read.biff.BiffException;
@@ -21,8 +20,7 @@ public class Auto_Exit_Time_Extension_Test_Grid {
     private String open = "06 00";
     private String close = "04 00";
 
-    public Auto_Exit_Time_Extension_Test_Grid() throws IOException, BiffException {
-    }
+    public Auto_Exit_Time_Extension_Test_Grid() throws IOException, BiffException {}
     @Parameters({"deviceName_", "applicationName_", "UDID_", "platformVersion_", "URL_", "PORT_" })
     @BeforeClass
     public void setUp(String deviceName_, String applicationName_, String UDID_, String platformVersion_, String URL_, String PORT_) throws Exception {
@@ -102,7 +100,7 @@ public class Auto_Exit_Time_Extension_Test_Grid {
         arming.Auto_Exit_Time_Extension.click();
         Thread.sleep(2000);
         settings.Home_button.click();
-        sensors.delete_from_primary(1);
+        s.delete_from_primary(UDID_,1);
         Thread.sleep(2000);
     }
     @AfterClass

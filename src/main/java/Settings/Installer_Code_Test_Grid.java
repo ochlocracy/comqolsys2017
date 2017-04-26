@@ -17,16 +17,13 @@ public class Installer_Code_Test_Grid {
     String page_name = "Installer Code change";
     Logger logger = Logger.getLogger(page_name);
 
-    public Installer_Code_Test_Grid() throws IOException, BiffException {
-    }
+    public Installer_Code_Test_Grid() throws IOException, BiffException {}
     @Parameters({"deviceName_", "applicationName_", "UDID_", "platformVersion_", "URL_", "PORT_" })
     @BeforeClass
     public void setUp(String deviceName_, String applicationName_, String UDID_, String platformVersion_, String URL_, String PORT_) throws Exception {
         s.setCapabilities(URL_);
         s.setup_logger(page_name);
     }
-
-    @Parameters ({"UDID_"})
     @Test
     public void Verify_Installer_Code_Change() throws Exception {
     Settings_Page settings =  PageFactory.initElements(s.getDriver(), Settings_Page.class);
@@ -49,11 +46,11 @@ public class Installer_Code_Test_Grid {
         user.Add_Confirm_User_Code.clear();
         user.Add_Confirm_User_Code.sendKeys("5555");
         user.User_Management_Save.click();
-        Thread.sleep(5000);
-        s.getDriver().findElement(By.id("com.qolsys:id/ft_back")).click();
-        Thread.sleep(5000);
-        s.getDriver().findElement(By.id("com.qolsys:id/ft_back")).click();
-        Thread.sleep(5000);
+        Thread.sleep(2000);
+        settings.Back_button.click();
+        Thread.sleep(1000);
+        settings.Back_button.click();
+        Thread.sleep(2000);
         adv.USER_MANAGEMENT.click();
         logger.info("Verify Installer name changed");
         s.getDriver().findElement(By.xpath("//android.widget.TextView[@text='NewInstall']")).isDisplayed();
@@ -76,9 +73,11 @@ public class Installer_Code_Test_Grid {
         settings.Five.click();
         settings.Five.click();
         settings.Five.click();
-        logger.info("Pass: new Installer code works as expected");
+        if(adv.INSTALLATION.isDisplayed()){
+        logger.info("Pass: new Installer code works as expected");}
         adv.INSTALLATION.click();
         inst.SECURITY_AND_ARMING.click();
+        Thread.sleep(1000);
         arming.Installer_Code.click();
         Thread.sleep(2000);
         user.Add_User_Name_field.clear();

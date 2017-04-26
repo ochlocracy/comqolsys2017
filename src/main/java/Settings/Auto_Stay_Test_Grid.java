@@ -20,15 +20,13 @@ public class Auto_Stay_Test_Grid {
     Sensors sensors = new Sensors();
     private int delay = 15;
 
-    public Auto_Stay_Test_Grid() throws IOException, BiffException {
-    }
+    public Auto_Stay_Test_Grid() throws IOException, BiffException {}
     @Parameters({"deviceName_", "applicationName_", "UDID_", "platformVersion_", "URL_", "PORT_" })
     @BeforeClass
     public void setUp(String deviceName_, String applicationName_, String UDID_, String platformVersion_, String URL_, String PORT_) throws Exception {
         s.setCapabilities(URL_);
         s.setup_logger(page_name);
     }
-
     @Parameters ({"UDID_"})
     @Test
     public void Verify_Auto_Stay_works(String UDID_) throws Exception {
@@ -47,7 +45,7 @@ public class Auto_Stay_Test_Grid {
         s.verify_armstay();
         home.DISARM.click();
         s.enter_default_user_code();
-        logger.info("Verify that Auto Stay does not works when disabled");
+        logger.info("Verify that Auto Stay does not work when disabled");
         s.navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
         inst.SECURITY_AND_ARMING.click();
@@ -69,7 +67,7 @@ public class Auto_Stay_Test_Grid {
         arming.Auto_Stay.click();
         Thread.sleep(2000);
         settings.Home_button.click();
-        sensors.delete_from_primary(1);
+        s.delete_from_primary(UDID_,1);
         Thread.sleep(2000);
     }
     @AfterClass

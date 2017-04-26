@@ -20,8 +20,7 @@ public class Auto_Bypass_Test_Grid {
     private String open = "06 00";
     private String close = "04 00";
 
-    public Auto_Bypass_Test_Grid() throws IOException, BiffException {
-    }
+    public Auto_Bypass_Test_Grid() throws IOException, BiffException {}
 
     @Parameters({"deviceName_", "applicationName_", "UDID_", "platformVersion_", "URL_", "PORT_" })
     @BeforeClass
@@ -48,6 +47,7 @@ public class Auto_Bypass_Test_Grid {
         home.DISARM.click();
         home.ARM_STAY.click();
         Thread.sleep(3000);
+        logger.info("Opening/closing bypassed sensor");
         s.primary_call(UDID_,"65 00 0A",close);
         Thread.sleep(1000);
         s.primary_call(UDID_,"65 00 0A",open);
@@ -80,6 +80,7 @@ public class Auto_Bypass_Test_Grid {
         s.element_verification(home.Bypass_message,"Bypass pop-up message");
         Thread.sleep(2000);
         home.Bypass_OK.click();
+        logger.info("Opening/closing bypassed sensor");
         s.primary_call(UDID_,"65 00 0A",close);
         Thread.sleep(1000);
         s.primary_call(UDID_,"65 00 0A",open);
@@ -104,7 +105,7 @@ public class Auto_Bypass_Test_Grid {
         Thread.sleep(1000);
         settings.Home_button.click();
         Thread.sleep(1000);
-        sensors.delete_from_primary(1);
+        s.delete_from_primary(UDID_,1);
     }
     @AfterClass
     public void tearDown () throws IOException, InterruptedException {

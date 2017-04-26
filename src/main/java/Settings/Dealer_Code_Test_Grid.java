@@ -17,18 +17,15 @@ public class Dealer_Code_Test_Grid {
     String page_name = "Dealer Code change";
     Logger logger = Logger.getLogger(page_name);
 
-    public Dealer_Code_Test_Grid() throws IOException, BiffException {
-    }
+    public Dealer_Code_Test_Grid() throws IOException, BiffException {}
     @Parameters({"deviceName_", "applicationName_", "UDID_", "platformVersion_", "URL_", "PORT_" })
     @BeforeClass
     public void setUp(String deviceName_, String applicationName_, String UDID_, String platformVersion_, String URL_, String PORT_) throws Exception {
         s.setCapabilities(URL_);
         s.setup_logger(page_name);
     }
-
-    @Parameters ({"UDID_"})
     @Test
-    public void Verify_Dealer_Code_Change(String UDID_) throws Exception {
+    public void Verify_Dealer_Code_Change() throws Exception {
         Settings_Page settings =  PageFactory.initElements(s.getDriver(), Settings_Page.class);
         Security_Arming_Page arming = PageFactory.initElements(s.getDriver(), Security_Arming_Page.class);
         Advanced_Settings_Page adv = PageFactory.initElements(s.getDriver(), Advanced_Settings_Page.class);
@@ -50,9 +47,9 @@ public class Dealer_Code_Test_Grid {
         user.Add_Confirm_User_Code.sendKeys("5555");
         user.User_Management_Save.click();
         Thread.sleep(5000);
-        s.getDriver().findElement(By.id("com.qolsys:id/ft_back")).click();
+        settings.Back_button.click();
         Thread.sleep(5000);
-        s.getDriver().findElement(By.id("com.qolsys:id/ft_back")).click();
+        settings.Back_button.click();
         Thread.sleep(5000);
         adv.USER_MANAGEMENT.click();
         logger.info("Verify Dealer name changed");
@@ -69,14 +66,16 @@ public class Dealer_Code_Test_Grid {
         settings.Two.click();
         settings.Two.click();
         if(settings.Invalid_User_Code.isDisplayed()){
-            logger.info("Pass: old Dealer code does not work");}
+            logger.info("Pass: old Dealer code does not work");
+        }else { logger.info("Failed: old Dealer code works");}
         Thread.sleep(2000);
         logger.info("Verify new Dealer code works");
         settings.Five.click();
         settings.Five.click();
         settings.Five.click();
         settings.Five.click();
-        logger.info("Pass: new Dealer code works as expected");
+        if(adv.INSTALLATION.isDisplayed()){
+        logger.info("Pass: new Dealer code works as expected");}
         adv.INSTALLATION.click();
         inst.SECURITY_AND_ARMING.click();
         arming.Dealer_Code.click();
