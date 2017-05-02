@@ -25,10 +25,9 @@ import java.util.concurrent.TimeUnit;
 
 public class Setup1 {
 
- //   private String  config = "/home/qolsys/Desktop/config.xls";
-    public String adbPath = "/home/qolsys/android-sdk-linux/platform-tools/adb";
+    Configuration c = new Configuration();
+    public String adbPath = c.getAdbPath();
     public String appDir = "src";
- //   public String udid_ = "628f4ae7";
 
     public AndroidDriver<WebElement> driver;
     DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -43,32 +42,11 @@ public class Setup1 {
     }
 
     public Log log = new Log();
-   public Logger logger = Logger.getLogger("String");
+    public Logger logger = Logger.getLogger("String");
     public Runtime rt = Runtime.getRuntime();
 
    private static final SimpleDateFormat sdf = new SimpleDateFormat("MM.dd_HH.mm.ss");
 
-
-//    public String getAdbPath () throws IOException, BiffException {
-//       Workbook wb = Workbook.getWorkbook(new File(config));
-//       Sheet sh = wb.getSheet(0);
-//       String CellGetContent = sh.getCell(0,0).getContents();
-//       return  CellGetContent;
-//   }
-//
-//    public String getAppDir () throws IOException, BiffException {
-//        Workbook wb = Workbook.getWorkbook(new File(config));
-//        Sheet sh = wb.getSheet(0);
-//        String CellGetContent = sh.getCell(0, 1).getContents();
-//        return CellGetContent;
-//    }
-//
-//    public String getudid_ () throws IOException, BiffException {
-//        Workbook wb = Workbook.getWorkbook(new File(config));
-//        Sheet sh = wb.getSheet(0);
-//        String CellGetContent = sh.getCell(1, 0).getContents();
-//        return CellGetContent;
-//    }
     protected WebDriver driver1;
     protected WebDriverWait wait;
 

@@ -37,11 +37,10 @@ import javax.mail.internet.MimeMultipart;
 
 public class Setup {
 
-    private String  config = "/home/qolsys/Desktop/config.xls";
-    public String adbPath = getAdbPath();   //"/home/qolsys/android-sdk-linux/platform-tools/adb";
+    Configuration c = new Configuration();
+    public String adbPath = c.getAdbPath();   //"/home/qolsys/android-sdk-linux/platform-tools/adb";
     public File appDir = new File("src");
-    public String udid_ =  getudid_(); //"8ebdbc76";
- //   public String udid_ = "628f4ae7";
+    public String udid_ =  c.getudid_(); //"8ebdbc76";
 
     public AndroidDriver<WebElement> driver;
 
@@ -52,43 +51,18 @@ public class Setup {
 
    private static final SimpleDateFormat sdf = new SimpleDateFormat("MM.dd_HH.mm.ss");
 
-    public Setup() throws IOException, BiffException {
-    }
+    public Setup() throws IOException, BiffException {}
 
     protected WebDriver driver1;
     protected WebDriverWait wait;
-
 
     public void webDriverSetUp () {
         driver1 = new FirefoxDriver();
         WebDriverWait wait = new WebDriverWait(driver1, 40);
     }
-
     public WebDriver getDriver1() {
         return driver1;
     }
-
-    public String getAdbPath () throws IOException, BiffException {
-       Workbook wb = Workbook.getWorkbook(new File(config));
-       Sheet sh = wb.getSheet(0);
-       String CellGetContent = sh.getCell(0,0).getContents();
-       return  CellGetContent;
-   }
-
-    public String getAppDir () throws IOException, BiffException {
-        Workbook wb = Workbook.getWorkbook(new File(config));
-        Sheet sh = wb.getSheet(0);
-        String CellGetContent = sh.getCell(0, 1).getContents();
-        return CellGetContent;
-    }
-
-    public String getudid_ () throws IOException, BiffException {
-        Workbook wb = Workbook.getWorkbook(new File(config));
-        Sheet sh = wb.getSheet(0);
-        String CellGetContent = sh.getCell(1, 0).getContents();
-        return CellGetContent;
-    }
-
     public void setup_driver(String udid_, String url_, String port_) throws Exception {
         DesiredCapabilities cap = new DesiredCapabilities();
         cap.setCapability("deviceName", "IQPanel2");
@@ -333,7 +307,6 @@ public class Setup {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         try {
             // now copy the  screenshot to desired location using copyFile //method
-     //       FileUtils.copyFile(src, new File("/home/qolsys/Desktop/comqolsysPOM/screenshots/"+sdf.format(timestamp)+".png"));
             FileUtils.copyFile(src, new File("src/screenshots/"+sdf.format(timestamp)+".png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -497,10 +470,5 @@ public class Setup {
         adv.WI_FI.click();
         driver.findElement(By.id("com.qolsys:id/wire_less_toggle")).click();
         Thread.sleep(3000);
-
-
-
     }
-
-
     }

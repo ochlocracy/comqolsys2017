@@ -203,7 +203,7 @@ public class ADC extends Setup {
         TimeUnit.SECONDS.sleep(2);
         act.sendKeys(Keys.ENTER).perform();
     }
-    public void New_ADC_session(String Customer_Id) throws InterruptedException {
+    public void New_ADC_session() throws InterruptedException {
         getDriver1().manage().window().maximize();
         String ADC_URL = "https://alarmadmin.alarm.com/Support/CustomerInfo.aspx?customer_Id=4679473";
         getDriver1().get(ADC_URL);

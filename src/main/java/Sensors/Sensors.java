@@ -1,5 +1,6 @@
 package Sensors;
 
+import Panel.Configuration;
 import Panel.Setup;
 import jxl.Sheet;
 import jxl.Workbook;
@@ -17,12 +18,10 @@ import java.util.concurrent.TimeUnit;
 
 public class Sensors {
 
-    private String config = "/home/qolsys/Desktop/config.xls";
-    public String primary = getudid_();
-    public static final String primary1 = "8ebdbc76 ";
- //   public static final String primary = "628f4ae7 ";
+    Configuration c = new Configuration();
+    public String primary = c.getudid_();
     public static final String transmitter = "8f03bc79 ";
-    public final String adbPath = getAdbPath();
+    public final String adbPath = c.getAdbPath();
 
     public Runtime rt = Runtime.getRuntime();
 
@@ -52,8 +51,7 @@ public class Sensors {
     HashMap<String, Integer> primary_sensor_int_map = new HashMap<String, Integer>();
     HashMap<String, Integer> transmitter_sensor_int_map = new HashMap<String, Integer>();
 
-    public Sensors() throws IOException, BiffException {
-    }
+    public Sensors() throws IOException, BiffException {}
 
     public void read_sensors_from_csv() throws IOException {
 
@@ -448,18 +446,4 @@ public class Sensors {
             String deleteFromPrimary = " shell service call qservice 51 i32 " + zone;
             rt.exec(adbPath + deleteFromPrimary);
             System.out.println(deleteFromPrimary);}
-
-    private String getAdbPath () throws IOException, BiffException {
-        Workbook wb = Workbook.getWorkbook(new File(config));
-        Sheet sh = wb.getSheet(0);
-        String CellGetContent = sh.getCell(0,0).getContents();
-        return  CellGetContent;
-    }
-
-    private String getudid_ () throws IOException, BiffException {
-        Workbook wb = Workbook.getWorkbook(new File(config));
-        Sheet sh = wb.getSheet(0);
-        String CellGetContent = sh.getCell(1, 0).getContents();
-        return CellGetContent;
-    }
 }

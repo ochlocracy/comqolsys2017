@@ -13,7 +13,6 @@ import java.io.IOException;
 
 public class LogTest extends Setup {
 
-
     public LogTest() throws IOException, BiffException {
     }
 
