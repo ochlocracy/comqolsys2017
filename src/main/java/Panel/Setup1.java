@@ -6,13 +6,12 @@ import jxl.read.biff.BiffException;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
-import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 
@@ -70,7 +69,17 @@ public class Setup1 {
 //        String CellGetContent = sh.getCell(1, 0).getContents();
 //        return CellGetContent;
 //    }
+    protected WebDriver driver1;
+    protected WebDriverWait wait;
 
+    public WebDriver getDriver1() {
+        return driver1;
+    }
+
+    public void webDriverSetUp () {
+        driver1 = new FirefoxDriver();
+        wait = new WebDriverWait(driver1, 40);
+    }
 
     @Parameters({"deviceName_", "applicationName_", "UDID_", "platformVersion_", "URL_", "PORT_" })
     @BeforeClass(alwaysRun=true)
@@ -372,5 +381,21 @@ public class Setup1 {
     public void delete_from_primary(String UDID_, int zone) throws IOException, InterruptedException {
         String deleteFromPrimary = " shell service call qservice 51 i32 " + zone;
         rt.exec(adbPath + " -s " +UDID_+ deleteFromPrimary);
-        System.out.println(deleteFromPrimary);}
+        System.out.println(deleteFromPrimary);
+    }
+    public void autoStaySetting () throws InterruptedException {
+        Home_Page home = PageFactory.initElements(driver, Home_Page.class);
+        Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
+        Installation_Page inst = PageFactory.initElements(driver, Installation_Page.class);
+        Security_Arming_Page arming = PageFactory.initElements(driver, Security_Arming_Page.class);
+        navigate_to_Advanced_Settings_page();
+        adv.INSTALLATION.click();
+        inst.SECURITY_AND_ARMING.click();
+        Thread.sleep(1000);
+        swipe_vertical();
+        Thread.sleep(1000);
+        arming.Auto_Stay.click();
+        Thread.sleep(1000);
+        home.Home_button.click();
+    }
 }

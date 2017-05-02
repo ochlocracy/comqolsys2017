@@ -27,6 +27,5 @@ public class Contact_Us {
         Messages_Alerts_Alarms_tab.click();
         Acknowledge_All.click();
         OK.click();
-
     }
 }

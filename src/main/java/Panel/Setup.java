@@ -1,6 +1,5 @@
 package Panel;
 
-import GridTesting.AppiumServerJava;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
@@ -8,6 +7,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.*;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.PageFactory;
 
@@ -23,6 +23,8 @@ import java.text.SimpleDateFormat;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -46,13 +48,25 @@ public class Setup {
     public Log log = new Log();
     public Logger logger = Logger.getLogger(this.getClass().getName());
     public Runtime rt = Runtime.getRuntime();
-    public AppiumDriverLocalService service = AppiumDriverLocalService.buildDefaultService();
+
 
    private static final SimpleDateFormat sdf = new SimpleDateFormat("MM.dd_HH.mm.ss");
 
     public Setup() throws IOException, BiffException {
     }
 
+    protected WebDriver driver1;
+    protected WebDriverWait wait;
+
+
+    public void webDriverSetUp () {
+        driver1 = new FirefoxDriver();
+        WebDriverWait wait = new WebDriverWait(driver1, 40);
+    }
+
+    public WebDriver getDriver1() {
+        return driver1;
+    }
 
     public String getAdbPath () throws IOException, BiffException {
        Workbook wb = Workbook.getWorkbook(new File(config));
@@ -76,7 +90,6 @@ public class Setup {
     }
 
     public void setup_driver(String udid_, String url_, String port_) throws Exception {
-
         DesiredCapabilities cap = new DesiredCapabilities();
         cap.setCapability("deviceName", "IQPanel2");
         cap.setCapability("BROWSER_NAME", "Android");
@@ -484,6 +497,8 @@ public class Setup {
         adv.WI_FI.click();
         driver.findElement(By.id("com.qolsys:id/wire_less_toggle")).click();
         Thread.sleep(3000);
+
+
 
     }
 

@@ -385,7 +385,6 @@ public class Sensors {
             TimeUnit.SECONDS.sleep(2);
         }
     }
-
     public void sendPacket_activateAllShockIQ_selectedGroup(int input_group_number, int z) throws IOException, InterruptedException {
         List<Integer> foundSensorsInGroup;
         foundSensorsInGroup = new ArrayList();

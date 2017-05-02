@@ -8,16 +8,13 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.firefox.internal.ProfilesIni;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class ADC extends Setup {
-
-    ProfilesIni profile = new ProfilesIni();
-    FirefoxProfile myprofile = profile.getProfile("automation");
-    WebDriver driver1 = new FirefoxDriver(myprofile);
 
     Sensors mySensors = new Sensors();
 
@@ -33,7 +30,6 @@ public class ADC extends Setup {
     String water_flood_DLID = "75 11 0A";
     String doorbell_DLID = "61 BD AA";
     String occupancy_DLID = "85 00 1A";
-
 
     private int door_window = 1;
     private int motion = 2;
@@ -135,13 +131,16 @@ public class ADC extends Setup {
 
     public ADC() throws IOException, BiffException {
     }
-
     public void add_sensor(int zone, int group, int DLID, int sensor_type) throws IOException {
         String add_sensor = "shell service call qservice 50 i32 " + zone + " i32 " + group + " i32 " + DLID + " i32 " + sensor_type;
         mySensors.rt.exec(adbPath + " -s " + mySensors.primary + add_sensor);
         System.out.println(add_sensor);
     }
-
+    public void add_sensor_grid(int zone, int group, int DLID, int sensor_type, String UDID_) throws IOException {
+        String add_sensor = " shell service call qservice 50 i32 " + zone + " i32 " + group + " i32 " + DLID + " i32 " + sensor_type;
+        mySensors.rt.exec(adbPath + " -s " + UDID_ + add_sensor);
+        System.out.println(add_sensor);
+    }
     public void add_all_sensor_types() throws IOException {
         add_sensor(1, 10, 6619305, door_window); //default name Door/Window 1
         add_sensor(2, 17, 5570628, motion); //default name Motion 2
@@ -160,18 +159,41 @@ public class ADC extends Setup {
         add_sensor(15, 25, 8716449, occupancy); //default name Occupancy Sensor 15
         add_sensor(16, 13, 6684829, shock_IQ); //default name Shock-IQ 16
     }
-
+    public void add_all_sensor_types_grid(String UDID_) throws IOException {
+        add_sensor_grid(1, 10, 6619305, door_window, UDID_); //default name Door/Window 1
+        add_sensor_grid(2, 17, 5570628, motion, UDID_); //default name Motion 2
+        add_sensor_grid(3, 26, 6750242, smoke_detector, UDID_); //default name Smoke Detector 3
+        add_sensor_grid(4, 34, 7667882, co_detector, UDID_); //default name CO Detector 4
+        add_sensor_grid(5, 13, 6750361, glassbreak, UDID_); //default name Glass Break 5
+        add_sensor_grid(6, 12, 6488238, tilt, UDID_); //default name Tilt 6
+        add_sensor_grid(7, 13, 6684828, shock_other, UDID_); //default name Other Shock 7
+        add_sensor_grid(8, 52, 7536801, freeze, UDID_); //default name Freeze 8
+        add_sensor_grid(9, 26, 7667810, heat, UDID_); //default name Smoke-M 9
+        add_sensor_grid(10, 38, 7672224, water_flood, UDID_); //default name Multi-Function-1 10
+        add_sensor_grid(11, 4, 6619386, keyfob, UDID_); //default name Key Fob 11
+        add_sensor_grid(12, 2, 8716538, keypad, UDID_); //default name Keypad 12
+        add_sensor_grid(13, 6, 6361649, med_pendant, UDID_); //default name Auxiliary Pendant 13
+        add_sensor_grid(14, 25, 6405546, doorbell, UDID_); //default name Door Bell 14
+        add_sensor_grid(15, 25, 8716449, occupancy, UDID_); //default name Occupancy Sensor 15
+        add_sensor_grid(16, 13, 6684829, shock_IQ, UDID_); //default name Shock-IQ 16
+    }
     public void delete_sensor(int zone) throws IOException {
         String delete = "shell service call qservice 51 i32 " + zone;
         mySensors.rt.exec(adbPath + " " + delete);
     }
-
+    public void delete_sensor_grid(String UDID_, int zone) throws IOException {
+        String delete = " shell service call qservice 51 i32 " + zone;
+        mySensors.rt.exec(adbPath + " -s " +UDID_ + delete);
+    }
     public void delete_all() throws IOException {
         for (int i = 1; i < 16; i++) {
-            delete_sensor(i);
+            delete_sensor(i);}
+    }
+    public void delete_all_grid(String UDID_) throws IOException {
+        for (int i = 1; i < 17; i++) {
+            delete_sensor_grid(UDID_, i);
         }
     }
-
     public void javascript_disable() throws InterruptedException {
         driver1.get("about:config");
         Actions act = new Actions(driver1);
@@ -181,35 +203,39 @@ public class ADC extends Setup {
         TimeUnit.SECONDS.sleep(2);
         act.sendKeys(Keys.ENTER).perform();
     }
-
-    public void New_ADC_session() throws InterruptedException {
-        driver1.manage().window().maximize();
+    public void New_ADC_session(String Customer_Id) throws InterruptedException {
+        getDriver1().manage().window().maximize();
         String ADC_URL = "https://alarmadmin.alarm.com/Support/CustomerInfo.aspx?customer_Id=4679473";
-        driver1.get(ADC_URL);
+        getDriver1().get(ADC_URL);
         String login = "qapple";
         String password = "qolsys123";
-        driver1.findElement(By.id("txtUsername")).sendKeys(login);
-        driver1.findElement(By.id("txtPassword")).sendKeys(password);
-        driver1.findElement(By.id("butLogin")).click();
-        driver1.findElement(By.partialLinkText("Equipment")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("txtUsername")));
+        getDriver1().findElement(By.id("txtUsername")).sendKeys(login);
+        getDriver1().findElement(By.id("txtPassword")).sendKeys(password);
+        getDriver1().findElement(By.id("butLogin")).click();
+        getDriver1().findElement(By.partialLinkText("Equipment")).click();
     }
-
     public void Request_equipment_list() throws InterruptedException {
         logger.info("Request sensor list and Sensor names");
-        driver1.findElement(By.id("ctl00_phBody_sensorList_butRequest")).click();
+        getDriver1().findElement(By.id("ctl00_phBody_sensorList_butRequest")).click();
         TimeUnit.SECONDS.sleep(10);
         logger.info("Request equipment list");
-        driver1.findElement(By.id("ctl00_refresh_sensors_button_btnRefreshPage")).click();
+        getDriver1().findElement(By.id("ctl00_refresh_sensors_button_btnRefreshPage")).click();
         TimeUnit.SECONDS.sleep(3);
-        driver1.findElement(By.xpath("//input[@value='Request Sensor Names']")).click();
-        Alert alert = driver1.switchTo().alert();
-        driver1.switchTo().alert();
+        getDriver1().findElement(By.xpath("//input[@value='Request Sensor Names']")).click();
+        Alert alert = getDriver1().switchTo().alert();
+        getDriver1().switchTo().alert();
         alert.accept();
         TimeUnit.SECONDS.sleep(10);
-        driver1.findElement(By.id("ctl00_refresh_sensors_button_btnRefreshPage")).click();
-        TimeUnit.SECONDS.sleep(3);
+        getDriver1().findElement(By.id("ctl00_refresh_sensors_button_btnRefreshPage")).click();
+        TimeUnit.SECONDS.sleep(5);
+        getDriver1().findElement(By.xpath("//input[@value='Request Sensor Names']")).click();
+        alert =  getDriver1().switchTo().alert();
+        getDriver1().switchTo().alert();
+        alert.accept();
+        TimeUnit.SECONDS.sleep(10);
+        getDriver1().findElement(By.id("ctl00_refresh_sensors_button_btnRefreshPage")).click();
     }
-
     public void Sensor_verification(String name, String group, String sensor_type, int number) {
         //number = number of the table row
         String sName = driver1.findElement(By.xpath(".//*[@id='ctl00_phBody_sensorList_AlarmDataGridSensor']/tbody/tr[" + number + "]/td[2]")).getText();
@@ -228,7 +254,6 @@ public class ADC extends Setup {
             System.out.println("Sensor type is " + sensor_type + ": " + sens_type);}
         else {System.out.println("Sensor type is " + sensor_type + ": " + sens_type +" *** "+sType+" *** ");}
     }
-
     public void Sensor_verification_full(String name, String group, String sensor_type, String rep_type, String input_status, int number) {
         //number = number of the table row
         String sName = driver1.findElement(By.xpath(".//*[@id='ctl00_phBody_sensorList_AlarmDataGridSensor']/tbody/tr[" + number + "]/td[2]")).getText();
@@ -257,11 +282,14 @@ public class ADC extends Setup {
             System.out.println("Sensor status is " + input_status + ": " + current_status);}
         else { System.out.println("Sensor status is " + input_status + ": " + current_status +" *** "+status+" *** ");}
     }
-
     public void send_event_to_sensor(String DLID, String status) throws IOException {
         String event = "shell rfinjector 02 "+DLID+" "+status+" 00";
         mySensors.rt.exec(adbPath + " " + event);
         System.out.println(event);
     }
-
+    public void send_event_to_sensor_grid(String UDID_, String DLID, String status) throws IOException {
+        String event = " shell rfinjector 02 "+DLID+" "+status+" 00";
+        mySensors.rt.exec(adbPath + " -s " +UDID_ + event);
+        System.out.println(event);
+    }
 }
