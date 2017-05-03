@@ -49,7 +49,7 @@ public class Activity_Monitor_Page_Test1 {
 
     @Parameters ({"UDID_"})
     @Test
-    public void Check_all_elements_on_Activity_Monitor_page(String UDID_) throws Exception {
+    public void Test1_Check_all_elements_on_Activity_Monitor_page(String UDID_) throws Exception {
         Activity_Monitor_Page activity = PageFactory.initElements(s.getDriver(), Activity_Monitor_Page.class);
         Settings_Page settings = PageFactory.initElements(s.getDriver(), Settings_Page.class);
         logger.info("Verifying elements on the page...");
@@ -97,10 +97,11 @@ public class Activity_Monitor_Page_Test1 {
 
     @Parameters ({"UDID_"})
     @Test
-    public void Check_Activity_Monitor_behavior(String UDID_) throws Exception {
+    public void Test2_Check_Activity_Monitor_behavior(String UDID_) throws Exception {
         Activity_Monitor_Page activity = PageFactory.initElements( s.getDriver(), Activity_Monitor_Page.class);
         Settings_Page settings = PageFactory.initElements(s.getDriver(), Settings_Page.class);
         Home_Page home = PageFactory.initElements(s.getDriver(), Home_Page.class);
+        Contact_Us contact = PageFactory.initElements(s.getDriver(), Contact_Us.class);
         logger.info("Verifying elements on the page...");
         Thread.sleep(1000);
         logger.info("Adding sensors...");
@@ -201,6 +202,7 @@ public class Activity_Monitor_Page_Test1 {
         home.ArwAway_State.click();
         s.enter_default_user_code();
         Thread.sleep(1000);
+        contact.acknowledge_all_alerts();
         for (int i = 1; i < 8; i++)
         delete_sensor(UDID_, i);
         Thread.sleep(2000);
