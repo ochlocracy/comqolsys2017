@@ -23,6 +23,7 @@ public class Disarm_Photos_Test_Grid {
         s.setCapabilities(URL_);
         s.setup_logger(page_name, UDID_);
     }
+    @Parameters({"UDID_"})
     @Test
     public void Verify_Disarm_Photos_works(String UDID_) throws Exception {
         Home_Page home = PageFactory.initElements(s.getDriver(), Home_Page.class);
