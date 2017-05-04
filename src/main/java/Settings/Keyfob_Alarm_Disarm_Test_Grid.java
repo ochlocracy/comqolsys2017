@@ -30,6 +30,7 @@ public class Keyfob_Alarm_Disarm_Test_Grid {
     @Test
     public void Verify_Keyfob_Alarm_Disarm_works(String UDID_) throws Exception {
             Security_Arming_Page arming = PageFactory.initElements(s.getDriver(), Security_Arming_Page.class);
+            Contact_Us contact = PageFactory.initElements(s.getDriver(), Contact_Us.class);
             Settings_Page settings = PageFactory.initElements(s.getDriver(), Settings_Page.class);
             Advanced_Settings_Page adv = PageFactory.initElements(s.getDriver(), Advanced_Settings_Page.class);
             Installation_Page inst = PageFactory.initElements(s.getDriver(), Installation_Page.class);
@@ -45,9 +46,9 @@ public class Keyfob_Alarm_Disarm_Test_Grid {
             s.primary_call(UDID_,"65 00 AF", disarm);
             Thread.sleep(2000);
             if (emergency.Emergency_sent_text.isDisplayed()){
-                logger.info("Pass: Police Emergency is displayed");
+                logger.info(UDID_ +" Pass: Police Emergency is displayed");
             } else { s.take_screenshot();
-                logger.info("Failed: Police Emergency is NOT displayed");}
+                logger.info(UDID_ +" Failed: Police Emergency is NOT displayed");}
             emergency.Cancel_Emergency.click();
             s.enter_default_user_code();
             Thread.sleep(2000);
@@ -82,6 +83,7 @@ public class Keyfob_Alarm_Disarm_Test_Grid {
             settings.Home_button.click();
             s.delete_from_primary(UDID_,1);
             Thread.sleep(2000);
+            contact.acknowledge_all_alerts();
         }
     @AfterClass
     public void tearDown () throws IOException, InterruptedException {
