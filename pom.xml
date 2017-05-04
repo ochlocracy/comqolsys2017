@@ -239,7 +239,6 @@
                 </plugins>
             </build>
         </profile>
-        InstallerCodeTest
         <profile>
             <id>InstallerCodeTest</id>
             <build>
