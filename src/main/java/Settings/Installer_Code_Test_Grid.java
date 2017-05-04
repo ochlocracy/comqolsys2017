@@ -24,9 +24,11 @@ public class Installer_Code_Test_Grid {
         s.setCapabilities(URL_);
         s.setup_logger(page_name, UDID_);
     }
+    @Parameters({"UDID_"})
     @Test
-    public void Verify_Installer_Code_Change() throws Exception {
+    public void Verify_Installer_Code_Change(String UDID_) throws Exception {
     Settings_Page settings =  PageFactory.initElements(s.getDriver(), Settings_Page.class);
+    Contact_Us contact =  PageFactory.initElements(s.getDriver(), Contact_Us.class);
     Security_Arming_Page arming = PageFactory.initElements(s.getDriver(), Security_Arming_Page.class);
     Advanced_Settings_Page adv = PageFactory.initElements(s.getDriver(), Advanced_Settings_Page.class);
     Installation_Page inst = PageFactory.initElements(s.getDriver(), Installation_Page.class);
@@ -66,7 +68,7 @@ public class Installer_Code_Test_Grid {
         settings.One.click();
         settings.One.click();
         if(settings.Invalid_User_Code.isDisplayed()){
-        logger.info("Pass: old Installer code does not work");}
+        logger.info(UDID_ +" Pass: old Installer code does not work");}
         Thread.sleep(2000);
         logger.info("Verify new Installer code works");
         settings.Five.click();
@@ -74,7 +76,7 @@ public class Installer_Code_Test_Grid {
         settings.Five.click();
         settings.Five.click();
         if(adv.INSTALLATION.isDisplayed()){
-        logger.info("Pass: new Installer code works as expected");}
+        logger.info(UDID_ + " Pass: new Installer code works as expected");}
         adv.INSTALLATION.click();
         inst.SECURITY_AND_ARMING.click();
         Thread.sleep(1000);
@@ -90,6 +92,8 @@ public class Installer_Code_Test_Grid {
         user.Add_Confirm_User_Code.sendKeys("1111");
         user.User_Management_Save.click();
         Thread.sleep(2000);
+        settings.Home_button.click();
+        contact.acknowledge_all_alerts();
 }
     @AfterClass
     public void tearDown () throws IOException, InterruptedException {

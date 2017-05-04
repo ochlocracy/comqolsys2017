@@ -29,6 +29,7 @@ public class Duress_Authentication_Test_Grid {
     @Test
     public void Verify_Duress_Authentication_works(String UDID_) throws Exception {
         Settings_Page settings = PageFactory.initElements(s.getDriver(), Settings_Page.class);
+        Contact_Us contact = PageFactory.initElements(s.getDriver(), Contact_Us.class);
         Security_Arming_Page arming = PageFactory.initElements(s.getDriver(), Security_Arming_Page.class);
         Advanced_Settings_Page adv = PageFactory.initElements(s.getDriver(), Advanced_Settings_Page.class);
         Installation_Page inst = PageFactory.initElements(s.getDriver(), Installation_Page.class);
@@ -91,6 +92,7 @@ public class Duress_Authentication_Test_Grid {
         s.swipe_vertical();
         Thread.sleep(1000);
         arming.Auto_Stay.click();
+        contact.acknowledge_all_alerts();
         Thread.sleep(2000);
     }
     @AfterClass
