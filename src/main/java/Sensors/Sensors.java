@@ -1,13 +1,9 @@
 package Sensors;
 
 import Panel.Configuration;
-import Panel.Setup;
-import jxl.Sheet;
-import jxl.Workbook;
 import jxl.read.biff.BiffException;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
