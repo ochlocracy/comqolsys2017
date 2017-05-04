@@ -73,9 +73,9 @@ public class Setup1 {
         this.driver = new AndroidDriver<WebElement>(new URL(URL_), getCapabilities());
     }
 
-    public void setup_logger(String test_case_name) throws Exception {
+    public void setup_logger(String test_case_name, String UDID_) throws Exception {
         PropertyConfigurator.configure(new File(appDir, "log4j.properties").getAbsolutePath());
-        log.startTestCase(" " +test_case_name+ " ");
+        log.startTestCase(" " +test_case_name+ " " + UDID_);
     }
 
     public void swipeFromLefttoRight() throws Exception {
@@ -357,6 +357,7 @@ public class Setup1 {
         System.out.println(adbPath + " -s " +UDID_+ primary_send); }
 
     public void delete_from_primary(String UDID_, int zone) throws IOException, InterruptedException {
+        logger.info("Deleting sensor/sensors from a panel");
         String deleteFromPrimary = " shell service call qservice 51 i32 " + zone;
         rt.exec(adbPath + " -s " +UDID_+ deleteFromPrimary);
         System.out.println(deleteFromPrimary);

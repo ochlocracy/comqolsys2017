@@ -14,7 +14,7 @@ import java.net.MalformedURLException;
 public class Activity_Monitor_Page_Test1 {
 
     Setup1 s =new Setup1();
-    String page_name = "Activity Monitor page testing";
+    String page_name = "Activity Monitor page testing ";
     Logger logger = Logger.getLogger(page_name);
     Sensors sensors = new Sensors();
     private String open = "06 00";
@@ -44,7 +44,7 @@ public class Activity_Monitor_Page_Test1 {
     @BeforeClass
     public void setUp(String deviceName_, String applicationName_, String UDID_, String platformVersion_, String URL_, String PORT_) throws Exception {
        s.setCapabilities(URL_);
-       s.setup_logger(page_name + " "+ UDID_);
+       s.setup_logger(page_name, UDID_);
     }
 
     @Parameters ({"UDID_"})
