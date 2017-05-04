@@ -24,7 +24,7 @@ public class Disarm_Photos_Test_Grid {
         s.setup_logger(page_name, UDID_);
     }
     @Test
-    public void Verify_Disarm_Photos_works() throws Exception {
+    public void Verify_Disarm_Photos_works(String UDID_) throws Exception {
         Home_Page home = PageFactory.initElements(s.getDriver(), Home_Page.class);
         Panel_Camera_Page camera = PageFactory.initElements(s.getDriver(), Panel_Camera_Page.class);
         Camera_Settings_Page set_cam = PageFactory.initElements(s.getDriver(), Camera_Settings_Page.class);
@@ -40,9 +40,9 @@ public class Disarm_Photos_Test_Grid {
         s.swipeFromLefttoRight();
         camera.Disarm_photos.click();
         if (camera.Photo_lable.isDisplayed()){
-            logger.info("Pass: Disarm photo is displayed");
+            logger.info(UDID_ + " Pass: Disarm photo is displayed");
         }else { s.take_screenshot();
-            logger.info("Failed: Disarm photo is NOT displayed");}
+            logger.info(UDID_ + " Failed: Disarm photo is NOT displayed");}
         camera.Camera_delete.click();
         camera.Camera_delete_yes.click();
         s.enter_default_user_code();
@@ -64,9 +64,9 @@ public class Disarm_Photos_Test_Grid {
         try {
             if (camera.Photo_lable.isDisplayed())
                 s.take_screenshot();
-            logger.info("Failed: Disarm photo is displayed");
+            logger.info(UDID_ + " Failed: Disarm photo is displayed");
         } catch (Exception e) {
-            logger.info("Pass: Disarm photo is NOT displayed");
+            logger.info(UDID_ + " Pass: Disarm photo is NOT displayed");
         } finally {
         }
         Thread.sleep(1000);
