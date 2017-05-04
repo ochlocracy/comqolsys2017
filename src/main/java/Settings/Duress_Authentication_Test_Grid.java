@@ -25,8 +25,9 @@ public class Duress_Authentication_Test_Grid {
         s.setCapabilities(URL_);
         s.setup_logger(page_name, UDID_);
     }
+    @Parameters({ "UDID_" })
     @Test
-    public void Verify_Duress_Authentication_works() throws Exception {
+    public void Verify_Duress_Authentication_works(String UDID_) throws Exception {
         Settings_Page settings = PageFactory.initElements(s.getDriver(), Settings_Page.class);
         Security_Arming_Page arming = PageFactory.initElements(s.getDriver(), Security_Arming_Page.class);
         Advanced_Settings_Page adv = PageFactory.initElements(s.getDriver(), Advanced_Settings_Page.class);
@@ -72,7 +73,7 @@ public class Duress_Authentication_Test_Grid {
         home.Nine.click();
         home.Nine.click();
         home.Eight.click();
-        s.verify_disarm();
+        s.verify_disarm(UDID_);
         Thread.sleep(1000);
         logger.info("Arm Away the system");
         s.ARM_AWAY(delay);
@@ -81,7 +82,7 @@ public class Duress_Authentication_Test_Grid {
         home.Nine.click();
         home.Nine.click();
         home.Eight.click();
-        s.verify_disarm();
+        s.verify_disarm(UDID_);
         Thread.sleep(2000);
         s.navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();

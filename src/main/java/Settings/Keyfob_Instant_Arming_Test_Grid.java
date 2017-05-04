@@ -43,14 +43,14 @@ public class Keyfob_Instant_Arming_Test_Grid {
         Thread.sleep(3000);
         s.primary_call(UDID_,"65 00 AF", armstay);
         Thread.sleep(5000);
-        s.verify_armstay();
+        s.verify_armstay(UDID_);
         home.DISARM.click();
         s.enter_default_user_code();
         Thread.sleep(2000);
         logger.info("Arm Away the system");
         s.primary_call(UDID_,"65 00 AF", armaway);
         Thread.sleep(4000);
-        s.verify_armaway();
+        s.verify_armaway(UDID_);
         home.ArwAway_State.click();
         s.enter_default_user_code();
         Thread.sleep(2000);
@@ -78,7 +78,7 @@ public class Keyfob_Instant_Arming_Test_Grid {
         } finally {
         }
         Thread.sleep(10000);
-        s.verify_armstay();
+        s.verify_armstay(UDID_);
         home.DISARM.click();
         s.enter_default_user_code();
         Thread.sleep(2000);
@@ -94,7 +94,7 @@ public class Keyfob_Instant_Arming_Test_Grid {
         } finally {
         }
         Thread.sleep(10000);
-        s.verify_armaway();
+        s.verify_armaway(UDID_);
         Thread.sleep(2000);
         home.ArwAway_State.click();
         s.enter_default_user_code();

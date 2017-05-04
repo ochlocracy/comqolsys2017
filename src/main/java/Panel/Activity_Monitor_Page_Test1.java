@@ -59,34 +59,34 @@ public class Activity_Monitor_Page_Test1 {
         Thread.sleep(2000);
         s.navigate_to_Settings_page();
         settings.ACTIVITY_MONITOR.click();
-        s.element_verification(activity.Quick_Access, "Quick Access");
-        s.element_verification(activity.Quick_Access_img, "Quick Access image");
-        s.element_verification(activity.Safty_State, "Safety State icon");
-        s.element_verification(activity.Safety_State_txt, "Safety State text");
+        s.element_verification(UDID_, activity.Quick_Access, "Quick Access");
+        s.element_verification(UDID_, activity.Quick_Access_img, "Quick Access image");
+        s.element_verification(UDID_, activity.Safty_State, "Safety State icon");
+        s.element_verification(UDID_, activity.Safety_State_txt, "Safety State text");
         if(activity.Safety_State_txt.getText().equals("Press to Deactivate")){
-            logger.info("Pass: Correct Safety state text: "+activity.Safety_State_txt.getText());
+            logger.info(UDID_ + " Pass: Correct Safety state text: "+activity.Safety_State_txt.getText());
         } else { s.take_screenshot();
-            logger.info("Failed: Incorrect Safety state text: "+activity.Safety_State_txt.getText());}
-        s.element_verification(activity.Safety_Active, "Safety Active tab");
-        s.element_verification(activity.Safety_All, "Safety All tab");
+            logger.info(UDID_ + "Failed: Incorrect Safety state text: "+activity.Safety_State_txt.getText());}
+        s.element_verification(UDID_, activity.Safety_Active, "Safety Active tab");
+        s.element_verification(UDID_, activity.Safety_All, "Safety All tab");
         activity.Quick_Access_img.click();
         s.enter_default_user_code();
         Thread.sleep(2000);
-        s.element_verification(activity.Quick_Access_CountDown, "Quick Access countdown window");
+        s.element_verification(UDID_, activity.Quick_Access_CountDown, "Quick Access countdown window");
         s.tap(110,620);
         Thread.sleep(1000);
         activity.Safty_State.click();
         s.enter_default_user_code();
         Thread.sleep(1000);
-        s.element_verification(activity.Safty_State, "Safety State icon");
-        s.element_verification(activity.Safety_State_txt, "Safety State text");
+        s.element_verification(UDID_, activity.Safty_State, "Safety State icon");
+        s.element_verification(UDID_, activity.Safety_State_txt, "Safety State text");
         if(activity.Safety_State_txt.getText().equals("Press to Activate")){
-            logger.info("Pass: Correct Safety state text: "+activity.Safety_State_txt.getText());
+            logger.info(UDID_ + "Pass: Correct Safety state text: "+activity.Safety_State_txt.getText());
         } else {  s.take_screenshot();
-            logger.info("Failed: Incorrect Safety state text: "+activity.Safety_State_txt.getText());}
-        s.element_verification(activity.Safety_Active, "Safety Active tab");
-        s.element_verification(activity.Safety_All, "Safety All tab");
-        s.element_verification(activity.Safety_Bypass, "Safety Bypass tab");
+            logger.info(UDID_ + "Failed: Incorrect Safety state text: "+activity.Safety_State_txt.getText());}
+        s.element_verification(UDID_, activity.Safety_Active, "Safety Active tab");
+        s.element_verification(UDID_, activity.Safety_All, "Safety All tab");
+        s.element_verification(UDID_, activity.Safety_Bypass, "Safety Bypass tab");
         Thread.sleep(1000);
         activity.Safty_State.click();
         s.enter_default_user_code();
@@ -118,22 +118,22 @@ public class Activity_Monitor_Page_Test1 {
         activity.Safety_All.click();
         Thread.sleep(1000);
         WebElement dw1 =  s.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Door/Window 1']"));
-        s.verify_sensor_is_displayed(dw1);
+        s.verify_sensor_is_displayed(UDID_, dw1);
         WebElement dw2 =  s.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Door/Window 2']"));
-        s.verify_sensor_is_displayed(dw2);
+        s.verify_sensor_is_displayed(UDID_, dw2);
         WebElement dw3 =  s.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Door/Window 3']"));
-        s.verify_sensor_is_displayed(dw3);
+        s.verify_sensor_is_displayed(UDID_, dw3);
         WebElement motion4 =  s.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Motion 4']"));
-        s.verify_sensor_is_displayed(motion4);
+        s.verify_sensor_is_displayed(UDID_, motion4);
         WebElement auxil5 =  s.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Auxiliary Pendant 5']"));
-        s.verify_sensor_is_displayed(auxil5);
+        s.verify_sensor_is_displayed(UDID_, auxil5);
         WebElement doorbell6 =  s.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Door Bell 6']"));
-        s.verify_sensor_is_displayed(doorbell6);
+        s.verify_sensor_is_displayed(UDID_, doorbell6);
         swipe_vertical1();
         Thread.sleep(1000);
         WebElement occupancy7 =  s.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Occupancy Sensor 7']"));
         occupancy7.getText();
-        s.verify_sensor_is_displayed(occupancy7);
+        s.verify_sensor_is_displayed(UDID_, occupancy7);
         Thread.sleep(2000);
         System.out.println(s.adbPath + " -s " +UDID_);
         s.primary_call(UDID_,"65 02 7A",open); //open  DW2
@@ -142,8 +142,8 @@ public class Activity_Monitor_Page_Test1 {
         Thread.sleep(2000);
         s.verify_in_alarm();
         Thread.sleep(1000);
-        s.verify_sensor_is_displayed(dw2);
-        s.verify_sensor_is_displayed(dw3);
+        s.verify_sensor_is_displayed(UDID_, dw2);
+        s.verify_sensor_is_displayed(UDID_, dw3);
         Thread.sleep(1000);
         s.enter_default_user_code();
         Thread.sleep(1000);
@@ -170,7 +170,7 @@ public class Activity_Monitor_Page_Test1 {
         Thread.sleep(1000);
         s.primary_call(UDID_,"65 02 8A",open); //open  DW3
         Thread.sleep(1000);
-        s.verify_disarm();
+        s.verify_disarm(UDID_);
         Thread.sleep(1000);
         s.primary_call(UDID_,"65 02 7A",close); //close  DW2
         Thread.sleep(1000);
@@ -182,7 +182,7 @@ public class Activity_Monitor_Page_Test1 {
         Thread.sleep(1000);
         s.primary_call(UDID_,"65 02 8A",open); //open  DW3
         Thread.sleep(1000);
-        s.verify_armstay();
+        s.verify_armstay(UDID_);
         Thread.sleep(1000);
         s.primary_call(UDID_,"65 02 7A",close); //close  DW2
         Thread.sleep(1000);
@@ -195,7 +195,7 @@ public class Activity_Monitor_Page_Test1 {
         Thread.sleep(1000);
         s.primary_call(UDID_,"65 02 8A",open); //open  DW3
         Thread.sleep(1000);
-        s.verify_armaway();
+        s.verify_armaway(UDID_);
         Thread.sleep(1000);
         s.primary_call(UDID_,"65 02 7A",close); //close  DW2
         Thread.sleep(1000);

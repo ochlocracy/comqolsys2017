@@ -28,7 +28,7 @@ public class Allow_Master_Code_to_access_Camera_Settings_Page_Test_Grid {
 
         @Parameters ({"UDID_"})
         @Test
-        public void Verify_Master_Code_gets_access_to_Camera_Settings_page() throws Exception {
+        public void Verify_Master_Code_gets_access_to_Camera_Settings_page(String UDID_) throws Exception {
             Camera_Settings_Page set_cam =  PageFactory.initElements(s.getDriver(), Camera_Settings_Page.class);
             Settings_Page settings = PageFactory.initElements(s.getDriver(), Settings_Page.class);
             Advanced_Settings_Page adv = PageFactory.initElements(s.getDriver(), Advanced_Settings_Page.class);
@@ -52,10 +52,10 @@ public class Allow_Master_Code_to_access_Camera_Settings_Page_Test_Grid {
             Thread.sleep(2000);
             try {
                 if (inst.CAMERA_SETTINGS.isDisplayed())
-                logger.info("Pass: Camera Settings icon is present");
+                logger.info(UDID_ + " Pass: Camera Settings icon is present");
             } catch(Exception e){
                 s.take_screenshot();
-                logger.info("Failed: Camera Settings icon is NOT present");
+                logger.info(UDID_ + " Failed: Camera Settings icon is NOT present");
             }
             Thread.sleep(2000);
             settings.Home_button.click();
@@ -77,9 +77,9 @@ public class Allow_Master_Code_to_access_Camera_Settings_Page_Test_Grid {
             try {
                 if (inst.CAMERA_SETTINGS.isDisplayed())
                     s.take_screenshot();
-                logger.info("Failed: Camera Settings icon is present");
+                logger.info(UDID_ + " Failed: Camera Settings icon is present");
             } catch(Exception e){
-                logger.info("Pass: Camera Settings icon is NOT present");
+                logger.info(UDID_ + " Pass: Camera Settings icon is NOT present");
             } finally{}
         }
     @AfterClass

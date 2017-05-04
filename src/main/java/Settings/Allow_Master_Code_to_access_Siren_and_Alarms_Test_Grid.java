@@ -26,9 +26,9 @@ public class Allow_Master_Code_to_access_Siren_and_Alarms_Test_Grid {
         s.setCapabilities(URL_);
         s.setup_logger(page_name, UDID_);
     }
-
+    @Parameters({"UDID_"})
     @Test
-    public void Verify_Master_Code_gets_access_to_Siren_and_Alarms_page() throws Exception {
+    public void Verify_Master_Code_gets_access_to_Siren_and_Alarms_page(String UDID_) throws Exception {
         Siren_Alarms_Page siren = PageFactory.initElements(s.getDriver(), Siren_Alarms_Page.class);
         Settings_Page settings = PageFactory.initElements(s.getDriver(), Settings_Page.class);
         Advanced_Settings_Page adv = PageFactory.initElements(s.getDriver(), Advanced_Settings_Page.class);
@@ -53,9 +53,9 @@ public class Allow_Master_Code_to_access_Siren_and_Alarms_Test_Grid {
         s.enter_default_user_code();
         Thread.sleep(2000);
         if (inst.SIREN_AND_ALARMS.isDisplayed()){
-            logger.info("Pass: Siren and Alarms icon is present");
+            logger.info(UDID_ + " Pass: Siren and Alarms icon is present");
         }else {  s.take_screenshot();
-            logger.info("Failed: Siren and Alarms icon is NOT present");}
+            logger.info(UDID_ + " Failed: Siren and Alarms icon is NOT present");}
         Thread.sleep(2000);
         settings.Home_button.click();
         logger.info("Verify Siren and Alarms icon disappears after disabling the setting");
@@ -78,9 +78,9 @@ public class Allow_Master_Code_to_access_Siren_and_Alarms_Test_Grid {
         try {
             if (inst.SIREN_AND_ALARMS.isDisplayed())
                 s.take_screenshot();
-            logger.info("Failed: Siren and Alarms icon is present");
+            logger.info(UDID_ + " Failed: Siren and Alarms icon is present");
         } catch(Exception e){
-            logger.info("Pass: Siren and Alarms icon is NOT present");
+            logger.info(UDID_ + " Pass: Siren and Alarms icon is NOT present");
         } finally{}
     }
 

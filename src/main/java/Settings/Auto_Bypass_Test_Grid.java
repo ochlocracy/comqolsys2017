@@ -58,7 +58,7 @@ public class Auto_Bypass_Test_Grid {
         Thread.sleep(1000);
         s.primary_call(UDID_,"65 00 0A",close);
         Thread.sleep(2000);
-        s.verify_armstay();
+        s.verify_armstay(UDID_);
         home.DISARM.click();
         s.enter_default_user_code();
         Thread.sleep(3000);
@@ -77,7 +77,7 @@ public class Auto_Bypass_Test_Grid {
         home.DISARM.click();
         home.ARM_STAY.click();
         Thread.sleep(2000);
-        s.element_verification(home.Bypass_message,"Bypass pop-up message");
+        s.element_verification(UDID_, home.Bypass_message,"Bypass pop-up message");
         Thread.sleep(2000);
         home.Bypass_OK.click();
         logger.info("Opening/closing bypassed sensor");
@@ -91,7 +91,7 @@ public class Auto_Bypass_Test_Grid {
         Thread.sleep(1000);
         s.primary_call(UDID_,"65 00 0A",close);
         Thread.sleep(1000);
-        s.verify_armstay();
+        s.verify_armstay(UDID_);
         home.DISARM.click();
         s.enter_default_user_code();
         Thread.sleep(1000);

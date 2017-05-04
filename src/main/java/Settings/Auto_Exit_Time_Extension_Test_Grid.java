@@ -53,13 +53,13 @@ public class Auto_Exit_Time_Extension_Test_Grid {
         try {
             if (home.ArwAway_State.isDisplayed())
                 s.take_screenshot();
-            logger.info("Failed: System is ARMED AWAY");
+            logger.info(UDID_ + " Failed: System is ARMED AWAY");
         } catch (Exception e) {
-            logger.info("Pass: System is NOT ARMED AWAY");
+            logger.info(UDID_ + " Pass: System is NOT ARMED AWAY");
         } finally {
         }
         Thread.sleep(60000);
-        s.verify_armaway();
+        s.verify_armaway(UDID_);
         Thread.sleep(2000);
         home.ArwAway_State.click();
         s.enter_default_user_code();
@@ -85,7 +85,7 @@ public class Auto_Exit_Time_Extension_Test_Grid {
         Thread.sleep(2000);
         s.primary_call(UDID_,"65 00 0A",close);
         Thread.sleep(10000);
-        s.verify_armaway();
+        s.verify_armaway(UDID_);
         Thread.sleep(2000);
         home.ArwAway_State.click();
         s.enter_default_user_code();

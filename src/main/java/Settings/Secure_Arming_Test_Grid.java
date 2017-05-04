@@ -23,8 +23,9 @@ public class Secure_Arming_Test_Grid {
         s.setCapabilities(URL_);
         s.setup_logger(page_name, UDID_);
     }
+    @Parameters({"UDID_"})
     @Test
-    public void Verify_Secure_Arming_works() throws Exception {
+    public void Verify_Secure_Arming_works(String UDID_) throws Exception {
         Settings_Page settings = PageFactory.initElements(s.getDriver(), Settings_Page.class);
         Security_Arming_Page arming = PageFactory.initElements(s.getDriver(), Security_Arming_Page.class);
         Advanced_Settings_Page adv = PageFactory.initElements(s.getDriver(), Advanced_Settings_Page.class);
@@ -35,7 +36,7 @@ public class Secure_Arming_Test_Grid {
         home.DISARM.click();
         home.ARM_STAY.click();
         Thread.sleep(2000);
-        s.verify_armstay();
+        s.verify_armstay(UDID_);
         home.DISARM.click();
         s.enter_default_user_code();
         Thread.sleep(2000);

@@ -25,9 +25,9 @@ public class Arm_Stay_No_Delay_Test_Grid {
         s.setCapabilities(URL_);
         s.setup_logger(page_name, UDID_);
     }
-
+    @Parameters({"UDID_"})
     @Test
-    public void Verify_Arm_Stay_No_Delay_works() throws Exception {
+    public void Verify_Arm_Stay_No_Delay_works(String UDID_) throws Exception {
         Security_Arming_Page arming = PageFactory.initElements(s.getDriver(), Security_Arming_Page.class);
         Settings_Page settings = PageFactory.initElements(s.getDriver(), Settings_Page.class);
         Advanced_Settings_Page adv = PageFactory.initElements(s.getDriver(), Advanced_Settings_Page.class);
@@ -36,7 +36,7 @@ public class Arm_Stay_No_Delay_Test_Grid {
         Thread.sleep(2000);
         logger.info("Verify that Arm Stay - No Delay works when enabled");
         s.ARM_STAY();
-        s.verify_armstay();
+        s.verify_armstay(UDID_);
         home.DISARM.click();
         s.enter_default_user_code();
         Thread.sleep(2000);
@@ -53,13 +53,13 @@ public class Arm_Stay_No_Delay_Test_Grid {
         try {
             if (home.Disarmed_text.getText().equals("ARMED STAY"))
                 s.take_screenshot();
-            logger.info("Failed: System is ARMED STAY");
+            logger.info(UDID_ + " Failed: System is ARMED STAY");
         } catch (Exception e) {
-            logger.info("Pass: System is NOT ARMED STAY");
+            logger.info(UDID_ + " Pass: System is NOT ARMED STAY");
         } finally {
         }
         Thread.sleep(15000);
-        s.verify_armstay();
+        s.verify_armstay(UDID_);
         home.DISARM.click();
         s.enter_default_user_code();
         Thread.sleep(2000);

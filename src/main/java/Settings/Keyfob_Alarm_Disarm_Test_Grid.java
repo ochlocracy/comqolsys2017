@@ -68,7 +68,7 @@ public class Keyfob_Alarm_Disarm_Test_Grid {
             Thread.sleep(2000);
             s.primary_call(UDID_,"65 00 AF", disarm);
             Thread.sleep(2000);
-            s.verify_disarm();
+            s.verify_disarm(UDID_);
             Thread.sleep(2000);
             s.navigate_to_Advanced_Settings_page();
             adv.INSTALLATION.click();

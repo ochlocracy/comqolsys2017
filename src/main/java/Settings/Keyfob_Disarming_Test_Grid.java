@@ -43,13 +43,13 @@ public class Keyfob_Disarming_Test_Grid {
             Thread.sleep(2000);
             s.primary_call(UDID_,"65 00 AF", disarm);
             Thread.sleep(2000);
-            s.verify_disarm();
+            s.verify_disarm(UDID_);
             Thread.sleep(2000);
             s.ARM_AWAY(delay);
             Thread.sleep(2000);
             s.primary_call(UDID_,"65 00 AF", disarm);
             Thread.sleep(2000);
-            s.verify_disarm();
+            s.verify_disarm(UDID_);
             Thread.sleep(2000);
             logger.info("Verify that Keyfob Disarming does not work when disabled");
             s.navigate_to_Advanced_Settings_page();
@@ -67,7 +67,7 @@ public class Keyfob_Disarming_Test_Grid {
             Thread.sleep(2000);
             s.primary_call(UDID_,"65 00 AF", disarm);
             Thread.sleep(2000);
-            s.verify_armstay();
+            s.verify_armstay(UDID_);
             home.DISARM.click();
             s.enter_default_user_code();
             Thread.sleep(2000);
@@ -75,7 +75,7 @@ public class Keyfob_Disarming_Test_Grid {
             Thread.sleep(2000);
             s.primary_call(UDID_,"65 00 AF", disarm);
             Thread.sleep(2000);
-            s.verify_armaway();
+            s.verify_armaway(UDID_);
             home.ArwAway_State.click();
             s.enter_default_user_code();
             Thread.sleep(2000);
