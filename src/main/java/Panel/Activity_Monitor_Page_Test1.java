@@ -44,7 +44,7 @@ public class Activity_Monitor_Page_Test1 {
     @BeforeClass
     public void setUp(String deviceName_, String applicationName_, String UDID_, String platformVersion_, String URL_, String PORT_) throws Exception {
        s.setCapabilities(URL_);
-       s.setup_logger(page_name);
+       s.setup_logger(page_name + " "+ UDID_);
     }
 
     @Parameters ({"UDID_"})
@@ -132,6 +132,7 @@ public class Activity_Monitor_Page_Test1 {
         swipe_vertical1();
         Thread.sleep(1000);
         WebElement occupancy7 =  s.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Occupancy Sensor 7']"));
+        occupancy7.getText();
         s.verify_sensor_is_displayed(occupancy7);
         Thread.sleep(2000);
         System.out.println(s.adbPath + " -s " +UDID_);

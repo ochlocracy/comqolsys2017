@@ -2,7 +2,6 @@ package Panel;
 
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.service.local.AppiumDriverLocalService;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -20,10 +19,8 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import jxl.Sheet;
-import jxl.Workbook;
+
 import jxl.read.biff.BiffException;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import javax.activation.DataHandler;
@@ -312,7 +309,6 @@ public class Setup {
             System.out.println(e.getMessage());
         }
     }
-
     public void eventLogsGenerating(String fileName,String[] findEvent, int length) throws Exception{
         List<LogEntry> logEntries = driver.manage().logs().get("logcat").getAll();
         BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
@@ -324,7 +320,6 @@ public class Setup {
         }
         bw.close();
     }
-
     private void displayingEvent(String log, String[] findEvent, int length){
         for(int j=0;j<length;j++){
             if (log.contains(findEvent[j])) {
@@ -337,7 +332,6 @@ public class Setup {
         writer.print("");
         writer.close();
     }
-
     public void LogcatClear() throws Exception{
         rt.exec(adbPath+" logcat -c &");
     }
@@ -345,9 +339,7 @@ public class Setup {
     public void killLogcat() throws Exception{
         rt.exec(adbPath+" shell busybox pkill logcat");
     }
-
     public static void SendReport(String email) {
-
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.socketFactory.port", "465");
