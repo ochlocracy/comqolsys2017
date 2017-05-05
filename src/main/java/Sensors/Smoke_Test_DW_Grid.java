@@ -20,8 +20,8 @@ public class Smoke_Test_DW_Grid  {
     private int Open = 1;
     private int Close = 0;
 
-    private int Normal_Entry_Delay = 13;
-    private int Long_Exit_Delay =16;
+    private int Normal_Entry_Delay = 15;
+    private int Long_Exit_Delay =20;
 
     public Smoke_Test_DW_Grid() throws IOException, BiffException {}
 
@@ -95,7 +95,7 @@ public class Smoke_Test_DW_Grid  {
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 14);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 16);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 25);
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(5);
         s.verify_sensor_is_tampered(list.Door4);
         s.verify_sensor_is_tampered(list.Door5);
         s.verify_sensor_is_tampered(list.Door6);
@@ -195,10 +195,10 @@ public class Smoke_Test_DW_Grid  {
         logger.info("********************************************************");
         logger.info("ArmStay mode tripping sensors group 16, 25 -> Expected result = ArmStay");
         s.ARM_STAY();
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(4);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 16, Open);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 25, Open);
-        TimeUnit.SECONDS.sleep(5);
+        TimeUnit.SECONDS.sleep(7);
         s.verify_sensor_is_displayed(UDID_, list.Door7);
         TimeUnit.SECONDS.sleep(2);
         s.verify_armstay(UDID_);
@@ -291,7 +291,7 @@ public class Smoke_Test_DW_Grid  {
         s.ARM_STAY();
         TimeUnit.SECONDS.sleep(3);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 16);
-        TimeUnit.SECONDS.sleep(5);
+        TimeUnit.SECONDS.sleep(7);
         s.verify_sensor_is_tampered(list.Door7);
         s.verify_armstay(UDID_);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 16, Close);
