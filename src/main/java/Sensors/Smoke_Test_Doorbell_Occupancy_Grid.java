@@ -33,7 +33,7 @@ public class Smoke_Test_Doorbell_Occupancy_Grid {
     @BeforeClass
     public void setUp(String deviceName_, String applicationName_, String UDID_, String platformVersion_, String URL_, String PORT_) throws Exception {
         s.setCapabilities(URL_);
-        s.setup_logger(page_name);
+        s.setup_logger(page_name, UDID_);
     }
     @Parameters ({"UDID_"})
     @Test
@@ -52,7 +52,7 @@ public class Smoke_Test_Doorbell_Occupancy_Grid {
         logger.info("Disarm mode trigger doorbell group 25 -> Disarm");
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.doorbell_zones, 25,Ring);
         TimeUnit.SECONDS.sleep(3);
-        s.verify_disarm();
+        s.verify_disarm(UDID_);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.doorbell_zones, 25,Idle);
         TimeUnit.SECONDS.sleep(3);
 
@@ -60,7 +60,7 @@ public class Smoke_Test_Doorbell_Occupancy_Grid {
         logger.info("Disarm mode trigger occupancy sensor group 25 -> Disarm");
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.occupancy_zones, 25,Vacant);
         TimeUnit.SECONDS.sleep(3);
-        s.verify_disarm();
+        s.verify_disarm(UDID_);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.occupancy_zones, 25,Occupied);
         TimeUnit.SECONDS.sleep(3);
 
@@ -69,7 +69,7 @@ public class Smoke_Test_Doorbell_Occupancy_Grid {
         s.ARM_STAY();
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.doorbell_zones, 25,Ring);
         TimeUnit.SECONDS.sleep(3);
-        s.verify_armstay();
+        s.verify_armstay(UDID_);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.doorbell_zones, 25,Idle);
         home_page.DISARM.click();
         s.enter_default_user_code();
@@ -80,7 +80,7 @@ public class Smoke_Test_Doorbell_Occupancy_Grid {
         s.ARM_STAY();
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.occupancy_zones, 25,Vacant);
         TimeUnit.SECONDS.sleep(3);
-        s.verify_armstay();
+        s.verify_armstay(UDID_);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.occupancy_zones, 25,Occupied);
         home_page.DISARM.click();
         s.enter_default_user_code();
@@ -91,7 +91,7 @@ public class Smoke_Test_Doorbell_Occupancy_Grid {
         s.ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.doorbell_zones, 25,Ring);
         TimeUnit.SECONDS.sleep(3);
-        s.verify_armaway();
+        s.verify_armaway(UDID_);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.doorbell_zones, 25,Idle);
         home_page.ArwAway_State.click();
         s.enter_default_user_code();
@@ -102,7 +102,7 @@ public class Smoke_Test_Doorbell_Occupancy_Grid {
         s.ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.occupancy_zones, 25,Vacant);
         TimeUnit.SECONDS.sleep(3);
-        s.verify_armaway();
+        s.verify_armaway(UDID_);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.occupancy_zones, 25,Occupied);
         home_page.ArwAway_State.click();
         s.enter_default_user_code();
@@ -114,7 +114,7 @@ public class Smoke_Test_Doorbell_Occupancy_Grid {
         TimeUnit.SECONDS.sleep(5);
 //        WebElement doorbell37 = s.getDriver().findElementByXPath("//android.widget.TextView[@text='Door Bell 37']");
  //       s.verify_sensor_is_tampered(doorbell37);
-        s.verify_disarm();
+        s.verify_disarm(UDID_);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.doorbell_zones, 25,Idle);
         TimeUnit.SECONDS.sleep(3);
 
@@ -123,7 +123,7 @@ public class Smoke_Test_Doorbell_Occupancy_Grid {
         s.ARM_STAY();
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.doorbell_zones, 25);
 //        s.verify_sensor_is_tampered(doorbell37);
-        s.verify_armstay();
+        s.verify_armstay(UDID_);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.doorbell_zones, 25,Idle);
         home_page.DISARM.click();
         s.enter_default_user_code();
@@ -136,7 +136,7 @@ public class Smoke_Test_Doorbell_Occupancy_Grid {
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.doorbell_zones, 25);
         TimeUnit.SECONDS.sleep(3);
  //       s.verify_sensor_is_tampered(doorbell37);
-        s.verify_armaway();
+        s.verify_armaway(UDID_);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.doorbell_zones, 25,Idle);
         home_page.ArwAway_State.click();
         s.enter_default_user_code();

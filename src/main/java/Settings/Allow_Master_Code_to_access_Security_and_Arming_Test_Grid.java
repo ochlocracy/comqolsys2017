@@ -24,11 +24,11 @@ public class Allow_Master_Code_to_access_Security_and_Arming_Test_Grid {
     @BeforeClass
     public void setUp(String deviceName_, String applicationName_, String UDID_, String platformVersion_, String URL_, String PORT_) throws Exception {
         s.setCapabilities(URL_);
-        s.setup_logger(page_name);
+        s.setup_logger(page_name, UDID_);
     }
-
+    @Parameters({"UDID_"})
     @Test
-    public void Verify_Master_Code_gets_access_to_Security_and_Arming_page() throws Exception {
+    public void Verify_Master_Code_gets_access_to_Security_and_Arming_page(String UDID_) throws Exception {
         Security_Arming_Page arming = PageFactory.initElements(s.getDriver(), Security_Arming_Page.class);
         Settings_Page settings = PageFactory.initElements(s.getDriver(), Settings_Page.class);
         Advanced_Settings_Page adv = PageFactory.initElements(s.getDriver(), Advanced_Settings_Page.class);
@@ -54,9 +54,9 @@ public class Allow_Master_Code_to_access_Security_and_Arming_Test_Grid {
         s.enter_default_user_code();
         Thread.sleep(2000);
         if (inst.SECURITY_AND_ARMING.isDisplayed()){
-            logger.info("Pass: Security and Arming icon is present");
+            logger.info(UDID_ + " Pass: Security and Arming icon is present");
         }else { s.take_screenshot();
-            logger.info("Failed: Security and Arming icon is NOT present");}
+            logger.info(UDID_ + " Failed: Security and Arming icon is NOT present");}
         Thread.sleep(2000);
         settings.Home_button.click();
         logger.info("Verify Security and Arming icon disappears after disabling the setting");
@@ -80,9 +80,9 @@ public class Allow_Master_Code_to_access_Security_and_Arming_Test_Grid {
         try {
             if (inst.SECURITY_AND_ARMING.isDisplayed())
                 s.take_screenshot();
-            logger.info("Failed: Security and Arming icon is present");
+            logger.info(UDID_ + " Failed: Security and Arming icon is present");
         } catch(Exception e){
-            logger.info("Pass: Security and Arming icon is NOT present");
+            logger.info(UDID_ + " Pass: Security and Arming icon is NOT present");
         } finally{
         }
     }

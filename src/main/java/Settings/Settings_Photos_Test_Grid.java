@@ -21,10 +21,11 @@ public class Settings_Photos_Test_Grid {
     @BeforeClass
     public void setUp(String deviceName_, String applicationName_, String UDID_, String platformVersion_, String URL_, String PORT_) throws Exception {
         s.setCapabilities(URL_);
-        s.setup_logger(page_name);
+        s.setup_logger(page_name, UDID_);
     }
+    @Parameters({"UDID_"})
     @Test
-    public void Verify_Settings_Photos_works() throws Exception {
+    public void Verify_Settings_Photos_works(String UDID_) throws Exception {
         Panel_Camera_Page camera = PageFactory.initElements(s.getDriver(), Panel_Camera_Page.class);
         Camera_Settings_Page set_cam = PageFactory.initElements(s.getDriver(), Camera_Settings_Page.class);
         Settings_Page settings = PageFactory.initElements(s.getDriver(), Settings_Page.class);
@@ -43,9 +44,9 @@ public class Settings_Photos_Test_Grid {
         try {
             if (camera.Photo_lable.isDisplayed())
                 s.take_screenshot();
-            logger.info("Failed: Disarm photo is displayed");
+            logger.info(UDID_ +" Failed: Disarm photo is displayed");
         } catch (Exception e) {
-            logger.info("Pass: Disarm photo is NOT displayed");
+            logger.info(UDID_ +" Pass: Disarm photo is NOT displayed");
         } finally {
         }
         logger.info("Verifying Settings photo is taken when setting in enabled...");
@@ -63,9 +64,9 @@ public class Settings_Photos_Test_Grid {
         s.swipeFromLefttoRight();
         camera.Settings_photos.click();
         if (camera.Photo_lable.isDisplayed()){
-            logger.info("Pass: Settings photo is displayed");
+            logger.info(UDID_ +" Pass: Settings photo is displayed");
         }else { s.take_screenshot();
-            logger.info("Failed: Settings photo is NOT displayed");}
+            logger.info(UDID_ +" Failed: Settings photo is NOT displayed");}
         camera.Camera_delete.click();
         camera.Camera_delete_yes.click();
         s.enter_default_user_code();

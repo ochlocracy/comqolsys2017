@@ -25,7 +25,7 @@ public class Auto_Stay_Test_Grid {
     @BeforeClass
     public void setUp(String deviceName_, String applicationName_, String UDID_, String platformVersion_, String URL_, String PORT_) throws Exception {
         s.setCapabilities(URL_);
-        s.setup_logger(page_name);
+        s.setup_logger(page_name, UDID_);
     }
     @Parameters ({"UDID_"})
     @Test
@@ -42,7 +42,7 @@ public class Auto_Stay_Test_Grid {
         Thread.sleep(3000);
         logger.info("Arm Away the system");
         s.ARM_AWAY(delay);
-        s.verify_armstay();
+        s.verify_armstay(UDID_);
         home.DISARM.click();
         s.enter_default_user_code();
         logger.info("Verify that Auto Stay does not work when disabled");
@@ -56,7 +56,7 @@ public class Auto_Stay_Test_Grid {
         settings.Home_button.click();
         logger.info("Arm Away the system");
         s.ARM_AWAY(delay);
-        s.verify_armaway();
+        s.verify_armaway(UDID_);
         home.ArwAway_State.click();
         s.enter_default_user_code();
         s.navigate_to_Advanced_Settings_page();

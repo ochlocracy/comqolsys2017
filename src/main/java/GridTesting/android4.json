@@ -8,9 +8,8 @@
       "maxInstances": 1,
       "platform": "ANDROID",
       "applicationName": "test4",
-      "newCommandTimeout":"30",
-      "deviceReadyTimeout":5
-    }
+      "newCommandTimeout":"100",
+      "deviceReadyTimeout":5}
   ],
   "configuration": {
     "nodeTimeout": 120,

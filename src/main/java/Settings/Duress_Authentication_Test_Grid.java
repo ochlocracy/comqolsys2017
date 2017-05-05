@@ -23,11 +23,13 @@ public class Duress_Authentication_Test_Grid {
     @BeforeClass
     public void setUp(String deviceName_, String applicationName_, String UDID_, String platformVersion_, String URL_, String PORT_) throws Exception {
         s.setCapabilities(URL_);
-        s.setup_logger(page_name);
+        s.setup_logger(page_name, UDID_);
     }
+    @Parameters({ "UDID_" })
     @Test
-    public void Verify_Duress_Authentication_works() throws Exception {
+    public void Verify_Duress_Authentication_works(String UDID_) throws Exception {
         Settings_Page settings = PageFactory.initElements(s.getDriver(), Settings_Page.class);
+        Contact_Us contact = PageFactory.initElements(s.getDriver(), Contact_Us.class);
         Security_Arming_Page arming = PageFactory.initElements(s.getDriver(), Security_Arming_Page.class);
         Advanced_Settings_Page adv = PageFactory.initElements(s.getDriver(), Advanced_Settings_Page.class);
         Installation_Page inst = PageFactory.initElements(s.getDriver(), Installation_Page.class);
@@ -42,7 +44,7 @@ public class Duress_Authentication_Test_Grid {
         home.Nine.click();
         home.Eight.click();
         if(settings.Invalid_User_Code.isDisplayed()){
-            logger.info("Pass: Duress code does not work");}
+            logger.info(UDID_ +" Pass: Duress code does not work");}
         Thread.sleep(1000);
         s.enter_default_user_code();
         s.navigate_to_Advanced_Settings_page();
@@ -72,7 +74,7 @@ public class Duress_Authentication_Test_Grid {
         home.Nine.click();
         home.Nine.click();
         home.Eight.click();
-        s.verify_disarm();
+        s.verify_disarm(UDID_);
         Thread.sleep(1000);
         logger.info("Arm Away the system");
         s.ARM_AWAY(delay);
@@ -81,7 +83,7 @@ public class Duress_Authentication_Test_Grid {
         home.Nine.click();
         home.Nine.click();
         home.Eight.click();
-        s.verify_disarm();
+        s.verify_disarm(UDID_);
         Thread.sleep(2000);
         s.navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
@@ -90,6 +92,7 @@ public class Duress_Authentication_Test_Grid {
         s.swipe_vertical();
         Thread.sleep(1000);
         arming.Auto_Stay.click();
+        contact.acknowledge_all_alerts();
         Thread.sleep(2000);
     }
     @AfterClass

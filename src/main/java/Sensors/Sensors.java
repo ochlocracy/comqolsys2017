@@ -1,13 +1,9 @@
 package Sensors;
 
 import Panel.Configuration;
-import Panel.Setup;
-import jxl.Sheet;
-import jxl.Workbook;
 import jxl.read.biff.BiffException;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -79,7 +75,7 @@ public class Sensors {
         sensor = new SensorObject();
         SensorObject_ArrayList.add(sensor);
         String heat = "/home/qolsys/Desktop/heat.csv";
-        String main = "/home/qolsys/Desktop/test.csv";
+        String main = "scr/test.csv";
         BufferedReader reader = new BufferedReader(new FileReader(main));
         String line = null;
         Scanner scanner = null;

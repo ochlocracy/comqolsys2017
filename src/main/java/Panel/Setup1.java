@@ -73,9 +73,9 @@ public class Setup1 {
         this.driver = new AndroidDriver<WebElement>(new URL(URL_), getCapabilities());
     }
 
-    public void setup_logger(String test_case_name) throws Exception {
+    public void setup_logger(String test_case_name, String UDID_) throws Exception {
         PropertyConfigurator.configure(new File(appDir, "log4j.properties").getAbsolutePath());
-        log.startTestCase(" " +test_case_name+ " ");
+        log.startTestCase(" " +test_case_name+ " " + UDID_);
     }
 
     public void swipeFromLefttoRight() throws Exception {
@@ -95,10 +95,10 @@ public class Setup1 {
         Thread.sleep(2000);
     }
 
-    public WebElement element_verification(WebElement element, String element_name) throws  Exception{
+    public WebElement element_verification(String UDID_, WebElement element, String element_name) throws  Exception{
         try {
             if (element.isDisplayed()) {
-                logger.info("Pass: " + element_name + " is present, value = " + element.getText());
+                logger.info("Pass: "+ UDID_ +" "+ element_name + " is present, value = " + element.getText());
             }
         } catch (Exception e){
             take_screenshot();
@@ -175,29 +175,29 @@ public class Setup1 {
         home_page.Four.click();
     }
 
-    public void verify_disarm() throws Exception {
+    public void verify_disarm(String UDID_) throws Exception {
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         if (home_page.Disarmed_text.getText().equals("DISARMED")) {
-            logger.info("Pass: System is DISARMED");
+            logger.info("Pass: " + UDID_ + " System is DISARMED");
         } else {
             take_screenshot();
             logger.info("Failed: System is not DISARMED " + home_page.Disarmed_text.getText());
         }
     }
 
-    public void verify_armstay() throws Exception {
+    public void verify_armstay(String UDID_) throws Exception {
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         if (home_page.Disarmed_text.getText().equals("ARMED STAY")) {
-            logger.info("Pass: System is ARMED STAY");
+            logger.info("Pass: "+ UDID_ +" System is ARMED STAY");
         } else {
             take_screenshot();
             logger.info("Failed: System is NOT ARMED STAY");}
     }
 
-    public void verify_armaway() throws Exception {
+    public void verify_armaway(String UDID_) throws Exception {
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         if (home_page.ArwAway_State.isDisplayed()) {
-            logger.info("Pass: Panel is in Arm Away mode");
+            logger.info("Pass: " + UDID_ +" Panel is in Arm Away mode");
         } else {
             take_screenshot();
             logger.info("Failed: Panel is not in Arm Away mode");}
@@ -210,12 +210,12 @@ public class Setup1 {
             take_screenshot();
             logger.info("Failed: System is NOT in ALARM");}
     }
-    public void verify_sensor_is_displayed(WebElement sensor_name) throws Exception {
+    public void verify_sensor_is_displayed(String UDID_, WebElement sensor_name) throws Exception {
         if (sensor_name.isDisplayed()) {
-            logger.info(sensor_name.getText() +" is successfully opened/activated");
+            logger.info(UDID_ + " " +sensor_name.getText() +" is successfully opened/activated");
         } else {
             take_screenshot();
-            logger.info(sensor_name +" is NOT opened/activated");}
+            logger.info(UDID_ + " " + sensor_name +" is NOT opened/activated");}
     }
     public void verify_sensor_is_tampered(WebElement sensor_name) throws Exception {
         if (sensor_name.isDisplayed()) {
@@ -306,7 +306,7 @@ public class Setup1 {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         try {
             // now copy the  screenshot to desired location using copyFile //method
-            FileUtils.copyFile(src, new File("/home/qolsys/Desktop/comqolsysPOM/screenshots/"+sdf.format(timestamp)+".png"));
+            FileUtils.copyFile(src, new File("scr/screenshots/"+sdf.format(timestamp)+".png"));
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -357,6 +357,7 @@ public class Setup1 {
         System.out.println(adbPath + " -s " +UDID_+ primary_send); }
 
     public void delete_from_primary(String UDID_, int zone) throws IOException, InterruptedException {
+        logger.info("Deleting sensor/sensors from a panel");
         String deleteFromPrimary = " shell service call qservice 51 i32 " + zone;
         rt.exec(adbPath + " -s " +UDID_+ deleteFromPrimary);
         System.out.println(deleteFromPrimary);

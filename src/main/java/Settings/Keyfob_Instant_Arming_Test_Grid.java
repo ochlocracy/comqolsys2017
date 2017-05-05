@@ -25,7 +25,7 @@ public class Keyfob_Instant_Arming_Test_Grid {
     @BeforeClass
     public void setUp(String deviceName_, String applicationName_, String UDID_, String platformVersion_, String URL_, String PORT_) throws Exception {
         s.setCapabilities(URL_);
-        s.setup_logger(page_name);
+        s.setup_logger(page_name, UDID_);
     }
     @Parameters ({"UDID_"})
     @Test
@@ -43,14 +43,14 @@ public class Keyfob_Instant_Arming_Test_Grid {
         Thread.sleep(3000);
         s.primary_call(UDID_,"65 00 AF", armstay);
         Thread.sleep(5000);
-        s.verify_armstay();
+        s.verify_armstay(UDID_);
         home.DISARM.click();
         s.enter_default_user_code();
         Thread.sleep(2000);
         logger.info("Arm Away the system");
         s.primary_call(UDID_,"65 00 AF", armaway);
         Thread.sleep(4000);
-        s.verify_armaway();
+        s.verify_armaway(UDID_);
         home.ArwAway_State.click();
         s.enter_default_user_code();
         Thread.sleep(2000);
@@ -72,13 +72,13 @@ public class Keyfob_Instant_Arming_Test_Grid {
         try {
             if (home.Disarmed_text.getText().equals("ARMED STAY"))
                 s.take_screenshot();
-            logger.info("Failed: System is ARMED STAY");
+            logger.info(UDID_ +" Failed: System is ARMED STAY");
         } catch (Exception e) {
-            logger.info("Pass: System is NOT ARMED STAY");
+            logger.info(UDID_ +" Pass: System is NOT ARMED STAY");
         } finally {
         }
         Thread.sleep(10000);
-        s.verify_armstay();
+        s.verify_armstay(UDID_);
         home.DISARM.click();
         s.enter_default_user_code();
         Thread.sleep(2000);
@@ -88,13 +88,13 @@ public class Keyfob_Instant_Arming_Test_Grid {
         try {
             if (home.ArwAway_State.isDisplayed())
                 s.take_screenshot();
-            logger.info("Failed: System is ARMED STAY");
+            logger.info(UDID_ +" Failed: System is ARMED STAY");
         } catch (Exception e) {
-            logger.info("Pass: System is NOT ARMED AWAY");
+            logger.info(UDID_ +" Pass: System is NOT ARMED AWAY");
         } finally {
         }
         Thread.sleep(10000);
-        s.verify_armaway();
+        s.verify_armaway(UDID_);
         Thread.sleep(2000);
         home.ArwAway_State.click();
         s.enter_default_user_code();

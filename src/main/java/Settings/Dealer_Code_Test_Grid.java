@@ -22,10 +22,11 @@ public class Dealer_Code_Test_Grid {
     @BeforeClass
     public void setUp(String deviceName_, String applicationName_, String UDID_, String platformVersion_, String URL_, String PORT_) throws Exception {
         s.setCapabilities(URL_);
-        s.setup_logger(page_name);
+        s.setup_logger(page_name, UDID_);
     }
+    @Parameters({"UDID_"})
     @Test
-    public void Verify_Dealer_Code_Change() throws Exception {
+    public void Verify_Dealer_Code_Change(String UDID_) throws Exception {
         Settings_Page settings =  PageFactory.initElements(s.getDriver(), Settings_Page.class);
         Security_Arming_Page arming = PageFactory.initElements(s.getDriver(), Security_Arming_Page.class);
         Advanced_Settings_Page adv = PageFactory.initElements(s.getDriver(), Advanced_Settings_Page.class);
@@ -66,8 +67,8 @@ public class Dealer_Code_Test_Grid {
         settings.Two.click();
         settings.Two.click();
         if(settings.Invalid_User_Code.isDisplayed()){
-            logger.info("Pass: old Dealer code does not work");
-        }else { logger.info("Failed: old Dealer code works");}
+            logger.info(UDID_ + " Pass: old Dealer code does not work");
+        }else { logger.info(UDID_ + "Failed: old Dealer code works");}
         Thread.sleep(2000);
         logger.info("Verify new Dealer code works");
         settings.Five.click();
@@ -75,7 +76,7 @@ public class Dealer_Code_Test_Grid {
         settings.Five.click();
         settings.Five.click();
         if(adv.INSTALLATION.isDisplayed()){
-        logger.info("Pass: new Dealer code works as expected");}
+        logger.info(UDID_ + "Pass: new Dealer code works as expected");}
         adv.INSTALLATION.click();
         inst.SECURITY_AND_ARMING.click();
         arming.Dealer_Code.click();

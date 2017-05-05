@@ -55,7 +55,7 @@ public class Sensors_Panel_Add extends Setup {
         TimeUnit.SECONDS.sleep(2);
         WebElement element0 = driver.findElement(By.xpath("//android.widget.CheckedTextView[@index='0']"));
         System.out.println(element0.getText());
-        driver.scrollTo("Garage Door").click();
+   //     driver.scrollTo("Garage Door").click();
         TimeUnit.SECONDS.sleep(10);
     }
 
