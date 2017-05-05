@@ -49,7 +49,7 @@ public class Smoke_Test_DW_Grid  {
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 16, Open);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 25, Open);
         TimeUnit.SECONDS.sleep(5);
-        WebElement Door4 = s.getDriver().findElementByXPath("//android.widget.TextView[@text='Door/Window 4']");
+        WebElement Door4 = s.getDriver().findElementByXPath("//*[contains(text(),'Door/Window 4')]");
         s.verify_sensor_is_displayed(UDID_, Door4);
         WebElement Door5 = s.getDriver().findElementByXPath("//android.widget.TextView[@text='Door/Window 5']");
         s.verify_sensor_is_displayed(UDID_, Door5);
@@ -565,7 +565,7 @@ public class Smoke_Test_DW_Grid  {
         MySensors.deleteAllSensors();
     }
 
-    @AfterMethod
+    @AfterClass
     public void tearDown () throws IOException, InterruptedException {
         log.endTestCase(page_name);
         s.getDriver().quit();
