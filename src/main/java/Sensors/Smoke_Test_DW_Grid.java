@@ -39,7 +39,7 @@ public class Smoke_Test_DW_Grid  {
         MySensors.read_sensors_from_csv();
         logger.info("Adding sensors...");
         MySensors.addAllSensors();
-        TimeUnit.SECONDS.sleep(5);
+        TimeUnit.SECONDS.sleep(20);
 
         logger.info("Disarm mode tripping sensors group 10, 12, 13, 14, 16, 25 -> Expected result= system stays in Disarm mode");
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 10, Open);
