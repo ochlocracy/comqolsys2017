@@ -51,97 +51,87 @@ public class Smoke_Test_DW_Grid  {
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 25, Open);
         TimeUnit.SECONDS.sleep(3);
         s.verify_sensor_is_displayed(UDID_, list.Door4);
-        TimeUnit.SECONDS.sleep(2);
+        s.verify_sensor_is_displayed(UDID_, list.Door5);
+        s.verify_sensor_is_displayed(UDID_, list.Door6);
+        s.verify_sensor_is_displayed(UDID_, list.Door7);
+        s.verify_sensor_is_displayed(UDID_, list.Door8);
+        s.verify_sensor_is_displayed(UDID_, list.Door9);
+        s.verify_disarm(UDID_);
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 10, Close);
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 12, Close);
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 13, Close);
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 14, Close);
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 16, Close);
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 25, Close);
+        TimeUnit.SECONDS.sleep(3);
 
+        logger.info("********************************************************");
+        logger.info("Disarm mode tripping sensors group 8 -> Expected result= Instant Alarm");
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 8, Open);
+        TimeUnit.SECONDS.sleep(3);
+        s.verify_sensor_is_displayed(UDID_, list.Door2);
+        s.verify_status_open();
+        s.verify_in_alarm();
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 8, Close);
+        s.enter_default_user_code();
+        TimeUnit.SECONDS.sleep(5);
 
-//        WebElement Door5 = s.getDriver().findElementByXPath("//android.widget.TextView[@text='Door/Window 5']");
-//        s.verify_sensor_is_displayed(UDID_, Door5);
-//        WebElement Door6 = s.getDriver().findElementByXPath("//android.widget.TextView[@text='Door/Window 6']");
-//        s.verify_sensor_is_displayed(UDID_, Door6);
-//        WebElement Door7 = s.getDriver().findElementByXPath("//android.widget.TextView[@text='Door/Window 7']");
-//        s.verify_sensor_is_displayed(UDID_, Door7);
-//        WebElement Door8 = s.getDriver().findElementByXPath("//android.widget.TextView[@text='Door/Window 8']");
-//        s.verify_sensor_is_displayed(UDID_, Door8);
-//        WebElement Door9 = s.getDriver().findElementByXPath("//android.widget.TextView[@text='Door/Window 9']");
-//        s.verify_sensor_is_displayed(UDID_, Door9);
-//        s.verify_disarm(UDID_);
-//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 10, Close);
-//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 12, Close);
-//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 13, Close);
-//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 14, Close);
-//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 16, Close);
-//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 25, Close);
-//        TimeUnit.SECONDS.sleep(5);
-//
-//        logger.info("********************************************************");
-//        logger.info("Disarm mode tripping sensors group 8 -> Expected result= Instant Alarm");
-//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 8, Open);
-//        TimeUnit.SECONDS.sleep(3);
-//        WebElement Door2 = s.getDriver().findElementByXPath("//android.widget.TextView[@text='Door/Window 2']");
-//        s.verify_sensor_is_displayed(UDID_, Door2);
-//        s.verify_status_open();
-//        s.verify_in_alarm();
-//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 8, Close);
-//        s.enter_default_user_code();
-//        TimeUnit.SECONDS.sleep(5);
-//
-//        logger.info("********************************************************");
-//        logger.info("Disarm mode tripping sensors group 9 -> Expected result= 30 sec delay -> Alarm");
-//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 9, Open);
-//        TimeUnit.SECONDS.sleep(Normal_Entry_Delay);
-//        WebElement Door3 = s.getDriver().findElementByXPath("//android.widget.TextView[@text='Door/Window 3']");
-//        s.verify_sensor_is_displayed(UDID_, Door3);
-//        s.verify_status_open();
-//        s.verify_in_alarm();
-//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 9, Close);
-//        s.enter_default_user_code();
-//        TimeUnit.SECONDS.sleep(5);
-//
-//        logger.info("**********************TAMPER**********************");
-//        logger.info("Disarm mode tamper sensors group 10, 12, 13, 14, 16, 25 -> Expected result = Disarm");
-//        MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 10);
-//        MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 12);
-//        MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 13);
-//        MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 14);
-//        MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 16);
-//        MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 25);
-//        TimeUnit.SECONDS.sleep(3);
-//        s.verify_sensor_is_tampered(list.Door4);
-//        s.verify_sensor_is_tampered(Door5);
-//        s.verify_sensor_is_tampered(Door6);
-//        s.verify_sensor_is_tampered(Door7);
-//        s.verify_sensor_is_tampered(Door8);
-//        s.verify_sensor_is_tampered(Door9);
-//        s.verify_disarm(UDID_);
-//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 10, Close);
-//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 12, Close);
-//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 13, Close);
-//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 14, Close);
-//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 16, Close);
-//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 25, Close);
-//
-//        logger.info("********************************************************");
-//        logger.info("Disarm mode tamper sensors group 8 -> Expected result -> Instant Alarm");
-//        MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 8);
-//        TimeUnit.SECONDS.sleep(3);
-//        s.verify_sensor_is_tampered(Door2);
-//        s.verify_status_tampered();
-//        s.verify_in_alarm();
-//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 8, Close);
-//        s.enter_default_user_code();
-//        TimeUnit.SECONDS.sleep(5);
-//
-//        logger.info("********************************************************");
-//        logger.info("Disarm mode tamper sensors group 9 -> Expected result -> Instant Alarm");
-//        MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 9);
-//        TimeUnit.SECONDS.sleep(3);
-//        s.verify_sensor_is_tampered(Door3);
-//        s.verify_status_tampered();
-//        s.verify_in_alarm();
-//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 9, Close);
-//        s.enter_default_user_code();
-//        TimeUnit.SECONDS.sleep(5);
-//    }
+        logger.info("********************************************************");
+        logger.info("Disarm mode tripping sensors group 9 -> Expected result= 30 sec delay -> Alarm");
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 9, Open);
+        TimeUnit.SECONDS.sleep(Normal_Entry_Delay);
+        s.verify_sensor_is_displayed(UDID_, list.Door3);
+        s.verify_status_open();
+        s.verify_in_alarm();
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 9, Close);
+        s.enter_default_user_code();
+        TimeUnit.SECONDS.sleep(5);
+
+        logger.info("**********************TAMPER**********************");
+        logger.info("Disarm mode tamper sensors group 10, 12, 13, 14, 16, 25 -> Expected result = Disarm");
+        MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 10);
+        MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 12);
+        MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 13);
+        MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 14);
+        MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 16);
+        MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 25);
+        TimeUnit.SECONDS.sleep(3);
+        s.verify_sensor_is_tampered(list.Door4);
+        s.verify_sensor_is_tampered(list.Door5);
+        s.verify_sensor_is_tampered(list.Door6);
+        s.verify_sensor_is_tampered(list.Door7);
+        s.verify_sensor_is_tampered(list.Door8);
+        s.verify_sensor_is_tampered(list.Door9);
+        s.verify_disarm(UDID_);
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 10, Close);
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 12, Close);
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 13, Close);
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 14, Close);
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 16, Close);
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 25, Close);
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode tamper sensors group 8 -> Expected result -> Instant Alarm");
+        MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 8);
+        TimeUnit.SECONDS.sleep(3);
+        s.verify_sensor_is_tampered(list.Door2);
+        s.verify_status_tampered();
+        s.verify_in_alarm();
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 8, Close);
+        s.enter_default_user_code();
+        TimeUnit.SECONDS.sleep(5);
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode tamper sensors group 9 -> Expected result -> Instant Alarm");
+        MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 9);
+        TimeUnit.SECONDS.sleep(3);
+        s.verify_sensor_is_tampered(list.Door3);
+        s.verify_status_tampered();
+        s.verify_in_alarm();
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 9, Close);
+        s.enter_default_user_code();
+        TimeUnit.SECONDS.sleep(5);
+    }
 //    @Parameters ({"UDID_"})
 //    @Test
 //    public void b_Armed_Stay_Mode (String UDID_) throws Exception {
@@ -566,7 +556,7 @@ public class Smoke_Test_DW_Grid  {
 //        contact_us.acknowledge_all_alerts();
 //        logger.info("Deleting all sensors...");
 //        MySensors.deleteAllSensors();
-    }
+ //   }
 
     @AfterClass
     public void tearDown () throws IOException, InterruptedException {
