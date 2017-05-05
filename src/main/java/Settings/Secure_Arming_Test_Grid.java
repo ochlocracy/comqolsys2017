@@ -55,7 +55,7 @@ public class Secure_Arming_Test_Grid {
         logger.info("Arm Stay the system");
         s.ARM_STAY();
         if(home.Enter_Code_to_Access_the_Area.isDisplayed()){
-            logger.info("Pass: code is requires to Arm the system");
+            logger.info(UDID_ +" Pass: code is requires to Arm the system");
         }
         s.enter_default_user_code();
         Thread.sleep(2000);
@@ -66,7 +66,7 @@ public class Secure_Arming_Test_Grid {
         home.DISARM.click();
         home.ARM_AWAY.click();
         if(home.Enter_Code_to_Access_the_Area.isDisplayed()){
-            logger.info("Pass: code is requires to Arm the system");
+            logger.info(UDID_ +" Pass: code is requires to Arm the system");
         }
         s.enter_default_user_code();
         Thread.sleep(15000);
