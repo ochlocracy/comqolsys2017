@@ -24,8 +24,9 @@ public class Panic_Disable_Test_Grid {
         s.setCapabilities(URL_);
         s.setup_logger(page_name, UDID_);
     }
+    @Parameters({"UDID_"})
     @Test
-    public void Verify_Keyfob_Alarm_Disarm_works() throws Exception {
+    public void Verify_Keyfob_Alarm_Disarm_works(String UDID_) throws Exception {
         Siren_Alarms_Page siren = PageFactory.initElements(s.getDriver(), Siren_Alarms_Page.class);
         Settings_Page settings = PageFactory.initElements(s.getDriver(), Settings_Page.class);
         Advanced_Settings_Page adv = PageFactory.initElements(s.getDriver(), Advanced_Settings_Page.class);
@@ -47,9 +48,9 @@ public class Panic_Disable_Test_Grid {
         try {
             if (emergency.Police_icon.isDisplayed())
                 s.take_screenshot();
-            logger.info("Failed: Police Emergency is displayed");
+            logger.info(UDID_ +" Failed: Police Emergency is displayed");
         } catch (Exception e) {
-            logger.info("Pass: Police Emergency is NOT displayed");
+            logger.info(UDID_ +" Pass: Police Emergency is NOT displayed");
         } finally {
         }
         s.swipeFromLefttoRight();
@@ -68,9 +69,9 @@ public class Panic_Disable_Test_Grid {
         try {
             if (emergency.Fire_icon.isDisplayed())
                 s.take_screenshot();
-            logger.info("Failed: Fire Emergency is displayed");
+            logger.info(UDID_ +" Failed: Fire Emergency is displayed");
         } catch (Exception e) {
-            logger.info("Pass: Fire Emergency is NOT displayed");
+            logger.info(UDID_ +" Pass: Fire Emergency is NOT displayed");
         } finally {
         }
         s.swipeFromLefttoRight();
@@ -89,9 +90,9 @@ public class Panic_Disable_Test_Grid {
         try {
             if (emergency.Auxiliary_icon.isDisplayed())
                 s.take_screenshot();
-            logger.info("Failed: Auxiliary Emergency is displayed");
+            logger.info(UDID_ +" Failed: Auxiliary Emergency is displayed");
         } catch (Exception e) {
-            logger.info("Pass: Auxiliary Emergency is NOT displayed");
+            logger.info(UDID_ +" Pass: Auxiliary Emergency is NOT displayed");
         } finally {
         }
         s.swipeFromLefttoRight();
