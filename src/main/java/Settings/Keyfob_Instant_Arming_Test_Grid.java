@@ -72,9 +72,9 @@ public class Keyfob_Instant_Arming_Test_Grid {
         try {
             if (home.Disarmed_text.getText().equals("ARMED STAY"))
                 s.take_screenshot();
-            logger.info("Failed: System is ARMED STAY");
+            logger.info(UDID_ +" Failed: System is ARMED STAY");
         } catch (Exception e) {
-            logger.info("Pass: System is NOT ARMED STAY");
+            logger.info(UDID_ +" Pass: System is NOT ARMED STAY");
         } finally {
         }
         Thread.sleep(10000);
@@ -88,9 +88,9 @@ public class Keyfob_Instant_Arming_Test_Grid {
         try {
             if (home.ArwAway_State.isDisplayed())
                 s.take_screenshot();
-            logger.info("Failed: System is ARMED STAY");
+            logger.info(UDID_ +" Failed: System is ARMED STAY");
         } catch (Exception e) {
-            logger.info("Pass: System is NOT ARMED AWAY");
+            logger.info(UDID_ +" Pass: System is NOT ARMED AWAY");
         } finally {
         }
         Thread.sleep(10000);
