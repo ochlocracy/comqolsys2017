@@ -49,7 +49,7 @@ public class Smoke_Test_DW_Grid  {
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 14, Open);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 16, Open);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 25, Open);
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(5);
         s.verify_sensor_is_displayed(UDID_, list.Door4);
         TimeUnit.SECONDS.sleep(1);
         s.verify_sensor_is_displayed(UDID_, list.Door5);
