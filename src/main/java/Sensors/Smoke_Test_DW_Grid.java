@@ -4,6 +4,7 @@ import Panel.*;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.*;
 
@@ -34,6 +35,7 @@ public class Smoke_Test_DW_Grid  {
     @Parameters ({"UDID_"})
     @Test
     public void a_Disarm_Mode(String UDID_) throws Exception {
+        SensorsList list = PageFactory.initElements(s.getDriver(), SensorsList.class);
 
         logger.info("Current software version: " + s.Software_Version());
         MySensors.read_sensors_from_csv();
@@ -49,8 +51,10 @@ public class Smoke_Test_DW_Grid  {
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 16, Open);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 25, Open);
         TimeUnit.SECONDS.sleep(5);
-        WebElement Door4 = s.getDriver().findElementByXPath("//*[contains(text(),'Door/Window 4')]");
-        s.verify_sensor_is_displayed(UDID_, Door4);
+        s.verify_sensor_is_displayed(UDID_, list.Door4);
+
+
+        
         WebElement Door5 = s.getDriver().findElementByXPath("//android.widget.TextView[@text='Door/Window 5']");
         s.verify_sensor_is_displayed(UDID_, Door5);
         WebElement Door6 = s.getDriver().findElementByXPath("//android.widget.TextView[@text='Door/Window 6']");
