@@ -23,8 +23,9 @@ public class Secure_Delete_Images_Test_Grid {
         s.setCapabilities(URL_);
         s.setup_logger(page_name, UDID_);
     }
+    @Parameters({"UDID_"})
     @Test
-    public void Verify_Secure_Delete_Images_works() throws Exception {
+    public void Verify_Secure_Delete_Images_works(String UDID_) throws Exception {
         Home_Page home  = PageFactory.initElements(s.getDriver(), Home_Page.class);
         Panel_Camera_Page camera = PageFactory.initElements(s.getDriver(), Panel_Camera_Page.class);
         Camera_Settings_Page set_cam = PageFactory.initElements(s.getDriver(), Camera_Settings_Page.class);
@@ -44,9 +45,9 @@ public class Secure_Delete_Images_Test_Grid {
             logger.info("Delete pop-up");}
         camera.Camera_delete_yes.click();
         if (home.Enter_Code_to_Access_the_Area.isDisplayed()){
-            logger.info("Pass: Password is required to delete the image");
+            logger.info(UDID_ +" Pass: Password is required to delete the image");
         }else { s.take_screenshot();
-            logger.info("Failed: Password is NOT required to delete the image");
+            logger.info(UDID_ +" Failed: Password is NOT required to delete the image");
         }
         s.enter_default_user_code();
         Thread.sleep(1000);
@@ -72,9 +73,9 @@ public class Secure_Delete_Images_Test_Grid {
         try {
             if (home.Enter_Code_to_Access_the_Area.isDisplayed())
                 s.take_screenshot();
-            logger.info("Failed: Password is required to delete the image");
+            logger.info(UDID_ +" Failed: Password is required to delete the image");
         } catch (Exception e) {
-            logger.info("Pass: Password is NOT required to delete the image");
+            logger.info(UDID_ +" Pass: Password is NOT required to delete the image");
         } finally {
         }
         s.swipeFromLefttoRight();
