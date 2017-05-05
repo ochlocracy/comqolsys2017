@@ -109,6 +109,7 @@ public class Smoke_Test_DW_Grid  {
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 14, Close);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 16, Close);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 25, Close);
+        TimeUnit.SECONDS.sleep(2);
 
         logger.info("********************************************************");
         logger.info("Disarm mode tamper sensors group 8 -> Expected result -> Instant Alarm");
