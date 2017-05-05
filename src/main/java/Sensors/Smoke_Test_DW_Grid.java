@@ -332,9 +332,9 @@ public class Smoke_Test_DW_Grid  {
         logger.info("********************************************************");
         logger.info("ArmStay mode tamper sensors group 16 -> Expected result = ArmStay");
         s.ARM_STAY();
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(5);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 16);
-        TimeUnit.SECONDS.sleep(7);
+        TimeUnit.SECONDS.sleep(5);
         s.verify_sensor_is_tampered(list.Door7);
         s.verify_armstay(UDID_);
         TimeUnit.SECONDS.sleep(1);
@@ -346,9 +346,9 @@ public class Smoke_Test_DW_Grid  {
         logger.info("********************************************************");
         logger.info("ArmStay mode tamper sensors group 25 -> Expected result = ArmStay");
         s.ARM_STAY();
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(5);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 25);
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(5);
         s.verify_sensor_is_tampered(list.Door8);
         s.verify_armstay(UDID_);
         TimeUnit.SECONDS.sleep(1);
@@ -360,9 +360,9 @@ public class Smoke_Test_DW_Grid  {
         logger.info("********************************************************");
         logger.info("ArmStay mode tamper sensors group 8 -> Expected result = Instant Alarm");
         s.ARM_STAY();
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(5);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 8);
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(5);
         s.verify_sensor_is_tampered(list.Door2);
         s.verify_status_tampered();
         s.verify_in_alarm();
