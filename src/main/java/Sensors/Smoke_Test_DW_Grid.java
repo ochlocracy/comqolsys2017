@@ -54,7 +54,7 @@ public class Smoke_Test_DW_Grid  {
         s.verify_sensor_is_displayed(UDID_, list.Door4);
 
 
-        
+
         WebElement Door5 = s.getDriver().findElementByXPath("//android.widget.TextView[@text='Door/Window 5']");
         s.verify_sensor_is_displayed(UDID_, Door5);
         WebElement Door6 = s.getDriver().findElementByXPath("//android.widget.TextView[@text='Door/Window 6']");
@@ -107,7 +107,7 @@ public class Smoke_Test_DW_Grid  {
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 16);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 25);
         TimeUnit.SECONDS.sleep(3);
-        s.verify_sensor_is_tampered(Door4);
+        s.verify_sensor_is_tampered(list.Door4);
         s.verify_sensor_is_tampered(Door5);
         s.verify_sensor_is_tampered(Door6);
         s.verify_sensor_is_tampered(Door7);
