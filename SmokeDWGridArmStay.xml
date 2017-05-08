@@ -29,10 +29,10 @@
         <parameter name="applicationName_" value="62864b8c"/>
         <parameter name="UDID_" value="62864b8c"/>
         <parameter name="platformVersion_" value="5.1"/>
-        <parameter name="URL_" value="http://172.16.101.86:47Smoke_Test_DW_Grid_ArmStay29/wd/hub"/>
+        <parameter name="URL_" value="http://172.16.101.86:4729/wd/hub"/>
         <parameter name="PORT_" value="4729"/>
         <classes>
-            <class name="Sensors.Smoke_Test_DW_Grid"/>
+            <class name="Sensors.Smoke_Test_DW_Grid_ArmStay"/>
         </classes>
     </test>
     <test name="Test4">
