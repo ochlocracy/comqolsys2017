@@ -8,12 +8,12 @@
       "maxInstances": 1,
       "platform": "ANDROID",
       "applicationName": "test3",
-      "newCommandTimeout":"100",
+      "newCommandTimeout":"500",
       "deviceReadyTimeout":5
     }
   ],
   "configuration": {
-    "nodeTimeout": 120,
+    "nodeTimeout": 500,
     "port": 4729,
     "hubPort": 4444,
     "proxy": "org.openqa.grid.selenium.proxy.DefaultRemoteProxy",
