@@ -246,7 +246,6 @@ public class Sensors {
         for (int i = 2; i < SensorObject_ArrayList.size(); i++) {
             SensorObject temp_sensor = null;
             temp_sensor = SensorObject_ArrayList.get(i);
-
             int zone = i;
             int newGroup = temp_sensor.getSensorGroup();
             String newDLID = temp_sensor.getDLID();
@@ -269,26 +268,26 @@ public class Sensors {
 
 
     public void addAllSensors1(String UDID_) throws IOException, InterruptedException {
-        for (int i = 2; i < SensorObject_ArrayList.size(); i++) {
             SensorObject temp_sensor = null;
-            temp_sensor = SensorObject_ArrayList.get(i);
 
-            int zone = i;
             int newGroup = temp_sensor.getSensorGroup();
             String newDLID = temp_sensor.getDLID();
             int newDLID_dec = Integer.parseInt(newDLID, 16);
             String sensor_type = temp_sensor.getSensorType();
             int supervisory_time = -1;
-            //       System.out.println(temp_sensor.getDLID());
-            inicialize_primary_sensor_int_map();
-            initialize_transmitter_sensor_int_map();
+        //       System.out.println(temp_sensor.getDLID());
+             inicialize_primary_sensor_int_map();
+             initialize_transmitter_sensor_int_map();
+        String add_transmitter = "shell service call srftransmitservice 2 s16 " + newDLID + " i32 0 i32 " + transmitter_sensor_int_map.get(sensor_type) + " i32 0 i32 " + supervisory_time;
+        rt.exec(adbPath + " -s " + transmitter + add_transmitter);
+        System.out.println(add_transmitter);
+             for (int i = 2; i < SensorObject_ArrayList.size(); i++) {
+                 int zone = i;
+                 temp_sensor = SensorObject_ArrayList.get(i);
             String add_primary = " shell service call qservice 50 i32 " + zone + " i32 " + newGroup + " i32 " + newDLID_dec + " i32 " + primary_sensor_int_map.get(sensor_type);
             rt.exec(adbPath + " -s " + UDID_ + add_primary);
             System.out.println(add_primary);
             TimeUnit.SECONDS.sleep(1);
-            String add_transmitter = "shell service call srftransmitservice 2 s16 " + newDLID + " i32 0 i32 " + transmitter_sensor_int_map.get(sensor_type) + " i32 0 i32 " + supervisory_time;
-            rt.exec(adbPath + " -s " + transmitter + add_transmitter);
-            System.out.println(add_transmitter);
             //   TimeUnit.SECONDS.sleep(1);
         }
     }
