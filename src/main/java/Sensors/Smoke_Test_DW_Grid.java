@@ -49,7 +49,7 @@ public class Smoke_Test_DW_Grid  {
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 14, Open);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 16, Open);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 25, Open);
-        TimeUnit.SECONDS.sleep(5);
+        TimeUnit.SECONDS.sleep(7);
         s.verify_sensor_is_displayed(UDID_, list.Door4);
         TimeUnit.SECONDS.sleep(1);
         s.verify_sensor_is_displayed(UDID_, list.Door5);
@@ -61,7 +61,7 @@ public class Smoke_Test_DW_Grid  {
         s.verify_sensor_is_displayed(UDID_, list.Door8);
         TimeUnit.SECONDS.sleep(1);
         s.verify_sensor_is_displayed(UDID_, list.Door9);
-        TimeUnit.SECONDS.sleep(1);
+        TimeUnit.SECONDS.sleep(3);
         s.verify_disarm(UDID_);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 10, Close);
         TimeUnit.SECONDS.sleep(1);
@@ -159,6 +159,9 @@ public class Smoke_Test_DW_Grid  {
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 9, Close);
         s.enter_default_user_code();
         TimeUnit.SECONDS.sleep(5);
+        logger.info("Deleting all sensors...");
+        MySensors.deleteAllSensors1(UDID_);
+        TimeUnit.SECONDS.sleep(2);
     }
 
 //    @Parameters ({"UDID_"})
