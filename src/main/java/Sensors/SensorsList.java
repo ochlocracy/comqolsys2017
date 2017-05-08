@@ -5,8 +5,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class SensorsList {
-    @FindBy(xpath = "//android.widget.TextView[@text='Door/Window 1']")
-    public WebElement Door1;
     @FindBy(xpath = "//android.widget.TextView[@text='Door/Window 2']")
     public WebElement Door2;
     @FindBy(xpath = "//android.widget.TextView[@text='Door/Window 3']")
