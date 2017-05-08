@@ -44,10 +44,15 @@ public class Smoke_Test_DW_Grid  {
 
         logger.info("Disarm mode tripping sensors group 10, 12, 13, 14, 16, 25 -> Expected result= system stays in Disarm mode");
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 10, Open);
+        TimeUnit.SECONDS.sleep(1);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 12, Open);
+        TimeUnit.SECONDS.sleep(1);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 13, Open);
+        TimeUnit.SECONDS.sleep(1);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 14, Open);
+        TimeUnit.SECONDS.sleep(1);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 16, Open);
+        TimeUnit.SECONDS.sleep(1);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 25, Open);
         TimeUnit.SECONDS.sleep(5);
         s.verify_sensor_is_displayed(UDID_, list.Door4);
