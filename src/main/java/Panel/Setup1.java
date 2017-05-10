@@ -70,7 +70,7 @@ public class Setup1 {
         capabilities.setCapability("appPackage", "com.qolsys");
         capabilities.setCapability("appActivity", "com.qolsys.activites.Theme3HomeActivity");
         capabilities.setCapability("PORT", "PORT_");
-        capabilities.setCapability("newCommandTimeout", "30000");
+        capabilities.setCapability("newCommandTimeout", "500");
         this.driver = new AndroidDriver<WebElement>(new URL(URL_), getCapabilities());
     }
 
