@@ -211,6 +211,17 @@ public class Setup1 {
             take_screenshot();
             logger.info("Failed: System is NOT in ALARM");}
     }
+
+    public void verify_sensor_is_displayed1(String UDID_, WebElement sensor_name) throws Exception {
+        try {
+            if (sensor_name.isDisplayed())
+                logger.info(UDID_ + " " +sensor_name.getText() +" is successfully opened/activated");
+            } catch (Exception e) {
+                take_screenshot();
+                logger.info(UDID_ + " " + sensor_name +" is NOT opened/activated");
+        }finally {}
+    }
+
     public void verify_sensor_is_displayed(String UDID_, WebElement sensor_name) throws Exception {
         if (sensor_name.isDisplayed()) {
             logger.info(UDID_ + " " +sensor_name.getText() +" is successfully opened/activated");
@@ -219,6 +230,7 @@ public class Setup1 {
             logger.info(UDID_ + " " + sensor_name +" is NOT opened/activated");}
     }
     public void verify_sensor_is_tampered(WebElement sensor_name) throws Exception {
+
         if (sensor_name.isDisplayed()) {
             logger.info(sensor_name.getText() + " is successfully tampered");
         } else {
