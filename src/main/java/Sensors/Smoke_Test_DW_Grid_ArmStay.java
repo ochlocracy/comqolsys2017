@@ -1,5 +1,6 @@
 package Sensors;
 
+import Panel.Contact_Us;
 import Panel.Home_Page;
 import Panel.Log;
 import Panel.Setup1;
@@ -44,6 +45,12 @@ public class Smoke_Test_DW_Grid_ArmStay {
         MySensors.read_sensors_from_csv();
         Home_Page home_page = PageFactory.initElements(s.getDriver(), Home_Page.class);
         SensorsList list = PageFactory.initElements(s.getDriver(), SensorsList.class);
+        Contact_Us contact = PageFactory.initElements(s.getDriver(), Contact_Us.class);
+
+        MySensors.read_sensors_from_csv();
+        logger.info("Adding sensors...");
+        MySensors.addAllSensors1(UDID_);
+        TimeUnit.SECONDS.sleep(5);
 
         logger.info("********************************************************");
         logger.info("ArmStay mode tripping sensors group 10 -> Expected result = 30 sec delay -> Alarm");
@@ -77,7 +84,7 @@ public class Smoke_Test_DW_Grid_ArmStay {
         logger.info("********************************************************");
         logger.info("ArmStay mode tripping sensors group 13 -> Expected result = Instant Alarm");
         s.ARM_STAY();
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(5);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 13, Open);
         TimeUnit.SECONDS.sleep(3);
         s.verify_sensor_is_displayed(UDID_, list.Door6);
@@ -91,7 +98,7 @@ public class Smoke_Test_DW_Grid_ArmStay {
         logger.info("********************************************************");
         logger.info("ArmStay mode tripping sensors group 14 -> Expected result = Instant Alarm");
         s.ARM_STAY();
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(5);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 14, Open);
         TimeUnit.SECONDS.sleep(5);
         s.verify_sensor_is_displayed(UDID_, list.Door9);
@@ -105,33 +112,36 @@ public class Smoke_Test_DW_Grid_ArmStay {
         logger.info("********************************************************");
         logger.info("ArmStay mode tripping sensors group 16, 25 -> Expected result = ArmStay");
         s.ARM_STAY();
-        TimeUnit.SECONDS.sleep(4);
+        TimeUnit.SECONDS.sleep(5);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 16, Open);
-        TimeUnit.SECONDS.sleep(2);
+        TimeUnit.SECONDS.sleep(3);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 25, Open);
         TimeUnit.SECONDS.sleep(7);
         s.verify_sensor_is_displayed(UDID_, list.Door7);
-        TimeUnit.SECONDS.sleep(1);
+        TimeUnit.SECONDS.sleep(3);
         s.verify_sensor_is_displayed(UDID_, list.Door8);
-        TimeUnit.SECONDS.sleep(2);
+        TimeUnit.SECONDS.sleep(3);
         s.verify_armstay(UDID_);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 16, Close);
-        TimeUnit.SECONDS.sleep(2);
+        TimeUnit.SECONDS.sleep(4);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 25, Close);
         home_page.DISARM.click();
+        TimeUnit.SECONDS.sleep(2);
         s.enter_default_user_code();
-        TimeUnit.SECONDS.sleep(5);
+        TimeUnit.SECONDS.sleep(10);
 
         logger.info("********************************************************");
         logger.info("ArmStay mode tripping sensors group 8 -> Expected result = Instant Alarm");
         s.ARM_STAY();
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(7);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 8, Open);
         TimeUnit.SECONDS.sleep(3);
         s.verify_sensor_is_displayed(UDID_, list.Door2);
+        TimeUnit.SECONDS.sleep(2);
         s.verify_status_open();
+        TimeUnit.SECONDS.sleep(2);
         s.verify_in_alarm();
-        TimeUnit.SECONDS.sleep(1);
+        TimeUnit.SECONDS.sleep(2);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 8, Close);
         s.enter_default_user_code();
         TimeUnit.SECONDS.sleep(5);
@@ -139,11 +149,13 @@ public class Smoke_Test_DW_Grid_ArmStay {
         logger.info("********************************************************");
         logger.info("ArmStay mode tripping sensors group 9 -> Expected result = 30 sec delay -> Alarm");
         s.ARM_STAY();
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(5);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 9, Open);
         TimeUnit.SECONDS.sleep(Normal_Entry_Delay);
         s.verify_sensor_is_displayed(UDID_, list.Door3);
+        TimeUnit.SECONDS.sleep(2);
         s.verify_status_open();
+        TimeUnit.SECONDS.sleep(2);
         s.verify_in_alarm();
         TimeUnit.SECONDS.sleep(1);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 9, Close);
@@ -153,11 +165,13 @@ public class Smoke_Test_DW_Grid_ArmStay {
         logger.info("********************************************************");
         logger.info("ArmStay mode tamper sensors group 10 -> Expected result = Instant Alarm");
         s.ARM_STAY();
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(5);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 10);
         TimeUnit.SECONDS.sleep(3);
         s.verify_sensor_is_tampered(list.Door4);
+        TimeUnit.SECONDS.sleep(2);
         s.verify_status_tampered();
+        TimeUnit.SECONDS.sleep(2);
         s.verify_in_alarm();
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 10, Close);
         s.enter_default_user_code();
@@ -166,7 +180,7 @@ public class Smoke_Test_DW_Grid_ArmStay {
         logger.info("********************************************************");
         logger.info("ArmStay mode tamper sensors group 12 -> Expected result = Instant Alarm");
         s.ARM_STAY();
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(5);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 12);
         TimeUnit.SECONDS.sleep(5);
         s.verify_sensor_is_tampered(list.Door5);
@@ -182,11 +196,13 @@ public class Smoke_Test_DW_Grid_ArmStay {
         logger.info("********************************************************");
         logger.info("ArmStay mode tamper sensors group 13 -> Expected result = Instant Alarm");
         s.ARM_STAY();
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(5);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 13);
         TimeUnit.SECONDS.sleep(3);
         s.verify_sensor_is_tampered(list.Door6);
+        TimeUnit.SECONDS.sleep(2);
         s.verify_status_tampered();
+        TimeUnit.SECONDS.sleep(2);
         s.verify_in_alarm();
         TimeUnit.SECONDS.sleep(1);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 13, Close);
@@ -196,13 +212,15 @@ public class Smoke_Test_DW_Grid_ArmStay {
         logger.info("********************************************************");
         logger.info("ArmStay mode tamper sensors group 14 -> Expected result = Instant Alarm");
         s.ARM_STAY();
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(5);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 14);
         TimeUnit.SECONDS.sleep(5);
         s.verify_sensor_is_tampered(list.Door9);
+        TimeUnit.SECONDS.sleep(2);
         s.verify_status_tampered();
+        TimeUnit.SECONDS.sleep(2);
         s.verify_in_alarm();
-        TimeUnit.SECONDS.sleep(1);
+        TimeUnit.SECONDS.sleep(2);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 14, Close);
         s.enter_default_user_code();
         TimeUnit.SECONDS.sleep(5);
@@ -214,8 +232,9 @@ public class Smoke_Test_DW_Grid_ArmStay {
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 16);
         TimeUnit.SECONDS.sleep(5);
         s.verify_sensor_is_tampered(list.Door7);
+        TimeUnit.SECONDS.sleep(2);
         s.verify_armstay(UDID_);
-        TimeUnit.SECONDS.sleep(1);
+        TimeUnit.SECONDS.sleep(2);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 16, Close);
         home_page.DISARM.click();
         s.enter_default_user_code();
@@ -228,8 +247,9 @@ public class Smoke_Test_DW_Grid_ArmStay {
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 25);
         TimeUnit.SECONDS.sleep(5);
         s.verify_sensor_is_tampered(list.Door8);
+        TimeUnit.SECONDS.sleep(2);
         s.verify_armstay(UDID_);
-        TimeUnit.SECONDS.sleep(1);
+        TimeUnit.SECONDS.sleep(2);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 25, Close);
         home_page.DISARM.click();
         s.enter_default_user_code();
@@ -242,9 +262,10 @@ public class Smoke_Test_DW_Grid_ArmStay {
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 8);
         TimeUnit.SECONDS.sleep(5);
         s.verify_sensor_is_tampered(list.Door2);
+        TimeUnit.SECONDS.sleep(2);
         s.verify_status_tampered();
         s.verify_in_alarm();
-        TimeUnit.SECONDS.sleep(1);
+        TimeUnit.SECONDS.sleep(2);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 8, Close);
         s.enter_default_user_code();
         TimeUnit.SECONDS.sleep(5);
@@ -252,16 +273,21 @@ public class Smoke_Test_DW_Grid_ArmStay {
         logger.info("********************************************************");
         logger.info("ArmStay mode tamper sensors group 9 -> Expected result = Instant Alarm");
         s.ARM_STAY();
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(5);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 9);
         TimeUnit.SECONDS.sleep(3);
         s.verify_sensor_is_tampered(list.Door3);
+        TimeUnit.SECONDS.sleep(2);
         s.verify_status_tampered();
         s.verify_in_alarm();
-        TimeUnit.SECONDS.sleep(1);
+        TimeUnit.SECONDS.sleep(2);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 9, Close);
         s.enter_default_user_code();
         TimeUnit.SECONDS.sleep(5);
+        logger.info("Deleting all sensors...");
+        MySensors.deleteAllSensors1(UDID_);
+        TimeUnit.SECONDS.sleep(2);
+        contact.acknowledge_all_alerts();
     }
     @AfterClass
     public void tearDown () throws IOException, InterruptedException {

@@ -36,7 +36,7 @@ public class Smoke_Test_DW_Grid  {
     public void a_Disarm_Mode(String UDID_) throws Exception {
         SensorsList list = PageFactory.initElements(s.getDriver(), SensorsList.class);
 
-   //     logger.info("Current software version: " + s.Software_Version());
+        logger.info("Current software version: " + s.Software_Version());
         MySensors.read_sensors_from_csv();
         logger.info("Adding sensors...");
         MySensors.addAllSensors1(UDID_);
@@ -54,7 +54,7 @@ public class Smoke_Test_DW_Grid  {
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 16, Open);
         TimeUnit.SECONDS.sleep(1);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 25, Open);
-        TimeUnit.SECONDS.sleep(7);
+        TimeUnit.SECONDS.sleep(3);
         s.verify_sensor_is_displayed(UDID_, list.Door4);
         TimeUnit.SECONDS.sleep(2);
         s.verify_sensor_is_displayed(UDID_, list.Door5);
