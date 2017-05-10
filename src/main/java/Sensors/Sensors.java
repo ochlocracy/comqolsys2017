@@ -266,8 +266,6 @@ public class Sensors {
             //   TimeUnit.SECONDS.sleep(1);
         }
     }
-
-
     public void addAllSensors1(String UDID_) throws IOException, InterruptedException {
         for (int i = 2; i < SensorObject_ArrayList.size(); i++) {
             SensorObject temp_sensor = null;
@@ -327,7 +325,6 @@ public class Sensors {
             System.out.println(send_packet);
         }
     }
-
     public void sendPacket_allSensors_selectedGroup(List<Integer> input_sens_zones, int input_group_number, int z) throws IOException, InterruptedException {
         List<Integer> foundSensorsInGroup;
         foundSensorsInGroup = new ArrayList();
