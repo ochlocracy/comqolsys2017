@@ -230,12 +230,20 @@ public class Setup1 {
             logger.info(UDID_ + " " + sensor_name +" is NOT opened/activated");}
     }
     public void verify_sensor_is_tampered(WebElement sensor_name) throws Exception {
-
         if (sensor_name.isDisplayed()) {
             logger.info(sensor_name.getText() + " is successfully tampered");
         } else {
             take_screenshot();
             logger.info(sensor_name +" is NOT tampered");}
+    }
+    public void verify_sensor_is_tampered1(String UDID_, WebElement sensor_name) throws Exception {
+        try {
+            if (sensor_name.isDisplayed())
+                logger.info(UDID_ + " " +sensor_name.getText() +" is successfully tampered");
+        } catch (Exception e) {
+            take_screenshot();
+            logger.info(UDID_ + " " + sensor_name +" is NOT tampered");
+        }finally {}
     }
 
     public void verify_status_open() throws Exception {
@@ -262,6 +270,7 @@ public class Setup1 {
         }else { take_screenshot();
             logger.info("Failed: Incorrect status: " + home_page.Red_banner_sensor_status.getText());}
     }
+
     public void verify_status_alarmed() throws Exception {
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         if (home_page.Red_banner_sensor_status.getText().equals("Alarmed")) {

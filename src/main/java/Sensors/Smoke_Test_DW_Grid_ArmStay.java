@@ -46,7 +46,7 @@ public class Smoke_Test_DW_Grid_ArmStay {
         Home_Page home_page = PageFactory.initElements(s.getDriver(), Home_Page.class);
         SensorsList list = PageFactory.initElements(s.getDriver(), SensorsList.class);
         Contact_Us contact = PageFactory.initElements(s.getDriver(), Contact_Us.class);
-
+        TimeUnit.SECONDS.sleep(5);
         MySensors.read_sensors_from_csv();
         logger.info("Adding sensors...");
         MySensors.addAllSensors1(UDID_);
@@ -58,7 +58,7 @@ public class Smoke_Test_DW_Grid_ArmStay {
         TimeUnit.SECONDS.sleep(3);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 10, Open);
         TimeUnit.SECONDS.sleep(Normal_Entry_Delay);
-        s.verify_sensor_is_displayed(UDID_, list.Door4);
+        s.verify_sensor_is_displayed1(UDID_, list.Door4);
         s.verify_status_open();
         s.verify_in_alarm();
         TimeUnit.SECONDS.sleep(1);
@@ -73,7 +73,7 @@ public class Smoke_Test_DW_Grid_ArmStay {
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 12, Open);
         TimeUnit.SECONDS.sleep(Long_Exit_Delay);
         TimeUnit.SECONDS.sleep(3);
-        s.verify_sensor_is_displayed(UDID_, list.Door5);
+        s.verify_sensor_is_displayed1(UDID_, list.Door5);
         s.verify_status_open();
         s.verify_in_alarm();
         TimeUnit.SECONDS.sleep(1);
@@ -87,7 +87,7 @@ public class Smoke_Test_DW_Grid_ArmStay {
         TimeUnit.SECONDS.sleep(5);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 13, Open);
         TimeUnit.SECONDS.sleep(3);
-        s.verify_sensor_is_displayed(UDID_, list.Door6);
+        s.verify_sensor_is_displayed1(UDID_, list.Door6);
         s.verify_status_open();
         s.verify_in_alarm();
         TimeUnit.SECONDS.sleep(1);
@@ -101,7 +101,7 @@ public class Smoke_Test_DW_Grid_ArmStay {
         TimeUnit.SECONDS.sleep(5);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 14, Open);
         TimeUnit.SECONDS.sleep(5);
-        s.verify_sensor_is_displayed(UDID_, list.Door9);
+        s.verify_sensor_is_displayed1(UDID_, list.Door9);
         s.verify_status_open();
         s.verify_in_alarm();
         TimeUnit.SECONDS.sleep(1);
@@ -117,9 +117,9 @@ public class Smoke_Test_DW_Grid_ArmStay {
         TimeUnit.SECONDS.sleep(3);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 25, Open);
         TimeUnit.SECONDS.sleep(7);
-        s.verify_sensor_is_displayed(UDID_, list.Door7);
+        s.verify_sensor_is_displayed1(UDID_, list.Door7);
         TimeUnit.SECONDS.sleep(3);
-        s.verify_sensor_is_displayed(UDID_, list.Door8);
+        s.verify_sensor_is_displayed1(UDID_, list.Door8);
         TimeUnit.SECONDS.sleep(3);
         s.verify_armstay(UDID_);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 16, Close);
@@ -136,7 +136,7 @@ public class Smoke_Test_DW_Grid_ArmStay {
         TimeUnit.SECONDS.sleep(7);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 8, Open);
         TimeUnit.SECONDS.sleep(3);
-        s.verify_sensor_is_displayed(UDID_, list.Door2);
+        s.verify_sensor_is_displayed1(UDID_, list.Door2);
         TimeUnit.SECONDS.sleep(2);
         s.verify_status_open();
         TimeUnit.SECONDS.sleep(2);
@@ -152,7 +152,7 @@ public class Smoke_Test_DW_Grid_ArmStay {
         TimeUnit.SECONDS.sleep(5);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 9, Open);
         TimeUnit.SECONDS.sleep(Normal_Entry_Delay);
-        s.verify_sensor_is_displayed(UDID_, list.Door3);
+        s.verify_sensor_is_displayed1(UDID_, list.Door3);
         TimeUnit.SECONDS.sleep(2);
         s.verify_status_open();
         TimeUnit.SECONDS.sleep(2);
@@ -168,7 +168,7 @@ public class Smoke_Test_DW_Grid_ArmStay {
         TimeUnit.SECONDS.sleep(5);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 10);
         TimeUnit.SECONDS.sleep(3);
-        s.verify_sensor_is_tampered(list.Door4);
+        s.verify_sensor_is_tampered1(UDID_, list.Door4);
         TimeUnit.SECONDS.sleep(2);
         s.verify_status_tampered();
         TimeUnit.SECONDS.sleep(2);
@@ -183,7 +183,7 @@ public class Smoke_Test_DW_Grid_ArmStay {
         TimeUnit.SECONDS.sleep(5);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 12);
         TimeUnit.SECONDS.sleep(5);
-        s.verify_sensor_is_tampered(list.Door5);
+        s.verify_sensor_is_tampered1(UDID_, list.Door5);
         TimeUnit.SECONDS.sleep(1);
         s.verify_status_tampered();
         TimeUnit.SECONDS.sleep(1);
@@ -199,7 +199,7 @@ public class Smoke_Test_DW_Grid_ArmStay {
         TimeUnit.SECONDS.sleep(5);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 13);
         TimeUnit.SECONDS.sleep(3);
-        s.verify_sensor_is_tampered(list.Door6);
+        s.verify_sensor_is_tampered1(UDID_, list.Door6);
         TimeUnit.SECONDS.sleep(2);
         s.verify_status_tampered();
         TimeUnit.SECONDS.sleep(2);
@@ -215,7 +215,7 @@ public class Smoke_Test_DW_Grid_ArmStay {
         TimeUnit.SECONDS.sleep(5);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 14);
         TimeUnit.SECONDS.sleep(5);
-        s.verify_sensor_is_tampered(list.Door9);
+        s.verify_sensor_is_tampered1(UDID_,list.Door9);
         TimeUnit.SECONDS.sleep(2);
         s.verify_status_tampered();
         TimeUnit.SECONDS.sleep(2);
@@ -231,7 +231,7 @@ public class Smoke_Test_DW_Grid_ArmStay {
         TimeUnit.SECONDS.sleep(5);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 16);
         TimeUnit.SECONDS.sleep(5);
-        s.verify_sensor_is_tampered(list.Door7);
+        s.verify_sensor_is_tampered1(UDID_, list.Door7);
         TimeUnit.SECONDS.sleep(2);
         s.verify_armstay(UDID_);
         TimeUnit.SECONDS.sleep(2);
@@ -246,7 +246,7 @@ public class Smoke_Test_DW_Grid_ArmStay {
         TimeUnit.SECONDS.sleep(5);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 25);
         TimeUnit.SECONDS.sleep(5);
-        s.verify_sensor_is_tampered(list.Door8);
+        s.verify_sensor_is_tampered1(UDID_, list.Door8);
         TimeUnit.SECONDS.sleep(2);
         s.verify_armstay(UDID_);
         TimeUnit.SECONDS.sleep(2);
@@ -261,7 +261,7 @@ public class Smoke_Test_DW_Grid_ArmStay {
         TimeUnit.SECONDS.sleep(5);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 8);
         TimeUnit.SECONDS.sleep(5);
-        s.verify_sensor_is_tampered(list.Door2);
+        s.verify_sensor_is_tampered1(UDID_, list.Door2);
         TimeUnit.SECONDS.sleep(2);
         s.verify_status_tampered();
         s.verify_in_alarm();
@@ -276,7 +276,7 @@ public class Smoke_Test_DW_Grid_ArmStay {
         TimeUnit.SECONDS.sleep(5);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.door_window_zones, 9);
         TimeUnit.SECONDS.sleep(3);
-        s.verify_sensor_is_tampered(list.Door3);
+        s.verify_sensor_is_tampered1(UDID_,list.Door3);
         TimeUnit.SECONDS.sleep(2);
         s.verify_status_tampered();
         s.verify_in_alarm();

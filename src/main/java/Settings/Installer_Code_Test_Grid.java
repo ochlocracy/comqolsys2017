@@ -93,7 +93,7 @@ public class Installer_Code_Test_Grid {
         user.User_Management_Save.click();
         Thread.sleep(2000);
         settings.Home_button.click();
-        contact.acknowledge_all_alerts();
+//        contact.acknowledge_all_alerts();
 }
     @AfterClass
     public void tearDown () throws IOException, InterruptedException {
