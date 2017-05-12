@@ -1,21 +1,12 @@
 package IQRemote;
 
-
-import Panel.Activity_Monitor_Page;
-import Panel.Setup;
 import io.appium.java_client.android.AndroidDriver;
-import jxl.read.biff.BiffException;
-import org.apache.log4j.Logger;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
 import java.io.IOException;
 import java.net.URL;
 
@@ -43,9 +34,9 @@ public class WifiTesting {
         ElementsList el = PageFactory.initElements( driver, ElementsList.class);
     for (int i = 50; i>0; i--) {
         el.WiFi.click();
-     Thread.sleep(20000);
-     el.WiFi.click();
-     Thread.sleep(20000);
+        Thread.sleep(20000);
+        el.WiFi.click();
+         Thread.sleep(20000);
 
          if (el.Connected.getText().equals("Connected")) {
         System.out.println("WiFi is connected");
