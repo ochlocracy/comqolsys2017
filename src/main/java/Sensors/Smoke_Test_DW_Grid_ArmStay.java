@@ -42,7 +42,7 @@ public class Smoke_Test_DW_Grid_ArmStay {
     @Parameters({"UDID_"})
     @Test
     public void b_Armed_Stay_Mode (String UDID_) throws Exception {
-        MySensors.read_sensors_from_csv();
+
         Home_Page home_page = PageFactory.initElements(s.getDriver(), Home_Page.class);
         SensorsList list = PageFactory.initElements(s.getDriver(), SensorsList.class);
         Contact_Us contact = PageFactory.initElements(s.getDriver(), Contact_Us.class);
