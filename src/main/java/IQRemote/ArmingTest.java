@@ -46,7 +46,7 @@ public class ArmingTest {
     @BeforeMethod
     public void capabilities_setup() throws Exception {
       //  setup_driver("http://127.0.1.1", "4723");
-        setup_driver1("http://127.0.1.1", "4725");
+        setup_driver1("http://127.0.1.1", "4723");
     }
 
     @Test

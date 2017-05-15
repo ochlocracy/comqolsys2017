@@ -438,6 +438,24 @@
             </build>
         </profile>
         <profile>
+            <id>SmokeTestMotionGrid</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.19.1</version>
+                        <configuration>
+                            <forkMode>never</forkMode>
+                            <suiteXmlFiles>
+                                <suiteXmlFile>SmokeTestMotionGrid.xml</suiteXmlFile>
+                            </suiteXmlFiles>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
             <id>PanelTest</id>
             <build>
                 <plugins>

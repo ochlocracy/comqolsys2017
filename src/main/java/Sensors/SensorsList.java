@@ -21,4 +21,15 @@ public class SensorsList {
     public WebElement Door8;
     @FindBy(xpath = "//android.widget.TextView[@text='Door/Window 9']")
     public WebElement Door9;
+    @FindBy(xpath = "//android.widget.TextView[@text='Motion 10']")
+    public WebElement Motion10;
+    @FindBy(xpath = "//android.widget.TextView[@text='Motion 11']")
+    public WebElement Motion11;
+    @FindBy(xpath = "//android.widget.TextView[@text='Motion 12']")
+    public WebElement Motion12;
+    @FindBy(xpath = "//android.widget.TextView[@text='Motion 13']")
+    public WebElement Motion13;
+    @FindBy(xpath = "//android.widget.TextView[@text='Motion 14']")
+    public WebElement Motion14;
+
 }
