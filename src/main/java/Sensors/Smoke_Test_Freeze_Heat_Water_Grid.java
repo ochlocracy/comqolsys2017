@@ -129,6 +129,7 @@ public class Smoke_Test_Freeze_Heat_Water_Grid {
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.heat_zones, 26,Idle);
         TimeUnit.SECONDS.sleep(5);
         emergency.Cancel_Emergency.click();
+        TimeUnit.SECONDS.sleep(2);
         s.enter_default_user_code();
         TimeUnit.SECONDS.sleep(5);
 
