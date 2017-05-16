@@ -17,14 +17,14 @@ import java.util.concurrent.TimeUnit;
 public class Smoke_Test_Motion_Grid {
     Setup1 s = new Setup1();
     Sensors MySensors = new Sensors();
-    String page_name = "Smoke Test Doorbell and Occupancy sensors";
+    String page_name = "Smoke Test Motion sensor";
     Logger logger = Logger.getLogger(page_name);
 
     private int Activate = 1;
     private int Idle =0;
 
     private int Normal_Entry_Delay = 15;
-    private int Long_Exit_Delay =17;
+    private int Long_Exit_Delay =20;
 
     public Smoke_Test_Motion_Grid() throws IOException, BiffException {}
 
@@ -57,7 +57,7 @@ public class Smoke_Test_Motion_Grid {
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.motion_zones, 25,Activate);
         TimeUnit.SECONDS.sleep(1);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.motion_zones, 35,Activate);
-        TimeUnit.SECONDS.sleep(2);
+        TimeUnit.SECONDS.sleep(4);
         s.verify_disarm(UDID_);
         TimeUnit.SECONDS.sleep(5);
 
@@ -66,7 +66,7 @@ public class Smoke_Test_Motion_Grid {
         s.ARM_STAY();
         TimeUnit.SECONDS.sleep(5);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.motion_zones, 15,Activate);
-        TimeUnit.SECONDS.sleep(2);
+        TimeUnit.SECONDS.sleep(4);
         s.verify_sensor_is_displayed(UDID_, list.Motion10);
         s.verify_status_activated();
         s.verify_in_alarm();
@@ -76,13 +76,13 @@ public class Smoke_Test_Motion_Grid {
         logger.info("********************************************************");
         logger.info("ArmStay mode tripping sensors group 17, 20, 25 -> Expected result = ArmStay");
         s.ARM_STAY();
-        TimeUnit.SECONDS.sleep(2);
+        TimeUnit.SECONDS.sleep(5);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.motion_zones, 17,Activate);
         TimeUnit.SECONDS.sleep(1);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.motion_zones, 20,Activate);
         TimeUnit.SECONDS.sleep(1);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.motion_zones, 25,Activate);
-        TimeUnit.SECONDS.sleep(2);
+        TimeUnit.SECONDS.sleep(4);
         s.verify_armstay(UDID_);
         TimeUnit.SECONDS.sleep(5);
         home_page.DISARM.click();
@@ -92,7 +92,7 @@ public class Smoke_Test_Motion_Grid {
         logger.info("********************************************************");
         logger.info("ArmStay mode tripping sensors group 35 -> Expected result = 30 sec delay -> Alarm");
         s.ARM_STAY();
-        TimeUnit.SECONDS.sleep(2);
+        TimeUnit.SECONDS.sleep(5);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.motion_zones, 35,Activate);
         TimeUnit.SECONDS.sleep(Normal_Entry_Delay);
         s.verify_sensor_is_displayed(UDID_, list.Motion14);
@@ -108,7 +108,7 @@ public class Smoke_Test_Motion_Grid {
         TimeUnit.SECONDS.sleep(2);
         s.ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.motion_zones, 15,Activate);
-        TimeUnit.SECONDS.sleep(2);
+        TimeUnit.SECONDS.sleep(4);
         s.verify_sensor_is_displayed(UDID_, list.Motion10);
         s.verify_status_activated();
         s.verify_in_alarm();
@@ -121,6 +121,7 @@ public class Smoke_Test_Motion_Grid {
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.motion_zones, 17,Activate);
         TimeUnit.SECONDS.sleep(5);
         s.verify_sensor_is_displayed(UDID_, list.Motion11);
+        TimeUnit.SECONDS.sleep(2);
         s.verify_status_activated();
         s.verify_in_alarm();
         s.enter_default_user_code();
@@ -129,7 +130,6 @@ public class Smoke_Test_Motion_Grid {
         logger.info("********************************************************");
         logger.info("ArmAway mode tripping sensors group 20 -> Expected result = 30 sec delay -> Alarm");
         s.ARM_AWAY(Long_Exit_Delay);
-        TimeUnit.SECONDS.sleep(3);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.motion_zones, 20,Activate);
         TimeUnit.SECONDS.sleep(Normal_Entry_Delay);
         s.verify_sensor_is_displayed(UDID_, list.Motion12);
@@ -143,9 +143,8 @@ public class Smoke_Test_Motion_Grid {
         logger.info("********************************************************");
         logger.info("ArmAway mode tripping sensors group 25 -> ArmAway");
         s.ARM_AWAY(Long_Exit_Delay);
-        TimeUnit.SECONDS.sleep(3);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.motion_zones, 25,Activate);
-        TimeUnit.SECONDS.sleep(2);
+        TimeUnit.SECONDS.sleep(4);
         s.verify_armaway(UDID_);
         home_page.ArwAway_State.click();
         s.enter_default_user_code();
@@ -154,7 +153,6 @@ public class Smoke_Test_Motion_Grid {
         logger.info("********************************************************");
         logger.info("ArmAway mode tripping sensors group 35 -> Expected result = 30 sec delay -> Alarm");
         s.ARM_AWAY(Long_Exit_Delay);
-        TimeUnit.SECONDS.sleep(3);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.motion_zones, 35,Activate);
         TimeUnit.SECONDS.sleep(Normal_Entry_Delay);
         s.verify_sensor_is_displayed(UDID_, list.Motion14);
@@ -163,7 +161,6 @@ public class Smoke_Test_Motion_Grid {
         s.verify_in_alarm();
         s.enter_default_user_code();
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.motion_zones, 35,Idle);
-
         TimeUnit.SECONDS.sleep(5);
 
         logger.info("********************TAMPER********************");
@@ -245,9 +242,9 @@ public class Smoke_Test_Motion_Grid {
         logger.info("********************************************************");
         logger.info("ArmStay mode tamper sensors group 35 -> Expected result = Instant Alarm");
         s.ARM_STAY();
-        TimeUnit.SECONDS.sleep(4);
+        TimeUnit.SECONDS.sleep(5);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.motion_zones, 35);
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(4);
         s.verify_sensor_is_tampered(list.Motion14);
         TimeUnit.SECONDS.sleep(2);
         s.verify_status_tampered();
@@ -262,7 +259,7 @@ public class Smoke_Test_Motion_Grid {
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.motion_zones, 15);
         TimeUnit.SECONDS.sleep(5);
         s.verify_sensor_is_tampered(list.Motion10);
-        TimeUnit.SECONDS.sleep(1);
+        TimeUnit.SECONDS.sleep(2);
         s.verify_status_tampered();
         s.verify_in_alarm();
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.motion_zones, 15,Idle);
@@ -275,7 +272,7 @@ public class Smoke_Test_Motion_Grid {
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.motion_zones, 17);
         TimeUnit.SECONDS.sleep(5);
         s.verify_sensor_is_tampered(list.Motion11);
-        TimeUnit.SECONDS.sleep(1);
+        TimeUnit.SECONDS.sleep(2);
         s.verify_status_tampered();
         s.verify_in_alarm();
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.motion_zones, 17,Idle);
@@ -299,7 +296,7 @@ public class Smoke_Test_Motion_Grid {
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.motion_zones, 35);
         TimeUnit.SECONDS.sleep(5);
         s.verify_sensor_is_tampered(list.Motion14);
-        TimeUnit.SECONDS.sleep(1);
+        TimeUnit.SECONDS.sleep(2);
         s.verify_status_tampered();
         s.verify_in_alarm();
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.motion_zones, 35,Idle);
