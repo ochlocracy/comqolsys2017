@@ -177,6 +177,7 @@ public class Smoke_Test_Freeze_Heat_Water_Grid {
         logger.info("********************************************************");
         logger.info("ArmStay mode tampering Heat group 26  -> Expected result = ArmStay");
         s.ARM_STAY();
+        TimeUnit.SECONDS.sleep(5);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.heat_zones, 26);
         TimeUnit.SECONDS.sleep(5);
         s.verify_sensor_is_tampered(list.SmokeM26);
