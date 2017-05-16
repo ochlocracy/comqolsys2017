@@ -127,7 +127,7 @@ public class Smoke_Test_Freeze_Heat_Water_Grid {
         else { s.take_screenshot();
             logger.info("Failed: Fire emergency is NOT sent in Disarm mode");}
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.heat_zones, 26,Idle);
-        TimeUnit.SECONDS.sleep(2);
+        TimeUnit.SECONDS.sleep(5);
         emergency.Cancel_Emergency.click();
         s.enter_default_user_code();
         TimeUnit.SECONDS.sleep(5);
@@ -135,6 +135,7 @@ public class Smoke_Test_Freeze_Heat_Water_Grid {
         logger.info("********************************************************");
         logger.info("ArmStay mode tripping Heat group 26 -> Expected result = Instant Alarm");
         s.ARM_STAY();
+        TimeUnit.SECONDS.sleep(5);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.heat_zones, 26,Activate);
         TimeUnit.SECONDS.sleep(5);
         if (emergency.Emergency_sent_text.getText().equals("Fire Emergency Sent")){
