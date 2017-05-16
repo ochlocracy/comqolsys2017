@@ -233,7 +233,7 @@ public class Smoke_Test_Freeze_Heat_Water_Grid {
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.water_flood_zones, 38,Activate);
         TimeUnit.SECONDS.sleep(5);
         s.verify_sensor_is_displayed(UDID_, list.Water18);
-        TimeUnit.SECONDS.sleep(2);
+        TimeUnit.SECONDS.sleep(3);
         s.verify_status_alarmed();
         s.verify_in_alarm();
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.water_flood_zones, 38,Idle);
