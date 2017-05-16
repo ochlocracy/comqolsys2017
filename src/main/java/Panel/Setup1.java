@@ -138,16 +138,20 @@ public class Setup1 {
         menu.Settings.click();
     }
 
-    public void navigate_to_Advanced_Settings_page () {
+    public void navigate_to_Advanced_Settings_page () throws InterruptedException {
         Slide_Menu menu = PageFactory.initElements(driver, Slide_Menu.class);
         Settings_Page settings = PageFactory.initElements(driver, Settings_Page.class);
         menu.Slide_menu_open.click();
+        Thread.sleep(1000);
         menu.Settings.click();
+        Thread.sleep(1000);
         settings.ADVANCED_SETTINGS.click();
+        Thread.sleep(2000);
         settings.Two.click();
         settings.Two.click();
         settings.Two.click();
         settings.Two.click();
+        Thread.sleep(1000);
     }
     public void DISARM (){
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
@@ -391,6 +395,7 @@ public class Setup1 {
         Security_Arming_Page arming = PageFactory.initElements(driver, Security_Arming_Page.class);
         navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
+        Thread.sleep(1000);
         inst.SECURITY_AND_ARMING.click();
         Thread.sleep(1000);
         swipe_vertical();
