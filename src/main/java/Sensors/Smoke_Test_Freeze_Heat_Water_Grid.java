@@ -97,8 +97,9 @@ public class Smoke_Test_Freeze_Heat_Water_Grid {
         s.ARM_STAY();
         TimeUnit.SECONDS.sleep(5);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.freeze_zones, 52);
-        TimeUnit.SECONDS.sleep(5);
+        TimeUnit.SECONDS.sleep(4);
         s.verify_sensor_is_tampered(list.Freeze27);
+        TimeUnit.SECONDS.sleep(2);
         s.verify_armstay(UDID_);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.freeze_zones, 52,Idle);
         home_page.DISARM.click();
@@ -126,6 +127,7 @@ public class Smoke_Test_Freeze_Heat_Water_Grid {
         else { s.take_screenshot();
             logger.info("Failed: Fire emergency is NOT sent in Disarm mode");}
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.heat_zones, 26,Idle);
+        TimeUnit.SECONDS.sleep(2);
         emergency.Cancel_Emergency.click();
         s.enter_default_user_code();
         TimeUnit.SECONDS.sleep(5);
@@ -140,6 +142,7 @@ public class Smoke_Test_Freeze_Heat_Water_Grid {
         else { s.take_screenshot();
             logger.info("Failed: Fire emergency is NOT sent in ArmStay mode");}
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.heat_zones, 26,Idle);
+        TimeUnit.SECONDS.sleep(2);
         emergency.Cancel_Emergency.click();
         s.enter_default_user_code();
         TimeUnit.SECONDS.sleep(5);
@@ -154,6 +157,7 @@ public class Smoke_Test_Freeze_Heat_Water_Grid {
         else { s.take_screenshot();
             logger.info("Failed: Fire emergency is NOT sent in ArmAway mode");}
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.heat_zones, 26,Idle);
+        TimeUnit.SECONDS.sleep(2);
         emergency.Cancel_Emergency.click();
         s.enter_default_user_code();
         TimeUnit.SECONDS.sleep(5);
@@ -163,6 +167,7 @@ public class Smoke_Test_Freeze_Heat_Water_Grid {
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.heat_zones, 26);
         TimeUnit.SECONDS.sleep(5);
         s.verify_sensor_is_tampered(list.SmokeM26);
+        TimeUnit.SECONDS.sleep(2);
         s.verify_disarm(UDID_);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.heat_zones, 26,Idle);
         TimeUnit.SECONDS.sleep(5);
@@ -173,6 +178,7 @@ public class Smoke_Test_Freeze_Heat_Water_Grid {
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.heat_zones, 26);
         TimeUnit.SECONDS.sleep(5);
         s.verify_sensor_is_tampered(list.SmokeM26);
+        TimeUnit.SECONDS.sleep(2);
         s.verify_armstay(UDID_);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.heat_zones, 26,Idle);
         home_page.DISARM.click();
@@ -185,6 +191,7 @@ public class Smoke_Test_Freeze_Heat_Water_Grid {
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.heat_zones, 26);
         TimeUnit.SECONDS.sleep(5);
         s.verify_sensor_is_tampered(list.SmokeM26);
+        TimeUnit.SECONDS.sleep(2);
         s.verify_status_tampered();
         s.verify_in_alarm();
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.heat_zones, 26,Idle);
@@ -196,6 +203,7 @@ public class Smoke_Test_Freeze_Heat_Water_Grid {
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.water_flood_zones, 38,Activate);
         TimeUnit.SECONDS.sleep(5);
         s.verify_sensor_is_displayed(UDID_, list.Water18);
+        TimeUnit.SECONDS.sleep(2);
         s.verify_status_alarmed();
         s.verify_in_alarm();
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.water_flood_zones, 38,Idle);
@@ -209,6 +217,7 @@ public class Smoke_Test_Freeze_Heat_Water_Grid {
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.water_flood_zones, 38,Activate);
         TimeUnit.SECONDS.sleep(5);
         s.verify_sensor_is_displayed(UDID_, list.Water18);
+        TimeUnit.SECONDS.sleep(2);
         s.verify_status_alarmed();
         s.verify_in_alarm();
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.water_flood_zones, 38,Idle);
@@ -221,6 +230,7 @@ public class Smoke_Test_Freeze_Heat_Water_Grid {
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.water_flood_zones, 38,Activate);
         TimeUnit.SECONDS.sleep(5);
         s.verify_sensor_is_displayed(UDID_, list.Water18);
+        TimeUnit.SECONDS.sleep(2);
         s.verify_status_alarmed();
         s.verify_in_alarm();
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.water_flood_zones, 38,Idle);
@@ -232,6 +242,7 @@ public class Smoke_Test_Freeze_Heat_Water_Grid {
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.water_flood_zones, 38);
         TimeUnit.SECONDS.sleep(5);
         s.verify_sensor_is_tampered(list.Water18);
+        TimeUnit.SECONDS.sleep(2);
         s.verify_disarm(UDID_);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.water_flood_zones, 38,Idle);
         TimeUnit.SECONDS.sleep(5);
@@ -243,6 +254,7 @@ public class Smoke_Test_Freeze_Heat_Water_Grid {
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.water_flood_zones, 38);
         TimeUnit.SECONDS.sleep(5);
         s.verify_sensor_is_tampered(list.Water18);
+        TimeUnit.SECONDS.sleep(2);
         s.verify_armstay(UDID_);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.water_flood_zones, 38,Idle);
         home_page.DISARM.click();
@@ -255,6 +267,7 @@ public class Smoke_Test_Freeze_Heat_Water_Grid {
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.water_flood_zones, 38);
         TimeUnit.SECONDS.sleep(5);
         s.verify_sensor_is_tampered(list.Water18);
+        TimeUnit.SECONDS.sleep(2);
         s.verify_status_tampered();
         s.verify_in_alarm();
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.water_flood_zones, 38,Idle);
