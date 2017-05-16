@@ -31,5 +31,11 @@ public class SensorsList {
     public WebElement Motion13;
     @FindBy(xpath = "//android.widget.TextView[@text='Motion 14']")
     public WebElement Motion14;
+    @FindBy(xpath = "//android.widget.TextView[@text='Freeze 27']")
+    public WebElement Freeze27;
+    @FindBy(xpath ="//android.widget.TextView[@text='Smoke-M 26']")
+    public WebElement SmokeM26;
+    @FindBy(xpath ="//android.widget.TextView[@text='Multi-Function-1 18']")
+    public WebElement Water18;
 
 }
