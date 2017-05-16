@@ -153,6 +153,7 @@ public class Activity_Monitor_Page_Test1 {
         Thread.sleep(2000);
         s.navigate_to_Settings_page();
         settings.ACTIVITY_MONITOR.click();
+        Thread.sleep(1000);
         activity.Safety_All.click();
         activity.Safty_State.click();
         s.enter_default_user_code();

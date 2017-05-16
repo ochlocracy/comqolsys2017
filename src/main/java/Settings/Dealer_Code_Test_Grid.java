@@ -47,7 +47,7 @@ public class Dealer_Code_Test_Grid {
         user.Add_Confirm_User_Code.clear();
         user.Add_Confirm_User_Code.sendKeys("5555");
         user.User_Management_Save.click();
-        Thread.sleep(5000);
+        Thread.sleep(4000);
         settings.Back_button.click();
         Thread.sleep(5000);
         settings.Back_button.click();
