@@ -60,6 +60,7 @@ public class Keyfob_Disarming_Test_Grid {
             s.swipe_vertical();
             Thread.sleep(2000);
             s.swipe_vertical();
+            Thread.sleep(2000);
             arming.Keyfob_Disarming.click();
             Thread.sleep(2000);
             settings.Home_button.click();
