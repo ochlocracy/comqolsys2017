@@ -55,6 +55,7 @@ public class Keyfob_Alarm_Disarm_Test_Grid {
             logger.info("Verify that Keyfod Alarm Disarm  works when enabled");
             s.navigate_to_Advanced_Settings_page();
             adv.INSTALLATION.click();
+            Thread.sleep(1000);
             inst.SECURITY_AND_ARMING.click();
             Thread.sleep(2000);
             s.swipe_vertical();
@@ -73,6 +74,7 @@ public class Keyfob_Alarm_Disarm_Test_Grid {
             Thread.sleep(2000);
             s.navigate_to_Advanced_Settings_page();
             adv.INSTALLATION.click();
+            Thread.sleep(1000);
             inst.SECURITY_AND_ARMING.click();
             Thread.sleep(2000);
             s.swipe_vertical();
