@@ -73,7 +73,9 @@ public class Disarm_Photos_Test_Grid {
         Thread.sleep(1000);
         s.navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
+        Thread.sleep(1000);
         inst.CAMERA_SETTINGS.click();
+        Thread.sleep(1000);
         set_cam.Disarm_Photos.click();
         Thread.sleep(1000);
         settings.Home_button.click();
