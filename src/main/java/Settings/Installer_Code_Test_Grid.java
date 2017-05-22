@@ -35,7 +35,9 @@ public class Installer_Code_Test_Grid {
     User_Management_Page user = PageFactory.initElements(s.getDriver(), User_Management_Page.class);
         s.navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
+        Thread.sleep(1000);
         inst.SECURITY_AND_ARMING.click();
+        Thread.sleep(1000);
         arming.Installer_Code.click();
         user.Add_User_Name_field.clear();
         logger.info("Changing Installer name");
