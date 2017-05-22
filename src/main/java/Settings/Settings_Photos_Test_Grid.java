@@ -52,7 +52,9 @@ public class Settings_Photos_Test_Grid {
         logger.info("Verifying Settings photo is taken when setting in enabled...");
         s.navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
+        Thread.sleep(2000);
         inst.CAMERA_SETTINGS.click();
+        Thread.sleep(2000);
         set_cam.Settings_Photos.click();
         Thread.sleep(1000);
         settings.Home_button.click();
@@ -72,7 +74,9 @@ public class Settings_Photos_Test_Grid {
         s.enter_default_user_code();
         s.navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
+        Thread.sleep(2000);
         inst.CAMERA_SETTINGS.click();
+        Thread.sleep(2000);
         set_cam.Settings_Photos.click();
         Thread.sleep(1000);
         settings.Home_button.click();
