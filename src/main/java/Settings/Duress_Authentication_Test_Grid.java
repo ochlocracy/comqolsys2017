@@ -49,8 +49,11 @@ public class Duress_Authentication_Test_Grid {
         s.enter_default_user_code();
         s.navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
+        Thread.sleep(1000);
         inst.SECURITY_AND_ARMING.click();
+        Thread.sleep(1000);
         arming.Duress_Authentication.click();
+        Thread.sleep(2000);
         s.swipe_vertical();
         Thread.sleep(1000);
         arming.Auto_Stay.click();
