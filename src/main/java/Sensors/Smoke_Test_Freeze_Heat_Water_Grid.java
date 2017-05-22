@@ -7,6 +7,7 @@ import Panel.Setup1;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
@@ -24,6 +25,7 @@ public class Smoke_Test_Freeze_Heat_Water_Grid {
     private int Idle = 0;
 
     private int Long_Exit_Delay = 20;
+
 
     public Smoke_Test_Freeze_Heat_Water_Grid() throws IOException, BiffException {}
 
@@ -64,6 +66,7 @@ public class Smoke_Test_Freeze_Heat_Water_Grid {
         s.ARM_STAY();
         TimeUnit.SECONDS.sleep(5);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.freeze_zones, 52,Activate);
+        TimeUnit.SECONDS.sleep(5);
         s.verify_sensor_is_displayed(UDID_, list.Freeze27);
         s.verify_status_alarmed();
         s.verify_in_alarm();
@@ -75,6 +78,7 @@ public class Smoke_Test_Freeze_Heat_Water_Grid {
         logger.info("ArmAway mode tripping Freeze group 52 -> Expected result = Instant Alarm");
         s.ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.freeze_zones, 52,Activate);
+        TimeUnit.SECONDS.sleep(6);
         s.verify_sensor_is_displayed(UDID_, list.Freeze27);
         s.verify_status_alarmed();
         s.verify_in_alarm();
@@ -85,10 +89,11 @@ public class Smoke_Test_Freeze_Heat_Water_Grid {
         logger.info("********************TAMPER********************");
         logger.info("Disarm mode tampering Freeze group 52  -> Expected result = Disarm");
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.freeze_zones, 52);
-        TimeUnit.SECONDS.sleep(5);
+        TimeUnit.SECONDS.sleep(7);
         s.verify_sensor_is_tampered(list.Freeze27);
         TimeUnit.SECONDS.sleep(2);
         s.verify_disarm(UDID_);
+        TimeUnit.SECONDS.sleep(2);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.freeze_zones, 52,Idle);
         TimeUnit.SECONDS.sleep(5);
 
@@ -97,7 +102,7 @@ public class Smoke_Test_Freeze_Heat_Water_Grid {
         s.ARM_STAY();
         TimeUnit.SECONDS.sleep(5);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.freeze_zones, 52);
-        TimeUnit.SECONDS.sleep(4);
+        TimeUnit.SECONDS.sleep(6);
         s.verify_sensor_is_tampered(list.Freeze27);
         TimeUnit.SECONDS.sleep(2);
         s.verify_armstay(UDID_);
@@ -110,7 +115,7 @@ public class Smoke_Test_Freeze_Heat_Water_Grid {
         logger.info("ArmAway mode tampering Freeze group 52  -> Expected result = Instant Alarm");
         s.ARM_AWAY(Long_Exit_Delay);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.freeze_zones, 52);
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(6);
         s.verify_sensor_is_tampered(list.Freeze27);
         s.verify_status_tampered();
         s.verify_in_alarm();
@@ -167,7 +172,7 @@ public class Smoke_Test_Freeze_Heat_Water_Grid {
         logger.info("********************TAMPER********************");
         logger.info("Disarm mode tampering Heat group 26  -> Expected result = Disarm");
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.heat_zones, 26);
-        TimeUnit.SECONDS.sleep(5);
+        TimeUnit.SECONDS.sleep(7);
         s.verify_sensor_is_tampered(list.SmokeM26);
         TimeUnit.SECONDS.sleep(2);
         s.verify_disarm(UDID_);
@@ -243,9 +248,9 @@ public class Smoke_Test_Freeze_Heat_Water_Grid {
         logger.info("********************TAMPER********************");
         logger.info("Disarm mode tampering Water group 38 -> Expected result = Disarm");
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.water_flood_zones, 38);
-        TimeUnit.SECONDS.sleep(5);
+        TimeUnit.SECONDS.sleep(8);
         s.verify_sensor_is_tampered(list.Water18);
-        TimeUnit.SECONDS.sleep(2);
+        TimeUnit.SECONDS.sleep(4);
         s.verify_disarm(UDID_);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.water_flood_zones, 38,Idle);
         TimeUnit.SECONDS.sleep(5);

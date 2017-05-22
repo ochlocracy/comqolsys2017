@@ -98,9 +98,9 @@ public class Smoke_Test_DW_Grid_ArmStay {
         logger.info("********************************************************");
         logger.info("ArmStay mode tripping sensors group 14 -> Expected result = Instant Alarm");
         s.ARM_STAY();
-        TimeUnit.SECONDS.sleep(5);
+        TimeUnit.SECONDS.sleep(7);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.door_window_zones, 14, Open);
-        TimeUnit.SECONDS.sleep(5);
+        TimeUnit.SECONDS.sleep(7);
         s.verify_sensor_is_displayed1(UDID_, list.Door9);
         s.verify_status_open();
         s.verify_in_alarm();

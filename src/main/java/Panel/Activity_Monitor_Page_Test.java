@@ -44,7 +44,7 @@ public class Activity_Monitor_Page_Test extends Setup{
         setup_driver(udid_, "http://127.0.1.1", "4723");
         setup_logger(page_name);
     }
-    @Test
+    @Test (priority = 1)
     public void Check_all_elements_on_Activity_Monitor_page() throws Exception {
         Activity_Monitor_Page activity = PageFactory.initElements(driver, Activity_Monitor_Page.class);
         Settings_Page settings = PageFactory.initElements(driver, Settings_Page.class);
@@ -91,7 +91,7 @@ public class Activity_Monitor_Page_Test extends Setup{
         Thread.sleep(1000);
     }
 
-    @Test
+    @Test (priority = 2)
     public void Check_Activity_Monitor_behavior() throws Exception {
         Activity_Monitor_Page activity = PageFactory.initElements(driver, Activity_Monitor_Page.class);
         Settings_Page settings = PageFactory.initElements(driver, Settings_Page.class);

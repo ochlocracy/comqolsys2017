@@ -67,6 +67,7 @@ public class Auto_Exit_Time_Extension_Test_Grid {
         logger.info("Verify that Auto Exit Time Extension does not works when disabled");
         s.navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
+        Thread.sleep(1000);
         inst.SECURITY_AND_ARMING.click();
         Thread.sleep(3000);
         s.swipe_vertical();

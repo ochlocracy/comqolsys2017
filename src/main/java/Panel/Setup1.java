@@ -32,7 +32,6 @@ public class Setup1 {
     public AndroidDriver<WebElement> driver;
     DesiredCapabilities capabilities = new DesiredCapabilities();
 
-
     public AndroidDriver<WebElement> getDriver() {return driver;}
 
     public Setup1() throws IOException, BiffException { this.driver = driver;}
@@ -48,7 +47,7 @@ public class Setup1 {
    private static final SimpleDateFormat sdf = new SimpleDateFormat("MM.dd_HH.mm.ss");
 
     protected WebDriver driver1;
-    protected WebDriverWait wait;
+    protected WebDriverWait wait1;
 
     public WebDriver getDriver1() {
         return driver1;
@@ -56,12 +55,12 @@ public class Setup1 {
 
     public void webDriverSetUp () {
         driver1 = new FirefoxDriver();
-        wait = new WebDriverWait(driver1, 40);
+        wait1 = new WebDriverWait(driver1, 40);
     }
 
     @Parameters({"deviceName_", "applicationName_", "UDID_", "platformVersion_", "URL_", "PORT_" })
     @BeforeClass(alwaysRun=true)
-    public void setCapabilities(String URL_) throws MalformedURLException {
+    public void setCapabilities(String URL_) throws MalformedURLException, InterruptedException {
         capabilities.setCapability("BROWSER_NAME", "Android");
         capabilities.setCapability("deviceName", "deviceName_");
         capabilities.setCapability("UDID", "UDID_");
@@ -73,6 +72,7 @@ public class Setup1 {
         capabilities.setCapability("newCommandTimeout", "500");
         this.driver = new AndroidDriver<WebElement>(new URL(URL_), getCapabilities());
     }
+//    WebDriverWait wait = new WebDriverWait(driver, 10);
 
     public void setup_logger(String test_case_name, String UDID_) throws Exception {
         PropertyConfigurator.configure(new File(appDir, "log4j.properties").getAbsolutePath());
@@ -218,7 +218,8 @@ public class Setup1 {
 
     public void verify_sensor_is_displayed1(String UDID_, WebElement sensor_name) throws Exception {
         try {
-            if (sensor_name.isDisplayed())
+            driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+            if (sensor_name.isDisplayed());
                 logger.info(UDID_ + " " +sensor_name.getText() +" is successfully opened/activated");
             } catch (Exception e) {
                 take_screenshot();

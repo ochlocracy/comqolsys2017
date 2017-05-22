@@ -38,6 +38,7 @@ public class Smoke_Test_DW_Grid  {
 
         logger.info("Current software version: " + s.Software_Version());
         MySensors.read_sensors_from_csv();
+        TimeUnit.SECONDS.sleep(2);
         logger.info("Adding sensors...");
         MySensors.addAllSensors1(UDID_);
         TimeUnit.SECONDS.sleep(5);
