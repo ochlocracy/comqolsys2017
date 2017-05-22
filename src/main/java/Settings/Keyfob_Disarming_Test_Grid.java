@@ -54,6 +54,7 @@ public class Keyfob_Disarming_Test_Grid {
             logger.info("Verify that Keyfob Disarming does not work when disabled");
             s.navigate_to_Advanced_Settings_page();
             adv.INSTALLATION.click();
+            Thread.sleep(1000);
             inst.SECURITY_AND_ARMING.click();
             Thread.sleep(2000);
             s.swipe_vertical();
@@ -81,6 +82,7 @@ public class Keyfob_Disarming_Test_Grid {
             Thread.sleep(2000);
             s.navigate_to_Advanced_Settings_page();
             adv.INSTALLATION.click();
+            Thread.sleep(2000);
             inst.SECURITY_AND_ARMING.click();
             Thread.sleep(2000);
             s.swipe_vertical();
