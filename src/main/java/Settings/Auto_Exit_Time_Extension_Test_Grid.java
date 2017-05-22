@@ -92,7 +92,9 @@ public class Auto_Exit_Time_Extension_Test_Grid {
         s.enter_default_user_code();
         Thread.sleep(2000);
         s.navigate_to_Advanced_Settings_page();
+        Thread.sleep(2000);
         adv.INSTALLATION.click();
+        Thread.sleep(2000);
         inst.SECURITY_AND_ARMING.click();
         Thread.sleep(3000);
         s.swipe_vertical();
