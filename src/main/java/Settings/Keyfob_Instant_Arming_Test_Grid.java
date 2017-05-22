@@ -57,6 +57,7 @@ public class Keyfob_Instant_Arming_Test_Grid {
         logger.info("Verify that Keyfob Instant Arming does not work when disabled");
         s.navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
+        Thread.sleep(2000);
         inst.SECURITY_AND_ARMING.click();
         Thread.sleep(2000);
         s.swipe_vertical();
@@ -100,6 +101,7 @@ public class Keyfob_Instant_Arming_Test_Grid {
         s.enter_default_user_code();
         s.navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
+        Thread.sleep(2000);
         inst.SECURITY_AND_ARMING.click();
         Thread.sleep(2000);
         s.swipe_vertical();
