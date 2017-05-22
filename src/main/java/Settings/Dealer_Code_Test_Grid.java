@@ -48,11 +48,11 @@ public class Dealer_Code_Test_Grid {
         user.Add_Confirm_User_Code.sendKeys("5555");
         Thread.sleep(2000);
         user.User_Management_Save.click();
-        Thread.sleep(4000);
+        Thread.sleep(3000);
         settings.Back_button.click();
-        Thread.sleep(5000);
+        Thread.sleep(3000);
         settings.Back_button.click();
-        Thread.sleep(5000);
+        Thread.sleep(3000);
         adv.USER_MANAGEMENT.click();
         logger.info("Verify Dealer name changed");
         s.getDriver().findElement(By.xpath("//android.widget.TextView[@text='NewDealer']")).isDisplayed();
