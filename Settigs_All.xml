@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite" parallel="tests" thread-count="4">
+    <test name="Test1">
+        <parameter name="deviceName_" value="android1"/>
+        <parameter name="applicationName_" value="8ebdbcc4"/>
+        <parameter name="UDID_" value="8ebdbcc4"/>
+        <parameter name="platformVersion_" value="5.1"/>
+        <parameter name="URL_" value="http://172.16.101.86:4725/wd/hub"/>
+        <parameter name="PORT_" value="4725"/>
+        <classes>
+            <class name="Panel.Activity_Monitor_Page_Test1"/>
+            <class name="Settings.Alarm_Photos_Test_Grid"/>
+            <class name="Settings.Allow_Master_Code_to_access_Camera_Settings_Page_Test_Grid"/>
+            <class name="Settings.Allow_Master_Code_to_access_Security_and_Arming_Test_Grid"/>
+            <class name="Settings.Allow_Master_Code_to_access_Siren_and_Alarms_Test_Grid"/>
+            <class name="Settings.Arm_Stay_No_Delay_Test_Grid"/>
+            <class name="Settings.Auto_Bypass_Test"/>
+            <class name="Settings.Auto_Exit_Time_Extension_Test_Grid"/>
+            <class name="Settings.Auto_Stay_Test_Grid"/>
+            <class name="Settings.Dealer_Code_Test_Grid"/>
+            <class name="Settings.Disarm_Photos_Test_Grid"/>
+            <class name="Settings.Duress_Authentication_Test_Grid"/>
+            <class name="Settings.Installer_Code_Test_Grid"/>
+            <class name="Settings.Keyfob_Instant_Arming_Test_Grid"/>
+            <class name="Settings.Keyfob_Disarming_Test_Grid"/>
+            <class name="Settings.Keyfob_Alarm_Disarm_Test_Grid"/>
+            <class name="Settings.Panic_Disable_Test_Grid"/>
+            <class name="Settings.Secure_Arming_Test_Grid"/>
+            <class name="Settings.Secure_Delete_Images_Test_Grid"/>
+            <class name="Settings.Settings_Photos_Test_Grid"/>
+        </classes>
+    </test>
+    <test name="Test2">
+        <parameter name="deviceName_" value="android2"/>
+        <parameter name="applicationName_" value="6231f062"/>
+        <parameter name="UDID_" value="6231f062"/>
+        <parameter name="platformVersion_" value="5.1"/>
+        <parameter name="URL_" value="http://172.16.101.86:4727/wd/hub"/>
+        <parameter name="PORT_" value="4727"/>
+        <classes>
+            <class name="Panel.Activity_Monitor_Page_Test1"/>
+            <class name="Settings.Alarm_Photos_Test_Grid"/>
+            <class name="Settings.Allow_Master_Code_to_access_Camera_Settings_Page_Test_Grid"/>
+            <class name="Settings.Allow_Master_Code_to_access_Security_and_Arming_Test_Grid"/>
+            <class name="Settings.Allow_Master_Code_to_access_Siren_and_Alarms_Test_Grid"/>
+            <class name="Settings.Arm_Stay_No_Delay_Test_Grid"/>
+            <class name="Settings.Auto_Bypass_Test"/>
+            <class name="Settings.Auto_Exit_Time_Extension_Test_Grid"/>
+            <class name="Settings.Auto_Stay_Test_Grid"/>
+            <class name="Settings.Dealer_Code_Test_Grid"/>
+            <class name="Settings.Disarm_Photos_Test_Grid"/>
+            <class name="Settings.Duress_Authentication_Test_Grid"/>
+            <class name="Settings.Installer_Code_Test_Grid"/>
+            <class name="Settings.Keyfob_Instant_Arming_Test_Grid"/>
+            <class name="Settings.Keyfob_Disarming_Test_Grid"/>
+            <class name="Settings.Keyfob_Alarm_Disarm_Test_Grid"/>
+            <class name="Settings.Panic_Disable_Test_Grid"/>
+            <class name="Settings.Secure_Arming_Test_Grid"/>
+            <class name="Settings.Secure_Delete_Images_Test_Grid"/>
+            <class name="Settings.Settings_Photos_Test_Grid"/>
+        </classes>
+    </test>
+    <test name="Test3">
+        <parameter name="deviceName_" value="android3"/>
+        <parameter name="applicationName_" value="62864b8c"/>
+        <parameter name="UDID_" value="62864b8c"/>
+        <parameter name="platformVersion_" value="5.1"/>
+        <parameter name="URL_" value="http://172.16.101.86:4729/wd/hub"/>
+        <parameter name="PORT_" value="4729"/>
+        <classes>
+            <class name="Panel.Activity_Monitor_Page_Test1"/>
+            <class name="Settings.Alarm_Photos_Test_Grid"/>
+            <class name="Settings.Allow_Master_Code_to_access_Camera_Settings_Page_Test_Grid"/>
+            <class name="Settings.Allow_Master_Code_to_access_Security_and_Arming_Test_Grid"/>
+            <class name="Settings.Allow_Master_Code_to_access_Siren_and_Alarms_Test_Grid"/>
+            <class name="Settings.Arm_Stay_No_Delay_Test_Grid"/>
+            <class name="Settings.Auto_Bypass_Test"/>
+            <class name="Settings.Auto_Exit_Time_Extension_Test_Grid"/>
+            <class name="Settings.Auto_Stay_Test_Grid"/>
+            <class name="Settings.Dealer_Code_Test_Grid"/>
+            <class name="Settings.Disarm_Photos_Test_Grid"/>
+            <class name="Settings.Duress_Authentication_Test_Grid"/>
+            <class name="Settings.Installer_Code_Test_Grid"/>
+            <class name="Settings.Keyfob_Instant_Arming_Test_Grid"/>
+            <class name="Settings.Keyfob_Disarming_Test_Grid"/>
+            <class name="Settings.Keyfob_Alarm_Disarm_Test_Grid"/>
+            <class name="Settings.Panic_Disable_Test_Grid"/>
+            <class name="Settings.Secure_Arming_Test_Grid"/>
+            <class name="Settings.Secure_Delete_Images_Test_Grid"/>
+            <class name="Settings.Settings_Photos_Test_Grid"/>
+        </classes>
+    </test>
+    <test name="Test4">
+        <parameter name="deviceName_" value="android4"/>
+        <parameter name="applicationName_" value="4216551"/>
+        <parameter name="UDID_" value="4216551"/>
+        <parameter name="platformVersion_" value="5.1"/>
+        <parameter name="URL_" value="http://172.16.101.86:4731/wd/hub"/>
+        <parameter name="PORT_" value="4731"/>
+        <classes>
+            <class name="Panel.Activity_Monitor_Page_Test1"/>
+            <class name="Settings.Alarm_Photos_Test_Grid"/>
+            <class name="Settings.Allow_Master_Code_to_access_Camera_Settings_Page_Test_Grid"/>
+            <class name="Settings.Allow_Master_Code_to_access_Security_and_Arming_Test_Grid"/>
+            <class name="Settings.Allow_Master_Code_to_access_Siren_and_Alarms_Test_Grid"/>
+            <class name="Settings.Arm_Stay_No_Delay_Test_Grid"/>
+            <class name="Settings.Auto_Bypass_Test"/>
+            <class name="Settings.Auto_Exit_Time_Extension_Test_Grid"/>
+            <class name="Settings.Auto_Stay_Test_Grid"/>
+            <class name="Settings.Dealer_Code_Test_Grid"/>
+            <class name="Settings.Disarm_Photos_Test_Grid"/>
+            <class name="Settings.Duress_Authentication_Test_Grid"/>
+            <class name="Settings.Installer_Code_Test_Grid"/>
+            <class name="Settings.Keyfob_Instant_Arming_Test_Grid"/>
+            <class name="Settings.Keyfob_Disarming_Test_Grid"/>
+            <class name="Settings.Keyfob_Alarm_Disarm_Test_Grid"/>
+            <class name="Settings.Panic_Disable_Test_Grid"/>
+            <class name="Settings.Secure_Arming_Test_Grid"/>
+            <class name="Settings.Secure_Delete_Images_Test_Grid"/>
+            <class name="Settings.Settings_Photos_Test_Grid"/>
+        </classes>
+    </test>
+</suite>
