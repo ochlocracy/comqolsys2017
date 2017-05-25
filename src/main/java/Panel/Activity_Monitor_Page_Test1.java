@@ -48,7 +48,7 @@ public class Activity_Monitor_Page_Test1 {
     }
 
     @Parameters ({"UDID_"})
-    @Test
+    @Test(priority = 1)
     public void Test1_Check_all_elements_on_Activity_Monitor_page(String UDID_) throws Exception {
         Activity_Monitor_Page activity = PageFactory.initElements(s.getDriver(), Activity_Monitor_Page.class);
         Settings_Page settings = PageFactory.initElements(s.getDriver(), Settings_Page.class);
@@ -96,7 +96,7 @@ public class Activity_Monitor_Page_Test1 {
     }
 
     @Parameters ({"UDID_"})
-    @Test
+    @Test(priority = 2)
     public void Test2_Check_Activity_Monitor_behavior(String UDID_) throws Exception {
         Activity_Monitor_Page activity = PageFactory.initElements( s.getDriver(), Activity_Monitor_Page.class);
         Settings_Page settings = PageFactory.initElements(s.getDriver(), Settings_Page.class);
@@ -114,9 +114,11 @@ public class Activity_Monitor_Page_Test1 {
         s.add_primary_call(7, 25, 8716449, 114, UDID_);
         Thread.sleep(4000);
         s.navigate_to_Settings_page();
+        Thread.sleep(2000);
         settings.ACTIVITY_MONITOR.click();
+        Thread.sleep(3000);
         activity.Safety_All.click();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         WebElement dw1 =  s.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Door/Window 1']"));
         s.verify_sensor_is_displayed(UDID_, dw1);
         WebElement dw2 =  s.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Door/Window 2']"));

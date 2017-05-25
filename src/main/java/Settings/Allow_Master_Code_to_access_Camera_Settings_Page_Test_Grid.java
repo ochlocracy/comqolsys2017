@@ -37,6 +37,7 @@ public class Allow_Master_Code_to_access_Camera_Settings_Page_Test_Grid {
             logger.info("Navigate to the setting page to enable the access to the Camera Settings page using Master Code");
             s.navigate_to_Advanced_Settings_page();
             adv.INSTALLATION.click();
+            Thread.sleep(2000);
             inst.CAMERA_SETTINGS.click();
             Thread.sleep(2000);
             s.swipe_vertical();
@@ -61,7 +62,9 @@ public class Allow_Master_Code_to_access_Camera_Settings_Page_Test_Grid {
             settings.Home_button.click();
             logger.info("Verify Camera Settings icon disappears after disabling the setting");
             s.navigate_to_Advanced_Settings_page();
+            Thread.sleep(2000);
             adv.INSTALLATION.click();
+            Thread.sleep(2000);
             inst.CAMERA_SETTINGS.click();
             Thread.sleep(2000);
             s.swipe_vertical();

@@ -10,6 +10,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class Alarm_Photos_Test_Grid {
 
@@ -47,6 +48,8 @@ public class Alarm_Photos_Test_Grid {
         s.swipeFromLefttoRight();
         logger.info("Verifying Alarm photo is taken...");
         camera.Alarms_photo.click();
+        Thread.sleep(1000);
+        s.getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         if (camera.Photo_lable.isDisplayed()) {
             logger.info(UDID_ + " Pass: Alarm photo is displayed");
         } else {
@@ -55,11 +58,13 @@ public class Alarm_Photos_Test_Grid {
         }
         camera.Camera_delete.click();
         camera.Camera_delete_yes.click();
+        Thread.sleep(2000);
         s.enter_default_user_code();
         Thread.sleep(1000);
         logger.info("Verifying Alarm photo is NOT taken when setting in disabled...");
         s.navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
+        Thread.sleep(2000);
         inst.CAMERA_SETTINGS.click();
         Thread.sleep(1000);
         logger.info("Generating an Alarm...");
@@ -75,6 +80,7 @@ public class Alarm_Photos_Test_Grid {
         s.swipeFromLefttoRight();
         logger.info("Verifying Alarm photo is not taken...");
         camera.Alarms_photo.click();
+        s.getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         try {
             if (camera.Photo_lable.isDisplayed())
                 s.take_screenshot();
@@ -86,7 +92,9 @@ public class Alarm_Photos_Test_Grid {
         Thread.sleep(1000);
         s.navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
+        Thread.sleep(2000);
         inst.CAMERA_SETTINGS.click();
+        Thread.sleep(1000);
         set_cam.Alarm_Photos.click();
         Thread.sleep(1000);
         settings.Home_button.click();

@@ -33,6 +33,7 @@ public class Installer_Code_Test_Grid {
     Advanced_Settings_Page adv = PageFactory.initElements(s.getDriver(), Advanced_Settings_Page.class);
     Installation_Page inst = PageFactory.initElements(s.getDriver(), Installation_Page.class);
     User_Management_Page user = PageFactory.initElements(s.getDriver(), User_Management_Page.class);
+        Thread.sleep(2000);
         s.navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
         Thread.sleep(1000);

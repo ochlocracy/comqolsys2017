@@ -153,15 +153,16 @@ public class Setup1 {
         settings.Two.click();
         Thread.sleep(1000);
     }
-    public void DISARM (){
+    public void DISARM () throws InterruptedException {
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         home_page.DISARM.click();
         enter_default_user_code();
     }
 
-    public void ARM_STAY (){
+    public void ARM_STAY () throws InterruptedException {
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         home_page.DISARM.click();
+        Thread.sleep(1000);
         home_page.ARM_STAY.click();
     }
 
@@ -172,8 +173,9 @@ public class Setup1 {
         TimeUnit.SECONDS.sleep(delay);
     }
 
-    public void enter_default_user_code (){
+    public void enter_default_user_code () throws InterruptedException {
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        TimeUnit.SECONDS.sleep(2);
         home_page.One.click();
         home_page.Two.click();
         home_page.Three.click();
