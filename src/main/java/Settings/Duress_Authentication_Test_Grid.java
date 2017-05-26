@@ -45,7 +45,8 @@ public class Duress_Authentication_Test_Grid {
         home.Eight.click();
         if(settings.Invalid_User_Code.isDisplayed()){
             logger.info(UDID_ +" Pass: Duress code does not work");}
-        Thread.sleep(1000);
+        Thread.sleep(10000);
+        home.DISARM.click();
         s.enter_default_user_code();
         Thread.sleep(2000);
         s.navigate_to_Advanced_Settings_page();
