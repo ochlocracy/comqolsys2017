@@ -178,15 +178,15 @@ public class Setup1 {
 
     public void enter_default_user_code () throws InterruptedException {
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(1);
         home_page.One.click();
         Thread.sleep(1000);
         home_page.Two.click();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         home_page.Three.click();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         home_page.Four.click();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
     }
 
     public void verify_disarm(String UDID_) throws Exception {
