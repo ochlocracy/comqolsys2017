@@ -34,7 +34,9 @@ public class Dealer_Code_Test_Grid {
         User_Management_Page user = PageFactory.initElements(s.getDriver(), User_Management_Page.class);
         s.navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
+        Thread.sleep(2000);
         inst.SECURITY_AND_ARMING.click();
+        Thread.sleep(2000);
         arming.Dealer_Code.click();
         user.Add_User_Name_field.clear();
         logger.info("Changing Dealer name");
@@ -79,7 +81,9 @@ public class Dealer_Code_Test_Grid {
         if(adv.INSTALLATION.isDisplayed()){
         logger.info(UDID_ + "Pass: new Dealer code works as expected");}
         adv.INSTALLATION.click();
+        Thread.sleep(2000);
         inst.SECURITY_AND_ARMING.click();
+        Thread.sleep(2000);
         arming.Dealer_Code.click();
         Thread.sleep(2000);
         user.Add_User_Name_field.clear();
