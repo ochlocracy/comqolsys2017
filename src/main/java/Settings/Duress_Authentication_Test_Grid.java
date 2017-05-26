@@ -37,7 +37,7 @@ public class Duress_Authentication_Test_Grid {
         Thread.sleep(2000);
         logger.info("Verify system can not be DISARMED with Duress code when the setting is disabled");
         s.ARM_STAY();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         home.DISARM.click();
         home.Nine.click();
         home.Nine.click();

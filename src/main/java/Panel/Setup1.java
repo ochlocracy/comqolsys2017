@@ -186,7 +186,6 @@ public class Setup1 {
         home_page.Three.click();
         Thread.sleep(1000);
         home_page.Four.click();
-        Thread.sleep(1000);
     }
 
     public void verify_disarm(String UDID_) throws Exception {
