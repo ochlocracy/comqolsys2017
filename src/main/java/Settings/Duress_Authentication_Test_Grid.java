@@ -47,7 +47,9 @@ public class Duress_Authentication_Test_Grid {
             logger.info(UDID_ +" Pass: Duress code does not work");}
         Thread.sleep(1000);
         s.enter_default_user_code();
+        Thread.sleep(2000);
         s.navigate_to_Advanced_Settings_page();
+        Thread.sleep(2000);
         adv.INSTALLATION.click();
         Thread.sleep(1000);
         inst.SECURITY_AND_ARMING.click();
@@ -90,7 +92,9 @@ public class Duress_Authentication_Test_Grid {
         Thread.sleep(2000);
         s.navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
+        Thread.sleep(2000);
         inst.SECURITY_AND_ARMING.click();
+        Thread.sleep(2000);
         arming.Duress_Authentication.click();
         s.swipe_vertical();
         Thread.sleep(1000);
