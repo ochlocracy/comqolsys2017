@@ -24,17 +24,21 @@ public class SettingsAllGrd {
         s.setup_logger(page_name, UDID_);
     }
     @Parameters({"UDID_"})
-    @Test
-    public void Test_All(String UDID_) throws Exception {
+    @Test(priority = 1)
+    public void Test_1(String UDID_) throws Exception {
         Alarm_Photos_Test_Grid alarm_photos = new Alarm_Photos_Test_Grid();
-        Allow_Master_Code_to_access_Siren_and_Alarms_Test_Grid siren_alarm = new Allow_Master_Code_to_access_Siren_and_Alarms_Test_Grid();
-        Allow_Master_Code_to_access_Security_and_Arming_Test_Grid security_arming = new Allow_Master_Code_to_access_Security_and_Arming_Test_Grid();
+//        Allow_Master_Code_to_access_Security_and_Arming_Test_Grid security_arming = new Allow_Master_Code_to_access_Security_and_Arming_Test_Grid();
 
         alarm_photos.Verify_Alarm_Photos_works(UDID_);
         Thread.sleep(2000);
+    }
+    @Parameters({"UDID_"})
+    @Test(priority = 2)
+    public void Test_2(String UDID_) throws Exception {
+        Allow_Master_Code_to_access_Siren_and_Alarms_Test_Grid siren_alarm = new Allow_Master_Code_to_access_Siren_and_Alarms_Test_Grid();
         siren_alarm.Verify_Master_Code_gets_access_to_Siren_and_Alarms_page(UDID_);
         Thread.sleep(2000);
-        security_arming.Verify_Master_Code_gets_access_to_Security_and_Arming_page(UDID_);
+//        security_arming.Verify_Master_Code_gets_access_to_Security_and_Arming_page(UDID_);
 
     }
     @AfterClass

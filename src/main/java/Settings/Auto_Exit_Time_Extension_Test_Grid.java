@@ -62,12 +62,14 @@ public class Auto_Exit_Time_Extension_Test_Grid {
         s.verify_armaway(UDID_);
         Thread.sleep(2000);
         home.ArwAway_State.click();
-        s.enter_default_user_code();
         Thread.sleep(2000);
+        s.enter_default_user_code();
+        Thread.sleep(3000);
         logger.info("Verify that Auto Exit Time Extension does not works when disabled");
         s.navigate_to_Advanced_Settings_page();
+        Thread.sleep(2000);
         adv.INSTALLATION.click();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         inst.SECURITY_AND_ARMING.click();
         Thread.sleep(3000);
         s.swipe_vertical();
@@ -104,7 +106,7 @@ public class Auto_Exit_Time_Extension_Test_Grid {
         Thread.sleep(2000);
         settings.Home_button.click();
         s.delete_from_primary(UDID_,1);
-        Thread.sleep(2000);
+        Thread.sleep(3000);
     }
     @AfterClass
     public void tearDown () throws IOException, InterruptedException {

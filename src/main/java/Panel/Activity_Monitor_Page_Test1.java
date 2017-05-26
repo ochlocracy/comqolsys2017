@@ -58,11 +58,14 @@ public class Activity_Monitor_Page_Test1 {
         s.add_primary_call(1, 25, 6619814, 1, UDID_);
         Thread.sleep(2000);
         s.navigate_to_Settings_page();
+        Thread.sleep(2000);
         settings.ACTIVITY_MONITOR.click();
+        Thread.sleep(2000);
         s.element_verification(UDID_, activity.Quick_Access, "Quick Access");
         s.element_verification(UDID_, activity.Quick_Access_img, "Quick Access image");
         s.element_verification(UDID_, activity.Safty_State, "Safety State icon");
         s.element_verification(UDID_, activity.Safety_State_txt, "Safety State text");
+        Thread.sleep(2000);
         if(activity.Safety_State_txt.getText().equals("Press to Deactivate")){
             logger.info(UDID_ + " Pass: Correct Safety state text: "+activity.Safety_State_txt.getText());
         } else { s.take_screenshot();
@@ -103,7 +106,7 @@ public class Activity_Monitor_Page_Test1 {
         Home_Page home = PageFactory.initElements(s.getDriver(), Home_Page.class);
         Contact_Us contact = PageFactory.initElements(s.getDriver(), Contact_Us.class);
         logger.info("Verifying elements on the page...");
-        Thread.sleep(1000);
+        Thread.sleep(3000);
         logger.info("Adding sensors...");
         s.add_primary_call(1, 25, 6619814, 1, UDID_);
         s.add_primary_call(2, 8, 6619815, 1, UDID_);
@@ -118,7 +121,7 @@ public class Activity_Monitor_Page_Test1 {
         settings.ACTIVITY_MONITOR.click();
         Thread.sleep(3000);
         activity.Safety_All.click();
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         WebElement dw1 =  s.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Door/Window 1']"));
         s.verify_sensor_is_displayed(UDID_, dw1);
         WebElement dw2 =  s.getDriver().findElement(By.xpath("//android.widget.TextView[@text='Door/Window 2']"));
@@ -155,16 +158,19 @@ public class Activity_Monitor_Page_Test1 {
         Thread.sleep(2000);
         s.navigate_to_Settings_page();
         settings.ACTIVITY_MONITOR.click();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         activity.Safety_All.click();
+        Thread.sleep(2000);
         activity.Safty_State.click();
         s.enter_default_user_code();
         Thread.sleep(2000);
         activity.Safety_All.click();
+        Thread.sleep(2000);
         s.tap(815,335);
         Thread.sleep(1000);
         s.tap(815,420);
         activity.Safty_State.click();
+        Thread.sleep(2000);
         s.enter_default_user_code();
         Thread.sleep(1000);
         settings.Home_button.click();

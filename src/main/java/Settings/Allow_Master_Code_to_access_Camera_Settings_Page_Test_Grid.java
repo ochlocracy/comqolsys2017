@@ -84,6 +84,7 @@ public class Allow_Master_Code_to_access_Camera_Settings_Page_Test_Grid {
             } catch(Exception e){
                 logger.info(UDID_ + " Pass: Camera Settings icon is NOT present");
             } finally{}
+            Thread.sleep(2000);
         }
     @AfterClass
     public void tearDown () throws IOException, InterruptedException {

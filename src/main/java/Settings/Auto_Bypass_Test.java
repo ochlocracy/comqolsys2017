@@ -58,6 +58,7 @@ public class Auto_Bypass_Test extends Setup {
         Thread.sleep(3000);
         navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
+        Thread.sleep(2000);
         inst.SECURITY_AND_ARMING.click();
         Thread.sleep(1000);
         swipe_vertical();
@@ -69,6 +70,7 @@ public class Auto_Bypass_Test extends Setup {
         logger.info("Verify that Auto Bypass does not work when disabled");
         sensors.primary_call("65 00 0A",open);
         home.DISARM.click();
+        Thread.sleep(2000);
         home.ARM_STAY.click();
         Thread.sleep(2000);
         element_verification(home.Bypass_message,"Bypass pop-up message");
@@ -90,8 +92,9 @@ public class Auto_Bypass_Test extends Setup {
         Thread.sleep(1000);
         navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
+        Thread.sleep(2000);
         inst.SECURITY_AND_ARMING.click();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         swipe_vertical();
         Thread.sleep(1000);
         arming.Auto_Bypass.click();

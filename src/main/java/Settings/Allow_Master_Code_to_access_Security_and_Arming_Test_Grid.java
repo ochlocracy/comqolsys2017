@@ -36,7 +36,9 @@ public class Allow_Master_Code_to_access_Security_and_Arming_Test_Grid {
         Thread.sleep(3000);
         logger.info("Navigate to the setting page to enable the access to the Security and Arming page using Master Code");
         s.navigate_to_Advanced_Settings_page();
+        Thread.sleep(2000);
         adv.INSTALLATION.click();
+        Thread.sleep(2000);
         inst.SECURITY_AND_ARMING.click();
         Thread.sleep(2000);
         s.swipe_vertical();
@@ -44,6 +46,7 @@ public class Allow_Master_Code_to_access_Security_and_Arming_Test_Grid {
         s.swipe_vertical();
         Thread.sleep(1000);
         s.swipe_vertical();
+        Thread.sleep(1000);
         arming.Allow_Master_Code_To_Access_Security_and_Arming.click();
         Thread.sleep(2000);
         settings.Home_button.click();
@@ -61,7 +64,9 @@ public class Allow_Master_Code_to_access_Security_and_Arming_Test_Grid {
         settings.Home_button.click();
         logger.info("Verify Security and Arming icon disappears after disabling the setting");
         s.navigate_to_Advanced_Settings_page();
+        Thread.sleep(2000);
         adv.INSTALLATION.click();
+        Thread.sleep(2000);
         inst.SECURITY_AND_ARMING.click();
         Thread.sleep(2000);
         s.swipe_vertical();
@@ -83,8 +88,8 @@ public class Allow_Master_Code_to_access_Security_and_Arming_Test_Grid {
             logger.info(UDID_ + " Failed: Security and Arming icon is present");
         } catch(Exception e){
             logger.info(UDID_ + " Pass: Security and Arming icon is NOT present");
-        } finally{
-        }
+        } finally{}
+        Thread.sleep(2000);
     }
     @AfterClass
     public void tearDown () throws IOException, InterruptedException {

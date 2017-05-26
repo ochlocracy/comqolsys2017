@@ -98,6 +98,7 @@ public class Alarm_Photos_Test_Grid {
         set_cam.Alarm_Photos.click();
         Thread.sleep(1000);
         settings.Home_button.click();
+        Thread.sleep(3000);
     }
     @AfterClass
     public void tearDown () throws IOException, InterruptedException {

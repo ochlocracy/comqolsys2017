@@ -142,14 +142,17 @@ public class Setup1 {
         Slide_Menu menu = PageFactory.initElements(driver, Slide_Menu.class);
         Settings_Page settings = PageFactory.initElements(driver, Settings_Page.class);
         menu.Slide_menu_open.click();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         menu.Settings.click();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         settings.ADVANCED_SETTINGS.click();
+        Thread.sleep(3000);
+        settings.Two.click();
         Thread.sleep(2000);
         settings.Two.click();
+        Thread.sleep(2000);
         settings.Two.click();
-        settings.Two.click();
+        Thread.sleep(2000);
         settings.Two.click();
         Thread.sleep(1000);
     }
@@ -175,11 +178,15 @@ public class Setup1 {
 
     public void enter_default_user_code () throws InterruptedException {
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
-        TimeUnit.SECONDS.sleep(2);
+        TimeUnit.SECONDS.sleep(3);
         home_page.One.click();
+        Thread.sleep(1000);
         home_page.Two.click();
+        Thread.sleep(2000);
         home_page.Three.click();
+        Thread.sleep(2000);
         home_page.Four.click();
+        Thread.sleep(2000);
     }
 
     public void verify_disarm(String UDID_) throws Exception {

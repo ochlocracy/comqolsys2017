@@ -36,7 +36,9 @@ public class Allow_Master_Code_to_access_Siren_and_Alarms_Test_Grid {
         Thread.sleep(3000);
         logger.info("Navigate to the setting page to enable the access to the Siren and Alarms page using Master Code");
         s.navigate_to_Advanced_Settings_page();
+        Thread.sleep(2000);
         adv.INSTALLATION.click();
+        Thread.sleep(2000);
         inst.SIREN_AND_ALARMS.click();
         Thread.sleep(2000);
         s.swipe_vertical();
@@ -49,9 +51,11 @@ public class Allow_Master_Code_to_access_Siren_and_Alarms_Test_Grid {
         Thread.sleep(2000);
         logger.info("Navigate to the Advanced setting page to check Siren and Alarms icon");
         s.navigate_to_Settings_page();
-        settings.ADVANCED_SETTINGS.click();
-        s.enter_default_user_code();
         Thread.sleep(2000);
+        settings.ADVANCED_SETTINGS.click();
+        Thread.sleep(2000);
+        s.enter_default_user_code();
+        Thread.sleep(3000);
         if (inst.SIREN_AND_ALARMS.isDisplayed()){
             logger.info(UDID_ + " Pass: Siren and Alarms icon is present");
         }else {  s.take_screenshot();
@@ -60,7 +64,9 @@ public class Allow_Master_Code_to_access_Siren_and_Alarms_Test_Grid {
         settings.Home_button.click();
         logger.info("Verify Siren and Alarms icon disappears after disabling the setting");
         s.navigate_to_Advanced_Settings_page();
+        Thread.sleep(2000);
         adv.INSTALLATION.click();
+        Thread.sleep(2000);
         inst.SIREN_AND_ALARMS.click();
         Thread.sleep(2000);
         s.swipe_vertical();
@@ -72,6 +78,7 @@ public class Allow_Master_Code_to_access_Siren_and_Alarms_Test_Grid {
         settings.Home_button.click();
         logger.info("Navigate to the Advanced setting page to check Siren and Alarms icon");
         s.navigate_to_Settings_page();
+        Thread.sleep(2000);
         settings.ADVANCED_SETTINGS.click();
         s.enter_default_user_code();
         Thread.sleep(2000);
@@ -82,6 +89,7 @@ public class Allow_Master_Code_to_access_Siren_and_Alarms_Test_Grid {
         } catch(Exception e){
             logger.info(UDID_ + " Pass: Siren and Alarms icon is NOT present");
         } finally{}
+        Thread.sleep(2000);
     }
 
     @AfterClass

@@ -43,6 +43,7 @@ public class Arm_Stay_No_Delay_Test_Grid {
         logger.info("Verify that Arm Stay - No Delay does not work when disabled");
         s.navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
+        Thread.sleep(2000);
         inst.SECURITY_AND_ARMING.click();
         Thread.sleep(3000);
         s.swipe_vertical();
@@ -50,6 +51,7 @@ public class Arm_Stay_No_Delay_Test_Grid {
         Thread.sleep(2000);
         settings.Home_button.click();
         s.ARM_STAY();
+        Thread.sleep(2000);
         try {
             if (home.Disarmed_text.getText().equals("ARMED STAY"))
                 s.take_screenshot();
@@ -65,13 +67,15 @@ public class Arm_Stay_No_Delay_Test_Grid {
         Thread.sleep(2000);
         s.navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
+        Thread.sleep(2000);
         inst.SECURITY_AND_ARMING.click();
         Thread.sleep(3000);
         s.swipe_vertical();
+        Thread.sleep(2000);
         arming.Arm_Stay_No_Delay.click();
         Thread.sleep(2000);
         settings.Home_button.click();
-        Thread.sleep(2000);
+        Thread.sleep(3000);
     }
     @AfterClass
     public void tearDown () throws IOException, InterruptedException {
