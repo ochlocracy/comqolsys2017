@@ -38,13 +38,13 @@ public class Panic_Disable_Test_Grid {
         adv.INSTALLATION.click();
         Thread.sleep(2000);
         inst.SIREN_AND_ALARMS.click();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         s.swipe_vertical();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         s.swipe_vertical();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         siren.Police_Panic.click();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         settings.Emergency_button.click();
         try {
             if (emergency.Police_icon.isDisplayed())
@@ -63,9 +63,9 @@ public class Panic_Disable_Test_Grid {
         inst.SIREN_AND_ALARMS.click();
         Thread.sleep(2000);
         s.swipe_vertical();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         s.swipe_vertical();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         siren.Fire_Panic.click();
         Thread.sleep(1000);
         settings.Emergency_button.click();
@@ -78,17 +78,17 @@ public class Panic_Disable_Test_Grid {
         } finally {
         }
         s.swipeFromLefttoRight();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         s.navigate_to_Advanced_Settings_page();
         Thread.sleep(2000);
         adv.INSTALLATION.click();
         Thread.sleep(2000);
         inst.SIREN_AND_ALARMS.click();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         s.swipe_vertical();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         s.swipe_vertical();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         siren.Auxiliary_Panic.click();
         Thread.sleep(2000);
         settings.Emergency_button.click();
@@ -107,17 +107,17 @@ public class Panic_Disable_Test_Grid {
         adv.INSTALLATION.click();
         Thread.sleep(2000);
         inst.SIREN_AND_ALARMS.click();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         s.swipe_vertical();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         s.swipe_vertical();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         siren.Police_Panic.click();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         siren.Fire_Panic.click();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         siren.Auxiliary_Panic.click();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
     }
     @AfterClass
     public void tearDown () throws IOException, InterruptedException {
