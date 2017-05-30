@@ -38,7 +38,9 @@ public class Secure_Delete_Images_Test_Grid {
         s.ARM_STAY();
         home.DISARM.click();
         s.enter_default_user_code();
+        Thread.sleep(1000);
         s.swipeFromLefttoRight();
+        Thread.sleep(1000);
         camera.Camera_delete.click();
         Thread.sleep(2000);
         if (camera.Camera_delete_title.isDisplayed()){
@@ -55,7 +57,9 @@ public class Secure_Delete_Images_Test_Grid {
         Thread.sleep(1000);
         s.navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
+        Thread.sleep(2000);
         inst.CAMERA_SETTINGS.click();
+        Thread.sleep(1000);
         set_cam.Secure_Delete_Images.click();
         Thread.sleep(1000);
         settings.Home_button.click();
@@ -64,6 +68,7 @@ public class Secure_Delete_Images_Test_Grid {
         s.ARM_STAY();
         home.DISARM.click();
         s.enter_default_user_code();
+        Thread.sleep(1000);
         s.swipeFromLefttoRight();
         camera.Camera_delete.click();
         Thread.sleep(2000);
@@ -81,10 +86,13 @@ public class Secure_Delete_Images_Test_Grid {
         s.swipeFromLefttoRight();
         s.navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
+        Thread.sleep(2000);
         inst.CAMERA_SETTINGS.click();
+        Thread.sleep(2000);
         set_cam.Secure_Delete_Images.click();
         Thread.sleep(1000);
         settings.Home_button.click();
+        Thread.sleep(2000);
     }
     @AfterClass
     public void tearDown () throws IOException, InterruptedException {
