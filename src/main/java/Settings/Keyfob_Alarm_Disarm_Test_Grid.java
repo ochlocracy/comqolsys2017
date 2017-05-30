@@ -41,8 +41,9 @@ public class Keyfob_Alarm_Disarm_Test_Grid {
             Thread.sleep(2000);
             logger.info("Verify that Keyfod Alarm Disarm does not work when disabled");
             home.Emergency_Button.click();
+        home.DISARM.click();
             emergency.Police_icon.click();
-            Thread.sleep(2000);
+            Thread.sleep(3000);
             s.primary_call(UDID_,"65 00 AF", disarm);
             Thread.sleep(2000);
             if (emergency.Emergency_sent_text.isDisplayed()){

@@ -36,6 +36,7 @@ public class Panic_Disable_Test_Grid {
         logger.info("Verify panic disappears from the Emergency page when disabled");
         s.navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
+        Thread.sleep(2000);
         inst.SIREN_AND_ALARMS.click();
         Thread.sleep(1000);
         s.swipe_vertical();
@@ -54,11 +55,13 @@ public class Panic_Disable_Test_Grid {
         } finally {
         }
         s.swipeFromLefttoRight();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         s.navigate_to_Advanced_Settings_page();
+        Thread.sleep(2000);
         adv.INSTALLATION.click();
+        Thread.sleep(2000);
         inst.SIREN_AND_ALARMS.click();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         s.swipe_vertical();
         Thread.sleep(1000);
         s.swipe_vertical();
@@ -77,7 +80,9 @@ public class Panic_Disable_Test_Grid {
         s.swipeFromLefttoRight();
         Thread.sleep(1000);
         s.navigate_to_Advanced_Settings_page();
+        Thread.sleep(2000);
         adv.INSTALLATION.click();
+        Thread.sleep(2000);
         inst.SIREN_AND_ALARMS.click();
         Thread.sleep(1000);
         s.swipe_vertical();
@@ -85,7 +90,7 @@ public class Panic_Disable_Test_Grid {
         s.swipe_vertical();
         Thread.sleep(1000);
         siren.Auxiliary_Panic.click();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         settings.Emergency_button.click();
         try {
             if (emergency.Auxiliary_icon.isDisplayed())
@@ -96,9 +101,11 @@ public class Panic_Disable_Test_Grid {
         } finally {
         }
         s.swipeFromLefttoRight();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         s.navigate_to_Advanced_Settings_page();
+        Thread.sleep(2000);
         adv.INSTALLATION.click();
+        Thread.sleep(2000);
         inst.SIREN_AND_ALARMS.click();
         Thread.sleep(1000);
         s.swipe_vertical();
@@ -106,7 +113,9 @@ public class Panic_Disable_Test_Grid {
         s.swipe_vertical();
         Thread.sleep(1000);
         siren.Police_Panic.click();
+        Thread.sleep(1000);
         siren.Fire_Panic.click();
+        Thread.sleep(1000);
         siren.Auxiliary_Panic.click();
         Thread.sleep(1000);
     }
