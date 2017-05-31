@@ -51,27 +51,32 @@ public class Smoke_Test_Doorbell_Occupancy_Grid {
 
         logger.info("Disarm mode trigger doorbell group 25 -> Disarm");
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.doorbell_zones, 25,Ring);
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(4);
         s.verify_disarm(UDID_);
+        TimeUnit.SECONDS.sleep(2);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.doorbell_zones, 25,Idle);
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(4);
 
         logger.info("********************************************************");
         logger.info("Disarm mode trigger occupancy sensor group 25 -> Disarm");
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.occupancy_zones, 25,Vacant);
         TimeUnit.SECONDS.sleep(3);
         s.verify_disarm(UDID_);
+        TimeUnit.SECONDS.sleep(2);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.occupancy_zones, 25,Occupied);
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(4);
 
         logger.info("********************************************************");
         logger.info("ArmStay mode trigger doorbell group 25 -> ArmStay");
         s.ARM_STAY();
+        TimeUnit.SECONDS.sleep(4);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.doorbell_zones, 25,Ring);
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(4);
         s.verify_armstay(UDID_);
+        TimeUnit.SECONDS.sleep(2);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.doorbell_zones, 25,Idle);
         home_page.DISARM.click();
+        TimeUnit.SECONDS.sleep(1);
         s.enter_default_user_code();
         TimeUnit.SECONDS.sleep(3);
 
@@ -79,10 +84,12 @@ public class Smoke_Test_Doorbell_Occupancy_Grid {
         logger.info("ArmStay mode trigger occupancy sensor group 25 -> ArmStay");
         s.ARM_STAY();
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.occupancy_zones, 25,Vacant);
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(4);
         s.verify_armstay(UDID_);
+        TimeUnit.SECONDS.sleep(2);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.occupancy_zones, 25,Occupied);
         home_page.DISARM.click();
+        TimeUnit.SECONDS.sleep(1);
         s.enter_default_user_code();
         TimeUnit.SECONDS.sleep(3);
 
@@ -90,42 +97,51 @@ public class Smoke_Test_Doorbell_Occupancy_Grid {
         logger.info("ArmAway mode trigger doorbell group 25 -> ArmAway");
         s.ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.doorbell_zones, 25,Ring);
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(4);
         s.verify_armaway(UDID_);
+        TimeUnit.SECONDS.sleep(2);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.doorbell_zones, 25,Idle);
         home_page.ArwAway_State.click();
+        TimeUnit.SECONDS.sleep(1);
         s.enter_default_user_code();
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(4);
 
         logger.info("********************************************************");
         logger.info("ArmAway mode trigger occupancy sensor group 25 -> ArmAway");
         s.ARM_AWAY(Long_Exit_Delay);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.occupancy_zones, 25,Vacant);
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(4);
         s.verify_armaway(UDID_);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.occupancy_zones, 25,Occupied);
         home_page.ArwAway_State.click();
+        TimeUnit.SECONDS.sleep(1);
         s.enter_default_user_code();
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(4);
 
         logger.info("*********************TAMPER*********************");
         logger.info("Disarm mode tamper doorbell group 25 -> Disarm");
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.doorbell_zones, 25);
         TimeUnit.SECONDS.sleep(5);
-//        WebElement doorbell37 = s.getDriver().findElementByXPath("//android.widget.TextView[@text='Door Bell 37']");
- //       s.verify_sensor_is_tampered(doorbell37);
+        WebElement doorbell37 = s.getDriver().findElementByXPath("//android.widget.TextView[@text='Door Bell 37']");
+        s.verify_sensor_is_tampered(doorbell37);
+        TimeUnit.SECONDS.sleep(2);
         s.verify_disarm(UDID_);
+        TimeUnit.SECONDS.sleep(1);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.doorbell_zones, 25,Idle);
         TimeUnit.SECONDS.sleep(3);
 
         logger.info("********************************************************");
         logger.info("ArmStay mode tamper doorbell group 25 -> ArmStay");
         s.ARM_STAY();
+        TimeUnit.SECONDS.sleep(4);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.doorbell_zones, 25);
-//        s.verify_sensor_is_tampered(doorbell37);
+        TimeUnit.SECONDS.sleep(4);
+        s.verify_sensor_is_tampered(doorbell37);
         s.verify_armstay(UDID_);
+        TimeUnit.SECONDS.sleep(2);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.doorbell_zones, 25,Idle);
         home_page.DISARM.click();
+        TimeUnit.SECONDS.sleep(1);
         s.enter_default_user_code();
         TimeUnit.SECONDS.sleep(3);
 
@@ -134,11 +150,14 @@ public class Smoke_Test_Doorbell_Occupancy_Grid {
         s.ARM_AWAY(Long_Exit_Delay);
         TimeUnit.SECONDS.sleep(2);
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.doorbell_zones, 25);
-        TimeUnit.SECONDS.sleep(3);
- //       s.verify_sensor_is_tampered(doorbell37);
+        TimeUnit.SECONDS.sleep(4);
+        s.verify_sensor_is_tampered(doorbell37);
+        TimeUnit.SECONDS.sleep(2);
         s.verify_armaway(UDID_);
+        TimeUnit.SECONDS.sleep(2);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.doorbell_zones, 25,Idle);
         home_page.ArwAway_State.click();
+        TimeUnit.SECONDS.sleep(1);
         s.enter_default_user_code();
         TimeUnit.SECONDS.sleep(2);
         s.autoStaySetting();
