@@ -10,7 +10,7 @@
         <parameter name="URL_" value="http://172.16.101.86:4733/wd/hub"/>
         <parameter name="PORT_" value="4733"/>
         <classes>
-            <class name="ADC.WebSite_Grid"/>
+            <class name="Sensors.Smoke_Test_SmokeSensor_Grid"/>
         </classes>
     </test>
     <test name="Test2">
@@ -21,7 +21,7 @@
         <parameter name="URL_" value="http://172.16.101.86:4735/wd/hub"/>
         <parameter name="PORT_" value="4735"/>
         <classes>
-            <class name="ADC.WebSite_Grid"/>
+            <class name="Sensors.Smoke_Test_SmokeSensor_Grid"/>
         </classes>
     </test>
     <test name="Test3">
@@ -32,7 +32,7 @@
         <parameter name="URL_" value="http://172.16.101.86:4737/wd/hub"/>
         <parameter name="PORT_" value="4737"/>
         <classes>
-            <class name="ADC.WebSite_Grid"/>
+            <class name="Sensors.Smoke_Test_SmokeSensor_Grid"/>
         </classes>
     </test>
     <test name="Test4">
@@ -43,7 +43,7 @@
         <parameter name="URL_" value="http://172.16.101.86:4739/wd/hub"/>
         <parameter name="PORT_" value="4739"/>
         <classes>
-            <class name="ADC.WebSite_Grid"/>
+            <class name="Sensors.Smoke_Test_SmokeSensor_Grid"/>
         </classes>
     </test>
 </suite>

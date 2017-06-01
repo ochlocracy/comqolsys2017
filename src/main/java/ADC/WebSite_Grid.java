@@ -15,8 +15,7 @@ public class WebSite_Grid {
     String page_name = "ADC sensors name change";
     Logger logger = Logger.getLogger(page_name);
 
-    public WebSite_Grid() throws IOException, BiffException {
-    }
+    public WebSite_Grid() throws IOException, BiffException {}
     @Parameters({"deviceName_", "applicationName_", "UDID_", "platformVersion_", "URL_", "PORT_" })
     @BeforeClass
     public void setUp(String deviceName_, String applicationName_, String UDID_, String platformVersion_, String URL_, String PORT_) throws Exception {
@@ -24,7 +23,6 @@ public class WebSite_Grid {
         s.setup_logger(page_name, UDID_);
         myADC.webDriverSetUp();
     }
-
     @Parameters ({"UDID_"})
     @Test
     public void Test1 (String UDID_) throws IOException, InterruptedException {
