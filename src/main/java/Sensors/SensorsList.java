@@ -47,4 +47,12 @@ public class SensorsList {
     public WebElement Tilt22;
     @FindBy(xpath ="//android.widget.TextView[@text='Tilt 23']")
     public WebElement Tilt23;
+    @FindBy(xpath ="//android.widget.TextView[@text='Other Shock 35']")
+    public WebElement Shock35;
+    @FindBy(xpath ="//android.widget.TextView[@text='Other Shock 36']")
+    public WebElement Shock36;
+    @FindBy(xpath ="//android.widget.TextView[@text='IQ Shock 24']")
+    public WebElement IQShock24;
+    @FindBy(xpath ="//android.widget.TextView[@text='IQ Shock 25']")
+    public WebElement IQShock25;
 }
