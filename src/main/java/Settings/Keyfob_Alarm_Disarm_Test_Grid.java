@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class Keyfob_Alarm_Disarm_Test_Grid {
     Setup1 s = new Setup1();
-    String page_name = "Auto Stay testing";
+    String page_name = "Keyfob Alarm Disarm";
     Logger logger = Logger.getLogger(page_name);
     Sensors sensors = new Sensors();
     private String disarm = "08 01";

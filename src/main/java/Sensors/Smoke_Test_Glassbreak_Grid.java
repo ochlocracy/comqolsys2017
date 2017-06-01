@@ -1,0 +1,447 @@
+package Sensors;
+
+import Panel.Contact_Us;
+import Panel.Home_Page;
+import Panel.Setup1;
+import jxl.read.biff.BiffException;
+import org.apache.log4j.Logger;
+import org.openqa.selenium.support.PageFactory;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+public class Smoke_Test_Glassbreak_Grid {
+    Setup1 s = new Setup1();
+    String page_name = "Smoke Test Glassbreak";
+    Logger logger = Logger.getLogger(page_name);
+    Sensors MySensors = new Sensors();
+    private int Activate = 1;
+    private int Idle = 0;
+
+    private int Long_Exit_Delay =16;
+
+    public Smoke_Test_Glassbreak_Grid() throws IOException, BiffException {}
+    @Parameters({"deviceName_", "applicationName_", "UDID_", "platformVersion_", "URL_", "PORT_" })
+    @BeforeClass
+    public void setUp(String deviceName_, String applicationName_, String UDID_, String platformVersion_, String URL_, String PORT_) throws Exception {
+        s.setCapabilities(URL_);
+        s.setup_logger(page_name, UDID_);
+    }
+    @Parameters ({"UDID_"})
+    @Test
+    public void Test1(String UDID_) throws Exception {
+        Home_Page home_page = PageFactory.initElements(s.getDriver(), Home_Page.class);
+        Contact_Us contact_us = PageFactory.initElements(s.getDriver(), Contact_Us.class);
+        SensorsList list = PageFactory.initElements(s.getDriver(), SensorsList.class);
+
+        logger.info("Current software version: " + s.Software_Version());
+        MySensors.read_sensors_from_csv();
+        logger.info("Adding sensors...");
+        MySensors.addAllSensors1(UDID_);
+        TimeUnit.SECONDS.sleep(5);
+        s.autoStaySetting();
+        TimeUnit.SECONDS.sleep(2);
+
+        logger.info("Disarm mode tripping Glass_break group 13, 17 -> Expected result = system stays in Disarm mode");
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.glassbreak_zones, 13, Activate);
+        TimeUnit.SECONDS.sleep(3);
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.glassbreak_zones, 17, Activate);
+        TimeUnit.SECONDS.sleep(3);
+        s.verify_disarm(UDID_);
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.glassbreak_zones, 13, Idle);
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.glassbreak_zones, 17, Idle);
+        TimeUnit.SECONDS.sleep(5);
+
+        logger.info("********************************************************");
+        logger.info("ArmStay mode tripping Glass_break group 13 -> Expected result = Instant Alarm");
+        s.ARM_STAY();
+        TimeUnit.SECONDS.sleep(5);
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.glassbreak_zones, 13, Activate);
+        TimeUnit.SECONDS.sleep(5);
+        s.verify_sensor_is_displayed(UDID_, list.Glassbreak19);
+        s.verify_status_alarmed();
+        s.verify_in_alarm();
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.glassbreak_zones, 13, Idle);
+        s.enter_default_user_code();
+        TimeUnit.SECONDS.sleep(5);
+
+        logger.info("********************************************************");
+        logger.info("ArmStay mode tripping Glass_break group 17 -> Expected result = ArmStay");
+        s.ARM_STAY();
+        TimeUnit.SECONDS.sleep(5);
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.glassbreak_zones, 17, Activate);
+        TimeUnit.SECONDS.sleep(3);
+        s.verify_armstay(UDID_);
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.glassbreak_zones, 17, Idle);
+        home_page.DISARM.click();
+        TimeUnit.SECONDS.sleep(2);
+        s.enter_default_user_code();
+        TimeUnit.SECONDS.sleep(5);
+
+        logger.info("********************************************************");
+        logger.info("ArmAway mode tripping Glass_Break group 13 -> Expected result = Instant Alarm");
+        s.ARM_AWAY(Long_Exit_Delay);
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.glassbreak_zones, 13, Activate);
+        TimeUnit.SECONDS.sleep(5);
+        s.verify_sensor_is_displayed(UDID_, list.Glassbreak19);
+        s.verify_status_alarmed();
+        s.verify_in_alarm();
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.glassbreak_zones, 13, Idle);
+        s.enter_default_user_code();
+        TimeUnit.SECONDS.sleep(5);
+
+        logger.info("********************************************************");
+        logger.info("ArmAway mode tripping Glass_Break group 17 -> Expected result = Instant Alarm");
+        s.ARM_AWAY(Long_Exit_Delay);
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.glassbreak_zones, 17, Activate);
+        TimeUnit.SECONDS.sleep(5);
+        s.verify_sensor_is_displayed(UDID_, list.Glassbreak20);
+        s.verify_status_alarmed();
+        s.verify_in_alarm();
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.glassbreak_zones, 17, Idle);
+        s.enter_default_user_code();
+        TimeUnit.SECONDS.sleep(5);
+
+        logger.info("***********************TAMPER***********************");
+        logger.info("Disarm mode tamper glassbreak group 13, 17 -> Expected result = system stays in Disarm mode");
+        MySensors.sendTamper_allSensors_selectedGroup(MySensors.glassbreak_zones, 13);
+        TimeUnit.SECONDS.sleep(2);
+        MySensors.sendTamper_allSensors_selectedGroup(MySensors.glassbreak_zones, 17);
+        TimeUnit.SECONDS.sleep(5);
+        s.verify_sensor_is_tampered(list.Glassbreak19);
+        s.verify_sensor_is_tampered(list.Glassbreak20);
+        TimeUnit.SECONDS.sleep(2);
+        s.verify_disarm(UDID_);
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.glassbreak_zones, 13, Idle);
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.glassbreak_zones, 17, Idle);
+        TimeUnit.SECONDS.sleep(5);
+
+        logger.info("********************************************************");
+        logger.info("ArmStay mode tamper glassbreak group 13 -> Expected result = Instant Alarm");
+        s.ARM_STAY();
+        TimeUnit.SECONDS.sleep(5);
+        MySensors.sendTamper_allSensors_selectedGroup(MySensors.glassbreak_zones, 13);
+        TimeUnit.SECONDS.sleep(5);
+        s.verify_sensor_is_tampered(list.Glassbreak19);
+        s.verify_status_tampered();
+        s.verify_in_alarm();
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.glassbreak_zones, 13, Idle);
+        s.enter_default_user_code();
+        TimeUnit.SECONDS.sleep(5);
+
+        logger.info("********************************************************");
+        logger.info("ArmStay mode tamper glassbreak group 17 -> Expected result = ArmStay");
+        s.ARM_STAY();
+        TimeUnit.SECONDS.sleep(5);
+        MySensors.sendTamper_allSensors_selectedGroup(MySensors.glassbreak_zones, 17);
+        TimeUnit.SECONDS.sleep(5);
+        s.verify_sensor_is_tampered(list.Glassbreak20);
+        TimeUnit.SECONDS.sleep(1);
+        s.verify_armstay(UDID_);
+        TimeUnit.SECONDS.sleep(5);
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.glassbreak_zones, 17, Idle);
+        home_page.DISARM.click();
+        TimeUnit.SECONDS.sleep(1);
+        s.enter_default_user_code();
+        TimeUnit.SECONDS.sleep(5);
+
+        logger.info("********************************************************");
+        logger.info("ArmAway mode tamper glassbreak group 13 -> Expected result = Instant Alarm");
+        s.ARM_AWAY(Long_Exit_Delay);
+        MySensors.sendTamper_allSensors_selectedGroup(MySensors.glassbreak_zones, 13);
+        TimeUnit.SECONDS.sleep(3);
+        s.verify_sensor_is_tampered(list.Glassbreak19);
+        s.verify_status_tampered();
+        s.verify_in_alarm();
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.glassbreak_zones, 13, Idle);
+        s.enter_default_user_code();
+        TimeUnit.SECONDS.sleep(5);
+
+        logger.info("********************************************************");
+        logger.info("ArmAway mode tamper glassbreak group 17 -> Expected result = Instant Alarm");
+        s.ARM_AWAY(Long_Exit_Delay);
+        MySensors.sendTamper_allSensors_selectedGroup(MySensors.glassbreak_zones, 17);
+        TimeUnit.SECONDS.sleep(3);
+        s.verify_sensor_is_tampered(list.Glassbreak20);
+        s.verify_status_tampered();
+        s.verify_in_alarm();
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.glassbreak_zones, 17, Idle);
+        s.enter_default_user_code();
+        TimeUnit.SECONDS.sleep(5);
+
+
+
+//        logger.info("***********************SHOCK_OTHER***********************");
+//        logger.info("Disarm mode tripping Shock group 13 -> Disarm");
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_other_zones, 13, Activate);
+//        TimeUnit.SECONDS.sleep(3);
+//        verify_disarm();
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_other_zones, 13, Idle);
+//        TimeUnit.SECONDS.sleep(3);
+//
+//        logger.info("********************************************************");
+//        logger.info("ArmStay mode tripping Shock group 13 -> Instant Alarm");
+//        ARM_STAY();
+//        TimeUnit.SECONDS.sleep(3);
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_other_zones, 13, Activate);
+//        TimeUnit.SECONDS.sleep(3);
+//        WebElement other_shock35 = driver.findElement(By.xpath("//android.widget.TextView[@text='Other Shock 35']"));
+//        verify_sensor_is_displayed(other_shock35);
+//        verify_status_alarmed();
+//        verify_in_alarm();
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_other_zones, 13, Idle);
+//        enter_default_user_code();
+//        TimeUnit.SECONDS.sleep(5);
+//
+//        logger.info("********************************************************");
+//        logger.info("ArmAway mode tripping Shock group 13 -> Instant Alarm");
+//        ARM_AWAY(Long_Exit_Delay);
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_other_zones, 13, Activate);
+//        TimeUnit.SECONDS.sleep(3);
+//        verify_sensor_is_displayed(other_shock35);
+//        verify_status_alarmed();
+//        verify_in_alarm();
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_other_zones, 13, Idle);
+//        enter_default_user_code();
+//        TimeUnit.SECONDS.sleep(5);
+//
+//        logger.info("********************************************************");
+//        logger.info("Disarm mode tripping Shock group 17 -> Disarm");
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_other_zones, 17, Activate);
+//        TimeUnit.SECONDS.sleep(3);
+//        verify_disarm();
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_other_zones, 17, Idle);
+//        TimeUnit.SECONDS.sleep(3);
+//
+//        logger.info("********************************************************");
+//        logger.info("ArmStay mode tripping Shock group 17 -> ArmStay");
+//        ARM_STAY();
+//        TimeUnit.SECONDS.sleep(3);
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_other_zones, 17, Activate);
+//        TimeUnit.SECONDS.sleep(3);
+//        verify_armstay();
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_other_zones, 17, Idle);
+//        home_page.DISARM.click();
+//        enter_default_user_code();
+//        TimeUnit.SECONDS.sleep(5);
+//
+//        logger.info("********************************************************");
+//        logger.info("ArmAway mode tripping Shock group 17 -> Instant Alarm");
+//        ARM_AWAY(Long_Exit_Delay);
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_other_zones, 17, Activate);
+//        TimeUnit.SECONDS.sleep(3);
+//        WebElement other_shock36 = driver.findElement(By.xpath("//android.widget.TextView[@text='Other Shock 36']"));
+//        verify_sensor_is_displayed(other_shock36);
+//        verify_status_alarmed();
+//        verify_in_alarm();
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_other_zones, 17, Idle);
+//        enter_default_user_code();
+//        TimeUnit.SECONDS.sleep(5);
+//
+//        logger.info("***********************TAMPER***********************");
+//        logger.info("Disarm mode tamper Shock_other group 13, 17 -> Expected result = system stays in Disarm mode");
+//        MySensors.sendTamper_allSensors_selectedGroup(MySensors.shock_other_zones, 13);
+//        MySensors.sendTamper_allSensors_selectedGroup(MySensors.shock_other_zones, 17);
+//        TimeUnit.SECONDS.sleep(5);
+//        verify_sensor_is_tampered(other_shock35);
+//        TimeUnit.SECONDS.sleep(2);
+//        verify_sensor_is_tampered(other_shock36);
+//        verify_disarm();
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_other_zones, 13, Idle);
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_other_zones, 17, Idle);
+//
+//        logger.info("********************************************************");
+//        logger.info("ArmStay mode tamper Shock_other group 13 -> Instant Alarm");
+//        ARM_STAY();
+//        MySensors.sendTamper_allSensors_selectedGroup(MySensors.shock_other_zones, 13);
+//        TimeUnit.SECONDS.sleep(3);
+//        verify_sensor_is_tampered(other_shock35);
+//        verify_status_tampered();
+//        verify_in_alarm();
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_other_zones, 13, Idle);
+//        enter_default_user_code();
+//        TimeUnit.SECONDS.sleep(5);
+//
+//        logger.info("********************************************************");
+//        logger.info("ArmStay mode tamper Shock_other group 17 -> ArmStay");
+//        ARM_STAY();
+//        MySensors.sendTamper_allSensors_selectedGroup(MySensors.shock_other_zones, 17);
+//        TimeUnit.SECONDS.sleep(3);
+//        verify_sensor_is_tampered(other_shock36);
+//        verify_armstay();
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_other_zones, 17, Idle);
+//        home_page.DISARM.click();
+//        enter_default_user_code();
+//        TimeUnit.SECONDS.sleep(5);
+//
+//        logger.info("********************************************************");
+//        logger.info("ArmAway mode tamper Shock_other group 13 -> Instant Alarm");
+//        ARM_AWAY(Long_Exit_Delay);
+//        MySensors.sendTamper_allSensors_selectedGroup(MySensors.shock_other_zones, 13);
+//        TimeUnit.SECONDS.sleep(3);
+//        verify_sensor_is_tampered(other_shock35);
+//        verify_status_tampered();
+//        verify_in_alarm();
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_other_zones, 13, Idle);
+//        enter_default_user_code();
+//        TimeUnit.SECONDS.sleep(5);
+//
+//        logger.info("********************************************************");
+//        logger.info("ArmAway mode tamper Shock_other group 17 -> Instant Alarm");
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_other_zones, 17, Idle);
+//        ARM_AWAY(Long_Exit_Delay);
+//        MySensors.sendTamper_allSensors_selectedGroup(MySensors.shock_other_zones, 17);
+//        TimeUnit.SECONDS.sleep(3);
+//        verify_sensor_is_tampered(other_shock36);
+//        verify_status_tampered();
+//        verify_in_alarm();
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_other_zones, 17, Idle);
+//        enter_default_user_code();
+//        TimeUnit.SECONDS.sleep(3);
+//
+//
+//        logger.info("***********************SHOCK_IQ***********************");
+//        logger.info("Disarm mode tripping Shock group 13 -> Disarm");
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_IQ_zones, 13, Activate);
+//        TimeUnit.SECONDS.sleep(3);
+//        verify_disarm();
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_IQ_zones, 13, Idle);
+//        TimeUnit.SECONDS.sleep(3);
+//
+//        logger.info("********************************************************");
+//        logger.info("ArmStay mode tripping Shock group 13 -> Instant Alarm");
+//        ARM_STAY();
+//        TimeUnit.SECONDS.sleep(3);
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_IQ_zones, 13, Activate);
+//        TimeUnit.SECONDS.sleep(3);
+//        WebElement iq_shock24 = driver.findElement(By.xpath("//android.widget.TextView[@text='IQ Shock 24']"));
+//        verify_sensor_is_displayed(iq_shock24);
+//        verify_status_alarmed();
+//        verify_in_alarm();
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_IQ_zones, 13, Idle);
+//        enter_default_user_code();
+//        TimeUnit.SECONDS.sleep(5);
+//
+//        logger.info("********************************************************");
+//        logger.info("ArmAway mode tripping Shock group 13 -> Instant Alarm");
+//        ARM_AWAY(Long_Exit_Delay);
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_IQ_zones, 13, Activate);
+//        TimeUnit.SECONDS.sleep(3);
+//        verify_sensor_is_displayed(iq_shock24);
+//        verify_status_alarmed();
+//        verify_in_alarm();
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_IQ_zones, 13, Idle);
+//        enter_default_user_code();
+//        TimeUnit.SECONDS.sleep(5);
+//
+//        logger.info("********************************************************");
+//        logger.info("Disarm mode tripping Shock group 17 -> Disarm");
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_IQ_zones, 17, Activate);
+//        TimeUnit.SECONDS.sleep(3);
+//        verify_disarm();
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_IQ_zones, 17, Idle);
+//        TimeUnit.SECONDS.sleep(3);
+//
+//        logger.info("********************************************************");
+//        logger.info("ArmStay mode tripping Shock group 17 -> ArmStay");
+//        ARM_STAY();
+//        TimeUnit.SECONDS.sleep(3);
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_IQ_zones, 17, Activate);
+//        TimeUnit.SECONDS.sleep(3);
+//        verify_armstay();
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_IQ_zones, 17, Idle);
+//        home_page.DISARM.click();
+//        enter_default_user_code();
+//        TimeUnit.SECONDS.sleep(5);
+//
+//        logger.info("********************************************************");
+//        logger.info("ArmAway mode tripping Shock group 17 -> Instant Alarm");
+//        ARM_AWAY(Long_Exit_Delay);
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_IQ_zones, 17, Activate);
+//        TimeUnit.SECONDS.sleep(3);
+//        WebElement iq_shock25 = driver.findElement(By.xpath("//android.widget.TextView[@text='IQ Shock 25']"));
+//        verify_sensor_is_displayed(iq_shock25);
+//        verify_status_alarmed();
+//        verify_in_alarm();
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_IQ_zones, 17, Idle);
+//        enter_default_user_code();
+//        TimeUnit.SECONDS.sleep(5);
+//
+//        logger.info("***********************TAMPER***********************");
+//        logger.info("Disarm mode tamper Shock_IQ group 13, 17 -> Expected result = system stays in Disarm mode");
+//        MySensors.sendTamper_allSensors_selectedGroup(MySensors.shock_IQ_zones, 13);
+//        MySensors.sendTamper_allSensors_selectedGroup(MySensors.shock_IQ_zones, 17);
+//        TimeUnit.SECONDS.sleep(5);
+//        verify_sensor_is_tampered(iq_shock24);
+//        TimeUnit.SECONDS.sleep(2);
+//        verify_sensor_is_tampered(iq_shock25);
+//        verify_disarm();
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_IQ_zones, 13, Idle);
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_IQ_zones, 17, Idle);
+//
+//        logger.info("********************************************************");
+//        logger.info("ArmStay mode tamper Shock_IQ group 13 -> Instant Alarm");
+//        ARM_STAY();
+//        MySensors.sendTamper_allSensors_selectedGroup(MySensors.shock_IQ_zones, 13);
+//        TimeUnit.SECONDS.sleep(3);
+//        verify_sensor_is_tampered(iq_shock24);
+//        verify_status_tampered();
+//        verify_in_alarm();
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_IQ_zones, 13, Idle);
+//        enter_default_user_code();
+//        TimeUnit.SECONDS.sleep(5);
+//
+//        logger.info("********************************************************");
+//        logger.info("ArmStay mode tamper Shock_IQ group 17 -> ArmStay");
+//        ARM_STAY();
+//        MySensors.sendTamper_allSensors_selectedGroup(MySensors.shock_IQ_zones, 17);
+//        TimeUnit.SECONDS.sleep(3);
+//        verify_sensor_is_tampered(iq_shock25);
+//        verify_armstay();
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_IQ_zones, 17, Idle);
+//        home_page.DISARM.click();
+//        enter_default_user_code();
+//        TimeUnit.SECONDS.sleep(5);
+//
+//        logger.info("********************************************************");
+//        logger.info("ArmAway mode tamper Shock_IQ group 13 -> Instant Alarm");
+//        ARM_AWAY(Long_Exit_Delay);
+//        MySensors.sendTamper_allSensors_selectedGroup(MySensors.shock_IQ_zones, 13);
+//        TimeUnit.SECONDS.sleep(3);
+//        verify_sensor_is_tampered(iq_shock24);
+//        verify_status_tampered();
+//        verify_in_alarm();
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_IQ_zones, 13, Idle);
+//        enter_default_user_code();
+//        TimeUnit.SECONDS.sleep(5);
+//
+//        logger.info("********************************************************");
+//        logger.info("ArmAway mode tamper Shock_IQ group 17 -> Instant Alarm");
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_IQ_zones, 17, Idle);
+//        ARM_AWAY(Long_Exit_Delay);
+//        MySensors.sendTamper_allSensors_selectedGroup(MySensors.shock_IQ_zones, 17);
+//        TimeUnit.SECONDS.sleep(3);
+//        verify_sensor_is_tampered(iq_shock25);
+//        verify_status_tampered();
+//        verify_in_alarm();
+//        MySensors.sendPacket_allSensors_selectedGroup(MySensors.shock_IQ_zones, 17, Idle);
+//        enter_default_user_code();
+//        TimeUnit.SECONDS.sleep(3);
+        s.autoStaySetting();
+        TimeUnit.SECONDS.sleep(2);
+        contact_us.acknowledge_all_alerts();
+        logger.info("Deleting all sensors");
+        MySensors.deleteAllSensors1(UDID_);
+        TimeUnit.SECONDS.sleep(3);
+
+    }
+    @AfterClass
+    public void tearDown () throws IOException, InterruptedException {
+        s.log.endTestCase(page_name);
+        s.getDriver().quit();
+    }
+}
