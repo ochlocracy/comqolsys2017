@@ -57,4 +57,6 @@ public class SensorsList {
     public WebElement IQShock25;
     @FindBy(xpath ="//android.widget.TextView[@text='Smoke Detector 15']")
     public WebElement Smoke15;
+    @FindBy(xpath ="//android.widget.TextView[@text='CO Detector 16']")
+    public WebElement CODetector16;
 }
