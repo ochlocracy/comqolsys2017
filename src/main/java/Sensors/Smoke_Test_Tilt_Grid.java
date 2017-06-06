@@ -53,7 +53,7 @@ public class Smoke_Test_Tilt_Grid {
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 12, Open);
         TimeUnit.SECONDS.sleep(3);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 25, Open);
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(5);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 10, Close);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 12, Close);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 25, Close);
@@ -69,6 +69,7 @@ public class Smoke_Test_Tilt_Grid {
         s.verify_sensor_is_displayed(UDID_, list.Tilt21);
         s.verify_status_open();
         s.verify_in_alarm();
+        TimeUnit.SECONDS.sleep(5);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 10, Close);
         s.enter_default_user_code();
         TimeUnit.SECONDS.sleep(5);
@@ -82,6 +83,7 @@ public class Smoke_Test_Tilt_Grid {
         s.verify_sensor_is_displayed(UDID_, list.Tilt22);
         s.verify_status_open();
         s.verify_in_alarm();
+        TimeUnit.SECONDS.sleep(5);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 12, Close);
         s.enter_default_user_code();
         TimeUnit.SECONDS.sleep(5);
@@ -94,7 +96,7 @@ public class Smoke_Test_Tilt_Grid {
         TimeUnit.SECONDS.sleep(5);
         s.verify_sensor_is_displayed(UDID_, list.Tilt23);
         s.verify_armstay(UDID_);
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(5);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 25, Close);
         home_page.DISARM.click();
         TimeUnit.SECONDS.sleep(1);
@@ -109,6 +111,7 @@ public class Smoke_Test_Tilt_Grid {
         s.verify_sensor_is_displayed(UDID_, list.Tilt21);
         s.verify_status_open();
         s.verify_in_alarm();
+        TimeUnit.SECONDS.sleep(5);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 10, Close);
         s.enter_default_user_code();
         TimeUnit.SECONDS.sleep(5);
@@ -121,6 +124,7 @@ public class Smoke_Test_Tilt_Grid {
         s.verify_sensor_is_displayed(UDID_, list.Tilt22);
         s.verify_status_open();
         s.verify_in_alarm();
+        TimeUnit.SECONDS.sleep(5);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 12, Close);
         s.enter_default_user_code();
         TimeUnit.SECONDS.sleep(5);
@@ -131,6 +135,7 @@ public class Smoke_Test_Tilt_Grid {
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 25, Open);
         TimeUnit.SECONDS.sleep(5);
         s.verify_armaway(UDID_);
+        TimeUnit.SECONDS.sleep(5);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 25, Close);
         home_page.ArwAway_State.click();
         TimeUnit.SECONDS.sleep(1);
@@ -164,6 +169,7 @@ public class Smoke_Test_Tilt_Grid {
         s.verify_sensor_is_tampered(list.Tilt21);
         s.verify_status_tampered();
         s.verify_in_alarm();
+        TimeUnit.SECONDS.sleep(5);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 10, Close);
         s.enter_default_user_code();
         TimeUnit.SECONDS.sleep(5);
@@ -178,6 +184,7 @@ public class Smoke_Test_Tilt_Grid {
         TimeUnit.SECONDS.sleep(5);
         s.verify_status_tampered();
         s.verify_in_alarm();
+        TimeUnit.SECONDS.sleep(5);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 12, Close);
         s.enter_default_user_code();
         TimeUnit.SECONDS.sleep(5);
@@ -205,6 +212,7 @@ public class Smoke_Test_Tilt_Grid {
         s.verify_sensor_is_tampered(list.Tilt21);
         s.verify_status_tampered();
         s.verify_in_alarm();
+        TimeUnit.SECONDS.sleep(5);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 10, Close);
         s.enter_default_user_code();
         TimeUnit.SECONDS.sleep(5);
@@ -217,6 +225,7 @@ public class Smoke_Test_Tilt_Grid {
         s.verify_sensor_is_tampered(list.Tilt22);
         s.verify_status_tampered();
         s.verify_in_alarm();
+        TimeUnit.SECONDS.sleep(5);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 12, Close);
         s.enter_default_user_code();
         TimeUnit.SECONDS.sleep(5);
@@ -227,6 +236,7 @@ public class Smoke_Test_Tilt_Grid {
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.tilt_zones, 25);
         TimeUnit.SECONDS.sleep(5);
         s.verify_armaway(UDID_);
+        TimeUnit.SECONDS.sleep(5);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 25, Close);
         home_page.ArwAway_State.click();
         s.enter_default_user_code();
