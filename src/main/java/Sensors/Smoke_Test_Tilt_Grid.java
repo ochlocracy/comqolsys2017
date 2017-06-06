@@ -45,6 +45,7 @@ public class Smoke_Test_Tilt_Grid {
         MySensors.addAllSensors1(UDID_);
         TimeUnit.SECONDS.sleep(5);
         s.autoStaySetting();
+        TimeUnit.SECONDS.sleep(5);
 
         logger.info("***********************TILT***********************");
         logger.info("Disarm mode tripping Tilt group 10, 12, 25 -> Expected result = system stays in Disarm mode");
@@ -54,10 +55,13 @@ public class Smoke_Test_Tilt_Grid {
         TimeUnit.SECONDS.sleep(3);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 25, Open);
         TimeUnit.SECONDS.sleep(5);
-        MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 10, Close);
-        MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 12, Close);
-        MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 25, Close);
         s.verify_disarm(UDID_);
+        TimeUnit.SECONDS.sleep(3);
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 10, Close);
+        TimeUnit.SECONDS.sleep(3);
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 12, Close);
+        TimeUnit.SECONDS.sleep(3);
+        MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 25, Close);
         TimeUnit.SECONDS.sleep(5);
 
         logger.info("********************************************************");
