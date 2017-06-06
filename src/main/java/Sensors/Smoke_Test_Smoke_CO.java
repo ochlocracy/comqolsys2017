@@ -24,8 +24,7 @@ public class Smoke_Test_Smoke_CO extends Setup {
 
     private int Long_Exit_Delay =16;
 
-    public Smoke_Test_Smoke_CO() throws IOException, BiffException {
-    }
+    public Smoke_Test_Smoke_CO() throws IOException, BiffException {}
 
     @BeforeMethod
     public void capabilitiesSetup() throws Exception {
