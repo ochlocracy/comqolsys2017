@@ -20,6 +20,7 @@ public class Lights_Page_beta {
     public WebElement Light2;
     @FindBy(id = "com.qolsys:id/lightSelect")
     public WebElement Light_Select;
+
     //@FindBy(id = "com.qolsys:id/dimmer_seek_bar")
     //public WebElement Dimmer_Bar;
 

@@ -2,24 +2,26 @@ package Zwave;
 
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import java.io.IOException;
 import Panel.Setup;
-import android.widget.SeekBar;
-import android.widget.TextView;
+import java.util.List;
+import org.openqa.selenium.WebElement;
+//import android.widget.SeekBar;
+//import android.widget.TextView;
 
 /**
  * Created by nchortek on 6/22/17.
- * PRECONDITION: A light must be paired and turned off before
+ * PRECONDITION: 5 lights must be paired and turned off before
  * executing this test.
  */
 public class Lights_Test_beta extends Setup {
     String page_name = "Lights_Page_beta";
     Logger logger = Logger.getLogger(page_name);
-
 
 
     public Lights_Test_beta() throws IOException, BiffException {
@@ -39,12 +41,42 @@ public class Lights_Test_beta extends Setup {
         Thread.sleep(2000);
     }
 
+    public void swipe_up() throws InterruptedException {
+        int starty = 616;
+        int endy = 227;
+        int startx = 314;
+        driver.swipe(startx, starty, startx, endy, 3000);
+        Thread.sleep(2000);
+    }
+
+    public void swipe_down() throws InterruptedException {
+        int starty = 227;
+        int endy = 616;
+        int startx = 314;
+        driver.swipe(startx, starty, startx, endy, 3000);
+        Thread.sleep(2000);
+    }
+
+    public void select_five() throws InterruptedException {
+        List<WebElement> li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
+        li.get(0).click();
+        li.get(1).click();
+        li.get(2).click();
+        li.clear();
+        swipe_up();
+        li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
+        li.get(1).click();
+        li.get(2).click();
+        li.clear();
+    }
+
+
     @Test
     public void Check_all_elements_on_Lights_page() throws Exception {
         // navigate to and initialize lights page
         Lights_Page_beta lights = PageFactory.initElements(driver, Lights_Page_beta.class);
         //int dimness;
-        String current_activity;
+        //String current_activity;
         //SeekBar Dimmer_Bar;
         //Dimmer_Bar = (SeekBar)findViewById();
         swipe_left();
@@ -94,7 +126,7 @@ public class Lights_Test_beta extends Setup {
             logger.info("Pass: successful selection of light");
         }
         else{
-            logger.info("Fail: unsuccessful seselection of light, remaining tests skipped");
+            logger.info("Fail: unsuccessful selection of light, remaining tests skipped");
             return;
         }
 
@@ -116,6 +148,52 @@ public class Lights_Test_beta extends Setup {
         //else{
         //    logger.info("Fail: Dimness level changes when moving from On to Off");
         //}
+
+
+        List<WebElement> li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
+        li.get(0).click();
+        li.get(1).click();
+        li.get(2).click();
+        li.clear();
+        swipe_up();
+        li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
+        li.get(1).click();
+        li.get(2).click();
+        li.clear();
+        lights.On_Button.click();
+        Thread.sleep(2000);
+
+        //check that they're deselected
+
+        swipe_down();
+
+        li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
+        li.get(0).click();
+        li.get(1).click();
+        li.get(2).click();
+        li.clear();
+        swipe_up();
+        li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
+        li.get(1).click();
+        li.get(2).click();
+        li.clear();
+        lights.Off_Button.click();
+        Thread.sleep(2000);
+
+        //check that they're deselected
+
+        Thread.sleep(6000);
+
+        /*
+         * select_five();
+         * lights.On_Button.click();
+         * Thread.sleep(2000);
+         * swipe_down();
+         * select_five();
+         * lights.Off_Button.click();
+         * Thread.sleep(6000);
+         */
+
 
     }
 
