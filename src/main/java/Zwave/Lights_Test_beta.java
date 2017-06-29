@@ -159,15 +159,55 @@ public class Lights_Test_beta extends Setup {
         li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
         li.get(1).click();
         li.get(2).click();
-        li.clear();
         lights.On_Button.click();
-        Thread.sleep(2000);
+        Thread.sleep(6000);
 
         //check that they're deselected
+        if(li.get(0).getAttribute("checked").equals("false")){
+            logger.info("Pass: successful deselection of light 3 upon turn-on");
+        }
+        else{
+            logger.info("Fail: unsuccessful deselection of light 3 upon turn-on remaining tests skipped");
+            return;
+        }
 
+        if(li.get(1).getAttribute("checked").equals("false")){
+            logger.info("Pass: successful deselection of light 4 upon turn-on");
+        }
+        else{
+            logger.info("Fail: unsuccessful deselection of light 4 upon turn-on remaining tests skipped");
+            return;
+        }
+
+        if(li.get(2).getAttribute("checked").equals("false")){
+            logger.info("Pass: successful deselection of light 5 upon turn-on");
+        }
+        else{
+            logger.info("Fail: unsuccessful deselection of light 5 upon turn-on remaining tests skipped");
+            return;
+        }
+
+        li.clear();
         swipe_down();
 
         li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
+
+        if(li.get(0).getAttribute("checked").equals("false")){
+            logger.info("Pass: successful deselection of light 1 upon turn-on");
+        }
+        else{
+            logger.info("Fail: unsuccessful deselection of light 1 upon turn-on remaining tests skipped");
+            return;
+        }
+
+        if(li.get(1).getAttribute("checked").equals("false")){
+            logger.info("Pass: successful deselection of light 2 upon turn-on");
+        }
+        else{
+            logger.info("Fail: unsuccessful deselection of light 2 upon turn-on remaining tests skipped");
+            return;
+        }
+
         li.get(0).click();
         li.get(1).click();
         li.get(2).click();
@@ -176,12 +216,52 @@ public class Lights_Test_beta extends Setup {
         li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
         li.get(1).click();
         li.get(2).click();
-        li.clear();
         lights.Off_Button.click();
-        Thread.sleep(2000);
+        Thread.sleep(6000);
 
-        //check that they're deselected
+        if(li.get(0).getAttribute("checked").equals("false")){
+            logger.info("Pass: successful deselection of light 3 upon turn-off");
+        }
+        else{
+            logger.info("Fail: unsuccessful deselection of light 3 upon turn-off");
+        }
 
+        if(li.get(1).getAttribute("checked").equals("false")){
+            logger.info("Pass: successful deselection of light 4 upon turn-off");
+        }
+        else{
+            logger.info("Fail: unsuccessful deselection of light 4 upon turn-off");
+        }
+
+        if(li.get(2).getAttribute("checked").equals("false")){
+            logger.info("Pass: successful deselection of light 5 upon turn-off");
+        }
+        else{
+            logger.info("Fail: unsuccessful deselection of light 5 upon turn-off");
+        }
+
+        li.clear();
+        swipe_down();
+
+        li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
+
+        if(li.get(0).getAttribute("checked").equals("false")){
+            logger.info("Pass: successful deselection of light 1 upon turn-off");
+        }
+        else{
+            logger.info("Fail: unsuccessful deselection of light 1 upon turn-off");
+        }
+
+        if(li.get(1).getAttribute("checked").equals("false")){
+            logger.info("Pass: successful deselection of light 2 upon turn-off");
+        }
+        else{
+            logger.info("Fail: unsuccessful deselection of light 2 upon turn-off");
+        }
+
+
+
+        li.clear();
         Thread.sleep(6000);
 
         /*
