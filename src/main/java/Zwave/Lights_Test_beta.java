@@ -1,18 +1,23 @@
 package Zwave;
 
 import jxl.read.biff.BiffException;
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
-import org.openqa.selenium.By;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBuffer;
+import java.io.File;
 import java.io.IOException;
 import Panel.Setup;
 import java.util.List;
-import org.openqa.selenium.WebElement;
-//import android.widget.SeekBar;
-//import android.widget.TextView;
+
+import javax.imageio.ImageIO;
+
 
 /**
  * Created by nchortek on 6/22/17.
@@ -57,17 +62,58 @@ public class Lights_Test_beta extends Setup {
         Thread.sleep(2000);
     }
 
-    public void select_five() throws InterruptedException {
-        List<WebElement> li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
-        li.get(0).click();
-        li.get(1).click();
-        li.get(2).click();
-        li.clear();
-        swipe_up();
-        li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
-        li.get(1).click();
-        li.get(2).click();
-        li.clear();
+    //compares two images and returns whether or not they're identical
+    public boolean compareImage(File fileA, File fileB) {
+        try {
+            // take buffer data from both image files //
+            BufferedImage biA = ImageIO.read(fileA);
+            DataBuffer dbA = biA.getData().getDataBuffer();
+            int sizeA = dbA.getSize();
+            BufferedImage biB = ImageIO.read(fileB);
+            DataBuffer dbB = biB.getData().getDataBuffer();
+            int sizeB = dbB.getSize();
+            // compare data-buffer objects //
+            if(sizeA == sizeB) {
+                for(int i=0 ; i< sizeA ; i++) {
+                    if(dbA.getElem(i) != dbB.getElem(i)) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        catch (Exception e) {
+            logger.info("Failed to compare image files ..." + e);
+            return false;
+        }
+    }
+
+    //takes a screenshot of the given element and saves it to the given destination
+    public File takeScreenshot(WebElement ele, String dst) throws Exception{
+        // Get entire page screenshot
+        File screenshot = driver.getScreenshotAs(OutputType.FILE);
+        BufferedImage  fullImg = ImageIO.read(screenshot);
+
+        // Get the location of element on the page
+        org.openqa.selenium.Point point = ele.getLocation();
+
+        // Get width and height of the element
+        int eleWidth = ele.getSize().getWidth();
+        int eleHeight = ele.getSize().getHeight();
+
+        // Crop the entire page screenshot to get only element screenshot
+        BufferedImage eleScreenshot= fullImg.getSubimage(point.getX(), point.getY(),
+                eleWidth, eleHeight);
+        ImageIO.write(eleScreenshot, "png", screenshot);
+
+        // Copy the element screenshot to disk
+        File screenshotLocation = new File(dst);
+        FileUtils.copyFile(screenshot, screenshotLocation);
+
+        return screenshotLocation;
     }
 
 
@@ -75,17 +121,7 @@ public class Lights_Test_beta extends Setup {
     public void Check_all_elements_on_Lights_page() throws Exception {
         // navigate to and initialize lights page
         Lights_Page_beta lights = PageFactory.initElements(driver, Lights_Page_beta.class);
-        //int dimness;
-        //String current_activity;
-        //SeekBar Dimmer_Bar;
-        //Dimmer_Bar = (SeekBar)findViewById();
         swipe_left();
-
-        //driver.currentActivity();
-
-        // get initial dimness
-        //dimness = lights.Dimmer_Bar.getProgress();
-        //logger.info("current dimness:"+dimness);
 
         // check if light can be selected
         lights.Light_Select.click();
@@ -108,19 +144,17 @@ public class Lights_Test_beta extends Setup {
             return;
         }
 
-        // check if dimness remains constant from Off to On
-        //if (dimness == lights.Dimmer_Bar.getProgress()) {
-        //   logger.info("Pass: Dimness level remains constant when moving from Off to On");
-        //}
-        //else{
-        //    logger.info("Fail: Dimness level changes when moving from Off to On");
-        //}
+        // check if light icon turns yellow
+        File light_on = new File("/home/nchortek/light_on.png");
+        File tmp = takeScreenshot(lights.Light_Icon, "/home/nchortek/Pictures/tmp");
+        if(compareImage(tmp, light_on)){
+            logger.info("Pass: light icon turns yellow upon turn-on");
+        }
+        else{
+            logger.info("Fail: light icon does not turn yellow upon turn-on");
+        }
 
-        // get new dimness
-        //dimness = lights.Dimmer_Bar.getProgress();
-        //logger.info("current dimness:"+dimness);
-
-        // ensure light is selected
+        // ensure light can be selected
         lights.Light_Select.click();
         if (lights.Light_Select.getAttribute("checked").equals("true")) {
             logger.info("Pass: successful selection of light");
@@ -140,14 +174,6 @@ public class Lights_Test_beta extends Setup {
             logger.info("Fail: unsuccessful deselection of light upon turn-off, remaining tests skipped");
             return;
         }
-
-        // check if dimness remain constant from On to Off
-        //if (dimness == lights.Dimmer_Bar.getProgress()) {
-        //    logger.info("Pass: Dimness level remains constant when moving from On to Off");
-        //}
-        //else{
-        //    logger.info("Fail: Dimness level changes when moving from On to Off");
-        //}
 
 
         List<WebElement> li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
@@ -264,15 +290,6 @@ public class Lights_Test_beta extends Setup {
         li.clear();
         Thread.sleep(6000);
 
-        /*
-         * select_five();
-         * lights.On_Button.click();
-         * Thread.sleep(2000);
-         * swipe_down();
-         * select_five();
-         * lights.Off_Button.click();
-         * Thread.sleep(6000);
-         */
 
 
     }
