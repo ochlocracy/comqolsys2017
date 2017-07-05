@@ -98,8 +98,8 @@ public class Lights_Test_beta extends Setup{
             return;
 
         // check if light icon turns yellow
-        File light_on = new File("/home/nchortek/comqolsys2017/scr/light_on");
-        File tmp = takeScreenshot(lights.Light_Icon, "/home/nchortek/comqolsys2017/scr/tmp");
+        File light_on = new File(projectPath + "/scr/light_on");
+        File tmp = takeScreenshot(lights.Light_Icon, projectPath + "/scr/tmp");
         if(compareImage(tmp, light_on)){
             logger.info("Pass: light icon turns yellow upon turn-on");
         }
@@ -120,8 +120,8 @@ public class Lights_Test_beta extends Setup{
             return;
         }
 
-        File light_off = new File("/home/nchortek/comqolsys2017/scr/light_off");
-        tmp = takeScreenshot(lights.Light_Icon, "/home/nchortek/comqolsys2017/scr/tmp");
+        File light_off = new File(projectPath + "/scr/light_off");
+        tmp = takeScreenshot(lights.Light_Icon, projectPath + "/scr/tmp");
         if(compareImage(tmp, light_off)){
             logger.info("Pass: light icon turns grey upon turn-off");
         }

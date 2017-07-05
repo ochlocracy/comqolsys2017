@@ -43,6 +43,7 @@ public class Setup {
     public String adbPath = c.getAdbPath();   //"/home/qolsys/android-sdk-linux/platform-tools/adb";
     public File appDir = new File("src");
     public String udid_ =  c.getudid_(); //"8ebdbc76";
+    public String projectPath = c.getProjectPath(); //
 
     public AndroidDriver<WebElement> driver;
 
