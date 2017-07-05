@@ -7,7 +7,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
 import java.io.File;
 import java.io.IOException;
 import Panel.Setup;
@@ -34,8 +33,51 @@ public class Lights_Test_beta extends Setup{
         setup_logger(page_name);
     }
 
-
     @Test
+    public void Check_all_elements_on_Lights_Page() throws Exception {
+        Lights_Page_beta lights = PageFactory.initElements(driver, Lights_Page_beta.class);
+        swipe_left();
+
+        element_verification(lights.On_Button, "On Button");
+        element_verification(lights.Off_Button, "Off Button");
+        element_verification(lights.Get_Status_Button, "Get Status Button");
+
+
+        List<WebElement> li1 = driver.findElements(By.id("com.qolsys:id/lightSelect"));
+        List<WebElement> li2 = driver.findElements(By.id("com.qolsys:id/uiName"));
+        List<WebElement> li3 = driver.findElements(By.id("com.qolsys:id/statusButton"));
+
+        element_verification(li1.get(0), "Light1 Select Button");
+        element_verification(li1.get(1), "Light2 Select Button");
+        element_verification(li1.get(2), "Light3 Select Button");
+        element_verification(li2.get(0), "Light1 Name");
+        element_verification(li2.get(1), "Light2 Name");
+        element_verification(li2.get(2), "Light3 Name");
+        element_verification(li3.get(0), "Light1 Status");
+        element_verification(li3.get(1), "Light2 Status");
+        element_verification(li3.get(2), "Light3 Status");
+        li1.clear();
+        li2.clear();
+        li3.clear();
+        swipe_up();
+        li1 = driver.findElements(By.id("com.qolsys:id/lightSelect"));
+        li2 = driver.findElements(By.id("com.qolsys:id/uiName"));
+        li3 = driver.findElements(By.id("com.qolsys:id/statusButton"));
+        element_verification(li1.get(1), "Light4 Select Button");
+        element_verification(li1.get(2), "Light5 Select Button");
+        element_verification(li2.get(1), "Light4 Name");
+        element_verification(li2.get(2), "Light5 Name");
+        element_verification(li3.get(1), "Light4 Status");
+        element_verification(li3.get(2), "Light5 Status");
+        li1.clear();
+        li2.clear();
+        li3.clear();
+
+        swipe_down();
+
+    }
+
+    @Test (priority = 1)
     public void Test_Lights_Page() throws Exception {
 
 
@@ -47,6 +89,7 @@ public class Lights_Test_beta extends Setup{
         lights.Light_Select.click();
         if(!checkAttribute(lights.Light_Select, "checked", "true"))
             return;
+
 
         // check if light can be turned on
         lights.On_Button.click();
@@ -76,6 +119,16 @@ public class Lights_Test_beta extends Setup{
         if(!checkAttribute(lights.Light_Select, "checked", "false")){
             return;
         }
+
+        File light_off = new File("/home/nchortek/comqolsys2017/scr/light_off");
+        tmp = takeScreenshot(lights.Light_Icon, "/home/nchortek/comqolsys2017/scr/tmp");
+        if(compareImage(tmp, light_off)){
+            logger.info("Pass: light icon turns grey upon turn-off");
+        }
+        else{
+            logger.info("Fail: light icon does not turn grey upon turn-off");
+        }
+        java.lang.Runtime.getRuntime().exec("rm -f " + tmp.getAbsolutePath());
 
         List<WebElement> li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
         li.get(0).click();

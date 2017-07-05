@@ -497,11 +497,11 @@ public class Setup {
 
     public boolean checkAttribute(WebElement ele, String attribute, String state){
         if(ele.getAttribute(attribute).equals(state)){
-            logger.info("Pass: the given element's " + attribute + " is " + state);
+            logger.info("Pass: the element's attribute [" + attribute + "] is " + state);
             return true;
         }
         else{
-            logger.info("Fail: the given element's " + attribute + " is " + ele.getAttribute(attribute));
+            logger.info("Fail: the element's attribute [" + attribute + "] is " + ele.getAttribute(attribute));
             return false;
         }
     }
