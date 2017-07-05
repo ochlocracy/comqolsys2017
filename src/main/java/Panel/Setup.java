@@ -10,6 +10,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.PageFactory;
 
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBuffer;
 import java.io.*;
 import org.openqa.selenium.logging.LogEntry;
 
@@ -26,6 +28,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
+import javax.imageio.ImageIO;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
@@ -33,6 +36,8 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 public class Setup {
+
+
 
     Configuration c = new Configuration();
     public String adbPath = c.getAdbPath();   //"/home/qolsys/android-sdk-linux/platform-tools/adb";
@@ -462,5 +467,97 @@ public class Setup {
         adv.WI_FI.click();
         driver.findElement(By.id("com.qolsys:id/wire_less_toggle")).click();
         Thread.sleep(3000);
+    }
+
+
+    public void swipe_left() throws InterruptedException {
+        int starty = 400;
+        int endx = 360;
+        int startx = 660;
+        driver.swipe(startx, starty, endx, starty, 500);
+        Thread.sleep(2000);
+    }
+
+    public void swipe_up() throws InterruptedException {
+        int starty = 616;
+        int endy = 227;
+        int startx = 314;
+        driver.swipe(startx, starty, startx, endy, 3000);
+        Thread.sleep(2000);
+    }
+
+    public void swipe_down() throws InterruptedException {
+        int starty = 227;
+        int endy = 616;
+        int startx = 314;
+        driver.swipe(startx, starty, startx, endy, 3000);
+        Thread.sleep(2000);
+    }
+
+
+    public boolean checkAttribute(WebElement ele, String attribute, String state){
+        if(ele.getAttribute(attribute).equals(state)){
+            logger.info("Pass: the given element's " + attribute + " is " + state);
+            return true;
+        }
+        else{
+            logger.info("Fail: the given element's " + attribute + " is " + ele.getAttribute(attribute));
+            return false;
+        }
+    }
+
+
+    //compares two images and returns whether or not they're identical
+    public boolean compareImage(File fileA, File fileB){
+        try {
+            // take buffer data from both image files //
+            BufferedImage biA = ImageIO.read(fileA);
+            DataBuffer dbA = biA.getData().getDataBuffer();
+            int sizeA = dbA.getSize();
+            BufferedImage biB = ImageIO.read(fileB);
+            DataBuffer dbB = biB.getData().getDataBuffer();
+            int sizeB = dbB.getSize();
+            // compare data-buffer objects //
+            if(sizeA == sizeB) {
+                for(int i=0 ; i< sizeA ; i++) {
+                    if(dbA.getElem(i) != dbB.getElem(i)) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        catch (Exception e) {
+            logger.info("Failed to compare image files ..." + e);
+            return false;
+        }
+    }
+
+    //takes a screenshot of the given element and saves it to the given destination
+    public File takeScreenshot(WebElement ele, String dst) throws Exception{
+        // Get entire page screenshot
+        File screenshot = driver.getScreenshotAs(OutputType.FILE);
+        BufferedImage  fullImg = ImageIO.read(screenshot);
+
+        // Get the location of element on the page
+        org.openqa.selenium.Point point = ele.getLocation();
+
+        // Get width and height of the element
+        int eleWidth = ele.getSize().getWidth();
+        int eleHeight = ele.getSize().getHeight();
+
+        // Crop the entire page screenshot to get only element screenshot
+        BufferedImage eleScreenshot= fullImg.getSubimage(point.getX(), point.getY(),
+                eleWidth, eleHeight);
+        ImageIO.write(eleScreenshot, "png", screenshot);
+
+        // Copy the element screenshot to disk
+        File screenshotLocation = new File(dst);
+        FileUtils.copyFile(screenshot, screenshotLocation);
+
+        return screenshotLocation;
     }
     }
