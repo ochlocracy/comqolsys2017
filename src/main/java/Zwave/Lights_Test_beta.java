@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * Created by nchortek on 6/22/17.
- * PRECONDITION: 5 lights must be paired and turned off before
+ * PRECONDITION: 3 lights must be paired and turned off before
  * executing this test.
  */
 public class Lights_Test_beta extends Setup{
@@ -25,6 +25,20 @@ public class Lights_Test_beta extends Setup{
 
 
     public Lights_Test_beta() throws IOException, BiffException {
+    }
+
+    public boolean checkStatus(File cmp, WebElement light) throws Exception {
+        File tmp = takeScreenshot(light, projectPath + "/scr/tmp");
+        if(compareImage(tmp, cmp)){
+            logger.info("Pass: light icon is the expected color");
+            java.lang.Runtime.getRuntime().exec("rm -f " + tmp.getAbsolutePath());
+            return true;
+        }
+        else{
+            logger.info("Fail: light icon is not the expected color");
+            java.lang.Runtime.getRuntime().exec("rm -f " + tmp.getAbsolutePath());
+            return false;
+        }
     }
 
     @BeforeMethod
@@ -56,7 +70,8 @@ public class Lights_Test_beta extends Setup{
         element_verification(li3.get(0), "Light1 Status");
         element_verification(li3.get(1), "Light2 Status");
         element_verification(li3.get(2), "Light3 Status");
-        li1.clear();
+
+        /*li1.clear();
         li2.clear();
         li3.clear();
         swipe_up();
@@ -73,7 +88,7 @@ public class Lights_Test_beta extends Setup{
         li2.clear();
         li3.clear();
 
-        swipe_down();
+        swipe_down();*/
 
     }
 
@@ -83,62 +98,55 @@ public class Lights_Test_beta extends Setup{
 
         // navigate to and initialize lights page
         Lights_Page_beta lights = PageFactory.initElements(driver, Lights_Page_beta.class);
+        List<WebElement> li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
+        List<WebElement> status = driver.findElements(By.id("com.qolsys:id/statusButton"));
+        File light_on = new File(projectPath + "/scr/light_on");
+        File light_off = new File(projectPath + "/scr/light_off");
         swipe_left();
 
         // check if light can be selected
-        lights.Light_Select.click();
-        if(!checkAttribute(lights.Light_Select, "checked", "true"))
+        li.get(0).click();
+        if(!checkAttribute(li.get(0), "checked", "true"))
             return;
 
 
         // check if light can be turned on
         lights.On_Button.click();
-        Thread.sleep(2000);
-        if(!checkAttribute(lights.Light_Select, "checked", "false"))
+        Thread.sleep(6000);
+        if(!checkAttribute(li.get(0), "checked", "false"))
             return;
 
         // check if light icon turns yellow
-        File light_on = new File(projectPath + "/scr/light_on");
-        File tmp = takeScreenshot(lights.Light_Icon, projectPath + "/scr/tmp");
-        if(compareImage(tmp, light_on)){
-            logger.info("Pass: light icon turns yellow upon turn-on");
-        }
-        else{
-            logger.info("Fail: light icon does not turn yellow upon turn-on");
-        }
-        java.lang.Runtime.getRuntime().exec("rm -f " + tmp.getAbsolutePath());
+        if(!checkStatus(light_on, li.get(0)))
+            return;
 
         // ensure light can be selected
-        lights.Light_Select.click();
-        if(!checkAttribute(lights.Light_Select, "checked", "true"))
+        li.get(0).click();
+        if(!checkAttribute(li.get(0), "checked", "true"))
             return;
 
         // check if light is deselected upon turn-off
         lights.Off_Button.click();
-        Thread.sleep(2000);
-        if(!checkAttribute(lights.Light_Select, "checked", "false")){
+        Thread.sleep(6000);
+        if(!checkAttribute(li.get(0), "checked", "false")){
             return;
         }
 
-        File light_off = new File(projectPath + "/scr/light_off");
-        tmp = takeScreenshot(lights.Light_Icon, projectPath + "/scr/tmp");
-        if(compareImage(tmp, light_off)){
-            logger.info("Pass: light icon turns grey upon turn-off");
-        }
-        else{
-            logger.info("Fail: light icon does not turn grey upon turn-off");
-        }
-        java.lang.Runtime.getRuntime().exec("rm -f " + tmp.getAbsolutePath());
+        // check if light icon turns grey
+        if(!checkStatus(light_off, lights.Light_Icon))
+            return;
 
-        List<WebElement> li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
+        // repeat above process but for multiple lights
         li.get(0).click();
         li.get(1).click();
         li.get(2).click();
-        li.clear();
+
+        /*li.clear();
         swipe_up();
         li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
         li.get(1).click();
-        li.get(2).click();
+        li.get(2).click();*/
+
         lights.On_Button.click();
         Thread.sleep(6000);
 
@@ -152,10 +160,17 @@ public class Lights_Test_beta extends Setup{
         if(!checkAttribute(li.get(2), "checked","false"))
             return;
 
-        li.clear();
+        // check that lights turn yellow
+        checkStatus(light_on, status.get(0));
+        checkStatus(light_on, status.get(1));
+        checkStatus(light_on, status.get(2));
+
+        /*li.clear();
+        status.clear();
         swipe_down();
 
         li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
+        status = driver.findElements(By.id("com.qolsys:id/statusButton"));
 
         if(!checkAttribute(li.get(0), "checked","false"))
             return;
@@ -163,14 +178,20 @@ public class Lights_Test_beta extends Setup{
         if(!checkAttribute(li.get(1), "checked","false"))
             return;
 
+        // check that lights turn yellow
+        checkStatus(light_on, status.get(0));
+        checkStatus(light_on, status.get(1));
+
+        status.clear();*/
+
         li.get(0).click();
         li.get(1).click();
         li.get(2).click();
-        li.clear();
+        /*li.clear();
         swipe_up();
         li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
         li.get(1).click();
-        li.get(2).click();
+        li.get(2).click();*/
         lights.Off_Button.click();
         Thread.sleep(6000);
 
@@ -184,7 +205,15 @@ public class Lights_Test_beta extends Setup{
         if(!checkAttribute(li.get(2), "checked","false"))
             return;
 
-        li.clear();
+        //status = driver.findElements(By.id("com.qolsys:id/statusButton"));
+
+        // check that lights turn grey
+        checkStatus(light_off, status.get(0));
+        checkStatus(light_off, status.get(1));
+        checkStatus(light_off, status.get(2));
+
+        /*li.clear();
+        status.clear();
         swipe_down();
 
         li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
@@ -195,7 +224,14 @@ public class Lights_Test_beta extends Setup{
         if(!checkAttribute(li.get(1), "checked","false"))
             return;
 
+        status = driver.findElements(By.id("com.qolsys:id/statusButton"));
+
+        // check that lights turn grey
+        checkStatus(light_on, status.get(0));
+        checkStatus(light_on, status.get(1));
+
         li.clear();
+        status.clear();*/
         Thread.sleep(6000);
 
 
