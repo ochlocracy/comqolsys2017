@@ -6,9 +6,7 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.io.IOException;
 
@@ -22,7 +20,7 @@ public class Lights_ADC extends Setup{
     public Lights_ADC() throws IOException, BiffException{
     }
 
-    @BeforeMethod
+    @BeforeTest
     public void capabilities_setup() throws Exception {
         setup_driver(udid_, "http://127.0.1.1", "4723");
         webDriverSetUp();
@@ -36,13 +34,26 @@ public class Lights_ADC extends Setup{
         getDriver1().get(ADC_URL);
         String login = "qnathan";
         String password = "Qnathan*";
+        String customer_login = "Gen2-8334";
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("txtUsername")));
         getDriver1().findElement(By.id("txtUsername")).sendKeys(login);
         getDriver1().findElement(By.id("txtPassword")).sendKeys(password);
         getDriver1().findElement(By.id("butLogin")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_ucsFindCustomer_txtLoginName")));
+        getDriver1().findElement(By.id("ctl00_phBody_ucsFindCustomer_txtLoginName")).sendKeys(customer_login);
+        getDriver1().findElement(By.id("ctl00_phBody_ucsFindCustomer_btnSearch")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_ucsFindCustomer_gridSearchResults_" +
+                "ctl02_lnkCustomerId")));
+        getDriver1().findElement(By.id("ctl00_phBody_ucsFindCustomer_gridSearchResults_ctl02_lnkCustomerId")).click();
     }
 
-    @AfterMethod
+    @Test (priority = 1)
+    public void commTest(){
+        navigate_to_Advanced_Settings_page();
+
+    }
+
+    @AfterTest
     public void tearDown () throws IOException, InterruptedException {
         log.endTestCase(page_name);
         driver.quit();
