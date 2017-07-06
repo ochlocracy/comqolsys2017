@@ -61,11 +61,12 @@ public class Setup {
 
     public void webDriverSetUp () {
         driver1 = new FirefoxDriver();
-        WebDriverWait wait = new WebDriverWait(driver1, 40);
+        wait = new WebDriverWait(driver1, 40);
     }
     public WebDriver getDriver1() {
         return driver1;
     }
+
     public void setup_driver(String udid_, String url_, String port_) throws Exception {
         DesiredCapabilities cap = new DesiredCapabilities();
         cap.setCapability("deviceName", "IQPanel2");
