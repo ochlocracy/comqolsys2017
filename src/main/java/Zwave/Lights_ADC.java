@@ -8,7 +8,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.*;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by nchortek on 7/6/17.
@@ -28,7 +30,7 @@ public class Lights_ADC extends Setup{
     }
 
     @Test
-    public void start_ADC_session() throws InterruptedException {
+    public void turnOnLights() throws InterruptedException {
         getDriver1().manage().window().maximize();
         String ADC_URL = "https://alarm.com";
         getDriver1().get(ADC_URL);
@@ -41,12 +43,28 @@ public class Lights_ADC extends Setup{
         getDriver1().findElement(By.id("ctl00_ContentPlaceHolder1_loginform_txtUserName")).sendKeys(login);
         getDriver1().findElement(By.className("password")).sendKeys(password);
         getDriver1().findElement(By.id("ctl00_ContentPlaceHolder1_loginform_signInButton")).click();
-
-
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("emPower")));
+        getDriver1().findElement(By.partialLinkText("emPower")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Lights")));
+        getDriver1().findElement(By.id("Lights")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_ucLightGroupRepeaterControl_" +
+                "SwitchesAndDimmers_rptGroups_ctl00_btnGroupOn")));
+        getDriver1().findElement(By.id("ctl00_phBody_ucLightGroupRepeaterControl_" +
+                "SwitchesAndDimmers_rptGroups_ctl00_btnGroupOn")).click();
     }
 
     @Test (priority = 1)
-    public void checkPanelUI(){
+    public void checkPanelUI() throws Exception{
+        swipe_left();
+        File light_on = new File(projectPath + "/scr/light_on");
+        Thread.sleep(10000);
+        logger.info("pulling light icons...");
+        List<WebElement> status = driver.findElements(By.id("com.qolsys:id/statusButton"));
+
+        checkStatus(light_on, status.get(0));
+        checkStatus(light_on, status.get(1));
+        checkStatus(light_on, status.get(2));
+
     }
 
     @AfterTest

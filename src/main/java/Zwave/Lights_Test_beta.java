@@ -27,19 +27,6 @@ public class Lights_Test_beta extends Setup{
     public Lights_Test_beta() throws IOException, BiffException {
     }
 
-    public boolean checkStatus(File cmp, WebElement light) throws Exception {
-        File tmp = takeScreenshot(light, projectPath + "/scr/tmp");
-        if(compareImage(tmp, cmp)){
-            logger.info("Pass: light icon is the expected color");
-            java.lang.Runtime.getRuntime().exec("rm -f " + tmp.getAbsolutePath());
-            return true;
-        }
-        else{
-            logger.info("Fail: light icon is not the expected color");
-            java.lang.Runtime.getRuntime().exec("rm -f " + tmp.getAbsolutePath());
-            return false;
-        }
-    }
 
     @BeforeMethod
     public void capabilities_setup() throws Exception {
@@ -70,26 +57,6 @@ public class Lights_Test_beta extends Setup{
         element_verification(li3.get(0), "Light1 Status");
         element_verification(li3.get(1), "Light2 Status");
         element_verification(li3.get(2), "Light3 Status");
-
-        /*li1.clear();
-        li2.clear();
-        li3.clear();
-        swipe_up();
-        li1 = driver.findElements(By.id("com.qolsys:id/lightSelect"));
-        li2 = driver.findElements(By.id("com.qolsys:id/uiName"));
-        li3 = driver.findElements(By.id("com.qolsys:id/statusButton"));
-        element_verification(li1.get(1), "Light4 Select Button");
-        element_verification(li1.get(2), "Light5 Select Button");
-        element_verification(li2.get(1), "Light4 Name");
-        element_verification(li2.get(2), "Light5 Name");
-        element_verification(li3.get(1), "Light4 Status");
-        element_verification(li3.get(2), "Light5 Status");
-        li1.clear();
-        li2.clear();
-        li3.clear();
-
-        swipe_down();*/
-
     }
 
     @Test (priority = 1)
@@ -141,12 +108,6 @@ public class Lights_Test_beta extends Setup{
         li.get(1).click();
         li.get(2).click();
 
-        /*li.clear();
-        swipe_up();
-        li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
-        li.get(1).click();
-        li.get(2).click();*/
-
         lights.On_Button.click();
         Thread.sleep(6000);
 
@@ -165,33 +126,9 @@ public class Lights_Test_beta extends Setup{
         checkStatus(light_on, status.get(1));
         checkStatus(light_on, status.get(2));
 
-        /*li.clear();
-        status.clear();
-        swipe_down();
-
-        li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
-        status = driver.findElements(By.id("com.qolsys:id/statusButton"));
-
-        if(!checkAttribute(li.get(0), "checked","false"))
-            return;
-
-        if(!checkAttribute(li.get(1), "checked","false"))
-            return;
-
-        // check that lights turn yellow
-        checkStatus(light_on, status.get(0));
-        checkStatus(light_on, status.get(1));
-
-        status.clear();*/
-
         li.get(0).click();
         li.get(1).click();
         li.get(2).click();
-        /*li.clear();
-        swipe_up();
-        li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
-        li.get(1).click();
-        li.get(2).click();*/
         lights.Off_Button.click();
         Thread.sleep(6000);
 
@@ -203,39 +140,13 @@ public class Lights_Test_beta extends Setup{
             return;
 
         if(!checkAttribute(li.get(2), "checked","false"))
-            return;
-
-        //status = driver.findElements(By.id("com.qolsys:id/statusButton"));
 
         // check that lights turn grey
         checkStatus(light_off, status.get(0));
         checkStatus(light_off, status.get(1));
         checkStatus(light_off, status.get(2));
 
-        /*li.clear();
-        status.clear();
-        swipe_down();
-
-        li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
-
-        if(!checkAttribute(li.get(0), "checked","false"))
-            return;
-
-        if(!checkAttribute(li.get(1), "checked","false"))
-            return;
-
-        status = driver.findElements(By.id("com.qolsys:id/statusButton"));
-
-        // check that lights turn grey
-        checkStatus(light_on, status.get(0));
-        checkStatus(light_on, status.get(1));
-
-        li.clear();
-        status.clear();*/
         Thread.sleep(6000);
-
-
-
     }
 
     @AfterMethod
