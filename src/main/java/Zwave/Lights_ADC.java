@@ -30,27 +30,23 @@ public class Lights_ADC extends Setup{
     @Test
     public void start_ADC_session() throws InterruptedException {
         getDriver1().manage().window().maximize();
-        String ADC_URL = "https://alarmadmin.alarm.com";
+        String ADC_URL = "https://alarm.com";
         getDriver1().get(ADC_URL);
-        String login = "qnathan";
-        String password = "Qnathan*";
-        String customer_login = "Gen2-8334";
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("txtUsername")));
-        getDriver1().findElement(By.id("txtUsername")).sendKeys(login);
-        getDriver1().findElement(By.id("txtPassword")).sendKeys(password);
-        getDriver1().findElement(By.id("butLogin")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_ucsFindCustomer_txtLoginName")));
-        getDriver1().findElement(By.id("ctl00_phBody_ucsFindCustomer_txtLoginName")).sendKeys(customer_login);
-        getDriver1().findElement(By.id("ctl00_phBody_ucsFindCustomer_btnSearch")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_ucsFindCustomer_gridSearchResults_" +
-                "ctl02_lnkCustomerId")));
-        getDriver1().findElement(By.id("ctl00_phBody_ucsFindCustomer_gridSearchResults_ctl02_lnkCustomerId")).click();
+        String login = "Gen2-8334";
+        String password = "qolsys1234";
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("LOGIN")));
+        getDriver1().findElement(By.partialLinkText("LOGIN")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_ContentPlaceHolder1_loginform_" +
+                "txtUserName")));
+        getDriver1().findElement(By.id("ctl00_ContentPlaceHolder1_loginform_txtUserName")).sendKeys(login);
+        getDriver1().findElement(By.className("password")).sendKeys(password);
+        getDriver1().findElement(By.id("ctl00_ContentPlaceHolder1_loginform_signInButton")).click();
+
+
     }
 
     @Test (priority = 1)
-    public void commTest(){
-        navigate_to_Advanced_Settings_page();
-
+    public void checkPanelUI(){
     }
 
     @AfterTest
