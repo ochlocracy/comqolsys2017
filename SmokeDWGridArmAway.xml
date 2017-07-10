@@ -7,7 +7,7 @@
         <parameter name="applicationName_" value="62c74a45"/>
         <parameter name="UDID_" value="62c74a45"/>
         <parameter name="platformVersion_" value="5.1"/>
-        <parameter name="URL_" value="http://172.16.101.86:4733/wd/hub"/>
+        <parameter name="URL_" value="http://172.16.101.48:4733/wd/hub"/>
         <parameter name="PORT_" value="4733"/>
         <classes>
             <class name="Sensors.Smoke_Test_DW_Grid_ArmAway"/>
@@ -18,7 +18,7 @@
         <parameter name="applicationName_" value="62e9f0df"/>
         <parameter name="UDID_" value="62e9f0df"/>
         <parameter name="platformVersion_" value="5.1"/>
-        <parameter name="URL_" value="http://172.16.101.86:4735/wd/hub"/>
+        <parameter name="URL_" value="http://172.16.101.48:4735/wd/hub"/>
         <parameter name="PORT_" value="4735"/>
         <classes>
             <class name="Sensors.Smoke_Test_DW_Grid_ArmAway"/>
@@ -29,7 +29,7 @@
         <parameter name="applicationName_" value="628f4aa0"/>
         <parameter name="UDID_" value="628f4aa0"/>
         <parameter name="platformVersion_" value="5.1"/>
-        <parameter name="URL_" value="http://172.16.101.86:4737/wd/hub"/>
+        <parameter name="URL_" value="http://172.16.101.48:4737/wd/hub"/>
         <parameter name="PORT_" value="4737"/>
         <classes>
             <class name="Sensors.Smoke_Test_DW_Grid_ArmAway"/>
@@ -40,7 +40,7 @@
         <parameter name="applicationName_" value="2c63bc81"/>
         <parameter name="UDID_" value="2c63bc81"/>
         <parameter name="platformVersion_" value="5.1"/>
-        <parameter name="URL_" value="http://172.16.101.86:4739/wd/hub"/>
+        <parameter name="URL_" value="http://172.16.101.48:4739/wd/hub"/>
         <parameter name="PORT_" value="4739"/>
         <classes>
             <class name="Sensors.Smoke_Test_DW_Grid_ArmAway"/>
