@@ -1,6 +1,7 @@
 package Zwave;
 
 import jxl.read.biff.BiffException;
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
@@ -57,6 +58,10 @@ public class Lights_Test_beta extends Setup{
         element_verification(li3.get(0), "Light1 Status");
         element_verification(li3.get(1), "Light2 Status");
         element_verification(li3.get(2), "Light3 Status");
+
+        li1.clear();
+        li2.clear();
+        li3.clear();
     }
 
     @Test (priority = 1)
@@ -65,11 +70,16 @@ public class Lights_Test_beta extends Setup{
 
         // navigate to and initialize lights page
         Lights_Page_beta lights = PageFactory.initElements(driver, Lights_Page_beta.class);
-        List<WebElement> li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
-        List<WebElement> status = driver.findElements(By.id("com.qolsys:id/statusButton"));
         File light_on = new File(projectPath + "/scr/light_on");
         File light_off = new File(projectPath + "/scr/light_off");
         swipe_left();
+        List<WebElement> li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
+        List<WebElement> status = driver.findElements(By.id("com.qolsys:id/statusButton"));
+
+        //File screenshot = driver.getScreenshotAs(OutputType.FILE);
+        //File screenshotLocation = new File(projectPath+"/scr/test");
+        //FileUtils.copyFile(screenshot, screenshotLocation);
+        //return;
 
         // check if light can be selected
         li.get(0).click();
@@ -79,12 +89,12 @@ public class Lights_Test_beta extends Setup{
 
         // check if light can be turned on
         lights.On_Button.click();
-        Thread.sleep(6000);
+        Thread.sleep(10000);
         if(!checkAttribute(li.get(0), "checked", "false"))
             return;
 
         // check if light icon turns yellow
-        if(!checkStatus(light_on, li.get(0)))
+        if(!checkStatus(light_on, status.get(0)))
             return;
 
         // ensure light can be selected
@@ -94,13 +104,13 @@ public class Lights_Test_beta extends Setup{
 
         // check if light is deselected upon turn-off
         lights.Off_Button.click();
-        Thread.sleep(6000);
+        Thread.sleep(10000);
         if(!checkAttribute(li.get(0), "checked", "false")){
             return;
         }
 
         // check if light icon turns grey
-        if(!checkStatus(light_off, lights.Light_Icon))
+        if(!checkStatus(light_off, status.get(0)))
             return;
 
         // repeat above process but for multiple lights
@@ -109,7 +119,7 @@ public class Lights_Test_beta extends Setup{
         li.get(2).click();
 
         lights.On_Button.click();
-        Thread.sleep(6000);
+        Thread.sleep(10000);
 
         //check that they're deselected
         if(!checkAttribute(li.get(0), "checked","false"))
@@ -130,7 +140,7 @@ public class Lights_Test_beta extends Setup{
         li.get(1).click();
         li.get(2).click();
         lights.Off_Button.click();
-        Thread.sleep(6000);
+        Thread.sleep(10000);
 
         //check that they're deselected
         if(!checkAttribute(li.get(0), "checked","false"))
