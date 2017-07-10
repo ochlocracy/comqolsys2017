@@ -56,8 +56,8 @@ public class Setup {
 
     public Setup() throws IOException, BiffException {}
 
-    protected WebDriver driver1;
-    protected WebDriverWait wait;
+    public WebDriver driver1;
+    public WebDriverWait wait;
 
     public void webDriverSetUp () {
         driver1 = new FirefoxDriver();
@@ -570,8 +570,6 @@ public class Setup {
         int eleHeight = ele.getSize().getHeight();
 
         // Crop the entire page screenshot to get only element screenshot
-        //BufferedImage eleScreenshot= fullImg.getSubimage(point.getX(), point.getY(),
-        //        eleWidth, eleHeight);
         BufferedImage eleScreenshot= fullImg.getSubimage(point.getX(), point.getY(), eleWidth, eleHeight);
         ImageIO.write(eleScreenshot, "png", screenshot);
 
@@ -584,6 +582,7 @@ public class Setup {
 
     public boolean checkStatus(File cmp, WebElement light) throws Exception {
         File tmp = takeScreenshot(light, projectPath + "/scr/tmp");
+        Thread.sleep(2000);
         if(compareImage(tmp, cmp)){
             logger.info("Pass: light icon is the expected color");
             java.lang.Runtime.getRuntime().exec("rm -f " + tmp.getAbsolutePath());

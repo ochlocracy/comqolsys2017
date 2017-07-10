@@ -166,16 +166,17 @@ public class Lights_Test_beta extends Setup{
             return;
 
         if(!checkAttribute(li.get(2), "checked","false"))
+            return;
 
         // check that lights turn grey
-        //checkAllStatus(light_off, status);
-        logger.info("testing first element");
-        checkStatus(light_off, status.get(0));
-        logger.info("testing second element");
-        checkStatus(light_off, status.get(1));
-        logger.info("testing last element");
-        checkStatus(light_off, status.get(2));
-        logger.info("done testing");
+        checkAllStatus(light_off, status);
+        //logger.info("testing first element");
+        //checkStatus(light_off, status.get(0));
+        //logger.info("testing second element");
+        //checkStatus(light_off, status.get(1));
+        //logger.info("testing last element");
+        //checkStatus(light_off, status.get(2));
+        //logger.info("done testing");
 
         Thread.sleep(6000);
     }
