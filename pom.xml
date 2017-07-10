@@ -18,8 +18,17 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.simpligility.maven.plugins</groupId>
+                <artifactId>android-maven-plugin</artifactId>
+                <version>4.3.0</version>
+                <extensions>true</extensions>
+            </plugin>
         </plugins>
     </build>
+
+
+
     <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
     <profiles>
         <profile>
@@ -615,7 +624,6 @@
                 </plugins>
             </build>
         </profile>
-
         <profile>
             <id>SettingsTest</id>
             <build>
@@ -633,7 +641,6 @@
                 </plugins>
             </build>
         </profile>
-
         <profile>
             <id>SettingsTest1</id>
             <build>
@@ -651,7 +658,6 @@
                 </plugins>
             </build>
         </profile>
-
         <profile>
             <id>SettingsTest2</id>
             <build>
@@ -686,7 +692,6 @@
                 </plugins>
             </build>
         </profile>
-
         <profile>
             <id>SmokeCo</id>
             <build>
@@ -721,7 +726,6 @@
                 </plugins>
             </build>
         </profile>
-
         <profile>
             <id>KeyfobKeypadPendantSmoke</id>
             <build>
@@ -739,7 +743,6 @@
                 </plugins>
             </build>
         </profile>
-
         <profile>
             <id>GlassbreakShockTiltSmoke</id>
             <build>
@@ -834,6 +837,13 @@
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
             <version>1.4</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.google.android/android -->
+        <dependency>
+            <groupId>com.google.android</groupId>
+            <artifactId>android</artifactId>
+            <version>4.1.1.4</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

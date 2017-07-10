@@ -1,5 +1,11 @@
-java -jar ~/Desktop/selenium-server-standalone-2.53.0.jar -port 4444 -role hub
+java -jar /home/qolsys/Desktop/comqolsys/selenium-server-standalone-2.53.0.jar -port 4444 -role hub &
 
-appium --nodeconfig /home/automation/IdeaProjects/comqolsys2017/src/main/java/GridTesting/android1.json -p 4725 -bp 5725 --udid 8ebdbcc4
-appium --nodeconfig /home/automation/IdeaProjects/comqolsys2017/src/main/java/GridTesting/android2.json -p 4727 -bp 5727 --udid 6231f062
-appium --nodeconfig /home/automation/IdeaProjects/comqolsys2017/src/main/java/GridTesting/android3.json -p 4729 -bp 5729 --udid 62864b8c
+sleep 5
+
+echo "done 0"
+appium --nodeconfig /home/qolsys/Desktop/comqolsysPOM/src/main/java/IQRemote/android1.json -p 4725 -bp 5725 --udid 8ebdbc76 &
+echo "done 1"
+appium --nodeconfig /home/qolsys/Desktop/comqolsysPOM/src/main/java/IQRemote/android2.json -p 4727 -bp 5727 --udid 8ebdbce0 &
+echo "done 2"
+appium --nodeconfig /home/qolsys/Desktop/comqolsysPOM/src/main/java/GridTesting/android3.json -p 4729 -bp 5729 --udid 62864b8c &
+echo "done 3"

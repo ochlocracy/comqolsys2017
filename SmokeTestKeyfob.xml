@@ -7,7 +7,7 @@
         <parameter name="applicationName_" value="62c74a45"/>
         <parameter name="UDID_" value="62c74a45"/>
         <parameter name="platformVersion_" value="5.1"/>
-        <parameter name="URL_" value="http://172.16.101.86:4733/wd/hub"/>
+        <parameter name="URL_" value="http://172.16.101.48:4733/wd/hub"/>
         <parameter name="PORT_" value="4733"/>
         <classes>
             <class name="Sensors.Smoke_Test_Keyfob_Grid"/>
