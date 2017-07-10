@@ -42,7 +42,7 @@ public class Setup {
     Configuration c = new Configuration();
     public String adbPath = c.getAdbPath();   //"/home/qolsys/android-sdk-linux/platform-tools/adb";
     public File appDir = new File("src");
-    public String udid_ =  c.getudid_(); //"8ebdbc76";
+    public String udid_ =  c.getudid_(); //"8ebdbc27";
     public String projectPath = c.getProjectPath(); //
 
     public AndroidDriver<WebElement> driver;
@@ -61,11 +61,12 @@ public class Setup {
 
     public void webDriverSetUp () {
         driver1 = new FirefoxDriver();
-        WebDriverWait wait = new WebDriverWait(driver1, 40);
+        wait = new WebDriverWait(driver1, 40);
     }
     public WebDriver getDriver1() {
         return driver1;
     }
+
     public void setup_driver(String udid_, String url_, String port_) throws Exception {
         DesiredCapabilities cap = new DesiredCapabilities();
         cap.setCapability("deviceName", "IQPanel2");
@@ -560,5 +561,19 @@ public class Setup {
         FileUtils.copyFile(screenshot, screenshotLocation);
 
         return screenshotLocation;
+    }
+
+    public boolean checkStatus(File cmp, WebElement light) throws Exception {
+        File tmp = takeScreenshot(light, projectPath + "/scr/tmp");
+        if(compareImage(tmp, cmp)){
+            logger.info("Pass: light icon is the expected color");
+            java.lang.Runtime.getRuntime().exec("rm -f " + tmp.getAbsolutePath());
+            return true;
+        }
+        else{
+            logger.info("Fail: light icon is not the expected color");
+            java.lang.Runtime.getRuntime().exec("rm -f " + tmp.getAbsolutePath());
+            return false;
+        }
     }
     }

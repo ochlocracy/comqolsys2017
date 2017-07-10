@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * Created by nchortek on 6/22/17.
- * PRECONDITION: 5 lights must be paired and turned off before
+ * PRECONDITION: 3 lights must be paired and turned off before
  * executing this test.
  */
 public class Lights_Test_beta extends Setup{
@@ -26,6 +26,7 @@ public class Lights_Test_beta extends Setup{
 
     public Lights_Test_beta() throws IOException, BiffException {
     }
+
 
     @BeforeMethod
     public void capabilities_setup() throws Exception {
@@ -56,25 +57,6 @@ public class Lights_Test_beta extends Setup{
         element_verification(li3.get(0), "Light1 Status");
         element_verification(li3.get(1), "Light2 Status");
         element_verification(li3.get(2), "Light3 Status");
-        li1.clear();
-        li2.clear();
-        li3.clear();
-        swipe_up();
-        li1 = driver.findElements(By.id("com.qolsys:id/lightSelect"));
-        li2 = driver.findElements(By.id("com.qolsys:id/uiName"));
-        li3 = driver.findElements(By.id("com.qolsys:id/statusButton"));
-        element_verification(li1.get(1), "Light4 Select Button");
-        element_verification(li1.get(2), "Light5 Select Button");
-        element_verification(li2.get(1), "Light4 Name");
-        element_verification(li2.get(2), "Light5 Name");
-        element_verification(li3.get(1), "Light4 Status");
-        element_verification(li3.get(2), "Light5 Status");
-        li1.clear();
-        li2.clear();
-        li3.clear();
-
-        swipe_down();
-
     }
 
     @Test (priority = 1)
@@ -83,62 +65,49 @@ public class Lights_Test_beta extends Setup{
 
         // navigate to and initialize lights page
         Lights_Page_beta lights = PageFactory.initElements(driver, Lights_Page_beta.class);
+        List<WebElement> li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
+        List<WebElement> status = driver.findElements(By.id("com.qolsys:id/statusButton"));
+        File light_on = new File(projectPath + "/scr/light_on");
+        File light_off = new File(projectPath + "/scr/light_off");
         swipe_left();
 
         // check if light can be selected
-        lights.Light_Select.click();
-        if(!checkAttribute(lights.Light_Select, "checked", "true"))
+        li.get(0).click();
+        if(!checkAttribute(li.get(0), "checked", "true"))
             return;
 
 
         // check if light can be turned on
         lights.On_Button.click();
-        Thread.sleep(2000);
-        if(!checkAttribute(lights.Light_Select, "checked", "false"))
+        Thread.sleep(6000);
+        if(!checkAttribute(li.get(0), "checked", "false"))
             return;
 
         // check if light icon turns yellow
-        File light_on = new File(projectPath + "/scr/light_on");
-        File tmp = takeScreenshot(lights.Light_Icon, projectPath + "/scr/tmp");
-        if(compareImage(tmp, light_on)){
-            logger.info("Pass: light icon turns yellow upon turn-on");
-        }
-        else{
-            logger.info("Fail: light icon does not turn yellow upon turn-on");
-        }
-        java.lang.Runtime.getRuntime().exec("rm -f " + tmp.getAbsolutePath());
+        if(!checkStatus(light_on, li.get(0)))
+            return;
 
         // ensure light can be selected
-        lights.Light_Select.click();
-        if(!checkAttribute(lights.Light_Select, "checked", "true"))
+        li.get(0).click();
+        if(!checkAttribute(li.get(0), "checked", "true"))
             return;
 
         // check if light is deselected upon turn-off
         lights.Off_Button.click();
-        Thread.sleep(2000);
-        if(!checkAttribute(lights.Light_Select, "checked", "false")){
+        Thread.sleep(6000);
+        if(!checkAttribute(li.get(0), "checked", "false")){
             return;
         }
 
-        File light_off = new File(projectPath + "/scr/light_off");
-        tmp = takeScreenshot(lights.Light_Icon, projectPath + "/scr/tmp");
-        if(compareImage(tmp, light_off)){
-            logger.info("Pass: light icon turns grey upon turn-off");
-        }
-        else{
-            logger.info("Fail: light icon does not turn grey upon turn-off");
-        }
-        java.lang.Runtime.getRuntime().exec("rm -f " + tmp.getAbsolutePath());
+        // check if light icon turns grey
+        if(!checkStatus(light_off, lights.Light_Icon))
+            return;
 
-        List<WebElement> li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
+        // repeat above process but for multiple lights
         li.get(0).click();
         li.get(1).click();
         li.get(2).click();
-        li.clear();
-        swipe_up();
-        li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
-        li.get(1).click();
-        li.get(2).click();
+
         lights.On_Button.click();
         Thread.sleep(6000);
 
@@ -152,23 +121,12 @@ public class Lights_Test_beta extends Setup{
         if(!checkAttribute(li.get(2), "checked","false"))
             return;
 
-        li.clear();
-        swipe_down();
-
-        li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
-
-        if(!checkAttribute(li.get(0), "checked","false"))
-            return;
-
-        if(!checkAttribute(li.get(1), "checked","false"))
-            return;
+        // check that lights turn yellow
+        checkStatus(light_on, status.get(0));
+        checkStatus(light_on, status.get(1));
+        checkStatus(light_on, status.get(2));
 
         li.get(0).click();
-        li.get(1).click();
-        li.get(2).click();
-        li.clear();
-        swipe_up();
-        li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
         li.get(1).click();
         li.get(2).click();
         lights.Off_Button.click();
@@ -182,24 +140,13 @@ public class Lights_Test_beta extends Setup{
             return;
 
         if(!checkAttribute(li.get(2), "checked","false"))
-            return;
 
-        li.clear();
-        swipe_down();
+        // check that lights turn grey
+        checkStatus(light_off, status.get(0));
+        checkStatus(light_off, status.get(1));
+        checkStatus(light_off, status.get(2));
 
-        li = driver.findElements(By.id("com.qolsys:id/lightSelect"));
-
-        if(!checkAttribute(li.get(0), "checked","false"))
-            return;
-
-        if(!checkAttribute(li.get(1), "checked","false"))
-            return;
-
-        li.clear();
         Thread.sleep(6000);
-
-
-
     }
 
     @AfterMethod
