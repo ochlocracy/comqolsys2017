@@ -178,6 +178,13 @@ public class Lights_Test_beta extends Setup{
         //checkStatus(light_off, status.get(2));
         //logger.info("done testing");
 
+        clickAll(status);
+        Thread.sleep(10000);
+        checkAllStatus(light_on, status);
+        clickAll(status);
+        Thread.sleep(10000);
+        checkAllStatus(light_off, status);
+
         Thread.sleep(6000);
     }
 
