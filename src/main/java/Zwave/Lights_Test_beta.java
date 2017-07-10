@@ -28,6 +28,19 @@ public class Lights_Test_beta extends Setup{
     public Lights_Test_beta() throws IOException, BiffException {
     }
 
+    public void clickAll(List<WebElement> ele){
+        int i;
+        int size = ele.size();
+        for(i = 0; i < size; i++)
+            ele.get(i).click();
+    }
+
+    public void checkAllStatus(File status, List<WebElement> ele) throws Exception{
+        int i;
+        int size = ele.size();
+        for(i = 0; i < size; i++)
+            checkStatus(status, ele.get(i));
+    }
 
     @BeforeMethod
     public void capabilities_setup() throws Exception {
@@ -114,9 +127,10 @@ public class Lights_Test_beta extends Setup{
             return;
 
         // repeat above process but for multiple lights
-        li.get(0).click();
-        li.get(1).click();
-        li.get(2).click();
+        clickAll(li);
+        //li.get(0).click();
+        //li.get(1).click();
+        //li.get(2).click();
 
         lights.On_Button.click();
         Thread.sleep(10000);
@@ -132,13 +146,15 @@ public class Lights_Test_beta extends Setup{
             return;
 
         // check that lights turn yellow
+        //checkAllStatus(light_on, status);
         checkStatus(light_on, status.get(0));
         checkStatus(light_on, status.get(1));
         checkStatus(light_on, status.get(2));
 
-        li.get(0).click();
-        li.get(1).click();
-        li.get(2).click();
+        clickAll(li);
+        //li.get(0).click();
+        //li.get(1).click();
+        //li.get(2).click();
         lights.Off_Button.click();
         Thread.sleep(10000);
 
@@ -152,9 +168,14 @@ public class Lights_Test_beta extends Setup{
         if(!checkAttribute(li.get(2), "checked","false"))
 
         // check that lights turn grey
+        //checkAllStatus(light_off, status);
+        logger.info("testing first element");
         checkStatus(light_off, status.get(0));
+        logger.info("testing second element");
         checkStatus(light_off, status.get(1));
+        logger.info("testing last element");
         checkStatus(light_off, status.get(2));
+        logger.info("done testing");
 
         Thread.sleep(6000);
     }
