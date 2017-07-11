@@ -31,4 +31,5 @@ public class EventConstants {
     public static final String rfpump_25 = "EVENT_ZONE_CLOSED, zone = 3";
     public static final String rfpump_26 = "EVENT_ZONE_TAMPERED: payload0 = 0x00000003, payload1 = 0x00000001";
     public static final String rfpump_26_Restored = "EVENT_ZONE_TAMPERED: payload0 = 0x00000003, payload1 = 0x00000000";
+
 }

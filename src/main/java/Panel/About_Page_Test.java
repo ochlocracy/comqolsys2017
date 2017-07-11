@@ -1,5 +1,6 @@
 package Panel;
 
+import android.util.*;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -138,6 +139,15 @@ public class About_Page_Test extends Setup {
         element_verification(about.Videos_About, "Videos");
         element_verification(about.Logs, "Logs");
         about.Logs.click();
+    }
+
+    @Test(priority = 0)
+    public void test1() {
+        try {
+            Runtime.getRuntime().exec("su -c svc data disable");
+        } catch (IOException e) {
+            android.util.Log.d("Error", e.getMessage());
+        }
     }
     @AfterMethod
     public void tearDown () throws IOException, InterruptedException {

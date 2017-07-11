@@ -242,6 +242,7 @@ public class Setup1 {
             take_screenshot();
             logger.info(UDID_ + " " + sensor_name +" is NOT opened/activated");}
     }
+
     public void verify_sensor_is_tampered(WebElement sensor_name) throws Exception {
         if (sensor_name.isDisplayed()) {
             logger.info(sensor_name.getText() + " is successfully tampered");
