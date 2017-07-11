@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.*;
+import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -48,7 +49,7 @@ public class Activity_Monitor_Page_Test1 {
     }
 
     @Parameters ({"UDID_"})
-    @Test(priority = 1)
+    @org.testng.annotations.Test
     public void Test1_Check_all_elements_on_Activity_Monitor_page(String UDID_) throws Exception {
         Activity_Monitor_Page activity = PageFactory.initElements(s.getDriver(), Activity_Monitor_Page.class);
         Settings_Page settings = PageFactory.initElements(s.getDriver(), Settings_Page.class);
@@ -99,7 +100,7 @@ public class Activity_Monitor_Page_Test1 {
     }
 
     @Parameters ({"UDID_"})
-    @Test(priority = 2)
+   @Test
     public void Test2_Check_Activity_Monitor_behavior(String UDID_) throws Exception {
         Activity_Monitor_Page activity = PageFactory.initElements( s.getDriver(), Activity_Monitor_Page.class);
         Settings_Page settings = PageFactory.initElements(s.getDriver(), Settings_Page.class);

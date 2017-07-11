@@ -40,7 +40,7 @@ public class Setup {
 
 
     Configuration c = new Configuration();
-    public String adbPath = c.getAdbPath();   //"/home/qolsys/android-sdk-linux/platform-tools/adb";
+    public String adbPath = "/home/qolsys/android-sdk-linux/platform-tools/adb"; //c.getAdbPath();
     public File appDir = new File("src");
     public String udid_ =  c.getudid_(); //"8ebdbc27";
     public String projectPath = c.getProjectPath(); //
@@ -50,7 +50,6 @@ public class Setup {
     public Log log = new Log();
     public Logger logger = Logger.getLogger(this.getClass().getName());
     public Runtime rt = Runtime.getRuntime();
-
 
    private static final SimpleDateFormat sdf = new SimpleDateFormat("MM.dd_HH.mm.ss");
 
@@ -304,7 +303,7 @@ public class Setup {
             System.out.println("No photos to delete...");
         } finally {
         }
-        swipeFromLefttoRight();
+        swipeFromRighttoLeft();
     }
     public void take_screenshot() throws Exception {
         File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);

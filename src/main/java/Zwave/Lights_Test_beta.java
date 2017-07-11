@@ -12,9 +12,6 @@ import java.io.File;
 import java.io.IOException;
 import Panel.Setup;
 import java.util.List;
-
-
-
 /**
  * Created by nchortek on 6/22/17.
  * PRECONDITION: 3 lights must be paired and turned off before

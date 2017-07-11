@@ -39,14 +39,8 @@ public class Test extends Setup{
 
     }
 
-
-
     @org.testng.annotations.Test
     public void Test1() throws Exception {
         swipeFromRighttoLeft();
-
-
-
-
     }
 }
