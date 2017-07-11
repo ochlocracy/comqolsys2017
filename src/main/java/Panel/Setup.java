@@ -56,8 +56,8 @@ public class Setup {
 
     public Setup() throws IOException, BiffException {}
 
-    protected WebDriver driver1;
-    protected WebDriverWait wait;
+    public WebDriver driver1;
+    public WebDriverWait wait;
 
     public void webDriverSetUp () {
         driver1 = new FirefoxDriver();
@@ -538,6 +538,24 @@ public class Setup {
         }
     }
 
+
+    public void imageCaptureRotateCropById(String img, String element) throws Exception{
+        logger.info("Image Capturing is in progress .......");
+        WebElement ele = driver.findElement(By.id(element));
+        File screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        File screenshotLocation = new File(projectPath+img);
+        FileUtils.copyFile(screenshot, screenshotLocation);
+        //rotateImage(screenshotLocation);
+        BufferedImage  fullImg = ImageIO.read(new File(projectPath+img));
+        Point point = ele.getLocation();
+        int eleWidth = ele.getSize().getWidth();
+        int eleHeight = ele.getSize().getHeight();
+        BufferedImage eleScreenshot= fullImg.getSubimage(point.getX(), point.getY(), eleWidth, eleHeight);
+        ImageIO.write(eleScreenshot, "png", screenshot);
+        File screenshotLocation1 = new File(projectPath+img);
+        FileUtils.copyFile(screenshot, screenshotLocation1);
+    }
+
     //takes a screenshot of the given element and saves it to the given destination
     public File takeScreenshot(WebElement ele, String dst) throws Exception{
         // Get entire page screenshot
@@ -552,8 +570,7 @@ public class Setup {
         int eleHeight = ele.getSize().getHeight();
 
         // Crop the entire page screenshot to get only element screenshot
-        BufferedImage eleScreenshot= fullImg.getSubimage(point.getX(), point.getY(),
-                eleWidth, eleHeight);
+        BufferedImage eleScreenshot= fullImg.getSubimage(point.getX(), point.getY(), eleWidth, eleHeight);
         ImageIO.write(eleScreenshot, "png", screenshot);
 
         // Copy the element screenshot to disk
@@ -565,6 +582,7 @@ public class Setup {
 
     public boolean checkStatus(File cmp, WebElement light) throws Exception {
         File tmp = takeScreenshot(light, projectPath + "/scr/tmp");
+        Thread.sleep(2000);
         if(compareImage(tmp, cmp)){
             logger.info("Pass: light icon is the expected color");
             java.lang.Runtime.getRuntime().exec("rm -f " + tmp.getAbsolutePath());
