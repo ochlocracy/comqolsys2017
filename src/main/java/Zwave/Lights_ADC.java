@@ -22,7 +22,10 @@ public class Lights_ADC extends Setup{
     public Lights_ADC() throws IOException, BiffException{
     }
 
-    public void checkLights(String state) throws Exception{
+    public void checkPanelUI(String state, Boolean first) throws Exception{
+        if(first)
+            swipe_left();
+
         File light_state = new File(projectPath + "/scr/" + state);
         Thread.sleep(10000);
         List<WebElement> status = driver.findElements(By.id("com.qolsys:id/statusButton"));
@@ -38,7 +41,7 @@ public class Lights_ADC extends Setup{
     }
 
     @Test
-    public void turnOnLights() throws InterruptedException {
+    public void turnOnLights() throws Exception{
         getDriver1().manage().window().maximize();
         String ADC_URL = "https://alarm.com";
         getDriver1().get(ADC_URL);
@@ -67,16 +70,12 @@ public class Lights_ADC extends Setup{
         getDriver1().findElement(By.xpath("id('ctl00_phBody_ucLightDeviceRepeaterControl_SwitchesAndDimmers_rptDevices" +
                 "_ctl02_btnDevicesViewDeviceOn')")).click();
         Thread.sleep(2000);
+
+        checkPanelUI("light_on", true);
     }
 
     @Test (priority = 1)
-    public void checkPanelUI() throws Exception{
-        swipe_left();
-        checkLights("light_on");
-    }
-
-    @Test (priority = 2)
-    public void turnOffLights() throws InterruptedException{
+    public void turnOffLights() throws Exception{
         getDriver1().findElement(By.xpath("id('ctl00_phBody_ucLightDeviceRepeaterControl_SwitchesAndDimmers_rptDevices_" +
                 "ctl00_btnDevicesViewDeviceOff')")).click();
         Thread.sleep(2000);
@@ -86,15 +85,12 @@ public class Lights_ADC extends Setup{
         getDriver1().findElement(By.xpath("id('ctl00_phBody_ucLightDeviceRepeaterControl_SwitchesAndDimmers_rptDevices" +
                 "_ctl02_btnDevicesViewDeviceOff')")).click();
         Thread.sleep(2000);
+
+        checkPanelUI("light_off", false);
     }
 
-    @Test (priority = 3)
-    public void checkPanelUI2() throws Exception{
-        checkLights("light_off");
-    }
-
-    @Test (priority = 4)
-    public void createGroup() throws InterruptedException{
+    @Test (priority = 2)
+    public void createGroup() throws Exception{
         getDriver1().findElement(By.xpath("id('ctl00_phBody_lnkNewGroup')")).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("id('ctl00_lblPageTitle')")));
         getDriver1().findElement(By.xpath("id('ctl00_phBody_txtName')")).sendKeys("test");
@@ -104,32 +100,27 @@ public class Lights_ADC extends Setup{
         getDriver1().findElement(By.xpath("id('ctl00_phBody_rptEditDevices_ctl00_lblDevice')")).click();
         getDriver1().findElement(By.xpath("id('ctl00_phBody_rptEditDevices_ctl01_lblDevice')")).click();
         getDriver1().findElement(By.xpath("id('ctl00_phBody_rptEditDevices_ctl02_lblDevice')")).click();
-        getDriver1().findElement(By.xpath("id('modalEditDevices')/x:div/x:div/x:div[3]/x:button")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("id('deviceNameDiv')/x:div/x:span")));
-        getDriver1().findElement(By.xpath("id('ctl00_phBody_btnSave')")).click();
+
+        logger.info("creating group...");
+        getDriver1().findElement(By.xpath("//button[contains(.,'Done')]")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_deviceRemoved")));
+        getDriver1().findElement(By.xpath("//[contains(.,'Save')]")).click();
+        logger.info("group successfully saved");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("id('ctl00_phBody_ucLightGroupRepeater" +
                 "Control_SwitchesAndDimmers_rptGroups_ctl00_lblGroupName')")));
         getDriver1().findElement(By.xpath("id('ctl00_phBody_ucLightGroupRepeaterControl_SwitchesAndDimmers_" +
                 "rptGroups_ctl00_btnGroupOn')")).click();
         Thread.sleep(3000);
+
+        checkPanelUI("light_on", false);
     }
 
-    @Test (priority = 5)
-    public void checkPanelUI3() throws Exception{
-        checkLights("light_on");
-    }
-
-    @Test (priority = 6)
-    public void groupOff() throws InterruptedException{
+    @Test (priority = 3)
+    public void groupOff() throws Exception{
         getDriver1().findElement(By.xpath("id('ctl00_phBody_ucLightGroupRepeaterControl_SwitchesAndDimmers_" +
                 "rptGroups_ctl00_btnGroupOff')")).click();
+        checkPanelUI("light_off", false);
     }
-
-    @Test (priority = 7)
-    public void checkPanelUI4() throws Exception{
-        checkLights("light_off");
-    }
-
 
     @AfterTest
     public void tearDown () throws IOException, InterruptedException {
