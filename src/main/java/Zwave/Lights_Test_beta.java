@@ -1,7 +1,6 @@
 package Zwave;
 
 import jxl.read.biff.BiffException;
-import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
@@ -25,19 +24,6 @@ public class Lights_Test_beta extends Setup{
     public Lights_Test_beta() throws IOException, BiffException {
     }
 
-    public void clickAll(List<WebElement> ele){
-        int i;
-        int size = ele.size();
-        for(i = 0; i < size; i++)
-            ele.get(i).click();
-    }
-
-    public void checkAllStatus(File status, List<WebElement> ele) throws Exception{
-        int i;
-        int size = ele.size();
-        for(i = 0; i < size; i++)
-            checkStatus(status, ele.get(i));
-    }
 
     @BeforeMethod
     public void capabilities_setup() throws Exception {
