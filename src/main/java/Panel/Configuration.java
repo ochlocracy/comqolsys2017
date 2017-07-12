@@ -9,7 +9,6 @@ import java.io.IOException;
 
 public class Configuration {
     private String config = "/home/automation/IdeaProjects/comqolsys2017/config.xls";
-
     public String adbPath = getAdbPath();
     public File appDir = new File ("scr");
     public String udid_ = getudid_();
