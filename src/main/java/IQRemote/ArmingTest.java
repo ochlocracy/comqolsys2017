@@ -71,7 +71,7 @@ public class ArmingTest {
     }
     public Runtime rt = Runtime.getRuntime();
 
-    String adbPath = "/home/qolsys/android-sdk-linux/platform-tools/adb";
+    String adbPath = "/home/nchortek/Android/Sdk/platform-tools/adb";
 
     public void add_primary_call(int zone, int group, int sensor_dec, int sensor_type) throws IOException {
         String add_primary = " -s 8ebdbc76 shell service call qservice 50 i32 " + zone + " i32 " + group + " i32 " + sensor_dec + " i32 " + sensor_type;
@@ -92,8 +92,8 @@ public class ArmingTest {
     }
     @BeforeMethod
     public void capabilities_setup() throws Exception {
- //       setup_driver("http://127.0.1.1", "4723");
-        setup_driver1("http://127.0.1.1", "4725");
+        setup_driver("http://127.0.1.1", "4723");
+  //      setup_driver1("http://127.0.1.1", "4725");
     }
 
     @Test
@@ -342,7 +342,7 @@ public class ArmingTest {
         swipeFromLefttoRight_primary();
         swipeFromLefttoRight_primary();
         swipeFromLefttoRight_primary();
-       List<WebElement> li = driver_primary.findElements(By.id("com.qolsys:id/lightSelect"));
+        List<WebElement> li = driver_primary.findElements(By.id("com.qolsys:id/lightSelect"));
         li.get(0).click();
         li.get(1).click();
  //       driver_primary.findElement(By.id("com.qolsys:id/uiTvchkbox")).click();
@@ -351,7 +351,7 @@ public class ArmingTest {
 
     @AfterMethod
     public void tearDown () throws IOException, InterruptedException {
- //       driver_remote.quit();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   driver_remote.quit();
-        driver_primary.quit();
+        driver_remote.quit();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   driver_remote.quit();
+  //      driver_primary.quit();
     }
 }

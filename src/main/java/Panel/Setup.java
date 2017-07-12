@@ -40,7 +40,7 @@ public class Setup {
 
 
     Configuration c = new Configuration();
-    public String adbPath = "/home/qolsys/android-sdk-linux/platform-tools/adb"; //c.getAdbPath();
+    public String adbPath = "/home/nchortek/Android/Sdk/platform-tools/adb"; //c.getAdbPath();
     public File appDir = new File("src");
     public String udid_ =  c.getudid_(); //"8ebdbc27";
     public String projectPath = c.getProjectPath(); //
@@ -592,5 +592,19 @@ public class Setup {
             java.lang.Runtime.getRuntime().exec("rm -f " + tmp.getAbsolutePath());
             return false;
         }
+    }
+
+    public void clickAll(List<WebElement> ele){
+        int i;
+        int size = ele.size();
+        for(i = 0; i < size; i++)
+            ele.get(i).click();
+    }
+
+    public void checkAllStatus(File status, List<WebElement> ele) throws Exception{
+        int i;
+        int size = ele.size();
+        for(i = 0; i < size; i++)
+            checkStatus(status, ele.get(i));
     }
     }
