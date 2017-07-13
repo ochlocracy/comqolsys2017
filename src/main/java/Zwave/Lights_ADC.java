@@ -42,6 +42,7 @@ public class Lights_ADC extends Setup{
 
     @Test
     public void turnOnLights() throws Exception{
+        //navigate to user site
         getDriver1().manage().window().maximize();
         String ADC_URL = "https://alarm.com";
         getDriver1().get(ADC_URL);
@@ -61,6 +62,7 @@ public class Lights_ADC extends Setup{
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("id('ctl00_phBody_ucLightDeviceRepeater" +
                 "Control_SwitchesAndDimmers_rptDevices_ctl00_btnDevicesViewDeviceOn')")));
 
+        //individually turn on all 3 lights
         getDriver1().findElement(By.xpath("id('ctl00_phBody_ucLightDeviceRepeaterControl_SwitchesAndDimmers_rptDevices" +
                 "_ctl00_btnDevicesViewDeviceOn')")).click();
         Thread.sleep(2000);
@@ -76,6 +78,7 @@ public class Lights_ADC extends Setup{
 
     @Test (priority = 1)
     public void turnOffLights() throws Exception{
+        //individually turn all 3 lights off
         getDriver1().findElement(By.xpath("id('ctl00_phBody_ucLightDeviceRepeaterControl_SwitchesAndDimmers_rptDevices_" +
                 "ctl00_btnDevicesViewDeviceOff')")).click();
         Thread.sleep(2000);
@@ -91,26 +94,27 @@ public class Lights_ADC extends Setup{
 
     @Test (priority = 2)
     public void createGroup() throws Exception{
+
+        //begin creation of new group
         getDriver1().findElement(By.xpath("id('ctl00_phBody_lnkNewGroup')")).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("id('ctl00_lblPageTitle')")));
         getDriver1().findElement(By.xpath("id('ctl00_phBody_txtName')")).sendKeys("test");
         getDriver1().findElement(By.xpath("id('ctl00_phBody_LinkButtonWithPermissionsChecker1')")).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("id('ctl00_phBody_rptEditDevices_ctl00_" +
                 "lblDevice')")));
+
+        //add all 3 lights & save
         getDriver1().findElement(By.xpath("id('ctl00_phBody_rptEditDevices_ctl00_lblDevice')")).click();
         getDriver1().findElement(By.xpath("id('ctl00_phBody_rptEditDevices_ctl01_lblDevice')")).click();
         getDriver1().findElement(By.xpath("id('ctl00_phBody_rptEditDevices_ctl02_lblDevice')")).click();
-
         getDriver1().findElement(By.xpath("//button[contains(.,'Done')]")).click();
-        logger.info("creating group...");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_btnSave")));
-        //getDriver1().findElement(By.xpath("//[contains(.,'Save')]")).click();
-        logger.info("saving...");
         Thread.sleep(2000);
         getDriver1().findElement(By.id("ctl00_phBody_btnSave")).click();
-        logger.info("group successfully saved");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("id('ctl00_phBody_ucLightGroupRepeater" +
                 "Control_SwitchesAndDimmers_rptGroups_ctl00_lblGroupName')")));
+
+        //turn on group
         getDriver1().findElement(By.xpath("id('ctl00_phBody_ucLightGroupRepeaterControl_SwitchesAndDimmers_" +
                 "rptGroups_ctl00_btnGroupOn')")).click();
         Thread.sleep(3000);
@@ -120,8 +124,13 @@ public class Lights_ADC extends Setup{
 
     @Test (priority = 3)
     public void groupOff() throws Exception{
+        //turn off group
         getDriver1().findElement(By.xpath("id('ctl00_phBody_ucLightGroupRepeaterControl_SwitchesAndDimmers_" +
                 "rptGroups_ctl00_btnGroupOff')")).click();
+        getDriver1().findElement(By.id("ctl00_phBody_ucLightGroupRepeaterControl_SwitchesAndDimmers_rptGroups_ctl00" +
+                "_lnkGroupEdit")).click();
+
+        Thread.sleep(2000);
         checkPanelUI("light_off", false);
     }
 

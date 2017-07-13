@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by nchortek on 6/22/17.
  * PRECONDITION: 3 lights must be paired and turned off before
- * executing this test.
+ * executing this test. The highest light must be set to full brightness
  */
 public class Lights_Test_beta extends Setup{
     String page_name = "Lights_Page_beta";
@@ -92,6 +92,20 @@ public class Lights_Test_beta extends Setup{
         // check if light icon turns yellow
         if(!checkStatus(light_on, status.get(0)))
             return;
+
+        Point DimLocation = lights.Dimmer.getLocation();
+        int DimWidth = lights.Dimmer.getSize().getWidth();
+        int startx = DimLocation.getX();
+        int starty = DimLocation.getY();
+        int endx = startx + DimWidth;
+
+        touchSwipe(endx, starty, startx, starty);
+
+        if(!checkStatus(light_off, status.get(0)))
+            return;
+
+        li.get(0).click();
+        lights.On_Button.click();
 
         // ensure light can be selected
         li.get(0).click();

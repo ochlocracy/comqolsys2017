@@ -610,4 +610,10 @@ public class Setup {
         for(i = 0; i < size; i++)
             ele.get(i).click();
     }
+
+    //performs a swipe using a touch action
+    public void touchSwipe(int startx, int starty, int endx, int endy){
+        TouchAction a = new TouchAction(driver);
+        a.longPress(startx, starty).moveTo(endx, endy).release().perform();
+    }
     }
