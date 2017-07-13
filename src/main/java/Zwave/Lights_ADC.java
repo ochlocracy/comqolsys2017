@@ -101,10 +101,13 @@ public class Lights_ADC extends Setup{
         getDriver1().findElement(By.xpath("id('ctl00_phBody_rptEditDevices_ctl01_lblDevice')")).click();
         getDriver1().findElement(By.xpath("id('ctl00_phBody_rptEditDevices_ctl02_lblDevice')")).click();
 
-        logger.info("creating group...");
         getDriver1().findElement(By.xpath("//button[contains(.,'Done')]")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_deviceRemoved")));
-        getDriver1().findElement(By.xpath("//[contains(.,'Save')]")).click();
+        logger.info("creating group...");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_btnSave")));
+        //getDriver1().findElement(By.xpath("//[contains(.,'Save')]")).click();
+        logger.info("saving...");
+        Thread.sleep(2000);
+        getDriver1().findElement(By.id("ctl00_phBody_btnSave")).click();
         logger.info("group successfully saved");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("id('ctl00_phBody_ucLightGroupRepeater" +
                 "Control_SwitchesAndDimmers_rptGroups_ctl00_lblGroupName')")));

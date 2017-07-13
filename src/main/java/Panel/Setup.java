@@ -538,7 +538,7 @@ public class Setup {
     }
 
 
-    public void imageCaptureRotateCropById(String img, String element) throws Exception{
+    /*public void imageCaptureRotateCropById(String img, String element) throws Exception{
         logger.info("Image Capturing is in progress .......");
         WebElement ele = driver.findElement(By.id(element));
         File screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
@@ -553,7 +553,7 @@ public class Setup {
         ImageIO.write(eleScreenshot, "png", screenshot);
         File screenshotLocation1 = new File(projectPath+img);
         FileUtils.copyFile(screenshot, screenshotLocation1);
-    }
+    }*/
 
     //takes a screenshot of the given element and saves it to the given destination
     public File takeScreenshot(WebElement ele, String dst) throws Exception{
@@ -579,8 +579,9 @@ public class Setup {
         return screenshotLocation;
     }
 
-    public boolean checkStatus(File cmp, WebElement light) throws Exception {
-        File tmp = takeScreenshot(light, projectPath + "/scr/tmp");
+    //compares a given element against a provided screenshot
+    public boolean checkStatus(File cmp, WebElement ele) throws Exception {
+        File tmp = takeScreenshot(ele, projectPath + "/scr/tmp");
         Thread.sleep(2000);
         if(compareImage(tmp, cmp)){
             logger.info("Pass: light icon is the expected color");
@@ -594,17 +595,19 @@ public class Setup {
         }
     }
 
-    public void clickAll(List<WebElement> ele){
-        int i;
-        int size = ele.size();
-        for(i = 0; i < size; i++)
-            ele.get(i).click();
-    }
-
+    //calls checkStatus on every element in a given list
     public void checkAllStatus(File status, List<WebElement> ele) throws Exception{
         int i;
         int size = ele.size();
         for(i = 0; i < size; i++)
             checkStatus(status, ele.get(i));
+    }
+
+    //clicks all of the elements contained in a given list
+    public void clickAll(List<WebElement> ele){
+        int i;
+        int size = ele.size();
+        for(i = 0; i < size; i++)
+            ele.get(i).click();
     }
     }
