@@ -1,13 +1,14 @@
 package Panel;
 
+import Zwave.Lights_Page_beta;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -15,11 +16,10 @@ public class About_Page_Test extends Setup {
 
     String page_name = "About page testing";
     Logger logger = Logger.getLogger(page_name);
-    Setup s =new Setup();
+    Setup s = new Setup();
 
     public About_Page_Test() throws IOException, BiffException {
     }
-
 
     public void swipe_vertical1() throws InterruptedException {
         int starty = 620;
@@ -29,11 +29,12 @@ public class About_Page_Test extends Setup {
         Thread.sleep(2000);
     }
 
-    @BeforeMethod
+    @BeforeClass
     public void capabilities_setup() throws Exception {
         setup_driver(udid_, "http://127.0.1.1", "4723");
         setup_logger(page_name);
     }
+
     @Test
     public void Check_all_elements_on_About_page() throws Exception {
         About_page about = PageFactory.initElements(driver, About_page.class);
@@ -48,9 +49,9 @@ public class About_Page_Test extends Setup {
         WebElement b = driver.findElement(By.className("android.widget.LinearLayout"));
         List<WebElement> li = b.findElements(By.id("com.qolsys:id/summary"));
         element_verification(about.Battery_Status, "Battery Status");
-  //      logger.info(li.get(0).getText());
+        //      logger.info(li.get(0).getText());
         element_verification(about.Battery_Level, "Battery Level");
-  //      logger.info(li.get(1).getText());
+        //      logger.info(li.get(1).getText());
         about.Battery.click();
         Thread.sleep(1000);
         element_verification(about.Software, "Software");
@@ -139,7 +140,41 @@ public class About_Page_Test extends Setup {
         element_verification(about.Logs, "Logs");
         about.Logs.click();
     }
-    @AfterMethod
+
+    // extension for Cellular testing
+
+    @Test
+    public void Check_all_Elements_in_Cellular_tap() throws InterruptedException {
+
+    About_page about = PageFactory.initElements(driver, About_page.class);
+
+
+        navigate_to_Advanced_Settings_page();
+        about.Cellular.click();
+        Thread.sleep(1000);
+        List<WebElement> Carrier_Name = driver.findElements(By.id("com.qolsys:id/summary"));
+        System.out.println(Carrier_Name.get(0).getText());
+        System.out.println(Carrier_Name.get(1).getText());
+        System.out.println(Carrier_Name.get(2).getText());
+
+
+//        String text = .Check_All_Elements_in_Cellular_tap(Carrier_Name);
+//        if (Carrier_Name.get(0).getText().equals(text));
+//        System.out.println("Carrier " + text);
+//
+//                 } else {
+//                System.out.println("Blank field");
+//            }
+//        }
+
+
+
+
+}
+
+
+
+    @AfterClass
     public void tearDown () throws IOException, InterruptedException {
         log.endTestCase(page_name);
         driver.quit();
