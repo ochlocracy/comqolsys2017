@@ -129,12 +129,12 @@ public class ADC extends Setup {
     public String new_occupancy_name = "NewOccupancy1";
     public String new_iq_shock_name = "NewIQShock1";
 
-    public ADC() throws IOException, BiffException {
-    }
+    public ADC() throws IOException, BiffException {}
+
     public void add_sensor(int zone, int group, int DLID, int sensor_type) throws IOException {
-        String add_sensor = "shell service call qservice 50 i32 " + zone + " i32 " + group + " i32 " + DLID + " i32 " + sensor_type;
+        String add_sensor = " shell service call qservice 50 i32 " + zone + " i32 " + group + " i32 " + DLID + " i32 " + sensor_type;
         mySensors.rt.exec(adbPath + " -s " + mySensors.primary + add_sensor);
-        System.out.println(add_sensor);
+        System.out.println(adbPath + " -s " + mySensors.primary + add_sensor);
     }
     public void add_sensor_grid(int zone, int group, int DLID, int sensor_type, String UDID_) throws IOException {
         String add_sensor = " shell service call qservice 50 i32 " + zone + " i32 " + group + " i32 " + DLID + " i32 " + sensor_type;
@@ -186,7 +186,7 @@ public class ADC extends Setup {
         mySensors.rt.exec(adbPath + " -s " +UDID_ + delete);
     }
     public void delete_all() throws IOException {
-        for (int i = 1; i < 16; i++) {
+        for (int i = 1; i < 17; i++) {
             delete_sensor(i);}
     }
     public void delete_all_grid(String UDID_) throws IOException {
@@ -204,12 +204,13 @@ public class ADC extends Setup {
         act.sendKeys(Keys.ENTER).perform();
     }
     public void New_ADC_session() throws InterruptedException {
+        TimeUnit.SECONDS.sleep(2);
         getDriver1().manage().window().maximize();
         String ADC_URL = "https://alarmadmin.alarm.com/Support/CustomerInfo.aspx?customer_Id=4679473";
         getDriver1().get(ADC_URL);
         String login = "qapple";
         String password = "qolsys123";
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("txtUsername")));
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("txtUsername")));
         getDriver1().findElement(By.id("txtUsername")).sendKeys(login);
         getDriver1().findElement(By.id("txtPassword")).sendKeys(password);
         getDriver1().findElement(By.id("butLogin")).click();

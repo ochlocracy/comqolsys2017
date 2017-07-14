@@ -121,7 +121,7 @@ public class Smoke_Test_Doorbell_Occupancy_Grid {
         logger.info("*********************TAMPER*********************");
         logger.info("Disarm mode tamper doorbell group 25 -> Disarm");
         MySensors.sendTamper_allSensors_selectedGroup(MySensors.doorbell_zones, 25);
-        TimeUnit.SECONDS.sleep(5);
+        TimeUnit.SECONDS.sleep(7);
         WebElement doorbell37 = s.getDriver().findElementByXPath("//android.widget.TextView[@text='Door Bell 37']");
         s.verify_sensor_is_tampered(doorbell37);
         TimeUnit.SECONDS.sleep(2);

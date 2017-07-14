@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class Sensors {
 
     Configuration c = new Configuration();
-    public String primary = c.getudid_();
+    public String primary = "8ebdbc76";  //c.getudid_();
     public static final String transmitter = "8f03bc79 ";
     public final String adbPath = c.getAdbPath();
 
@@ -41,16 +41,17 @@ public class Sensors {
     public static List<Integer> doorbell_zones;
     public static List<Integer>  occupancy_zones;
 
-
     public  static List<SensorObject> SensorObject_ArrayList;
 
     HashMap<String, Integer> primary_sensor_int_map = new HashMap<String, Integer>();
     HashMap<String, Integer> transmitter_sensor_int_map = new HashMap<String, Integer>();
 
-    public Sensors() throws IOException, BiffException {}
+    public Sensors() throws IOException, BiffException {
+        inicialize_primary_sensor_int_map();
+        initialize_transmitter_sensor_int_map();
+    }
 
     public void read_sensors_from_csv() throws IOException {
-
         SensorObject_ArrayList = new ArrayList();
         door_window_zones = new ArrayList();
         motion_zones = new ArrayList();
@@ -100,63 +101,63 @@ public class Sensors {
                         //     System.out.println("Add to an array " + zone);
                         door_window_zones.add(zone);
                     }
-                    if (sensor_type.equals("motion")) {
+                    else if(sensor_type.equals("motion")) {
                         //      System.out.println("Add to an array " + zone);
                         motion_zones.add(zone);
                     }
-                    if (sensor_type.equals("keyfob")) {
+                    else if (sensor_type.equals("keyfob")) {
                         //      System.out.println("Add to an array " + zone);
                         keyfob_zones.add(zone);
                     }
-                    if (sensor_type.equals("keypad")) {
+                    else if (sensor_type.equals("keypad")) {
                         //      System.out.println("Add to an array " + zone);
                         keypad_zones.add(zone);
                     }
-                    if (sensor_type.equals("auxiliary_pendant")) {
+                    else if (sensor_type.equals("auxiliary_pendant")) {
                         //      System.out.println("Add to an array " + zone);
                         pendant_zones.add(zone);
                     }
-                    if (sensor_type.equals("smoke_detector")) {
+                    else if (sensor_type.equals("smoke_detector")) {
                         //      System.out.println("Add to an array " + zone);
                         smoke_detector_zones.add(zone);
                     }
-                    if (sensor_type.equals("co_detector")) {
+                    else if (sensor_type.equals("co_detector")) {
                         //     System.out.println("Add to an array " + zone);
                         co_detector_zones.add(zone);
                     }
-                    if (sensor_type.equals("water_flood")) {
+                    else if (sensor_type.equals("water_flood")) {
                         //     System.out.println("Add to an array " + zone);
                         water_flood_zones.add(zone);
                     }
-                    if (sensor_type.equals("glassbreak")) {
+                    else if (sensor_type.equals("glassbreak")) {
                         //     System.out.println("Add to an array " + zone);
                         glassbreak_zones.add(zone);
                     }
-                    if (sensor_type.equals("tilt")) {
+                    else if (sensor_type.equals("tilt")) {
                         //     System.out.println("Add to an array " + zone);
                         tilt_zones.add(zone);
                     }
-                    if (sensor_type.equals("shock_IQ")) {
+                    else if (sensor_type.equals("shock_IQ")) {
                         //     System.out.println("Add to an array " + zone);
                         shock_IQ_zones.add(zone);
                     }
-                    if (sensor_type.equals("shock_other")) {
+                    else if (sensor_type.equals("shock_other")) {
                         //     System.out.println("Add to an array " + zone);
                         shock_other_zones.add(zone);
                     }
-                    if (sensor_type.equals("heat")) {
+                    else if (sensor_type.equals("heat")) {
                         //     System.out.println("Add to an array " + zone);
                         heat_zones.add(zone);
                     }
-                    if (sensor_type.equals("freeze")) {
+                    else if (sensor_type.equals("freeze")) {
                         //     System.out.println("Add to an array " + zone);
                         freeze_zones.add(zone);
                     }
-                    if (sensor_type.equals("doorbell")) {
+                    else if (sensor_type.equals("doorbell")) {
                         //     System.out.println("Add to an array " + zone);
                         doorbell_zones.add(zone);
                     }
-                    if (sensor_type.equals("occupancy")) {
+                    else if (sensor_type.equals("occupancy")) {
                         //     System.out.println("Add to an array " + zone);
                         occupancy_zones.add(zone);
                     }
@@ -234,7 +235,6 @@ public class Sensors {
         rt.exec(adbPath + " -s " + transmitter + add_transmitter);
     }
 
-
     public void primary_call(String DLID, String State) throws IOException {
         String primary_send =" shell rfinjector 02 "+DLID+" "+State;
         rt.exec(adbPath + primary_send);
@@ -253,9 +253,9 @@ public class Sensors {
             int newDLID_dec = Integer.parseInt(newDLID, 16);
             String sensor_type = temp_sensor.getSensorType();
             int supervisory_time = -1;
-            //       System.out.println(temp_sensor.getDLID());
-            inicialize_primary_sensor_int_map();
-            initialize_transmitter_sensor_int_map();
+//            System.out.println(temp_sensor.getDLID());
+//            inicialize_primary_sensor_int_map();
+//            initialize_transmitter_sensor_int_map();
             String add_primary = "shell service call qservice 50 i32 " + zone + " i32 " + newGroup + " i32 " + newDLID_dec + " i32 " + primary_sensor_int_map.get(sensor_type);
             rt.exec(adbPath + " -s " + primary + " " + add_primary);
             System.out.println(add_primary);
@@ -278,8 +278,8 @@ public class Sensors {
             String sensor_type = temp_sensor.getSensorType();
             int supervisory_time = -1;
             //       System.out.println(temp_sensor.getDLID());
-            inicialize_primary_sensor_int_map();
-            initialize_transmitter_sensor_int_map();
+//            inicialize_primary_sensor_int_map();
+//            initialize_transmitter_sensor_int_map();
             String add_primary = " shell service call qservice 50 i32 " + zone + " i32 " + newGroup + " i32 " + newDLID_dec + " i32 " + primary_sensor_int_map.get(sensor_type);
             rt.exec(adbPath + " -s " + UDID_ + add_primary);
             System.out.println(add_primary);
@@ -304,7 +304,7 @@ public class Sensors {
             temp_sensor = SensorObject_ArrayList.get(door_window_zones.get(i));
             String newDLID = temp_sensor.getDLID();
             String sensor_type = temp_sensor.getSensorType();
-            initialize_transmitter_sensor_int_map();
+//            initialize_transmitter_sensor_int_map();
             String send_packet = "shell service call srftransmitservice 1 s16 " + newDLID + " i32 0 i32 " + transmitter_sensor_int_map.get(sensor_type) + " i32 0 i32 0 i32 " + x;
             rt.exec(adbPath + " -s " + transmitter + send_packet);
             System.out.println(send_packet);
@@ -318,7 +318,7 @@ public class Sensors {
             temp_sensor = SensorObject_ArrayList.get(keyfob_zones.get(i));
             String newDLID = temp_sensor.getDLID();
             String sensor_type = temp_sensor.getSensorType();
-            initialize_transmitter_sensor_int_map();
+//            initialize_transmitter_sensor_int_map();
             String send_packet = "shell service call srftransmitservice 1 s16 " + newDLID + " i32 0 i32 " + transmitter_sensor_int_map.get(sensor_type) + " i32 0 i32 0 i32 " + z;
             rt.exec(adbPath + " -s " + transmitter + send_packet);
             System.out.println(send_packet);
@@ -342,7 +342,7 @@ public class Sensors {
             String newDLID = temp_sensor.getDLID();
             //       System.out.println(newDLID);
             String sensor_type = temp_sensor.getSensorType();
-            initialize_transmitter_sensor_int_map();
+//            initialize_transmitter_sensor_int_map();
             String send_packet = "shell service call srftransmitservice 1 s16 " + newDLID + " i32 0 i32 " + transmitter_sensor_int_map.get(sensor_type) + " i32 0 i32 0 i32 " + z;
             rt.exec(adbPath + " -s " + transmitter + send_packet);
        //     System.out.println(send_packet);
@@ -367,7 +367,7 @@ public class Sensors {
             String newDLID = temp_sensor.getDLID();
             //       System.out.println(newDLID);
             String sensor_type = temp_sensor.getSensorType();
-            initialize_transmitter_sensor_int_map();
+//            initialize_transmitter_sensor_int_map();
             String send_packet = "shell service call srftransmitservice 1 s16 " + newDLID + " i32 0 i32 " + transmitter_sensor_int_map.get(sensor_type) + " i32 1 i32 0";
             rt.exec(adbPath + " -s " + transmitter + send_packet);
       //      System.out.println(send_packet);
@@ -391,7 +391,7 @@ public class Sensors {
             temp_sensor = SensorObject_ArrayList.get(foundSensorsInGroup.get(l));
             String newDLID = temp_sensor.getDLID();
             String sensor_type = temp_sensor.getSensorType();
-            initialize_transmitter_sensor_int_map();
+//            initialize_transmitter_sensor_int_map();
             String send_packet = "shell service call srftransmitservice 1 s16 " + newDLID + " i32 0 i32 " + transmitter_sensor_int_map.get(sensor_type) + " i32 0 i32 0 i32 "+z;
             rt.exec(adbPath + " -s " + transmitter + send_packet);
             System.out.println(send_packet);

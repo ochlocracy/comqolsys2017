@@ -40,9 +40,9 @@ public class Setup {
 
 
     Configuration c = new Configuration();
-    public String adbPath = c.getAdbPath();   //"/home/qolsys/android-sdk-linux/platform-tools/adb";
+    public String adbPath = "/home/nchortek/Android/Sdk/platform-tools/adb"; //c.getAdbPath();
     public File appDir = new File("src");
-    public String udid_ =  c.getudid_(); //"8ebdbc76";
+    public String udid_ =  c.getudid_(); //"8ebdbc27";
     public String projectPath = c.getProjectPath(); //
 
     public AndroidDriver<WebElement> driver;
@@ -51,21 +51,21 @@ public class Setup {
     public Logger logger = Logger.getLogger(this.getClass().getName());
     public Runtime rt = Runtime.getRuntime();
 
-
    private static final SimpleDateFormat sdf = new SimpleDateFormat("MM.dd_HH.mm.ss");
 
     public Setup() throws IOException, BiffException {}
 
-    protected WebDriver driver1;
-    protected WebDriverWait wait;
+    public WebDriver driver1;
+    public WebDriverWait wait;
 
     public void webDriverSetUp () {
         driver1 = new FirefoxDriver();
-        WebDriverWait wait = new WebDriverWait(driver1, 40);
+        wait = new WebDriverWait(driver1, 40);
     }
     public WebDriver getDriver1() {
         return driver1;
     }
+
     public void setup_driver(String udid_, String url_, String port_) throws Exception {
         DesiredCapabilities cap = new DesiredCapabilities();
         cap.setCapability("deviceName", "IQPanel2");
@@ -303,7 +303,7 @@ public class Setup {
             System.out.println("No photos to delete...");
         } finally {
         }
-        swipeFromLefttoRight();
+        swipeFromRighttoLeft();
     }
     public void take_screenshot() throws Exception {
         File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
@@ -537,6 +537,24 @@ public class Setup {
         }
     }
 
+
+    /*public void imageCaptureRotateCropById(String img, String element) throws Exception{
+        logger.info("Image Capturing is in progress .......");
+        WebElement ele = driver.findElement(By.id(element));
+        File screenshot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        File screenshotLocation = new File(projectPath+img);
+        FileUtils.copyFile(screenshot, screenshotLocation);
+        //rotateImage(screenshotLocation);
+        BufferedImage  fullImg = ImageIO.read(new File(projectPath+img));
+        Point point = ele.getLocation();
+        int eleWidth = ele.getSize().getWidth();
+        int eleHeight = ele.getSize().getHeight();
+        BufferedImage eleScreenshot= fullImg.getSubimage(point.getX(), point.getY(), eleWidth, eleHeight);
+        ImageIO.write(eleScreenshot, "png", screenshot);
+        File screenshotLocation1 = new File(projectPath+img);
+        FileUtils.copyFile(screenshot, screenshotLocation1);
+    }*/
+
     //takes a screenshot of the given element and saves it to the given destination
     public File takeScreenshot(WebElement ele, String dst) throws Exception{
         // Get entire page screenshot
@@ -551,8 +569,7 @@ public class Setup {
         int eleHeight = ele.getSize().getHeight();
 
         // Crop the entire page screenshot to get only element screenshot
-        BufferedImage eleScreenshot= fullImg.getSubimage(point.getX(), point.getY(),
-                eleWidth, eleHeight);
+        BufferedImage eleScreenshot= fullImg.getSubimage(point.getX(), point.getY(), eleWidth, eleHeight);
         ImageIO.write(eleScreenshot, "png", screenshot);
 
         // Copy the element screenshot to disk
@@ -560,5 +577,43 @@ public class Setup {
         FileUtils.copyFile(screenshot, screenshotLocation);
 
         return screenshotLocation;
+    }
+
+    //compares a given element against a provided screenshot
+    public boolean checkStatus(File cmp, WebElement ele) throws Exception {
+        File tmp = takeScreenshot(ele, projectPath + "/scr/tmp");
+        Thread.sleep(2000);
+        if(compareImage(tmp, cmp)){
+            logger.info("Pass: light icon is the expected color");
+            java.lang.Runtime.getRuntime().exec("rm -f " + tmp.getAbsolutePath());
+            return true;
+        }
+        else{
+            logger.info("Fail: light icon is not the expected color");
+            java.lang.Runtime.getRuntime().exec("rm -f " + tmp.getAbsolutePath());
+            return false;
+        }
+    }
+
+    //calls checkStatus on every element in a given list
+    public void checkAllStatus(File status, List<WebElement> ele) throws Exception{
+        int i;
+        int size = ele.size();
+        for(i = 0; i < size; i++)
+            checkStatus(status, ele.get(i));
+    }
+
+    //clicks all of the elements contained in a given list
+    public void clickAll(List<WebElement> ele){
+        int i;
+        int size = ele.size();
+        for(i = 0; i < size; i++)
+            ele.get(i).click();
+    }
+
+    //performs a swipe using a touch action
+    public void touchSwipe(int startx, int starty, int endx, int endy){
+        TouchAction a = new TouchAction(driver);
+        a.longPress(startx, starty).moveTo(endx, endy).release().perform();
     }
     }

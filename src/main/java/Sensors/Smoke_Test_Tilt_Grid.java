@@ -52,7 +52,7 @@ public class Smoke_Test_Tilt_Grid {
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 10, Open);
         TimeUnit.SECONDS.sleep(3);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 12, Open);
-        TimeUnit.SECONDS.sleep(3);
+        TimeUnit.SECONDS.sleep(4);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.tilt_zones, 25, Open);
         TimeUnit.SECONDS.sleep(5);
         s.verify_disarm(UDID_);

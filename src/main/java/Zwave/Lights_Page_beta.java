@@ -1,5 +1,6 @@
 package Zwave;
 
+import android.widget.SeekBar;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -20,5 +21,6 @@ public class Lights_Page_beta {
     public WebElement Get_Status_Button;
     @FindBy(id = "com.qolsys:id/uiName")
     public WebElement UI_Name;
-
+    @FindBy(id = "com.qolsys:id/dimmer_seek_bar")
+    public WebElement Dimmer;
 }

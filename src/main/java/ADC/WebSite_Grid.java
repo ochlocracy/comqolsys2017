@@ -5,6 +5,7 @@ import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
+import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -24,7 +25,7 @@ public class WebSite_Grid {
         myADC.webDriverSetUp();
     }
     @Parameters ({"UDID_"})
-    @Test
+   @Test
     public void Test1 (String UDID_) throws IOException, InterruptedException {
         logger.info("********************************************************");
         logger.info("Add sensors");

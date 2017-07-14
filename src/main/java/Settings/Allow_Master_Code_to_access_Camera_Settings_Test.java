@@ -21,7 +21,7 @@ public class Allow_Master_Code_to_access_Camera_Settings_Test extends Setup {
 
     @BeforeMethod
     public void capabilities_setup() throws Exception {
-        setup_driver(udid_, "http://127.0.0.1:4727/wd/hub", "4723");
+        setup_driver(udid_, "http://127.0.1.1", "4723");
         setup_logger(page_name);}
 
     @Test
