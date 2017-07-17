@@ -27,7 +27,6 @@ public class Configuration {
         String CellGetContent = sh.getCell(1,0).getContents();
         return CellGetContent;
     }
-
     public String getProjectPath() throws IOException, BiffException{
         Workbook wb =Workbook.getWorkbook(new File(config));
         Sheet sh = wb.getSheet(0);
