@@ -27,7 +27,7 @@ public class Thermostat_Test extends Setup {
 
     @BeforeClass
     public void capabilities_setup() throws Exception {
-        setup_driver(udid_, "http://127.0.1.1", "4723");
+        setup_driver( get_UDID(),"http://127.0.1.1", "4723");
         setup_logger(page_name);
     }
 
@@ -79,13 +79,14 @@ public class Thermostat_Test extends Setup {
     public void Thermostat_test() throws Exception {
         Thermostat_Page therm = PageFactory.initElements(driver, Thermostat_Page.class);
 
-        for (int i = 100; i>0; i--) {
     swipeFromRighttoLeft();
+    swipeFromRighttoLeft();
+
     Thread.sleep(2000);
     therm.Set_Mode.click();
     Thread.sleep(4000);
     therm.Heat_Icon.click();
-    Thread.sleep(5000);
+    Thread.sleep(7000);
     if (therm.Target_Temp.getText().equals("OFF")) {
         System.out.println("Failed: Thermostat mode is not HEAT");
     }
@@ -133,16 +134,98 @@ public class Thermostat_Test extends Setup {
         System.out.println("Failed: the temperature was not successfully changed");
     }
     Thread.sleep(5000);
-            therm.Set_Mode.click();
-            Thread.sleep(3000);
-            therm.Off_Mode_Icon.click();
-            Thread.sleep(7000);
-            swipeFromRighttoLeft();
-            swipeFromRighttoLeft();
+    therm.Set_Mode.click();
+    Thread.sleep(3000);
+    therm.Off_Mode_Icon.click();
+    Thread.sleep(7000);
 
-}
+        /** COOL MODE **/
+
+    therm.Set_Mode.click();
+    Thread.sleep(4000);
+    therm.Cool_Icon.click();
+    Thread.sleep(5000);
+    if (therm.Target_Temp.getText().equals("OFF")) {
+        System.out.println("Failed: Thermostat mode is not COOL");
+    }
+
+    if (therm.Current_Mode.getText().equals("COOL")) {
+            System.out.println("Pass: Mode successfully changed to COOL");
+    } else {
+            System.out.println("Failed: Mode is not set to COOL");
+    }
+
+    String cool_target_temp_up = therm.Target_Temp.getText();
+    Integer cool_target_temp_up_int = Integer.valueOf(method(cool_target_temp_up));
+    System.out.println("Target temperature is " + cool_target_temp_up_int);
+
+    therm.Temp_Up.click();
+    therm.Temp_Up.click();
+    Thread.sleep(4000);
+
+    String new_cool_target_temp_up = therm.Target_Temp.getText();
+    Integer new_cool_target_temp_up_int = Integer.valueOf(method(new_cool_target_temp_up));
+    System.out.println("New target temperature is " + new_cool_target_temp_up_int);
+
+    if (new_target_temp_up_int == (target_temp_up_int + 2)) {
+        System.out.println("Pass: the temperature was successfully changed");
+    } else {
+        System.out.println("Failed: the temperature was not successfully changed");
+    }
+    Thread.sleep(5000);
+
+    String cool_target_temp_down = therm.Target_Temp.getText();
+    Integer cool_target_temp_down_int = Integer.valueOf(method(cool_target_temp_down));
+    System.out.println("Target temperature is " + cool_target_temp_down_int);
+
+    therm.Temp_Down.click();
+    therm.Temp_Down.click();
+    Thread.sleep(4000);
+
+    String new_cool_target_temp_down = therm.Target_Temp.getText();
+    Integer new_cool_target_temp_down_int = Integer.valueOf(method(new_cool_target_temp_down));
+    System.out.println("New target temperature is " + new_cool_target_temp_down_int);
+
+    if (new_target_temp_down_int == (target_temp_down_int - 2)) {
+        System.out.println("Pass: the temperature was successfully changed");
+    } else {
+        System.out.println("Failed: the temperature was not successfully changed");
+    }
+    Thread.sleep(5000);
+    therm.Set_Mode.click();
+    Thread.sleep(3000);
+    therm.Off_Mode_Icon.click();
+    Thread.sleep(7000);
+
+        /** AUTO MODE **/
+
+
+        therm.Set_Mode.click();
+        Thread.sleep(4000);
+        therm.Auto_Icon.click();
+        Thread.sleep(5000);
+        if (therm.Target_Temp.getText().equals("OFF")) {
+            System.out.println("Failed: Thermostat mode is not AUTO");
+        }
+
+        if (therm.Current_Mode.getText().equals("AUTO")) {
+            System.out.println("Pass: Mode successfully changed to AUTO");
+        } else {
+            System.out.println("Failed: Mode is not set to AUTO");
+        }
+
+        if (therm.Target_Temp.getText().equals("N/A")) {
+            System.out.println("Pass: Current temp is displayed as N/A");
+        }
+
+    Thread.sleep(5000);
+    therm.Set_Mode.click();
+    Thread.sleep(3000);
+    therm.Off_Mode_Icon.click();
+    Thread.sleep(7000);
 
     }
+    
 
 
 

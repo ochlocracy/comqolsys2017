@@ -225,7 +225,7 @@ public class ADC extends Setup {
         TimeUnit.SECONDS.sleep(3);
         getDriver1().findElement(By.xpath("//input[@value='Request Sensor Names']")).click();
         Alert alert = getDriver1().switchTo().alert();
-        getDriver1().switchTo().alert();
+        getDriver1().switchTo().alert().accept();
         alert.accept();
         TimeUnit.SECONDS.sleep(10);
         getDriver1().findElement(By.id("ctl00_refresh_sensors_button_btnRefreshPage")).click();

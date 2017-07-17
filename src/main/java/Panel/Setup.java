@@ -37,10 +37,8 @@ import javax.mail.internet.MimeMultipart;
 
 public class Setup {
 
-
-
     Configuration c = new Configuration();
-    public String adbPath = "/home/nchortek/Android/Sdk/platform-tools/adb"; //c.getAdbPath();
+    public String adbPath = c.getAdbPath();
     public File appDir = new File("src");
     public String udid_ =  c.getudid_(); //"8ebdbc27";
     public String projectPath = c.getProjectPath(); //
@@ -66,11 +64,37 @@ public class Setup {
         return driver1;
     }
 
-    public void setup_driver(String udid_, String url_, String port_) throws Exception {
+    public static String execCmd(String cmd) throws java.io.IOException {
+        Process proc = Runtime.getRuntime().exec(cmd);
+        java.io.InputStream is = proc.getInputStream();
+        java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
+        String val = "";
+        if (s.hasNext()) {
+            val = s.next();
+        }
+        else {
+            val = "";
+        }
+   //     System.out.println(val);
+        return val;
+    }
+    public String split_method (  String str) {
+        String a = str.split("\\n")[1];
+        return a.split("\\s")[0];
+    }
+
+    public String get_UDID() throws IOException {
+        String command = adbPath + " devices";
+        rt.exec(command);
+        String panel_UDID = split_method(execCmd(command));
+        return panel_UDID;
+    }
+
+    public void setup_driver(String getUdid, String url_, String port_) throws Exception {
         DesiredCapabilities cap = new DesiredCapabilities();
         cap.setCapability("deviceName", "IQPanel2");
         cap.setCapability("BROWSER_NAME", "Android");
-        cap.setCapability("udid", udid_);
+        cap.setCapability("udid", getUdid);
         cap.setCapability("appPackage", "com.qolsys");
         cap.setCapability("appActivity", "com.qolsys.activites.Theme3HomeActivity");
         driver = new AndroidDriver<WebElement>(new URL(url_+":"+port_+"/wd/hub"), cap);

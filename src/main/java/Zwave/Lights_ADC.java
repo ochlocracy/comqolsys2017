@@ -35,7 +35,7 @@ public class Lights_ADC extends Setup{
 
     @BeforeTest
     public void capabilities_setup() throws Exception {
-        setup_driver(udid_, "http://127.0.1.1", "4723");
+        setup_driver( get_UDID(),"http://127.0.1.1", "4723");
         webDriverSetUp();
         setup_logger(page_name);
     }

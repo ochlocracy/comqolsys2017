@@ -13,8 +13,7 @@ public class Sound_Page_Test extends Setup {
     String page_name = "Sound page";
     Logger logger = Logger.getLogger(page_name);
 
-    public Sound_Page_Test() throws IOException, BiffException {
-    }
+    public Sound_Page_Test() throws IOException, BiffException {}
 
     public void swipe_up() throws InterruptedException {
         int starty = 260;
@@ -26,7 +25,7 @@ public class Sound_Page_Test extends Setup {
 
     @BeforeMethod
     public void capabilities_setup() throws Exception {
-        setup_driver(udid_, "http://127.0.1.1", "4723");
+        setup_driver(get_UDID(),"http://127.0.1.1", "4723");
         setup_logger(page_name);
     }
 
