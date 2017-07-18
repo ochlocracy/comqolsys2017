@@ -13,12 +13,11 @@ public class Security_Arming_Page_Test extends Setup{
     String page_name = "Security and Arming page testing";
     Logger logger = Logger.getLogger(page_name);
 
-    public Security_Arming_Page_Test() throws IOException, BiffException {
-    }
+    public Security_Arming_Page_Test() throws IOException, BiffException {}
 
     @BeforeMethod
     public void capabilities_setup() throws Exception {
-        setup_driver(udid_,"http://127.0.1.1", "4723");
+        setup_driver(get_UDID(),"http://127.0.1.1", "4723");
         setup_logger(page_name);
     }
 

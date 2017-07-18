@@ -14,7 +14,7 @@ public class Useful extends Setup{
 
     @BeforeMethod
     public void capabilitiesSetup() throws Exception {
-        setup_driver(udid_, "http://127.0.1.1", "4723");
+        setup_driver(get_UDID(),"http://127.0.1.1", "4723");
     }
 
     @Test

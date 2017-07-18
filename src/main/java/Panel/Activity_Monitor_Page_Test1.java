@@ -10,7 +10,6 @@ import org.testng.annotations.*;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 
 public class Activity_Monitor_Page_Test1 {
 

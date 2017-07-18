@@ -20,12 +20,12 @@ public class Arming_Photos {
 
     @BeforeMethod
     public void capabilities_setup() throws Exception {
-        s.setup_driver(s.udid_, "http://127.0.1.1", "4723");
+        s.setup_driver(s.get_UDID(),"http://127.0.1.1", "4723");
         s.setup_logger(page_name);
     }
     @Test
     public void Test1 () throws Exception {
- //ppp0       s.delete_all_camera_photos();
+       s.delete_all_camera_photos();
         TimeUnit.SECONDS.sleep(5);
         for (int i=22; i>0; i--){
         s.ARM_STAY();
@@ -39,7 +39,7 @@ public class Arming_Photos {
     public void Test2 () throws Exception {
         Home_Page home = PageFactory.initElements(s.driver, Home_Page.class);
         Emergency_Page emg =  PageFactory.initElements(s.driver, Emergency_Page.class);
-  //      s.delete_all_camera_photos();
+        s.delete_all_camera_photos();
         TimeUnit.SECONDS.sleep(5);
         for (int i=22; i>0; i--){
             home.Emergency_Button.click();
