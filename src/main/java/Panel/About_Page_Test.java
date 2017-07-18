@@ -3,13 +3,16 @@ package Panel;
 import Zwave.Lights_Page_beta;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
+import org.apache.tools.ant.property.NullReturn;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.*;
+import org.testng.annotations.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class About_Page_Test extends Setup {
@@ -29,7 +32,7 @@ public class About_Page_Test extends Setup {
         Thread.sleep(2000);
     }
 
-    @BeforeClass
+        @BeforeClass
     public void capabilities_setup() throws Exception {
         setup_driver(udid_, "http://127.0.1.1", "4723");
         setup_logger(page_name);
@@ -140,39 +143,6 @@ public class About_Page_Test extends Setup {
         element_verification(about.Logs, "Logs");
         about.Logs.click();
     }
-
-    // extension for Cellular testing
-
-    @Test
-    public void Check_all_Elements_in_Cellular_tap() throws InterruptedException {
-
-    About_page about = PageFactory.initElements(driver, About_page.class);
-
-
-        navigate_to_Advanced_Settings_page();
-        about.Cellular.click();
-        Thread.sleep(1000);
-        List<WebElement> Carrier_Name = driver.findElements(By.id("com.qolsys:id/summary"));
-        System.out.println(Carrier_Name.get(0).getText());
-        System.out.println(Carrier_Name.get(1).getText());
-        System.out.println(Carrier_Name.get(2).getText());
-
-
-//        String text = .Check_All_Elements_in_Cellular_tap(Carrier_Name);
-//        if (Carrier_Name.get(0).getText().equals(text));
-//        System.out.println("Carrier " + text);
-//
-//                 } else {
-//                System.out.println("Blank field");
-//            }
-//        }
-
-
-
-
-}
-
-
 
     @AfterClass
     public void tearDown () throws IOException, InterruptedException {
