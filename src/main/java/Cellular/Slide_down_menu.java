@@ -8,7 +8,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
 import java.io.IOException;
 
 public class Slide_down_menu extends Setup{
@@ -34,30 +33,15 @@ public class Slide_down_menu extends Setup{
         element_verification(menu.Cell_info, "Cellular info");
 
         String Carrier_name = (menu.Cell_info.getText()).split(":")[0];
-        System.out.println(Carrier_name);
-       String Cellular_Signal_Strength = (menu.Cell_info.getText()).split("\n")[0];
+        System.out.println("Carrier name: " + Carrier_name);
+        String Cellular_Signal_Strength = (menu.Cell_info.getText()).substring(7).split("/")[0];
+        System.out.println("The value " + Cellular_Signal_Strength + " is used for comparison");
+        int Cellular_Signal_Strength_in_bars = Integer.parseInt(Cellular_Signal_Strength);
 
 
-
-       //Cellular_Signal_Strength(new String(Cellular_Signal_Strength)).split("\\s")[0];
-
-
-
-       // String Cellular_Signal_Strength = (menu.Cell_info.getText()).split("\\(\\w+\\)")[0];
-       System.out.println(Cellular_Signal_Strength);
 
         element_verification(menu.Slide_menu_close, "Slide menu close");
-
         menu.Slide_menu_close.click();
-
-/*
-    public String split_method (str) {
-        String a = Cellular_Signal_Strength.split("\\n")[1];
-        return a.split("\\s")[0];
-
-      //  public String method (String str) {
-       //     return str.split("°")[0];
-      //  } /**/
 
     }
 
