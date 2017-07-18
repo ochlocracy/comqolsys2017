@@ -85,7 +85,7 @@ public class Lights_Test_beta extends Setup{
 
         // check if light can be turned on
         lights.On_Button.click();
-        Thread.sleep(10000);
+        Thread.sleep(6000);
         if(!checkAttribute(li.get(0), "checked", "false"))
             return;
 
@@ -93,14 +93,16 @@ public class Lights_Test_beta extends Setup{
         if(!checkStatus(light_on, status.get(0)))
             return;
 
+        //test dimmer functionality
         Point DimLocation = lights.Dimmer.getLocation();
         int DimWidth = lights.Dimmer.getSize().getWidth();
         int startx = DimLocation.getX();
         int starty = DimLocation.getY();
         int endx = startx + DimWidth;
 
-        touchSwipe(endx, starty, startx, starty);
-
+        logger.info("x1: " + startx + "| y1: " + starty + "| x2: " + endx + "| y2: " + starty);
+        touchSwipe(endx - 10, starty, startx, starty);
+        logger.info("swipe done");
         if(!checkStatus(light_off, status.get(0)))
             return;
 
