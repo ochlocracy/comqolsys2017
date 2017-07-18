@@ -22,10 +22,7 @@ public class Lights_ADC extends Setup{
     public Lights_ADC() throws IOException, BiffException{
     }
 
-    public void checkPanelUI(String state, Boolean first) throws Exception{
-        if(first)
-            swipe_left();
-
+    public void checkPanelUI(String state) throws Exception{
         File light_state = new File(projectPath + "/scr/" + state);
         Thread.sleep(10000);
         List<WebElement> status = driver.findElements(By.id("com.qolsys:id/statusButton"));
@@ -73,7 +70,8 @@ public class Lights_ADC extends Setup{
                 "_ctl02_btnDevicesViewDeviceOn')")).click();
         Thread.sleep(2000);
 
-        checkPanelUI("light_on", true);
+        swipe_left();
+        checkPanelUI("light_on");
     }
 
     @Test (priority = 1)
@@ -89,7 +87,7 @@ public class Lights_ADC extends Setup{
                 "_ctl02_btnDevicesViewDeviceOff')")).click();
         Thread.sleep(2000);
 
-        checkPanelUI("light_off", false);
+        checkPanelUI("light_off");
     }
 
     @Test (priority = 2)
@@ -119,7 +117,7 @@ public class Lights_ADC extends Setup{
                 "rptGroups_ctl00_btnGroupOn')")).click();
         Thread.sleep(3000);
 
-        checkPanelUI("light_on", false);
+        checkPanelUI("light_on");
     }
 
     @Test (priority = 3)
@@ -131,8 +129,10 @@ public class Lights_ADC extends Setup{
                 "_lnkGroupEdit")).click();
 
         Thread.sleep(2000);
-        checkPanelUI("light_off", false);
+        checkPanelUI("light_off");
     }
+
+    //remove group
 
     @AfterTest
     public void tearDown () throws IOException, InterruptedException {
