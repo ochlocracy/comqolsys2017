@@ -27,8 +27,6 @@
         </plugins>
     </build>
 
-
-
     <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
     <profiles>
         <profile>

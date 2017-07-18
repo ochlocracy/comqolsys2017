@@ -41,7 +41,7 @@ public class Activity_Monitor_Page_Test extends Setup{
 
     @BeforeMethod
     public void capabilities_setup() throws Exception {
-        setup_driver(udid_, "http://127.0.1.1", "4723");
+        setup_driver(get_UDID(),"http://127.0.1.1", "4723");
         setup_logger(page_name);
     }
     @Test (priority = 1)
@@ -54,6 +54,7 @@ public class Activity_Monitor_Page_Test extends Setup{
         sensors.add_primary_call(1, 25, 6619814, 1);
         Thread.sleep(2000);
         navigate_to_Settings_page();
+        Thread.sleep(2000);
         settings.ACTIVITY_MONITOR.click();
         element_verification(activity.Quick_Access, "Quick Access");
         element_verification(activity.Quick_Access_img, "Quick Access image");

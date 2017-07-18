@@ -4,9 +4,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class WiFi_Devices_Page {
-    @FindBy(xpath = "//android.widget.TextView[@text='Associated Wifi Clients']")
+    @FindBy(xpath = "//android.widget.TextView[@text='Access Point Connected Devices']")
     public WebElement Associated_Wifi_Clients;
-    @FindBy(xpath = "//android.widget.TextView[@text='Qolsys Access Point']")
+    @FindBy(xpath = "//android.widget.TextView[@text='Access Point Settings']")
     public WebElement Qolsys_Access_Point;
     @FindBy(xpath = "//android.widget.TextView[@text='Wifi Access Point']")
     public WebElement Wifi_Access_Point;

@@ -14,9 +14,9 @@ public class Panel_Camera_Page_Test extends Setup {
     String page_name = "Panel Camera page testing";
     Logger logger = Logger.getLogger(page_name);
 
-    public Panel_Camera_Page_Test() throws IOException, BiffException {
-    }
+    public Panel_Camera_Page_Test() throws IOException, BiffException {}
 
+    @Override ()
     public void swipe_vertical_up() throws InterruptedException {
         int starty = 705;
         int endy = 270;
@@ -27,7 +27,7 @@ public class Panel_Camera_Page_Test extends Setup {
 
     @BeforeMethod
     public void capabilities_setup() throws Exception {
-        setup_driver(udid_, "http://127.0.1.1", "4723");
+        setup_driver(get_UDID(),"http://127.0.1.1", "4723");
         setup_logger(page_name);}
 
     @Test
@@ -56,7 +56,7 @@ public class Panel_Camera_Page_Test extends Setup {
         swipeFromRighttoLeft();
         TimeUnit.SECONDS.sleep(2);
         camera.Disarm_photos.click();
-        element_verification(camera.DISARMED_BY_ADMIN, " DISARMED BY ADMIN");
+        element_verification(camera.DISARMED_BY_ADMIN, "DISARMED BY ADMIN");
         camera.Alarms_photo.click();
         element_verification(camera.POLICE_EMERGENCY_PANEL, "POLICE EMERGENCY (PANEL)");
         TimeUnit.SECONDS.sleep(2);
