@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class Configuration {
-    private String config = "/home/qolsys/Desktop/comqolsysPOM/config.xls";
+    private String config = "/home/olgak/IdeaProjects/comqolsys2017/config.xls";
     public String adbPath = getAdbPath();
     public File appDir = new File ("scr");
     public String udid_ = getudid_();
@@ -27,6 +27,7 @@ public class Configuration {
         String CellGetContent = sh.getCell(1,0).getContents();
         return CellGetContent;
     }
+
     public String getProjectPath() throws IOException, BiffException{
         Workbook wb =Workbook.getWorkbook(new File(config));
         Sheet sh = wb.getSheet(0);

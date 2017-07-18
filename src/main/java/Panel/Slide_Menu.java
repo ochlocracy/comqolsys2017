@@ -16,7 +16,9 @@ public class Slide_Menu {
     @FindBy(id ="com.qolsys:id/ui_part1_bt")
     public WebElement Bluetooth;
     @FindBy(id ="com.qolsys:id/ui_part1_ns")
-    public WebElement Cell;
+    public WebElement Cell_bar;
+    @FindBy(id ="com.qolsys:id/ui_tv_click_details")
+    public WebElement Cell_info;
     @FindBy(id ="com.qolsys:id/icon_volume_down")
     public WebElement Volume_down;
     @FindBy(id ="com.qolsys:id/icon_volume_up")
