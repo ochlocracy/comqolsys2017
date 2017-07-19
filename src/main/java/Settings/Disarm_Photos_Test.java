@@ -14,8 +14,7 @@ public class Disarm_Photos_Test extends Setup {
     String page_name = "Disarm Photos testing";
     Logger logger = Logger.getLogger(page_name);
 
-    public Disarm_Photos_Test() throws IOException, BiffException {
-    }
+    public Disarm_Photos_Test() throws IOException, BiffException {}
 
     @BeforeMethod
     public void capabilities_setup() throws Exception {

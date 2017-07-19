@@ -12,7 +12,6 @@ public class Configuration {
     public String adbPath = getAdbPath();
     public File appDir = new File ("scr");
     public String udid_ = getudid_();
-    //public String udid = "8ebdbc27";
     public Configuration() throws IOException, BiffException {}
 
     public String getAdbPath() throws IOException, BiffException {

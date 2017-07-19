@@ -6,9 +6,8 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+
 import java.io.IOException;
 
 public class Activity_Monitor_Page_Test extends Setup{
@@ -39,7 +38,7 @@ public class Activity_Monitor_Page_Test extends Setup{
         }
     }
 
-    @BeforeMethod
+    @BeforeClass
     public void capabilities_setup() throws Exception {
         setup_driver(get_UDID(),"http://127.0.1.1", "4723");
         setup_logger(page_name);
@@ -200,7 +199,7 @@ public class Activity_Monitor_Page_Test extends Setup{
         Thread.sleep(2000);
     }
 
-    @AfterMethod
+    @AfterClass
     public void tearDown () throws IOException, InterruptedException {
         log.endTestCase(page_name);
         driver.quit();
