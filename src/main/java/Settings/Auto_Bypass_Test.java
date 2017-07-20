@@ -18,8 +18,7 @@ public class Auto_Bypass_Test extends Setup {
     private String open = "06 00";
     private String close = "04 00";
 
-    public Auto_Bypass_Test() throws IOException, BiffException {
-    }
+    public Auto_Bypass_Test() throws IOException, BiffException {}
 
     @BeforeMethod
     public void capabilities_setup() throws Exception {

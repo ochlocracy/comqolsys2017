@@ -1,26 +1,28 @@
 package Panel;
 
-import android.util.*;
+import Zwave.Lights_Page_beta;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
+import org.apache.tools.ant.property.NullReturn;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.*;
 import org.testng.annotations.Test;
+
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class About_Page_Test extends Setup {
 
     String page_name = "About page testing";
     Logger logger = Logger.getLogger(page_name);
-    Setup s =new Setup();
+    Setup s = new Setup();
 
     public About_Page_Test() throws IOException, BiffException {
     }
-
 
     public void swipe_vertical1() throws InterruptedException {
         int starty = 620;
@@ -30,11 +32,12 @@ public class About_Page_Test extends Setup {
         Thread.sleep(2000);
     }
 
-    @BeforeMethod
+        @BeforeClass
     public void capabilities_setup() throws Exception {
         setup_driver(get_UDID(),"http://127.0.1.1", "4723");
         setup_logger(page_name);
     }
+
     @Test
     public void Check_all_elements_on_About_page() throws Exception {
         About_page about = PageFactory.initElements(driver, About_page.class);
@@ -49,9 +52,9 @@ public class About_Page_Test extends Setup {
         WebElement b = driver.findElement(By.className("android.widget.LinearLayout"));
         List<WebElement> li = b.findElements(By.id("com.qolsys:id/summary"));
         element_verification(about.Battery_Status, "Battery Status");
-  //      logger.info(li.get(0).getText());
+        //      logger.info(li.get(0).getText());
         element_verification(about.Battery_Level, "Battery Level");
-  //      logger.info(li.get(1).getText());
+        //      logger.info(li.get(1).getText());
         about.Battery.click();
         Thread.sleep(1000);
         element_verification(about.Software, "Software");
@@ -141,15 +144,7 @@ public class About_Page_Test extends Setup {
         about.Logs.click();
     }
 
-    @Test(priority = 0)
-    public void test1() {
-        try {
-            Runtime.getRuntime().exec("su -c svc data disable");
-        } catch (IOException e) {
-            android.util.Log.d("Error", e.getMessage());
-        }
-    }
-    @AfterMethod
+    @AfterClass
     public void tearDown () throws IOException, InterruptedException {
         log.endTestCase(page_name);
         driver.quit();

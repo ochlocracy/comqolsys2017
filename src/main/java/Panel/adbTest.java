@@ -1,62 +1,68 @@
-package Panel;
-
-import jxl.read.biff.BiffException;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-import java.io.IOException;
-
-/**
- * Created by nchortek on 6/22/17.
- * PRECONDITION: 3 lights must be paired and turned off before
- * executing this test.
- */
-public class adbTest extends Setup{
-
-    public adbTest() throws IOException, BiffException {
-    }
-
-    public static String execCmd(String cmd) throws java.io.IOException {
-       // Process proc = Runtime.getRuntime().exec(new String[] { "bash", "-c", cmd });
-        Process proc = Runtime.getRuntime().exec(cmd);
-        java.io.InputStream is = proc.getInputStream();
-        java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
-        String val = "";
-        if (s.hasNext()) {
-            val = s.next();
-        }
-        else {
-            val = "";
-        }
-        return val;
-    }
-
-    public String split_method (  String str) {
-        String a = str.split("\\n")[1];
-        return a.split("\\s")[0];
-    }
-
-    public String adbPath1 = System.getenv("ANDROID_HOME") + "platform-tools/adb";
-
-    public String get_UDID() throws IOException {
-        String command = adbPath1 + " devices";
-        rt.exec(command);
-        String panel_UDID = split_method(execCmd(command));
-        return panel_UDID;
-    }
-
-    @BeforeMethod
-    public void capabilities_setup() throws Exception {
-        setup_driver(get_UDID(), "http://127.0.1.1", "4723");
-    }
-
-    @Test
-    public void Test() throws Exception {
-        swipeFromRighttoLeft();
-    }
-
-    @AfterMethod
-    public void tearDown () throws IOException, InterruptedException {
-        driver.quit();
-    }
-}
+//package Panel;
+//
+//import jxl.read.biff.BiffException;
+//import org.testng.annotations.AfterMethod;
+//import org.testng.annotations.BeforeMethod;
+//import org.testng.annotations.Test;
+//import java.io.IOException;
+//
+///**
+// * Created by nchortek on 6/22/17.
+// * PRECONDITION: 3 lights must be paired and turned off before
+// * executing this test.
+// */
+//public class adbTest extends Setup{
+//
+//    public adbTest() throws IOException, BiffException {}
+//
+//    public static String execCmd(String cmd[]) throws java.io.IOException {
+//       // Process proc = Runtime.getRuntime().exec(new String[] { "bash", "-c", cmd });
+//        Process proc = Runtime.getRuntime().exec(cmd);
+//        java.io.InputStream is = proc.getInputStream();
+//        java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
+//        String val = "";
+//        if (s.hasNext()) {
+//            val = s.next();
+//        }
+//        else {
+//            val = "";
+//        }
+//        return val;
+//    }
+//
+//    public String split_method (  String str) {
+//        String a = str.split("\\n")[1];
+//        return a.split("\\s")[0];
+//    }
+//
+//   // public String adbPath1 = System.getenv("ANDROID_HOME") + "platform-tools/adb";
+//
+//    public void adbPath1 () throws IOException {
+//        String[] cmd = {"/bin/sh", "-c", "$ANDROID_HOME"};
+//        rt.exec(cmd + );
+//
+//    }
+//
+//    public String get_UDID() throws IOException {
+//        String command = adbPath1 + " devices";
+//        rt.exec(command);
+//        String panel_UDID = split_method(execCmd(command));
+//        return panel_UDID;
+//    }
+//
+////    @BeforeMethod
+////    public void capabilities_setup() throws Exception {
+////        setup_driver(get_UDID(), "http://127.0.1.1", "4723");
+////    }
+//
+//    @Test
+//    public void Test() throws Exception {
+//        String[] cmd = {"/bin/sh", "-c", "$ANDROID_HOME"};
+//        System.out.println(execCmd(cmd));
+//    }
+////
+////    @AfterMethod
+////    public void tearDown () throws IOException, InterruptedException {
+////        driver.quit();
+//    }
+//
