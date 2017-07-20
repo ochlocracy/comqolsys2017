@@ -21,9 +21,9 @@ public class Thermostat_Test extends Setup {
 
     public Thermostat_Test() throws IOException, BiffException {}
 
-    public String method (  String str) {
+    public String method (String str) {
         return str.split("°")[0];
-    }
+    } /**/
 
     @BeforeClass
     public void capabilities_setup() throws Exception {

@@ -27,14 +27,17 @@ public class Slide_Menu_Test extends Setup {
     public void Check_all_elements_on_Slide_Menu() throws Exception {
         Slide_Menu menu = PageFactory.initElements(driver, Slide_Menu.class);
         logger.info("Verifying elements on the page...");
-        Thread.sleep(1000);
+        Thread.sleep(1000); Thread.sleep(1000);
 
         menu.Slide_menu_open.click();
         element_verification(menu.System_state_icon, "System state");
         element_verification(menu.Battery, "Battery");
         element_verification(menu.WiFi, "Wi-Fi");
         element_verification(menu.Bluetooth, "Bluetooth");
-        element_verification(menu.Cell, "Cellular");
+        element_verification(menu.Cell_bar, "Cellular");
+        menu.Cell_bar.click();
+        Thread.sleep(1000);
+        element_verification(menu.Cell_info, "Cellular info");
         element_verification(menu.Volume_down, "Volume Down");
         element_verification(menu.Volume_up, "Volume UP");
         element_verification(menu.Volume_adjuster, "Volume adjuster");
