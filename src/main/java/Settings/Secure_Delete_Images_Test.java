@@ -14,8 +14,7 @@ public class Secure_Delete_Images_Test extends Setup {
     String page_name = "Secure Delete Images testing";
     Logger logger = Logger.getLogger(page_name);
 
-    public Secure_Delete_Images_Test() throws IOException, BiffException {
-    }
+    public Secure_Delete_Images_Test() throws IOException, BiffException {}
 
     @BeforeMethod
     public void capabilities_setup() throws Exception {

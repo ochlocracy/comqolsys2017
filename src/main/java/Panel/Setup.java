@@ -58,6 +58,7 @@ public class Setup {
 
     public void webDriverSetUp () {
         driver1 = new FirefoxDriver();
+
         wait = new WebDriverWait(driver1, 40);
     }
     public WebDriver getDriver1() {
