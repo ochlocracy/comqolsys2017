@@ -53,6 +53,7 @@ public class About_page extends Setup {
         about.Battery.click();
         Thread.sleep(1000);
     }
+
     @Test (dependsOnMethods = {"accessAboutPage"})
     public void SASA_004_SASA_005_SASA_006 () throws Exception {
         Panel.About_page about = PageFactory.initElements(driver, Panel.About_page.class);
