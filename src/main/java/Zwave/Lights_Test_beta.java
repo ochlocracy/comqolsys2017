@@ -40,7 +40,6 @@ public class Lights_Test_beta extends Setup{
         element_verification(lights.Off_Button, "Off Button");
         element_verification(lights.Get_Status_Button, "Get Status Button");
 
-
         List<WebElement> li1 = driver.findElements(By.id("com.qolsys:id/lightSelect"));
         List<WebElement> li2 = driver.findElements(By.id("com.qolsys:id/uiName"));
         List<WebElement> li3 = driver.findElements(By.id("com.qolsys:id/statusButton"));
@@ -64,7 +63,7 @@ public class Lights_Test_beta extends Setup{
     public void Test_Lights_Page() throws Exception {
 
 
-        // navigate to and initialize lights page
+        // navigate to lights page and initialize variables
         Lights_Page_beta lights = PageFactory.initElements(driver, Lights_Page_beta.class);
         File light_on = new File(projectPath + "/scr/light_on");
         File light_off = new File(projectPath + "/scr/light_off");

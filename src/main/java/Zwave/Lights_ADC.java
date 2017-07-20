@@ -20,6 +20,10 @@ public class Lights_ADC extends Setup{
     String page_name = "Lights_ADC";
     Logger logger = Logger.getLogger(page_name);
 
+    //ADC Credentials
+    String login = "Gen2-8334";
+    String password = "qolsys1234";
+
     //light states
     String light_on = "light_on";
     String light_off = "light_off";
@@ -60,12 +64,10 @@ public class Lights_ADC extends Setup{
         getDriver1().findElement(By.id("ctl00_phBody_pageActionButtons_buttonSave")).click();
     }
 
-    public void navigate_to_user_site() {
+    public void navigate_to_user_site(String login, String password) {
         getDriver1().manage().window().maximize();
         String ADC_URL = "https://alarm.com";
         getDriver1().get(ADC_URL);
-        String login = "Gen2-8334";
-        String password = "qolsys1234";
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("LOGIN")));
         getDriver1().findElement(By.partialLinkText("LOGIN")).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_ContentPlaceHolder1_loginform_" +
@@ -190,7 +192,7 @@ public class Lights_ADC extends Setup{
     @Test (priority = 4)
     public void rules() throws Exception{
         logger.info("testing ADC rule creation");
-        /*navigate_to_user_site();
+        /*navigate_to_user_site(login, password);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("emPower")));
         getDriver1().findElement(By.partialLinkText("emPower")).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Rules")));*/
