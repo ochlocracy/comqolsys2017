@@ -98,11 +98,9 @@ public class Lights_Test_beta extends Setup{
         int DimWidth = lights.Dimmer.getSize().getWidth();
         int startx = DimLocation.getX();
         int starty = DimLocation.getY();
-        int endx = startx + DimWidth;
+        int endx = startx + DimWidth - 10;
 
-        logger.info("x1: " + startx + "| y1: " + starty + "| x2: " + endx + "| y2: " + starty);
-        touchSwipe(endx - 10, starty, startx, starty);
-        logger.info("swipe done");
+        touchSwipe(endx, starty, startx, starty);
         if(!checkStatus(light_off, status.get(0)))
             return;
 
@@ -161,6 +159,7 @@ public class Lights_Test_beta extends Setup{
         // check that lights turn grey
         checkAllStatus(light_off, status);
 
+        //check that the lights can be turned on/off by clicking on their status buttons
         clickAll(status);
         Thread.sleep(10000);
         checkAllStatus(light_on, status);
