@@ -98,6 +98,7 @@ public class Setup {
         cap.setCapability("udid", getUdid);
         cap.setCapability("appPackage", "com.qolsys");
         cap.setCapability("appActivity", "com.qolsys.activites.Theme3HomeActivity");
+        //cap.setCapability("newCommandTimeout", "500");
         driver = new AndroidDriver<WebElement>(new URL(url_+":"+port_+"/wd/hub"), cap);
     }
 

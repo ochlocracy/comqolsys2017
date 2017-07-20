@@ -40,7 +40,6 @@ public class Lights_Test_beta extends Setup{
         element_verification(lights.Off_Button, "Off Button");
         element_verification(lights.Get_Status_Button, "Get Status Button");
 
-
         List<WebElement> li1 = driver.findElements(By.id("com.qolsys:id/lightSelect"));
         List<WebElement> li2 = driver.findElements(By.id("com.qolsys:id/uiName"));
         List<WebElement> li3 = driver.findElements(By.id("com.qolsys:id/statusButton"));
@@ -64,7 +63,7 @@ public class Lights_Test_beta extends Setup{
     public void Test_Lights_Page() throws Exception {
 
 
-        // navigate to and initialize lights page
+        // navigate to lights page and initialize variables
         Lights_Page_beta lights = PageFactory.initElements(driver, Lights_Page_beta.class);
         File light_on = new File(projectPath + "/scr/light_on");
         File light_off = new File(projectPath + "/scr/light_off");
@@ -98,11 +97,9 @@ public class Lights_Test_beta extends Setup{
         int DimWidth = lights.Dimmer.getSize().getWidth();
         int startx = DimLocation.getX();
         int starty = DimLocation.getY();
-        int endx = startx + DimWidth;
+        int endx = startx + DimWidth - 10;
 
-        logger.info("x1: " + startx + "| y1: " + starty + "| x2: " + endx + "| y2: " + starty);
-        touchSwipe(endx - 10, starty, startx, starty);
-        logger.info("swipe done");
+        touchSwipe(endx, starty, startx, starty);
         if(!checkStatus(light_off, status.get(0)))
             return;
 
@@ -161,6 +158,7 @@ public class Lights_Test_beta extends Setup{
         // check that lights turn grey
         checkAllStatus(light_off, status);
 
+        //check that the lights can be turned on/off by clicking on their status buttons
         clickAll(status);
         Thread.sleep(10000);
         checkAllStatus(light_on, status);

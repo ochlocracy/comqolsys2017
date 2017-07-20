@@ -1,6 +1,5 @@
 package Zwave;
 
-import android.widget.SeekBar;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
