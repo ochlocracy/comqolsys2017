@@ -76,7 +76,7 @@ public class Setup {
         else {
             val = "";
         }
-   //     System.out.println(val);
+        System.out.println(val);
         return val;
     }
     public String split_method (  String str) {

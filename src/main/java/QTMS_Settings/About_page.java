@@ -1,6 +1,7 @@
 package QTMS_Settings;
 
 import Panel.Advanced_Settings_Page;
+import Panel.Log;
 import Panel.Setup;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
@@ -16,6 +17,7 @@ public class About_page extends Setup {
 
     private String page_name = "About page testing";
     Logger logger = Logger.getLogger(page_name);
+    Log log = new Log();
 
     public void swipe_vertical1() throws InterruptedException {
         int starty = 620;
@@ -24,7 +26,6 @@ public class About_page extends Setup {
         driver.swipe(startx, starty, startx, endy, 3000);
         Thread.sleep(2000);
     }
-
     @BeforeTest
     public void capabilities_setup() throws Exception {
         setup_driver(get_UDID(),"http://127.0.1.1", "4723");
@@ -37,7 +38,6 @@ public class About_page extends Setup {
         adv.ABOUT.click();
         Thread.sleep(2000);
     }
-
     @Test (dependsOnMethods = {"accessAboutPage"})
     public void SASA_001_SASA_002_SASA_003 () throws Exception {
         Panel.About_page about = PageFactory.initElements(driver, Panel.About_page.class);
@@ -50,12 +50,12 @@ public class About_page extends Setup {
         logger.info("Battery Status: " + li.get(0).getText());
         element_verification(about.Battery_Level, "Battery Level");
         logger.info("Battery Level: " + li.get(1).getText());
-        about.Battery.click();
+        driver.findElement(By.id("com.qolsys:id/child_view")).click();
         Thread.sleep(1000);
     }
-
+    @Parameters ({"Linux Version", "Android OS Version"})
     @Test (dependsOnMethods = {"accessAboutPage"})
-    public void SASA_004_SASA_005_SASA_006 () throws Exception {
+    public void SASA_004_SASA_005_SASA_006 (String Linux_Version, String Android_OS_Version) throws Exception {
         Panel.About_page about = PageFactory.initElements(driver, Panel.About_page.class);
         logger.info("Verifying software info");
         element_verification(about.Software, "Software");
@@ -68,9 +68,17 @@ public class About_page extends Setup {
         logger.info("Build Number: " + li.get(1).getText());
         element_verification(about.Linux_Version, "Linux Version");
         logger.info("Linux Version: " + li.get(2).getText());
+        if ((li.get(2).getText()).equals(Linux_Version)){
+            logger.info("Pass: Correct Linux Version");}
+        else {
+            logger.info("***FAILED*** incorrect Linux Version "+li.get(2).getText());}
         element_verification(about.Android_OS_Version, "Android OS Version");
         logger.info("Android OS Version: " + li.get(3).getText());
-        about.Software.click();
+        if ((li.get(3).getText()).equals(Android_OS_Version)){
+            logger.info("Pass: Correct Android OS Version");}
+        else {
+            logger.info("***FAILED*** incorrect Android OS Version "+li.get(3).getText());}
+        driver.findElement(By.id("com.qolsys:id/child_view")).click();
         Thread.sleep(1000);
     }
     @Test (dependsOnMethods = {"accessAboutPage"})
@@ -106,7 +114,7 @@ public class About_page extends Setup {
         logger.info("EEPROM Format Version: " + li2.get(2).getText());
         element_verification(about.Image_Sensor_Version, "Image Sensor Version");
         logger.info("Image Sensor Version: " + li2.get(3).getText());
-        tap(10, 395);
+        driver.findElement(By.id("com.qolsys:id/child_view")).click();
         Thread.sleep(1000);
     }
     @Test (dependsOnMethods = {"accessAboutPage"})
@@ -145,8 +153,9 @@ public class About_page extends Setup {
         about.Panel_About.click();
         Thread.sleep(1000);
     }
+    @Parameters ({"Baseband_Version"})
     @Test (dependsOnMethods = {"accessAboutPage"})
-    public void SASA_019_SASA_020_SASA_021_SASA_022_SASA_023_SASA_024_SASA_025 () throws Exception {
+    public void SASA_019_SASA_020_SASA_021_SASA_022_SASA_023_SASA_024_SASA_025 (String Baseband_Version) throws Exception {
         Panel.About_page about = PageFactory.initElements(driver, Panel.About_page.class);
         logger.info("Verifying cellular info");
         element_verification(about.Cellular, "Cellular");
@@ -169,13 +178,17 @@ public class About_page extends Setup {
         element_verification(about.ICCID, "ICCID");
         logger.info("ICCID: " + li1.get(3).getText());
         element_verification(about.Baseband_Version, "Baseband Version");
-        logger.info("Baseband Version: " + li1.get(4).getText());
+        if (li1.get(4).getText().equals(Baseband_Version)){
+            logger.info("Pass: Correct Baseband Version"); }
+            else { logger.info("***FAILED*** incorrect Baseband Version "+li.get(4).getText());
+        }
         logger.info("Configuration Version: " + li1.get(5).getText());
-        tap(690, 370);
+        driver.findElement(By.id("com.qolsys:id/child_view")).click();
         Thread.sleep(1000);
     }
+    @Parameters ({"Z_Wave_Firmware"})
     @Test (dependsOnMethods = {"accessAboutPage"})
-    public void SASA_026_SASA_027_SASA_028_SASA_030_SASA_031 () throws Exception {
+    public void SASA_026_SASA_027_SASA_028_SASA_030_SASA_031 (String Z_Wave_Firmware) throws Exception {
         Panel.About_page about = PageFactory.initElements(driver, Panel.About_page.class);
         logger.info("Verifying Z-Wave info");
         element_verification(about.ZWave_About, "Z-Wave");
@@ -186,6 +199,10 @@ public class About_page extends Setup {
         logger.info("Home ID: " + li.get(0).getText());
         element_verification(about.ZWave_Firmware_Version, "Z-Wave Firmware Version");
         logger.info("Z-Wave Firmware Version: " + li.get(1).getText());
+        if ((li.get(1).getText()).equals(Z_Wave_Firmware)){
+            logger.info("Pass: Correct Z-Wave Firmware Version");}
+                else {
+            logger.info("***FAILED: Incorrect Z-Wave Firmware Version");}
         element_verification(about.ZWave_Api_Version, "Z-Wave Api Version");
         logger.info("Z-Wave Api Version: " + li.get(2).getText());
         swipe_vertical1();
@@ -197,7 +214,7 @@ public class About_page extends Setup {
         logger.info("Product Type: " + li1.get(3).getText());
         element_verification(about.Product_ID, "Product ID");
         logger.info("Product ID: " + li1.get(4).getText());
-        about.Product_Type.click();
+        driver.findElement(By.id("com.qolsys:id/child_view")).click();
         Thread.sleep(1000);
     }
     @Test (dependsOnMethods = {"accessAboutPage"})
@@ -221,7 +238,7 @@ public class About_page extends Setup {
         logger.info("Speed: " + li1.get(3).getText());
         element_verification(about.Internet, "Internet");
         logger.info("Internet: " + li1.get(4).getText());
-        about.Internet.click();
+        driver.findElement(By.id("com.qolsys:id/child_view")).click();
         Thread.sleep(1000);
     }
     @Test (dependsOnMethods = {"accessAboutPage"})
@@ -245,7 +262,7 @@ public class About_page extends Setup {
         logger.info("Videos: " + li1.get(3).getText());
         element_verification(about.Logs, "Logs");
         logger.info("Logs: " + li1.get(4).getText());
-        about.Logs.click();
+        driver.findElement(By.id("com.qolsys:id/child_view")).click();
         Thread.sleep(1000);
     }
     @AfterTest

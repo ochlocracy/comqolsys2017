@@ -64,7 +64,7 @@ public class Remote_Smoke extends Setup {
 
         rt.exec(adbPath + " shell logcat -T" + currentTime + " -v time -s QolsysProvider > /data/log.txt");
 
-        for (int i =10; i>0; i--) {
+        for (int i =1000; i>0; i--) {
             ARM_STAY();
             Thread.sleep(5000);
             DISARM();
