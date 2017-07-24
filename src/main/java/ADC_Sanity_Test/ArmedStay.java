@@ -10,6 +10,7 @@ import jxl.read.biff.BiffException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 import org.testng.annotations.*;
 
 import java.io.IOException;
@@ -24,10 +25,6 @@ public class ArmedStay extends Setup {
     private String close = "04 00";
 
     public ArmedStay() throws IOException, BiffException {}
-
-
-
-
 
     @BeforeTest
     public void capabilities_setup() throws Exception {
@@ -49,7 +46,7 @@ public class ArmedStay extends Setup {
         Thread.sleep(2000);
     }
 
-    @Test
+    @Test (retryAnalyzer = RetryAnalizer.class)
     public void ArmStay_Open_Close_group_10_during_Exit_Delay() throws Exception {
         sensors.add_primary_call(1, 10, 6619296, 1);
         ARM_STAY();
@@ -67,17 +64,16 @@ public class ArmedStay extends Setup {
         Thread.sleep(10000);
         WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 1  (Sensor 1) Opened/Closed')]"));
         try {
-            if (history_message.isDisplayed()) {
+            Assert.assertTrue(history_message.isDisplayed());{
                 System.out.println("Pass: message is displayed " + history_message.getText());
-            } else {
-                System.out.println("I don't see the message");
             }
         }finally {
-            DISARM();
         }
+        DISARM();
+        Thread.sleep(2000);
     }
 
-    @Test
+    @Test(retryAnalyzer = RetryAnalizer.class)
     public void ArmStay_Open_Close_group_12_during_Exit_Delay() throws Exception {
         sensors.add_primary_call(2, 12, 6619297, 1);
         ARM_STAY();
@@ -94,18 +90,14 @@ public class ArmedStay extends Setup {
         Thread.sleep(10000);
         WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 2  (Sensor 2) Opened/Closed')]"));
         try{
-        if (history_message.isDisplayed()) {
+            Assert.assertTrue(history_message.isDisplayed());
             System.out.println("Pass: message is displayed "+history_message.getText());
-        } else {
-            System.out.println("I don't see the message");
-            }
+        } finally {
         }
-        finally {
-            DISARM();
-            Thread.sleep(2000);
-        }
+        DISARM();
+        Thread.sleep(2000);
     }
-    @Test
+    @Test(retryAnalyzer = RetryAnalizer.class)
     public void ArmStay_Open_Close_group_13_during_Exit_Delay() throws Exception {
             sensors.add_primary_call(3, 13, 6619298, 1);
             ARM_STAY();
@@ -121,23 +113,19 @@ public class ArmedStay extends Setup {
             adc.New_ADC_session();
             Thread.sleep(2000);
             adc.driver1.findElement(By.partialLinkText("History")).click();
-
             adc.driver1.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
             WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 3  (Sensor 3) Opened/Closed')]"));
             WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 3 (Sensor 3) Alarm')]"));
             try {
-                if (history_message.isDisplayed() && history_message_alarm.isDisplayed()) {
+               Assert.assertTrue(history_message.isDisplayed() && history_message_alarm.isDisplayed()); {
                     System.out.println("Pass: message is displayed " + history_message.getText()+" " + history_message_alarm.getText());
-                } else {
-                    System.out.println("I don't see the messages");
                 }
-            }finally {
-                enter_default_user_code();
-                Thread.sleep(2000);
-            }
+            }finally {}
+            enter_default_user_code();
+            Thread.sleep(2000);
         }
 
-    @Test
+    @Test(retryAnalyzer = RetryAnalizer.class)
     public void  ArmStay_Open_Close_group_14_during_Exit_Delay() throws Exception {
         sensors.add_primary_call(4, 14, 6619299, 1);
         ARM_STAY();
@@ -161,11 +149,10 @@ public class ArmedStay extends Setup {
             } else {
                 System.out.println("I don't see the message");
             }
-        }finally {
-            DISARM();
-        }
+        }finally {}
+        DISARM();
     }
-    @Test
+    @Test(retryAnalyzer = RetryAnalizer.class)
     public void  ArmStay_Open_Close_group_16_during_Exit_Delay() throws Exception {
         sensors.add_primary_call(5, 16, 6619300, 1);
         ARM_STAY();
@@ -184,16 +171,14 @@ public class ArmedStay extends Setup {
         Thread.sleep(10000);
         WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 5  (Sensor 5) Opened/Closed')]"));
         try {
-            if (history_message.isDisplayed()) {
+           Assert.assertTrue(history_message.isDisplayed());
+            {
                 System.out.println("Pass: message is displayed " + history_message.getText());
-            } else {
-                System.out.println("I don't see the message");
             }
-        }finally {
-            DISARM();
-        }
+        }finally {}
+        DISARM();
     }
-    @Test
+    @Test(retryAnalyzer = RetryAnalizer.class)
     public void  ArmStay_Open_Close_group_8_during_Exit_Delay() throws Exception {
         sensors.add_primary_call(6, 8, 6619301, 1);
         ARM_STAY();
@@ -203,6 +188,7 @@ public class ArmedStay extends Setup {
         sensors.primary_call("65 00 5A", close);
         Thread.sleep(2000);
         verify_in_alarm();
+        Thread.sleep(30000);
 
         /*** ADC website verification ***/
 
@@ -210,17 +196,15 @@ public class ArmedStay extends Setup {
         Thread.sleep(2000);
         adc.driver1.findElement(By.partialLinkText("History")).click();
         Thread.sleep(10000);
-        WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 6 (Sensor 6) Pending Alarm (Awaiting Panel's Programmed Delay)')]"));
-        WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 6 (Sensor 6) Alarm')]"));
+        enter_default_user_code();
 
+ //       WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 6 (Sensor 6) Pending Alarm (Awaiting Panel's Programmed Delay)')]"));
+        WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 6 (Sensor 6) Alarm')]"));
         try {
-            if (history_message.isDisplayed() && history_message_alarm.isDisplayed()) {
-                System.out.println("Pass: message is displayed " + history_message.getText()+ " " +history_message_alarm.getText());
-            } else {
-                System.out.println("I don't see the messages");
+            Assert.assertTrue( history_message_alarm.isDisplayed());{
+                System.out.println("Pass: message is displayed " + " " +history_message_alarm.getText());
             }
         }finally {
-            DISARM();
         }
     }
 
