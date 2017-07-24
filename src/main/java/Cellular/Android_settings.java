@@ -1,22 +1,44 @@
 package Cellular;
 
-import Panel.Setup;
+import Panel.*;
+import android.widget.RadioButton;
 import io.appium.java_client.android.AndroidDriver;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.*;
-
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 
 public class Android_settings {
 
     public AndroidDriver<WebElement> driver;
     String page_name = "Native Android setting";
     Logger logger = Logger.getLogger(page_name);
+
     Setup s = new Setup();
+
+    public WebElement element_verification(WebElement element, String element_name) throws Exception {
+        try {
+            if (element.isDisplayed()) {
+                logger.info("Pass: " + element_name + " is present, value = " + element.getText());
+                //System.out.println(("Pass: " + element_name + " is present, value = " + element.getText()));
+            }
+        } catch (Exception e) {
+            //take_screenshot();
+            Log.error("*" + element_name + "* - Element is not found!");
+            throw (e);
+        } finally {
+            return element;
+        }
+    }
 
     public Android_settings() throws IOException, BiffException {
     }
@@ -26,33 +48,88 @@ public class Android_settings {
         cap.setCapability("deviceName", "IQPanel2");
         cap.setCapability("BROWSER_NAME", "Android");
         cap.setCapability("udid", getUdid);
-        cap.setCapability("appPackage", "com.android.settings/.SubSettings");
-        cap.setCapability("appActivity", "com.qolsys.developerapp/com.qolsys.developerapp.activites.MainActivity");
-        driver = new AndroidDriver<WebElement>(new URL(url_+":"+port_+"/wd/hub"), cap);
+        cap.setCapability("appPackage", "com.android.phone");
+        cap.setCapability("appActivity", ".MobileNetworkSettings");
+        driver = new AndroidDriver<WebElement>(new URL(url_ + ":" + port_ + "/wd/hub"), cap);
+    }
+
+    @BeforeMethod
+    public void setUp() throws Exception {
+        setup_driver_and(s.get_UDID(), "http://127.0.1.1", "4723");
+        s.setup_logger(page_name);
+        // setup_driver_and(s.get_UDID(),"http://127.0.1.1", "4723");
     }
 
 
-
-   @BeforeMethod
-   public void setUp () throws Exception {
-        setup_driver_and(s.get_UDID(),"http://127.0.1.1", "4723");
-   }
-
-
     @Test
-    public void open_wireless_and_networks() throws IOException {
-        String open_spage = "adb shell am start -a android.settings.WIRELESS_SETTINGS";
-        s.rt.exec(s.adbPath + open_spage);
-        System.out.println(open_spage); }
+
+//        adb shell am start -a android.settings.WIRELESS_SETTINGS
+//        adb shell am start com.qolsys
+
+    public void Android_settings_elements() throws Exception {
+        Cellular.Android_settings_elements an_ver = PageFactory.initElements(driver, Android_settings_elements.class);
+        logger.info("Verifying Cellular data ...");
+        Thread.sleep(2000);
+
+        List<WebElement> li = driver.findElements(By.id("android:id/summary"));
+        String value = li.get(1).getText();
+        logger.info(value);
+        List<WebElement> li1 = driver.findElements(By.id("android:id/title"));
+
+        String value1 = li1.get(5).getText();
+        // System.out.println(value1);
+        li1.get(5).click();
+        Thread.sleep(2000);
 
 
+        Cellular.Android_settings_elements an_var1 = PageFactory.initElements(driver, Android_settings_elements.class);
+        List<WebElement> new_li1 = driver.findElements(By.id("android:id/title"));
+        System.out.println(new_li1.size());
+        for (int i = 0; i < new_li1.size(); i++) {
+            logger.info("APN name: " + new_li1.get(i).getText());
+           // return i;
+        }
+        // String apn1 = new_li1.get(0).getText();
+        //  logger.info(apn1);
+        Thread.sleep(3000);
 
-    @AfterClass
+        List<WebElement> new_li = driver.findElements(By.id("android:id/summary"));
+        // String apn = new_li.get(0).getText();
+        System.out.println(new_li.size());
+        for (int j = 0; j < new_li.size(); j++) {
+            logger.info("APN summary: " + new_li.get(j).getText());
+          //  return j;
+        }
+
+        // logger.info(apn);
+        Thread.sleep(3000);
+
+        List<WebElement> b_li = driver.findElements(By.id("com.android.settings:id/apn_radiobutton"));
+        // String apn = new_li.get(0).getText();
+        System.out.println("Number of present radio buttons: " + b_li.size());
+       // for (int g = 0; g < b_li.size(); g++) {
+            //       }
+                       // element_verification(an_var1.APN_selection_button, "APN selection button");
+            try {
+                if (b_li.get(0).getAttribute("checked").equals("true")) ;
+                {
+                //    return g;
+                }
+            } catch (Exception e) {
+                System.out.println("NO ONE SELECTED");
+            }
+
+      //  }
+        Thread.sleep(2000);
+
+        System.out.println("End of testing");
+
+    }
+
+    @AfterMethod
     public void tearDown () throws IOException, InterruptedException {
         s.log.endTestCase(page_name);
         driver.quit();
     }
-
-        }
-
+}
 
