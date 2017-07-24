@@ -210,11 +210,24 @@ public class ADC extends Setup {
         getDriver1().get(ADC_URL);
         String login = "qapple";
         String password = "qolsys123";
+        Thread.sleep(2000);
 //        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("txtUsername")));
         getDriver1().findElement(By.id("txtUsername")).sendKeys(login);
         getDriver1().findElement(By.id("txtPassword")).sendKeys(password);
         getDriver1().findElement(By.id("butLogin")).click();
         getDriver1().findElement(By.partialLinkText("Equipment")).click();
+    }
+    public void navigate_to_user_site(String login, String password) {
+        getDriver1().manage().window().maximize();
+        String ADC_URL = "https://alarm.com";
+        getDriver1().get(ADC_URL);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("LOGIN")));
+        getDriver1().findElement(By.partialLinkText("LOGIN")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_ContentPlaceHolder1_loginform_" +
+                "txtUserName")));
+        getDriver1().findElement(By.id("ctl00_ContentPlaceHolder1_loginform_txtUserName")).sendKeys(login);
+        getDriver1().findElement(By.className("password")).sendKeys(password);
+        getDriver1().findElement(By.id("ctl00_ContentPlaceHolder1_loginform_signInButton")).click();
     }
     public void Request_equipment_list() throws InterruptedException {
         logger.info("Request sensor list and Sensor names");

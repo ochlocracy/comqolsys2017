@@ -46,6 +46,14 @@ public class About_page {
     public WebElement Patch_Description;
     @FindBy(xpath = "//android.widget.TextView[@text='Last Upgrade Date']")
     public WebElement Last_Upgrade_Date;
+    @FindBy(xpath = "//android.widget.TextView[@text='Patch']")
+    public WebElement Patch;
+    @FindBy(xpath = "//android.widget.TextView[@text='Date']")
+    public WebElement Date;
+    @FindBy(xpath = "//android.widget.TextView[@text='Status']")
+    public WebElement Status;
+    @FindBy(xpath = "//android.widget.TextView[@text='Checksum']")
+    public WebElement Checksum;
     @FindBy(xpath = "//android.widget.TextView[@text='Panel']")
     public WebElement Panel_About;
     @FindBy(xpath = "//android.widget.TextView[@text='MAC Address']")

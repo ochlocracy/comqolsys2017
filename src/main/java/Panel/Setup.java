@@ -58,6 +58,7 @@ public class Setup {
 
     public void webDriverSetUp () {
         driver1 = new FirefoxDriver();
+
         wait = new WebDriverWait(driver1, 40);
     }
     public WebDriver getDriver1() {
@@ -75,7 +76,7 @@ public class Setup {
         else {
             val = "";
         }
-   //     System.out.println(val);
+        System.out.println(val);
         return val;
     }
     public String split_method (  String str) {
@@ -97,6 +98,7 @@ public class Setup {
         cap.setCapability("udid", getUdid);
         cap.setCapability("appPackage", "com.qolsys");
         cap.setCapability("appActivity", "com.qolsys.activites.Theme3HomeActivity");
+        //cap.setCapability("newCommandTimeout", "500");
         driver = new AndroidDriver<WebElement>(new URL(url_+":"+port_+"/wd/hub"), cap);
     }
 

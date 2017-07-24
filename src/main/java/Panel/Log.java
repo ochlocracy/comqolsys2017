@@ -45,7 +45,7 @@ public class Log {
     }
 
     public void clearLog() throws Exception {
-        FileWriter fw = new FileWriter("/home/qolsys/Desktop/comqolsysPOM/log/testlog.log");
+        FileWriter fw = new FileWriter("/comqolsysPOM/log/testlog.log");
         PrintWriter pw = new PrintWriter(fw);
         pw.println("");
         pw.flush();
