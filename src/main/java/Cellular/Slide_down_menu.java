@@ -18,7 +18,7 @@ public class Slide_down_menu extends Setup{
 
       @BeforeMethod
     public void capabilities_setup() throws Exception {
-        setup_driver(udid_, "http://127.0.1.1", "4723");
+        setup_driver(get_UDID(), "http://127.0.1.1", "4723");
         setup_logger(page_name);
     }
     @Test
@@ -34,9 +34,9 @@ public class Slide_down_menu extends Setup{
 
         String Carrier_name = (menu.Cell_info.getText()).split(":")[0];
         System.out.println("Carrier name: " + Carrier_name);
-        String Cellular_Signal_Strength = (menu.Cell_info.getText()).substring(7).split("/")[0];
-        System.out.println("The value " + Cellular_Signal_Strength + " is used for comparison");
-        int Cellular_Signal_Strength_in_bars = Integer.parseInt(Cellular_Signal_Strength);
+       String Cellular_Signal_Strength = (menu.Cell_info.getText()).substring(7).split("/")[0];
+       // System.out.println("The value " + Cellular_Signal_Strength + " is used for comparison");
+       // int Cellular_Signal_Strength_in_bars = Integer.parseInt(Cellular_Signal_Strength);
 
 
 
