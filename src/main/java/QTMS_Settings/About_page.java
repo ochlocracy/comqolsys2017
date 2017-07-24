@@ -153,9 +153,9 @@ public class About_page extends Setup {
         about.Panel_About.click();
         Thread.sleep(1000);
     }
-    @Parameters ({"Baseband_Version"})
+    @Parameters ({"Baseband_Version", "Verizon_Config_Version", "ATandT_Config_version"})
     @Test (dependsOnMethods = {"accessAboutPage"})
-    public void SASA_019_SASA_020_SASA_021_SASA_022_SASA_023_SASA_024_SASA_025 (String Baseband_Version) throws Exception {
+    public void SASA_019_SASA_020_SASA_021_SASA_022_SASA_023_SASA_024_SASA_025 (String Baseband_Version, String Verizon_Config_Version, String ATandT_Config_version) throws Exception {
         Panel.About_page about = PageFactory.initElements(driver, Panel.About_page.class);
         logger.info("Verifying cellular info");
         element_verification(about.Cellular, "Cellular");
@@ -164,6 +164,7 @@ public class About_page extends Setup {
         List<WebElement> li = driver.findElements(By.id("com.qolsys:id/summary"));
         element_verification(about.Carrier, "Carrier");
         logger.info("Carrier: " + li.get(0).getText());
+        String carrier = li.get(0).getText();
         element_verification(about.Cellular_Connection, "Cellular Connection");
         logger.info("Cellular Connection: " + li.get(1).getText());
         element_verification(about.Cellular_Signal_Strength, "Cellular Signal Strength");
@@ -183,6 +184,14 @@ public class About_page extends Setup {
             else { logger.info("***FAILED*** incorrect Baseband Version "+li.get(4).getText());
         }
         logger.info("Configuration Version: " + li1.get(5).getText());
+
+        if (carrier.equals("Verizon Wireless")) {
+            boolean config_version = li1.get(5).getText().toString().equals(Verizon_Config_Version);
+            System.out.println("Carrier is " +carrier+  " configuration version is correct: " +config_version);
+        }else  if (carrier.equals("AT&T")){
+            boolean config_version = li1.get(5).getText().toString().equals(ATandT_Config_version);
+            System.out.println("Carrier is " +carrier+  " configuration version is correct: " +config_version);
+        }
         driver.findElement(By.id("com.qolsys:id/child_view")).click();
         Thread.sleep(1000);
     }

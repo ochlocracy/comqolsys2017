@@ -210,6 +210,7 @@ public class ADC extends Setup {
         getDriver1().get(ADC_URL);
         String login = "qapple";
         String password = "qolsys123";
+        Thread.sleep(2000);
 //        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("txtUsername")));
         getDriver1().findElement(By.id("txtUsername")).sendKeys(login);
         getDriver1().findElement(By.id("txtPassword")).sendKeys(password);
