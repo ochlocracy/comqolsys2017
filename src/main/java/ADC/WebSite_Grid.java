@@ -38,7 +38,7 @@ public class WebSite_Grid {
     public void Test2() throws IOException, InterruptedException {
         logger.info("********************************************************");
         logger.info("Verify sensors appear on the dealer website");
-        myADC.New_ADC_session();
+        myADC.New_ADC_session("");
         TimeUnit.SECONDS.sleep(5);
         myADC.getDriver1().findElement(By.partialLinkText("Sensors")).click();
         TimeUnit.SECONDS.sleep(5);
