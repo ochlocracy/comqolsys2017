@@ -60,7 +60,7 @@ public class WebSite extends Setup {
     public void Test2() throws IOException, InterruptedException {
         logger.info("********************************************************");
         logger.info("Verify sensors appear on the dealer website");
-        myADC.New_ADC_session("8888");
+        myADC.New_ADC_session("4679473");
         TimeUnit.SECONDS.sleep(5);
         myADC.driver1.findElement(By.partialLinkText("Sensors")).click();
         TimeUnit.SECONDS.sleep(3);
@@ -141,7 +141,7 @@ public class WebSite extends Setup {
     public void Test4() throws InterruptedException {
         logger.info("********************************************************");
         logger.info("Verify new sensor name, group, type are displayed correctly on the dealer website");
-        myADC.New_ADC_session("8888");
+        myADC.New_ADC_session("4679473");
         TimeUnit.SECONDS.sleep(3);
         myADC.driver1.findElement(By.partialLinkText("Sensors")).click();
         myADC.driver1.findElement(By.xpath("//input[@value='Request Sensor Names']")).click();
@@ -172,7 +172,7 @@ public class WebSite extends Setup {
     public void Test5() throws InterruptedException {
         logger.info("********************************************************");
         logger.info("Verify new sensor name, group, type, reporting type, status are displayed correctly on the dealer website");
-        myADC.New_ADC_session("");
+        myADC.New_ADC_session("4679473");
         TimeUnit.SECONDS.sleep(3);
         myADC.driver1.findElement(By.partialLinkText("Sensors")).click();
         myADC.driver1.findElement(By.xpath("//input[@value='Request Sensor Names']")).click();
@@ -223,7 +223,7 @@ public class WebSite extends Setup {
     public void Test7() throws InterruptedException {
         logger.info("********************************************************");
         logger.info("Verify new sensor name, group, type, reporting type, status are displayed correctly on the dealer website");
-        myADC.New_ADC_session("");
+        myADC.New_ADC_session("4679473");
         TimeUnit.SECONDS.sleep(3);
         myADC.driver1.findElement(By.partialLinkText("Sensors")).click();
         myADC.driver1.findElement(By.xpath("//input[@value='Request Sensor Names']")).click();
@@ -273,7 +273,7 @@ public class WebSite extends Setup {
     public void Test9() throws InterruptedException {
         logger.info("********************************************************");
         logger.info("Renaming sensors from the ADC dealer website");
-        myADC.New_ADC_session("");
+        myADC.New_ADC_session("4679473");
         TimeUnit.SECONDS.sleep(3);
         myADC.driver1.findElement(By.partialLinkText("Sensors")).click();
         myADC.driver1.findElement(By.partialLinkText("Change Sensor Names")).click();
