@@ -205,7 +205,7 @@ public class ADC extends Setup {
     }
     public void New_ADC_session() throws InterruptedException {
         TimeUnit.SECONDS.sleep(2);
-        getDriver1().manage().window().maximize();
+//        getDriver1().manage().window().maximize();
         String ADC_URL = "https://alarmadmin.alarm.com/Support/CustomerInfo.aspx?customer_Id=4679473";
         getDriver1().get(ADC_URL);
         String login = "qapple";
@@ -214,6 +214,7 @@ public class ADC extends Setup {
 //        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("txtUsername")));
         getDriver1().findElement(By.id("txtUsername")).sendKeys(login);
         getDriver1().findElement(By.id("txtPassword")).sendKeys(password);
+
         getDriver1().findElement(By.id("butLogin")).click();
         getDriver1().findElement(By.partialLinkText("Equipment")).click();
     }
@@ -236,19 +237,19 @@ public class ADC extends Setup {
         logger.info("Request equipment list");
         getDriver1().findElement(By.id("ctl00_refresh_sensors_button_btnRefreshPage")).click();
         TimeUnit.SECONDS.sleep(3);
-        getDriver1().findElement(By.xpath("//input[@value='Request Sensor Names']")).click();
-        Alert alert = getDriver1().switchTo().alert();
-        getDriver1().switchTo().alert().accept();
-        alert.accept();
-        TimeUnit.SECONDS.sleep(10);
-        getDriver1().findElement(By.id("ctl00_refresh_sensors_button_btnRefreshPage")).click();
-        TimeUnit.SECONDS.sleep(5);
-        getDriver1().findElement(By.xpath("//input[@value='Request Sensor Names']")).click();
-        alert =  getDriver1().switchTo().alert();
-        getDriver1().switchTo().alert();
-        alert.accept();
-        TimeUnit.SECONDS.sleep(10);
-        getDriver1().findElement(By.id("ctl00_refresh_sensors_button_btnRefreshPage")).click();
+//        getDriver1().findElement(By.xpath("//input[@value='Request Sensor Names']")).click();
+//        Alert alert = getDriver1().switchTo().alert();
+//        getDriver1().switchTo().alert().accept();
+//        alert.accept();
+//        TimeUnit.SECONDS.sleep(10);
+//        getDriver1().findElement(By.id("ctl00_refresh_sensors_button_btnRefreshPage")).click();
+//        TimeUnit.SECONDS.sleep(5);
+//        getDriver1().findElement(By.xpath("//input[@value='Request Sensor Names']")).click();
+//        alert =  getDriver1().switchTo().alert();
+//        getDriver1().switchTo().alert();
+//        alert.accept();
+//        TimeUnit.SECONDS.sleep(10);
+//        getDriver1().findElement(By.id("ctl00_refresh_sensors_button_btnRefreshPage")).click();
     }
     public void Sensor_verification(String name, String group, String sensor_type, int number) {
         //number = number of the table row

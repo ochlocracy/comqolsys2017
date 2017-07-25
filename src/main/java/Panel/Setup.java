@@ -58,7 +58,6 @@ public class Setup {
 
     public void webDriverSetUp () {
         driver1 = new FirefoxDriver();
-
         wait = new WebDriverWait(driver1, 40);
     }
     public WebDriver getDriver1() {
@@ -180,18 +179,21 @@ public class Setup {
     }
     public void DISARM (){
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        logger.info("Disarm");
         home_page.DISARM.click();
         enter_default_user_code();
     }
 
     public void ARM_STAY (){
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        logger.info("Arm Stay");
         home_page.DISARM.click();
         home_page.ARM_STAY.click();
     }
 
     public void ARM_AWAY(int delay) throws Exception {
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        logger.info("Arm Away");
         home_page.DISARM.click();
         home_page.ARM_AWAY.click();
         TimeUnit.SECONDS.sleep(delay);
