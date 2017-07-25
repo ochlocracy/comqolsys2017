@@ -205,13 +205,13 @@ public class ADC extends Setup {
     }
     public void New_ADC_session() throws InterruptedException {
         TimeUnit.SECONDS.sleep(2);
-//        getDriver1().manage().window().maximize();
+        getDriver1().manage().window().maximize();
         String ADC_URL = "https://alarmadmin.alarm.com/Support/CustomerInfo.aspx?customer_Id=4679473";
         getDriver1().get(ADC_URL);
         String login = "qapple";
         String password = "qolsys123";
         Thread.sleep(2000);
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("txtUsername")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("txtUsername")));
         getDriver1().findElement(By.id("txtUsername")).sendKeys(login);
         getDriver1().findElement(By.id("txtPassword")).sendKeys(password);
 
