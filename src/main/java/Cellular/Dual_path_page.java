@@ -36,6 +36,11 @@ public class Dual_path_page extends Setup{
             sys.DUAL_PATH_TEST.click();
             Thread.sleep(2000);
         }
+/*@Test
+    public void wifi_data_off() throws IOException {
+        String wifi_off = "shell svc wifi disable";
+        rt.exec(adbPath + " -s ");
+    }*/
 // Test1 The default setting values. In this case, dual-path is enabled
    @Test(priority = 1,dependsOnMethods = {"accessDual_path_page"})
     public void Dual_path_page() throws Exception {
@@ -117,8 +122,7 @@ public class Dual_path_page extends Setup{
         Thread.sleep(2000);
 
 
-    } */
-
+    }*/
 
 
 

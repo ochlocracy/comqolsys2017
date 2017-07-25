@@ -96,7 +96,7 @@ public class WebSite_Grid_Rename {
     public void Test4() throws InterruptedException {
         logger.info("********************************************************");
         logger.info("Verify new sensor name, group, type are displayed correctly on the dealer website");
-        myADC.New_ADC_session();
+        myADC.New_ADC_session("");
         TimeUnit.SECONDS.sleep(5);
         s.getDriver1().findElement(By.partialLinkText("Sensors")).click();
         TimeUnit.SECONDS.sleep(3);

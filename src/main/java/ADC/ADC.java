@@ -203,10 +203,10 @@ public class ADC extends Setup {
         TimeUnit.SECONDS.sleep(2);
         act.sendKeys(Keys.ENTER).perform();
     }
-    public void New_ADC_session() throws InterruptedException {
+    public void New_ADC_session(String getAccountId) throws InterruptedException {
         TimeUnit.SECONDS.sleep(2);
         getDriver1().manage().window().maximize();
-        String ADC_URL = "https://alarmadmin.alarm.com/Support/CustomerInfo.aspx?customer_Id=4679473";
+        String ADC_URL = "https://alarmadmin.alarm.com/Support/CustomerInfo.aspx?customer_Id=" +getAccountId;
         getDriver1().get(ADC_URL);
         String login = "qapple";
         String password = "qolsys123";
