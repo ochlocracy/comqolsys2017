@@ -131,6 +131,27 @@ public class ADC extends Setup {
 
     public ADC() throws IOException, BiffException {}
 
+    public String getAccountId () throws IOException {
+        String accountId = null;
+        if (get_UDID().equals("8ebdbc76")) {      //Anya
+            accountId = "4679473";
+            return accountId;
+        } else if (get_UDID().equals("8ebdbcf6")) {    //Olga
+            accountId = "5432189";
+            return accountId;
+        } else if (get_UDID().equals("ac82129c")){    //Sergio
+            accountId = "5434757";
+            return accountId;
+        } else if (get_UDID().equals("8ebdbc27")){    //Nathan
+            accountId = "5347653";
+            return accountId;
+        }else if (get_UDID().equals("8ebdbcf1")) {    //Zach
+            accountId = "5434890";
+            return accountId;
+        }
+        return  accountId;
+    }
+
     public void add_sensor(int zone, int group, int DLID, int sensor_type) throws IOException {
         String add_sensor = " shell service call qservice 50 i32 " + zone + " i32 " + group + " i32 " + DLID + " i32 " + sensor_type;
         mySensors.rt.exec(adbPath + " -s " + mySensors.primary + add_sensor);
@@ -203,10 +224,10 @@ public class ADC extends Setup {
         TimeUnit.SECONDS.sleep(2);
         act.sendKeys(Keys.ENTER).perform();
     }
-    public void New_ADC_session(String getAccountId) throws InterruptedException {
+    public void New_ADC_session(String accountID) throws InterruptedException {
         TimeUnit.SECONDS.sleep(2);
         getDriver1().manage().window().maximize();
-        String ADC_URL = "https://alarmadmin.alarm.com/Support/CustomerInfo.aspx?customer_Id=" +getAccountId;
+        String ADC_URL = "https://alarmadmin.alarm.com/Support/CustomerInfo.aspx?customer_Id="+accountID;
         getDriver1().get(ADC_URL);
         String login = "qapple";
         String password = "qolsys123";
