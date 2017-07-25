@@ -2,6 +2,7 @@ package Panel;
 
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
+import org.junit.AfterClass;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -49,5 +50,5 @@ public class Settings_Page_Test extends Setup {
     public void tearDown () throws IOException, InterruptedException {
         log.endTestCase(page_name);
         driver.quit();
-    }
+           }
     }
