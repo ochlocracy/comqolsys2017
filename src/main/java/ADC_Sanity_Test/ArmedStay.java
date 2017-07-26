@@ -1,16 +1,13 @@
 package ADC_Sanity_Test;
 
 import ADC.ADC;
-import Panel.Advanced_Settings_Page;
-import Panel.Installation_Page;
-import Panel.Security_Arming_Page;
+
 import Panel.Setup;
 import Sensors.Sensors;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -47,22 +44,12 @@ public class ArmedStay extends Setup {
     public void capabilities_setup() throws Exception {
         setup_driver(get_UDID(),"http://127.0.1.1", "4723");
         setup_logger(page_name);
+        setArmStay_NoDelay("Disable");
+        setAutoStay("Disable");
     }
     @BeforeMethod
     public  void webDriver(){
         adc.webDriverSetUp();
-    }
-
-    public void ArmStay_NoDelay_Setting () throws InterruptedException {
-        Security_Arming_Page arming = PageFactory.initElements(driver, Security_Arming_Page.class);
-        Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
-        Installation_Page inst = PageFactory.initElements(driver, Installation_Page.class);
-        adv.INSTALLATION.click();
-        inst.SECURITY_AND_ARMING.click();
-        Thread.sleep(3000);
-        swipe_vertical();
-        arming.Arm_Stay_No_Delay.click();
-        Thread.sleep(2000);
     }
 
     @Test
