@@ -9,10 +9,11 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.*;
-
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class Misc extends Setup {
 
@@ -271,25 +272,22 @@ public class Misc extends Setup {
         Thread.sleep(33000);
         verify_armaway();
         sensors.primary_call("65 00 AF", keyfobDisarm);
-        Thread.sleep(33000);
+        Thread.sleep(5000);
         verify_disarm();
 /*** ADC website verification ***/
 
         adc.New_ADC_session(adc.getAccountId());
-        Thread.sleep(3000);
-        adc.driver1.findElement(By.partialLinkText("History")).click();
+        Thread.sleep(2000);
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
         Thread.sleep(10000);
-
         try {
-            WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), ' Keyfob 38 ')]"));
-            Assert.assertTrue(history_message_alarm.isDisplayed());
-            {
-                System.out.println("Dealer website history: " + " " + history_message_alarm.getText());
-            }
-        } catch (Exception e) {
-            System.out.println("No such element found!!!");
+            WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), ' Keyfob 38 ')]"));
+            Assert.assertTrue(history_message.isDisplayed());
+            logger.info("Dealer website history: " + history_message.getText());
+        } catch (Exception e){
+            logger.info("***No such element found!***");
         }
-        Thread.sleep(3000);
+        Thread.sleep(2000);
         }
     @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
     public void Disarm_by_keyfob_group6() throws Exception {
@@ -304,25 +302,22 @@ public class Misc extends Setup {
         Thread.sleep(33000);
         verify_armaway();
         sensors.primary_call("65 00 BF", keyfobDisarm);
-        Thread.sleep(33000);
+        Thread.sleep(5000);
         verify_disarm();
 /*** ADC website verification ***/
 
         adc.New_ADC_session(adc.getAccountId());
-        Thread.sleep(3000);
-        adc.driver1.findElement(By.partialLinkText("History")).click();
+        Thread.sleep(2000);
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
         Thread.sleep(10000);
-
         try {
-            WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), ' Keyfob 39 ')]"));
-            Assert.assertTrue(history_message_alarm.isDisplayed());
-            {
-                System.out.println("Dealer website history: " + " " + history_message_alarm.getText());
-            }
-        } catch (Exception e) {
-            System.out.println("No such element found!!!");
+            WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), ' Keyfob 39 ')]"));
+            Assert.assertTrue(history_message.isDisplayed());
+            logger.info("Dealer website history: " + history_message.getText());
+        } catch (Exception e){
+            logger.info("***No such element found!***");
         }
-        Thread.sleep(3000);
+        Thread.sleep(2000);
     }
     @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
     public void Disarm_by_keyfob_group4() throws Exception {
@@ -337,26 +332,63 @@ public class Misc extends Setup {
         Thread.sleep(33000);
         verify_armaway();
         sensors.primary_call("65 00 CF", keyfobDisarm);
-        Thread.sleep(33000);
+        Thread.sleep(5000);
         verify_disarm();
 /*** ADC website verification ***/
 
         adc.New_ADC_session(adc.getAccountId());
-        Thread.sleep(3000);
-        adc.driver1.findElement(By.partialLinkText("History")).click();
+        Thread.sleep(2000);
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
         Thread.sleep(10000);
-
         try {
-            WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), ' Keyfob 40 ')]"));
-            Assert.assertTrue(history_message_alarm.isDisplayed());
-            {
-                System.out.println("Dealer website history: " + " " + history_message_alarm.getText());
-            }
-        } catch (Exception e) {
-            System.out.println("No such element found!!!");
+            WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), ' Keyfob 40 ')]"));
+            Assert.assertTrue(history_message.isDisplayed());
+            logger.info("Dealer website history: " + history_message.getText());
+        } catch (Exception e){
+            logger.info("***No such element found!***");
         }
-        Thread.sleep(3000);
+        Thread.sleep(2000);
     }
+
+
+//////////////////// AirFX - Sensor Addition //////////////////////
+   @Test
+   public void AirFX_sensor_adding() throws IOException, InterruptedException {
+       TimeUnit.SECONDS.sleep(2);
+       adc.getDriver1().manage().window().maximize();
+       String ADC_URL = "https://alarmadmin.alarm.com/Support/CustomerInfo.aspx?customer_Id="+adc.getAccountId();
+       adc.getDriver1().get(ADC_URL);
+       String login = "qapple";
+       String password = "qolsys123";
+       Thread.sleep(2000);
+       adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("txtUsername")));
+       adc.getDriver1().findElement(By.id("txtUsername")).sendKeys(login);
+       adc.getDriver1().findElement(By.id("txtPassword")).sendKeys(password);
+       adc.getDriver1().findElement(By.id("butLogin")).click();
+       Thread.sleep(2000);
+       adc.getDriver1().get("https://alarmadmin.alarm.com/Support/AirFx/rt_AddSensor.aspx");
+       Thread.sleep(10000);
+       WebElement id = adc.driver1.findElement(By.id("#ctl00_phBody_ucsAddSensor_txtID"));
+
+      // adc.driver1.findElement(By.partialLinkText("Sensors")).click();
+       //Thread.sleep(2000);
+       //adc.Request_equipment_list();
+
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @AfterTest
     public void tearDown() throws IOException, InterruptedException {
