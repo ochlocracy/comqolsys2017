@@ -52,6 +52,7 @@ public class ArmedStay extends Setup {
     public  void webDriver(){
         adc.webDriverSetUp();
     }
+
     public void ArmStay_NoDelay_Setting () throws InterruptedException {
         Security_Arming_Page arming = PageFactory.initElements(driver, Security_Arming_Page.class);
         Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
