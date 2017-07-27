@@ -364,5 +364,68 @@ public void get_PANEL_INFO_DEVICE_LIMIT_SMART_SOCKET() throws IOException, Inter
         String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 28 i32 1 i32 0 i32 0";
         rt.exec(command);}
 
+    public void get_ZWAVE_ON_OFF() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 71 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_ZWAVE_ON_OFF() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 71 i32 1 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_DEVICE_LIMIT_SMART_SOCKET() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 36 i32 0 i32 0 i32 85 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_DEVICE_LIMIT_SMART_SOCKET(int LIMIT) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 85 i32 10 " + LIMIT + " i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_DEVICE_LIMIT_THERMOSTAT() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 36 i32 0 i32 0 i32 86 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_DEVICE_LIMIT_THERMOSTAT(int LIMIT) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 86 i32 5 " + LIMIT + " i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_DEVICE_LIMIT_DOORLOCK() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 36 i32 0 i32 0 i32 87 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_DEVICE_LIMIT_DOORLOCK(int LIMIT) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 87 i32 4 " + LIMIT + " i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_DEVICE_LIMIT_DIMMER() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 36 i32 0 i32 0 i32 88 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_DEVICE_LIMIT_DIMMER(int LIMIT) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 88 i32 4 " + LIMIT + " i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_DEVICE_LIMIT_OTHERDEVICES () throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 36 i32 0 i32 0 i32 125 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_DEVICE_LIMIT_OTHERDEVICES( int LIMIT) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 125 i32 " + LIMIT + " i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_ZWAVE_REMOTE_VOICE_PROMPTS () throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 117 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_ZWAVE_REMOTE_VOICE_PROMPTS(boolean Value) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 117  i32 0 " + Value + " i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_ZWAVE_DEVICE_VOICE_PROMPTS () throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 116  i32 0 i32 0";
+        rt.exec(command);}
+
+
+
+
 }
 
