@@ -355,5 +355,14 @@ public void get_PANEL_INFO_DEVICE_LIMIT_SMART_SOCKET() throws IOException, Inter
     public void set_PANEL_INFO_DEVICE_LIMIT_DIMMER(int limit) throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 88 i32 0 i32 " + limit + " i32 0";
         rt.exec(command);}
+
+    public void get_TEMPERATURE_SCALE() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 36 i32 0 i32 0 i32 28 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_TEMPERATURE_SCALE() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 28 i32 1 i32 0 i32 0";
+        rt.exec(command);}
+
 }
 
