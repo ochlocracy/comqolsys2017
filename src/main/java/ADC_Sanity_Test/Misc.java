@@ -14,6 +14,7 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.Keys;
 
 public class Misc extends Setup {
 
@@ -34,6 +35,10 @@ public class Misc extends Setup {
         rt.exec(adbPath + add_primary);
         // shell service call qservice 50 i32 2 i32 10 i32 6619296 i32 1
     }
+    public void delete_from_primary(int zone) throws IOException, InterruptedException {
+        String deleteFromPrimary = " shell service call qservice 51 i32 " + zone;
+        rt.exec(adbPath + deleteFromPrimary);
+        System.out.println(deleteFromPrimary);}
 
     @BeforeTest
     public void capabilities_setup() throws Exception {
@@ -368,11 +373,44 @@ public class Misc extends Setup {
        Thread.sleep(2000);
        adc.getDriver1().get("https://alarmadmin.alarm.com/Support/AirFx/rt_AddSensor.aspx");
        Thread.sleep(10000);
-       WebElement id = adc.driver1.findElement(By.id("#ctl00_phBody_ucsAddSensor_txtID"));
+       adc.getDriver1().findElement(By.name("#ctl00_phBody_ucsAddSensor_txtID")).sendKeys("38");
+      // adc.getDriver1().findElement(By.id)
 
+
+
+       //id.sendKeys("1");
       // adc.driver1.findElement(By.partialLinkText("Sensors")).click();
        //Thread.sleep(2000);
        //adc.Request_equipment_list();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
    }
 
@@ -393,6 +431,8 @@ public class Misc extends Setup {
     @AfterTest
     public void tearDown() throws IOException, InterruptedException {
         driver.quit();
+        for (int i= 8; i>0; i--) {
+            delete_from_primary(i);}
     }
 
     @AfterMethod
