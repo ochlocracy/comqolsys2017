@@ -221,5 +221,34 @@ public class PanelInfo_ServiceCalls extends Setup {
         String command = adbPath + " shell service call qservice 41 i32 0 i32 0 i32 33 s16 " + Name + " i32 0 i32 0";
         rt.exec(command);}
 
+    public void get_SECURE_CAMERA() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 34 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_SECURE_CAMERA_enable() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 34 i32 1 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_SECURE_CAMERA_disable() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 34 i32 0 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_SECURE_ARMING() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 34 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_SECURE_ARMING_enable() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 34 i32 1 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_SECURE_ARMING_disable() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 34 i32 0 i32 0 i32 0";
+        rt.exec(command);}
+
+
+
+
+
+
 
 }
