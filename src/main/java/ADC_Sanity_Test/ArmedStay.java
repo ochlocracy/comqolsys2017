@@ -159,9 +159,6 @@ public class ArmedStay extends Setup {
 
 
 
-
-
-
 //    @Test (dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
 //    public void ArmStay_Open_Close_group_10_during_Exit_Delay() throws Exception {
 //        logger.info("ArmStay -Open/Close Group 10 contact sensor during exit delay");
