@@ -146,6 +146,8 @@ public class Setup {
         driver.swipe(startx, starty, startx, endy, 3000);
         Thread.sleep(2000);
     }
+
+
     public void swipe_vertical_up() throws InterruptedException {
         int starty = 260;
         int endy = 660;
