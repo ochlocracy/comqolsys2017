@@ -75,7 +75,7 @@ public class Setup {
         else {
             val = "";
         }
-        System.out.println(val);
+  //      System.out.println(val);
         return val;
     }
     public String split_method (  String str) {
@@ -645,5 +645,56 @@ public class Setup {
     public void touchSwipe(int startx, int starty, int endx, int endy){
         TouchAction a = new TouchAction(driver);
         a.longPress(startx, starty).moveTo(endx, endy).release().perform();
+    }
+
+    //State is "Enable" or "Disable"
+    public void setArmStay_NoDelay(String state) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 21 i32 0 i32 0";
+        rt.exec(command);
+        String value = (execCmd(command)).toString();
+        System.out.println(value);
+
+        if (state.equals("Enable")) {
+            if (value.contains("00000001")) {
+                System.out.println("Setting is already Enabled");
+            } else if (value.contains("00000000")) {
+                System.out.println("Setting is Disabled, Enabling the setting");
+                rt.exec(adbPath + " shell service call qservice 40 i32 0 i32 0 i32 21 i32 1 i32 0 i32 0");}
+        }
+
+        else if (state.equals("Disable")) {
+            if (value.contains("00000001")) {
+                System.out.println("Setting is Enabled, Disabling the setting");
+                rt.exec(adbPath + " shell service call qservice 40 i32 0 i32 0 i32 21 i32 0 i32 0 i32 0");
+            } else if (value.contains("00000000")) {
+                System.out.println("Setting is already Disabled");
+            }
+        }
+        Thread.sleep(1000);
+    }
+    //State is "Enable" or "Disable"
+    public void setAutoStay(String state) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 20 i32 0 i32 0";
+        rt.exec(command);
+        String value = (execCmd(command)).toString();
+        System.out.println(value);
+
+        if (state.equals("Enable")) {
+            if (value.contains("00000001")) {
+                System.out.println("Setting is already Enabled");
+            } else if (value.contains("00000000")) {
+                System.out.println("Setting is Disabled, Enabling the setting");
+                rt.exec(adbPath + " shell service call qservice 40 i32 0 i32 0 i32 20 i32 1 i32 0 i32 0");}
+        }
+
+        else if (state.equals("Disable")) {
+            if (value.contains("00000001")) {
+                System.out.println("Setting is Enabled, Disabling the setting");
+                rt.exec(adbPath + " shell service call qservice 40 i32 0 i32 0 i32 20 i32 0 i32 0 i32 0");
+            } else if (value.contains("00000000")) {
+                System.out.println("Setting is already Disabled");
+            }
+        }
+        Thread.sleep(1000);
     }
     }

@@ -1,16 +1,14 @@
 package ADC_Sanity_Test;
 
 import ADC.ADC;
-import Panel.Advanced_Settings_Page;
-import Panel.Installation_Page;
-import Panel.Security_Arming_Page;
+
 import Panel.Setup;
 import Sensors.Sensors;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
@@ -37,26 +35,21 @@ public class ArmedStay extends Setup {
         rt.exec(adbPath + add_primary);
         // shell service call qservice 50 i32 2 i32 10 i32 6619296 i32 1
     }
+     public void delete_from_primary(int zone) throws IOException, InterruptedException {
+         String deleteFromPrimary = " shell service call qservice 51 i32 " + zone;
+         rt.exec(adbPath + deleteFromPrimary);
+         System.out.println(deleteFromPrimary);}
 
     @BeforeTest
     public void capabilities_setup() throws Exception {
         setup_driver(get_UDID(),"http://127.0.1.1", "4723");
         setup_logger(page_name);
+        setArmStay_NoDelay("Disable");
+        setAutoStay("Disable");
     }
     @BeforeMethod
     public  void webDriver(){
         adc.webDriverSetUp();
-    }
-    public void ArmStay_NoDelay_Setting () throws InterruptedException {
-        Security_Arming_Page arming = PageFactory.initElements(driver, Security_Arming_Page.class);
-        Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
-        Installation_Page inst = PageFactory.initElements(driver, Installation_Page.class);
-        adv.INSTALLATION.click();
-        inst.SECURITY_AND_ARMING.click();
-        Thread.sleep(3000);
-        swipe_vertical();
-        arming.Arm_Stay_No_Delay.click();
-        Thread.sleep(2000);
     }
 
     @Test
@@ -76,7 +69,6 @@ public class ArmedStay extends Setup {
         adc.driver1.findElement(By.partialLinkText("Sensors")).click();
         Thread.sleep(2000);
         adc.Request_equipment_list();
-
     }
 
     @Test (dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
@@ -96,14 +88,15 @@ public class ArmedStay extends Setup {
         /*** ADC website verification ***/
 
         adc.New_ADC_session(adc.getAccountId());
-        adc.driver1.findElement(By.partialLinkText("History")).click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
         Thread.sleep(10000);
-        WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 1  (Sensor 1) Opened/Closed')]"));
         try {
+            WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 1  (Sensor 1) Opened/Closed')]"));
             Assert.assertTrue(history_message.isDisplayed());{
-                System.out.println("Pass: message is displayed " + history_message.getText());
+                logger.info("Pass: message is displayed " + history_message.getText());
             }
-        }finally {
+        }catch (Exception e){
+            logger.info("***No such element found!***");
         }
         Thread.sleep(5000);
     }
@@ -124,13 +117,15 @@ public class ArmedStay extends Setup {
 
         adc.New_ADC_session(adc.getAccountId());
         Thread.sleep(2000);
-        adc.driver1.findElement(By.partialLinkText("History")).click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
         Thread.sleep(10000);
-        WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 2  (Sensor 2) Opened/Closed')]"));
         try{
+            WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 2  (Sensor 2) Opened/Closed')]"));
             Assert.assertTrue(history_message.isDisplayed());
-            System.out.println("Pass: message is displayed "+history_message.getText());
-        } finally {}
+            logger.info("Pass: message is displayed "+history_message.getText());
+        } catch (Exception e){
+            logger.info("***No such element found!***");
+        }
         Thread.sleep(2000);
     }
     @Test(priority = 2, retryAnalyzer = RetryAnalizer.class)
@@ -151,15 +146,17 @@ public class ArmedStay extends Setup {
 
         adc.New_ADC_session(adc.getAccountId());
         Thread.sleep(2000);
-        adc.driver1.findElement(By.partialLinkText("History")).click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
         adc.driver1.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 3  (Sensor 3) Opened/Closed')]"));
-        WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 3 (Sensor 3) Alarm')]"));
         try {
+            WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 3  (Sensor 3) Opened/Closed')]"));
+            WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 3 (Sensor 3) Alarm')]"));
             Assert.assertTrue(history_message.isDisplayed() && history_message_alarm.isDisplayed()); {
-                System.out.println("Pass: message is displayed " + history_message.getText()+" " + history_message_alarm.getText());
+               logger.info("Pass: message is displayed " + history_message.getText()+" " + history_message_alarm.getText());
             }
-            }finally {}
+            }catch (Exception e){
+            logger.info("***No such element found!***");
+        }
             Thread.sleep(2000);
         }
 
@@ -181,16 +178,16 @@ public class ArmedStay extends Setup {
 
         adc.New_ADC_session(adc.getAccountId());
         Thread.sleep(2000);
-        adc.driver1.findElement(By.partialLinkText("History")).click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
         Thread.sleep(10000);
-        WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 4  (Sensor 4) Opened/Closed')]"));
         try {
-            if (history_message.isDisplayed()) {
-                System.out.println("Pass: message is displayed " + history_message.getText());
-            } else {
-                System.out.println("I don't see the message");
-            }
-        }finally {}
+            WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 4  (Sensor 4) Opened/Closed')]"));
+            Assert.assertTrue(history_message.isDisplayed());
+               logger.info("Pass: message is displayed " + history_message.getText());
+            } catch (Exception e){
+            logger.info("***No such element found!***");
+        }
+        Thread.sleep(2000);
     }
     @Test(priority = 4, retryAnalyzer = RetryAnalizer.class)
     public void  ArmStay_Open_Close_group_16_during_Exit_Delay() throws Exception {
@@ -210,16 +207,18 @@ public class ArmedStay extends Setup {
 
         adc.New_ADC_session(adc.getAccountId());
         Thread.sleep(2000);
-        adc.driver1.findElement(By.partialLinkText("History")).click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
         Thread.sleep(10000);
-        WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 5  (Sensor 5) Opened/Closed')]"));
         try {
-           Assert.assertTrue(history_message.isDisplayed());
+            WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 5  (Sensor 5) Opened/Closed')]"));
+            Assert.assertTrue(history_message.isDisplayed());
             {
-                System.out.println("Pass: message is displayed " + history_message.getText());
+                logger.info("Pass: message is displayed " + history_message.getText());
             }
-        }finally {}
-
+        }catch (Exception e){
+            logger.info("***No such element found!***");
+        }
+        Thread.sleep(2000);
     }
     @Test(priority = 5, retryAnalyzer = RetryAnalizer.class)
     public void  ArmStay_Open_Close_group_8_during_Exit_Delay() throws Exception {
@@ -239,18 +238,18 @@ public class ArmedStay extends Setup {
 
         adc.New_ADC_session(adc.getAccountId());
         Thread.sleep(2000);
-        adc.driver1.findElement(By.partialLinkText("History")).click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
         Thread.sleep(10000);
-
-        WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 6 (Sensor 6) Alarm')]"));
         try {
+            WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 6 (Sensor 6) Alarm')]"));
             Assert.assertTrue( history_message_alarm.isDisplayed());{
-                System.out.println("Pass: message is displayed " + " " +history_message_alarm.getText());
+                logger.info("Pass: message is displayed " + " " +history_message_alarm.getText());
             }
-        }finally {
+        }catch (Exception e){
+            logger.info("***No such element found!***");
         }
+        Thread.sleep(2000);
     }
-
     @Test(priority = 6, retryAnalyzer = RetryAnalizer.class)
     public void  ArmStay_Open_Close_group_9_during_Exit_Delay() throws Exception {
         logger.info("ArmStay -Open/Close Group 9 contact sensor during exit delay");
@@ -269,16 +268,17 @@ public class ArmedStay extends Setup {
 
         adc.New_ADC_session(adc.getAccountId());
         Thread.sleep(3000);
-        adc.driver1.findElement(By.partialLinkText("History")).click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
         Thread.sleep(10000);
-
-        WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Delayed alarm on sensor 7 in partition 1')]"));
         try {
+            WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Delayed alarm on sensor 7 in partition 1')]"));
             Assert.assertTrue( history_message_alarm.isDisplayed());{
-                System.out.println("Pass: message is displayed " + " " +history_message_alarm.getText());
+               logger.info("Pass: message is displayed " + " " +history_message_alarm.getText());
             }
-        }finally {
+        }catch (Exception e){
+            logger.info("***No such element found!***");
         }
+        Thread.sleep(2000);
     }
     @Test(priority = 7, retryAnalyzer = RetryAnalizer.class)
     public void  ArmStay_Open_Close_group_25_during_Exit_Delay() throws Exception {
@@ -298,23 +298,23 @@ public class ArmedStay extends Setup {
 
         adc.New_ADC_session(adc.getAccountId());
         Thread.sleep(3000);
-        adc.driver1.findElement(By.partialLinkText("History")).click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
         Thread.sleep(10000);
-
-        WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 8  (Sensor 8) Opened/Closed')]"));
         try {
+            WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 8  (Sensor 8) Opened/Closed')]"));
             Assert.assertTrue( history_message_alarm.isDisplayed());{
-                System.out.println("Pass: message is displayed " + " " +history_message_alarm.getText());
+                logger.info("Pass: message is displayed " + " " +history_message_alarm.getText());
             }
-        }finally {
+        }catch (Exception e){
+            logger.info("***No such element found!***");
         }
     }
-
-
-
     @AfterTest
     public void tearDown() throws IOException, InterruptedException {
         driver.quit();
+        for (int i= 8; i>0; i--) {
+            delete_from_primary(i);
+        }
     }
     @AfterMethod
     public void webDriverQuit(){
