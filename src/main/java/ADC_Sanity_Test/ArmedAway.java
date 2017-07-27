@@ -24,6 +24,7 @@ public class ArmedAway extends Setup{
     Logger logger = Logger.getLogger(page_name);
     Sensors sensors = new Sensors();
     ADC adc = new ADC();
+    String accountID = adc.getAccountId();
 
     public ArmedAway() throws IOException, BiffException {}
 
@@ -69,7 +70,7 @@ public class ArmedAway extends Setup{
         Thread.sleep(500);
         add_primary_call(8, 25, 6619303, 1);
 
-        adc.New_ADC_session(adc.getAccountId());
+        adc.New_ADC_session(accountID);
         Thread.sleep(2000);
         adc.driver1.findElement(By.partialLinkText("Sensors")).click();
         Thread.sleep(2000);
@@ -92,7 +93,7 @@ public class ArmedAway extends Setup{
 
         /*** ADC website verification ***/
 
-        adc.New_ADC_session(adc.getAccountId());
+        adc.New_ADC_session(accountID);
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
         Thread.sleep(10000);
         try {
@@ -129,7 +130,7 @@ public class ArmedAway extends Setup{
         home.ArwAway_State.click();
         enter_default_user_code();
 
-        adc.New_ADC_session(adc.getAccountId());
+        adc.New_ADC_session(accountID);
         Thread.sleep(2000);
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
         Thread.sleep(10000);
@@ -164,7 +165,7 @@ public class ArmedAway extends Setup{
 
         /*** ADC website verification ***/
 
-        adc.New_ADC_session(adc.getAccountId());
+        adc.New_ADC_session(accountID);
         Thread.sleep(2000);
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
         adc.driver1.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -204,7 +205,7 @@ public class ArmedAway extends Setup{
 
         /*** ADC website verification ***/
 
-        adc.New_ADC_session(adc.getAccountId());
+        adc.New_ADC_session(accountID);
         Thread.sleep(2000);
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
         Thread.sleep(10000);
@@ -244,7 +245,7 @@ public class ArmedAway extends Setup{
 
         /*** ADC website verification ***/
 
-        adc.New_ADC_session(adc.getAccountId());
+        adc.New_ADC_session(accountID);
         Thread.sleep(2000);
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
         Thread.sleep(10000);
@@ -281,7 +282,7 @@ public class ArmedAway extends Setup{
 
         /*** ADC website verification ***/
 
-        adc.New_ADC_session(adc.getAccountId());
+        adc.New_ADC_session(accountID);
         Thread.sleep(2000);
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
         Thread.sleep(10000);
@@ -317,7 +318,7 @@ public class ArmedAway extends Setup{
 
         /*** ADC website verification ***/
 
-        adc.New_ADC_session(adc.getAccountId());
+        adc.New_ADC_session(accountID);
         Thread.sleep(3000);
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
         Thread.sleep(10000);
@@ -355,7 +356,7 @@ public class ArmedAway extends Setup{
 
         /*** ADC website verification ***/
 
-        adc.New_ADC_session(adc.getAccountId());
+        adc.New_ADC_session(accountID);
         Thread.sleep(3000);
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
         Thread.sleep(10000);

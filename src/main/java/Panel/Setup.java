@@ -647,7 +647,7 @@ public class Setup {
     }
 
     public void navigate_to_user_site(String login, String password) {
-        getDriver1().manage().window().setSize(new Dimension(800, 600));
+        getDriver1().manage().window().maximize();
         String ADC_URL = "https://alarm.com";
         getDriver1().get(ADC_URL);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("LOGIN")));
