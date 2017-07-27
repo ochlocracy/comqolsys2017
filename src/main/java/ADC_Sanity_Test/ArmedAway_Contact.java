@@ -18,14 +18,14 @@ import java.util.concurrent.TimeUnit;
 
 /*** PRECONDITIONS: disable AutoStay setting, Arm Stay - No Delay, set delays to 30, 31, 32, 33 sec ***/
 
-public class ArmedAway extends Setup{
+public class ArmedAway_Contact extends Setup{
 
     String page_name = "Arm Stay mode";
     Logger logger = Logger.getLogger(page_name);
     Sensors sensors = new Sensors();
     ADC adc = new ADC();
 
-    public ArmedAway() throws IOException, BiffException {}
+    public ArmedAway_Contact() throws IOException, BiffException {}
 
     private int Normal_Exit_Delay = 30000;
     private String open = "06 00";
