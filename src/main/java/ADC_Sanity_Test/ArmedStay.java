@@ -157,8 +157,6 @@ public class ArmedStay extends Setup {
         ArmStay_Open_Close_sensor_during_Exit_Delay(25,"65 00 7A", "//*[contains(text(), 'Door/Window 8  (Sensor 8) Opened/Closed')]");
     }
 
-
-
 //    @Test (dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
 //    public void ArmStay_Open_Close_group_10_during_Exit_Delay() throws Exception {
 //        logger.info("ArmStay -Open/Close Group 10 contact sensor during exit delay");
