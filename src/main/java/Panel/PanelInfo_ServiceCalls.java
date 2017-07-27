@@ -234,16 +234,370 @@ public class PanelInfo_ServiceCalls extends Setup {
         rt.exec(command);}
 
     public void get_SECURE_ARMING() throws IOException, InterruptedException {
-        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 34 i32 0 i32 0";
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 35 i32 0 i32 0";
         rt.exec(command);}
 
     public void set_SECURE_ARMING_enable() throws IOException, InterruptedException {
-        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 34 i32 1 i32 0 i32 0";
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 35 i32 1 i32 0 i32 0";
         rt.exec(command);}
 
     public void set_SECURE_ARMING_disable() throws IOException, InterruptedException {
-        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 34 i32 0 i32 0 i32 0";
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 35 i32 0 i32 0 i32 0";
         rt.exec(command);}
+
+    public void get_NO_ARMING_ON_LOW_BATTERY() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 36 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_NO_ARMING_ON_LOW_BATTERY_enable() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 36 i32 1 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_NO_ARMING_ON_LOW_BATTERY_disable() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 36 i32 0 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_SIA_LIMITS() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 37 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_SIA_LIMITS_enable() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 37 i32 1 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_SIA_LIMITS_disable() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 37 i32 0 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_SPEAKER_VOLUME() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 36 i32 0 i32 0 i32 39 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_SPEAKER_VOLUME() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 39 i32 20 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_ALL_VOICE_PROMPTS() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 42 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_ALL_VOICE_PROMPTS() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 42 i32 1 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_SENSOR_VOICE_PROMPTS() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 43 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_SENSOR_VOICE_PROMPTS() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 43 i32 1 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_PANEL_VOICE_PROMPTS() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 44 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_PANEL_VOICE_PROMPTS() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 44 i32 1 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_SAFETY_SENSORS_VOICE_PROMPTS() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 45 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_SAFETY_SENSORS_VOICE_PROMPTS() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 45 i32 1 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_ALL_CHIMES() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 46 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_ALL_CHIMES() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 46 i32 1 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_SENSOR_CHIMES() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 47 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_SENSOR_CHIMES() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 47 i32 1 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_PANEL_CHIMES() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 48 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_PANEL_CHIMES() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 48 i32 1 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_SAFETY_SENSORS_CHIMES() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 49 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_SAFETY_SENSORS_CHIMES() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 49 i32 1 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_DISPLAY_BRIGHTNES() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 36 i32 0 i32 0 i32 50 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_DISPLAY_BRIGHTNES() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 50 i32 10 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_DURESS_AUTHENTICATION() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 61 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_DURESS_AUTHENTICATION_disable() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 61 i32 0 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_DURESS_AUTHENTICATION_enable() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 61 i32 1 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_CUSTOMER_ACCOUNT() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 38 i32 0 i32 0 i32 62 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_CUSTOMER_ACCOUNT(int BCBC) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 41 i32 0 i32 0 i32 62 s16 " + BCBC +" i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_ZWAVE_ON_OFF() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 71 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_ZWAVE_ON_OFF() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 71 i32 1 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_POWER_MANAGEMENT_ON_OFF() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 73 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_POWER_MANAGEMENT_ON_OFF_enable() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 73 i32 1 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_POWER_MANAGEMENT_ON_OFF_disable() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 73 i32 0 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_AUTO_EXIT_TIME_EXTENSION() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 84 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_AUTO_EXIT_TIME_EXTENSION(boolean Value) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 84 i32 " + Value + " i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_DEVICE_LIMIT_SMART_SOCKET() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 36 i32 0 i32 0 i32 85 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_DEVICE_LIMIT_SMART_SOCKET(int LIMIT) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 85 i32 10 " + LIMIT + " i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_DEVICE_LIMIT_THERMOSTAT() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 36 i32 0 i32 0 i32 86 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_DEVICE_LIMIT_THERMOSTAT(int LIMIT) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 86 i32 5 " + LIMIT + " i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_DEVICE_LIMIT_DOORLOCK() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 36 i32 0 i32 0 i32 87 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_DEVICE_LIMIT_DOORLOCK(int LIMIT) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 87 i32 4 " + LIMIT + " i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_DEVICE_LIMIT_DIMMER() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 36 i32 0 i32 0 i32 88 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_DEVICE_LIMIT_DIMMER(int LIMIT) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 88 i32 4 " + LIMIT + " i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_AUTO_UPLOAD_LOGS() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 90 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_AUTO_UPLOAD_LOGS(boolean Value) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 90 i32 " + Value + " i32 0 i32 0";
+        rt.exec(command);}
+    public void get_FIRE_VERIFICATION() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 100 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_FIRE_VERIFICATION(boolean Value) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 100 i32 " + Value + " i32 0 i32 0";
+        rt.exec(command);}
+
+        ///////////////////////NETWORK_FAILURE_TIMER(Cell Signal Timeout)////////////////////////////////
+    public void get_Cell_Signal_Timeout() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 36 i32 0 i32 0 i32 101 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_Cell_Signal_Timeout(int Value) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 101 i32 " + Value + " i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_SEVERE_WEATHER_SIREN_WARNING() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 103 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_SEVERE_WEATHER_SIREN_WARNING(boolean Value) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 103 i32 " + Value + " i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_SECURE_DELETE_IMAGES() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 104 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_SECURE_DELETE_IMAGES(boolean Value) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 104 i32 " + Value + " i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_USER_NAME (int userID) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 38 i32 0 i32 0 i32 126 i32 " + userID + " i32 0";
+        rt.exec(command);}
+
+    public void set_USER_NAME (String userName, int userID) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 41 i32 0 i32 0 i32 126 s16 " + userName + " i32 " + userID + " i32 0";
+        rt.exec(command);}
+
+    public void get_DEVICE_LIMIT_OTHERDEVICES () throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 36 i32 0 i32 0 i32 125 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_DEVICE_LIMIT_OTHERDEVICES( int LIMIT) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 125 i32 " + LIMIT + " i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_WATER_FREEZE_ALARM () throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 122  i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_WATER_FREEZE_ALARM() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 122  i32 1 i32 0";
+        rt.exec(command);}
+
+    public void get_SIREN_ANNUNCIATION () throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 120 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_SIREN_ANNUNCIATION(boolean Value) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 120 i32 1 " + Value + " i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_LOSS_OF_SUPERVISORY_EMERGENCY_TIMEOUT () throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 36 i32 0 i32 0 i32 118 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_LOSS_OF_SUPERVISORY_EMERGENCY_TIMEOUT() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 118 i32 12 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_ZWAVE_REMOTE_VOICE_PROMPTS () throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 117 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_ZWAVE_REMOTE_VOICE_PROMPTS(boolean Value) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 117  i32 0 " + Value + " i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_ZWAVE_DEVICE_VOICE_PROMPTS () throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 116  i32 0 i32 0";
+        rt.exec(command);}
+
+// language  ---> "es"
+    public void set_LANGUAGE(String language) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 41 i32 0 i32 0 i32 30 s16 " + language +" i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_LANGUAGE () throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 38 i32 0 i32 0 i32 30 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_TROUBLE_BEEPS_TIMEOUT() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 36 i32 0 i32 0 i32 77 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void sets_to_10__TROUBLE_BEEPS_TIMEOUT () throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 77 i32 10 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void sets_to_15__TROUBLE_BEEPS_TIMEOUT () throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 77 i32 20 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_TROUBLE_BEEPS_TAMPERED() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 76 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_TROUBLE_BEEPS_TAMPERED_enable () throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 76 i32 1 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_TROUBLE_BEEPS_TAMPERED_disable () throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 76 i32 0 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_TROUBLE_BEEPS_LOW_BATTERY() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 75 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_TROUBLE_BEEPS_LOW_BATTERY_enable () throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 75 i32 1 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_TROUBLE_BEEPS_LOW_BATTERY_disable () throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 75 i32 0 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_TROUBLE_BEEPS_LOW_BATTESIA_POWER_RESTORATIONRY() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 74 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_SIA_POWER_RESTORATION_enable () throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 74 i32 1 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_SIA_POWER_RESTORATION_disable () throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 74 i32 0 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_LCD_CALIBRATE() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 72 i32 1 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_LONG_ENTRY_DELAY() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 36 i32 0 i32 0 i32 114 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_LONG_ENTRY_DELAY (int LIMIT) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 114 i32 " + LIMIT + " i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_LONG_EXIT_DELAY() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 36 i32 0 i32 0 i32 115 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_LONG_EXIT_DELAY (int LIMIT) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 115 i32 " + LIMIT + " i32 0 i32 0";
+        rt.exec(command);}
+
 
 
 
