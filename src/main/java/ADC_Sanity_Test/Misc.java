@@ -381,19 +381,3 @@ public class Misc extends Setup {
        // adc.driver1.findElement(By.partialLinkText("Sensors")).click();
        //Thread.sleep(2000);
        //adc.Request_equipment_list();
-
-
-   }
-
-    @AfterTest
-    public void tearDown() throws IOException, InterruptedException {
-        driver.quit();
-        for (int i= 3; i>0; i--) {
-            delete_from_primary(i);}
-    }
-
-    @AfterMethod
-    public void webDriverQuit() {
-        adc.driver1.quit();
-    }
-}
