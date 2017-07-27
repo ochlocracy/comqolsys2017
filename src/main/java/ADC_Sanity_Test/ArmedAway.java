@@ -54,12 +54,19 @@ public class ArmedAway extends Setup{
     public void addSensors() throws IOException, InterruptedException {
         Thread.sleep(2000);
         add_primary_call(1, 10, 6619296, 1);
+        Thread.sleep(500);
         add_primary_call(2, 12, 6619297, 1);
+        Thread.sleep(500);
         add_primary_call(3, 13, 6619298, 1);
+        Thread.sleep(500);
         add_primary_call(4, 14, 6619299, 1);
+        Thread.sleep(500);
         add_primary_call(5, 16, 6619300, 1);
+        Thread.sleep(500);
         add_primary_call(6, 8, 6619301, 1);
+        Thread.sleep(500);
         add_primary_call(7, 9, 6619302, 1);
+        Thread.sleep(500);
         add_primary_call(8, 25, 6619303, 1);
 
         adc.New_ADC_session(adc.getAccountId());
