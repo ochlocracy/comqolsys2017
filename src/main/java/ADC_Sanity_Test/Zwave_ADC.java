@@ -4,6 +4,8 @@ import ADC.ADC;
 import Panel.Setup;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
@@ -46,17 +48,26 @@ public class Zwave_ADC extends Setup {
     //******************************************
 
     @Test
-    public void smoke_sensors() throws InterruptedException {
+    public void smoke_sensors() throws Exception {
         logger.info("navigating to dealer site...");
         adc.New_ADC_session(accountID);
-        Thread.sleep(5000);
+        adc.driver1.findElement(By.xpath("/html/body/form/table/tbody/tr/td[2]/div/div[2]/div[3]/div/div/ul/" +
+                "li[5]/a")).click();
+        adc.driver1.findElement(By.id("ctl00_phBody_ZWaveDeviceList_btnAdvancedZWaveCommands")).click();
+        adc.driver1.findElement(By.id("ctl00_phBody_ZWaveDeviceList_btn_RemoteAdd")).click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_ZWaveRemoteAddDevices_btnSave" +
+                "AndExit")));
+
+        //check panel UI
+        element_verification(driver.findElement(By.id("com.qolsys:id/title")), "Remote Add Status");
+        adc.driver1.findElement(By.id("ctl00_phBody_ZWaveRemoteAddDevices_btnSaveAndExit")).click();
     }
 
     @AfterMethod
     public void tearDown () throws IOException, InterruptedException {
         log.endTestCase(page_name);
         driver.quit();
-        getDriver1().quit();
+        adc.driver1.quit();
     }
 
 }
