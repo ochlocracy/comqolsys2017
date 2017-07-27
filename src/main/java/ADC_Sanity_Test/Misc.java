@@ -375,24 +375,10 @@ public class Misc extends Setup {
        //adc.Request_equipment_list();
 
    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @AfterTest
     public void tearDown() throws IOException, InterruptedException {
         driver.quit();
+
     }
 
     @AfterMethod

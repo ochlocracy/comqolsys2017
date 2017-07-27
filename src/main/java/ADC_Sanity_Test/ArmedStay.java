@@ -70,6 +70,12 @@ public class ArmedStay extends Setup {
         Thread.sleep(2000);
         adc.Request_equipment_list();
     }
+     public void ArmStay_Open_Close_sensor_during_Exit_Delay() {
+         logger.info("ArmStay -Open/Close Group 10 contact sensor during exit delay");
+     }
+
+
+
 
     @Test (dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
     public void ArmStay_Open_Close_group_10_during_Exit_Delay() throws Exception {
