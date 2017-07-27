@@ -1,18 +1,15 @@
 package Panel;
 
-import Zwave.Lights_Page_beta;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
-import org.apache.tools.ant.property.NullReturn;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.*;
 import org.testng.annotations.Test;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class About_Page_Test extends Setup {
