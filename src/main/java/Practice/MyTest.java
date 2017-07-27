@@ -1,5 +1,6 @@
-package Panel;
+package Practice;
 
+import Panel.*;
 import jxl.read.biff.BiffException;
 import org.junit.AfterClass;
 import org.openqa.selenium.support.PageFactory;
@@ -13,7 +14,7 @@ import java.io.IOException;
 /**
  * Created by qolsys on 7/18/17.
  */
-public class MyTest extends Setup{
+public class MyTest extends Setup {
 
     public MyTest () throws IOException, BiffException{
 
