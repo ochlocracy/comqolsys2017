@@ -80,15 +80,16 @@ public void getZWaveStatus() throws IOException, InterruptedException {
         String value = (execCmd(command)).toString();
         System.out.println(value); }
 
-
-
-
-
-
-
-
-
-
+    public void get_valied_nodeID() throws IOException, InterruptedException {
+    String command = adbPath + " shell service call qservice 37 i32 0 i32 2 i32 21 i32 nodeID i32 0";
+    rt.exec(command);
+    String value = (execCmd(command)).toString();
+    System.out.println(value);
+    if (value.contains("00000001")) {
+        System.out.println("The nodeId is registered");
+    } else if (value.contains("00000000")) {
+        System.out.println("The nodeId is not registered");
+    } }
 
 }
 
