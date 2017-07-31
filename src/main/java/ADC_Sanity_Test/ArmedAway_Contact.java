@@ -2,6 +2,7 @@ package ADC_Sanity_Test;
 
 import ADC.ADC;
 import Panel.Home_Page;
+import Panel.PanelInfo_ServiceCalls;
 import Panel.Setup;
 import Sensors.Sensors;
 import jxl.read.biff.BiffException;
@@ -16,15 +17,13 @@ import org.testng.annotations.*;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-/*** PRECONDITIONS: disable AutoStay setting, Arm Stay - No Delay, set delays to 30, 31, 32, 33 sec ***/
-
 public class ArmedAway_Contact extends Setup{
 
     String page_name = "Arm Stay mode";
     Logger logger = Logger.getLogger(page_name);
     Sensors sensors = new Sensors();
     ADC adc = new ADC();
-    String accountID = adc.getAccountId();
+    PanelInfo_ServiceCalls servcall = new PanelInfo_ServiceCalls();
 
     public ArmedAway_Contact() throws IOException, BiffException {}
 
@@ -46,6 +45,15 @@ public class ArmedAway_Contact extends Setup{
     public void capabilities_setup() throws Exception {
         setup_driver(get_UDID(),"http://127.0.1.1", "4723");
         setup_logger(page_name);
+        servcall.set_NORMAL_ENTRY_DELAY(10);
+        Thread.sleep(1000);
+        servcall.set_NORMAL_EXIT_DELAY(11);
+        Thread.sleep(1000);
+        servcall.set_LONG_ENTRY_DELAY(12);
+        Thread.sleep(1000);
+        servcall.set_LONG_EXIT_DELAY(13);
+        servcall.set_AUTO_STAY(0);
+        servcall.set_ARM_STAY_NO_DELAY_disable();
     }
     @BeforeMethod
     public  void webDriver(){
@@ -55,36 +63,30 @@ public class ArmedAway_Contact extends Setup{
     public void addSensors() throws IOException, InterruptedException {
         Thread.sleep(2000);
         add_primary_call(1, 10, 6619296, 1);
-        Thread.sleep(500);
         add_primary_call(2, 12, 6619297, 1);
-        Thread.sleep(500);
         add_primary_call(3, 13, 6619298, 1);
-        Thread.sleep(500);
         add_primary_call(4, 14, 6619299, 1);
-        Thread.sleep(500);
         add_primary_call(5, 16, 6619300, 1);
-        Thread.sleep(500);
         add_primary_call(6, 8, 6619301, 1);
-        Thread.sleep(500);
         add_primary_call(7, 9, 6619302, 1);
-        Thread.sleep(500);
         add_primary_call(8, 25, 6619303, 1);
 
-        adc.New_ADC_session(accountID);
+
+        adc.New_ADC_session(adc.getAccountId());
         Thread.sleep(2000);
         adc.driver1.findElement(By.partialLinkText("Sensors")).click();
         Thread.sleep(2000);
         adc.Request_equipment_list();
     }
-    @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
-    public void ArmAway_Open_Close_group_10_during_Exit_Delay() throws Exception {
-        logger.info("ArmAway -Open/Close Group 10 contact sensor during exit delay");
+
+    public void ArmAway_Open_Close_during_Exit_Delay(int group, String DLID, String element_to_verify, String element_to_verify2 ) throws Exception {
+        logger.info("ArmAway -Open/Close Group " + group + " contact sensor during exit delay");
         Home_Page home = PageFactory.initElements(driver, Home_Page.class);
-        ARM_AWAY(15);
+        ARM_AWAY(5);
         logger.info("Open/Close a sensor");
-        sensors.primary_call("65 00 0A", open);
+        sensors.primary_call(DLID, open);
         Thread.sleep(2000);
-        sensors.primary_call("65 00 0A", close);
+        sensors.primary_call(DLID, close);
         Thread.sleep(17000);
         verify_armaway();
         Thread.sleep(5000);
@@ -93,11 +95,11 @@ public class ArmedAway_Contact extends Setup{
 
         /*** ADC website verification ***/
 
-        adc.New_ADC_session(accountID);
+        adc.New_ADC_session(adc.getAccountId());
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
         Thread.sleep(10000);
         try {
-            WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 1  (Sensor 1) Opened/Closed')]"));
+            WebElement history_message = adc.driver1.findElement(By.xpath(element_to_verify));
             Assert.assertTrue(history_message.isDisplayed());{
                 System.out.println("Pass: message is displayed " + history_message.getText());
             }
@@ -105,81 +107,43 @@ public class ArmedAway_Contact extends Setup{
             System.out.println("No such element found");
         }
         try {
-            WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Armed Away')]"));
+            WebElement history_message = adc.driver1.findElement(By.xpath(element_to_verify2));
             Assert.assertTrue(history_message.isDisplayed());{
                 System.out.println("Pass: message is displayed " + history_message.getText());
             }
         }catch (Exception e){
-            System.out.println("No such element found");
+            System.out.println("***No such element found!***");
         }
         Thread.sleep(2000);
     }
-
-    @Test(priority = 1, retryAnalyzer = RetryAnalizer.class)
-    public void ArmAway_Open_Close_group_12_during_Exit_Delay() throws Exception {
-        Home_Page home = PageFactory.initElements(driver, Home_Page.class);
-        logger.info("ArmAway -Open/Close Group 12 contact sensor during exit delay");
-        ARM_AWAY(15);
+    public void ArmAway_Open_Close_during_Exit_Delay_Alarm(int group, String DLID, String element_to_verify, String element_to_verify2) throws Exception {
+        logger.info("ArmAway - Open/Close Group " +group+ " contact sensor during exit delay");
+        ARM_AWAY(5);
         logger.info("Open/Close a sensor");
-        sensors.primary_call("65 00 1A", open);
+        sensors.primary_call(DLID, open);
         Thread.sleep(2000);
-        sensors.primary_call("65 00 1A", close);
+        sensors.primary_call(DLID, close);
         Thread.sleep(17000);
-        verify_armaway();
-        Thread.sleep(3000);
-        home.ArwAway_State.click();
-        enter_default_user_code();
-
-        adc.New_ADC_session(accountID);
-        Thread.sleep(2000);
-        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
-        Thread.sleep(10000);
-        try{
-            WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 2  (Sensor 2) Opened/Closed')]"));
-            Assert.assertTrue(history_message.isDisplayed());
-            logger.info("Pass: message is displayed "+history_message.getText());
-        } finally {}
-
-        try {
-            WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Armed Away')]"));
-            Assert.assertTrue(history_message.isDisplayed());{
-                logger.info("Pass: message is displayed " + history_message.getText());
-            }
-        }catch (Exception e){
-            logger.info("***No such element found!***");
-        }
-        Thread.sleep(2000);
-    }
-    @Test(priority = 2, retryAnalyzer = RetryAnalizer.class)
-    public void ArmAway_Open_Close_group_13_during_Exit_Delay() throws Exception {
-        logger.info("ArmAway -Open/Close Group 13 contact sensor during exit delay");
-        ARM_AWAY(15);
-        logger.info("Open/Close a sensor");
-        sensors.primary_call("65 00 2A", open);
-        Thread.sleep(2000);
-        sensors.primary_call("65 00 2A", close);
-        Thread.sleep(2000);
         verify_in_alarm();
         Thread.sleep(2000);
         enter_default_user_code();
 
         /*** ADC website verification ***/
 
-        adc.New_ADC_session(accountID);
+        adc.New_ADC_session(adc.getAccountId());
         Thread.sleep(2000);
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
         adc.driver1.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         try {
-            WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 3  (Sensor 3) Opened/Closed')]"));
-            WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 3 (Sensor 3) Pending Alarm ')]"));
-            Assert.assertTrue(history_message.isDisplayed() && history_message_alarm.isDisplayed()); {
-                logger.info("Pass: message is displayed " + history_message.getText()+" " + history_message_alarm.getText());
+            WebElement history_message = adc.driver1.findElement(By.xpath(element_to_verify));
+            Assert.assertTrue(history_message.isDisplayed()); {
+                logger.info("Pass: message is displayed " + history_message.getText());
             }
         }catch (Exception e){
             logger.info("***No such elements found!***");
         }
         try {
-            WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Armed Away')]"));
+            WebElement history_message = adc.driver1.findElement(By.xpath(element_to_verify2));
             Assert.assertTrue(history_message.isDisplayed());{
                 logger.info("Pass: message is displayed " + history_message.getText());
             }
@@ -187,197 +151,41 @@ public class ArmedAway_Contact extends Setup{
             logger.info("***No such element found!***");
         }
         Thread.sleep(2000);
+    }
+
+    @Test (dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
+    public void ArmAwayExitDelay_10() throws Exception {
+        ArmAway_Open_Close_during_Exit_Delay(10, "65 00 0A", "//*[contains(text(), 'Door/Window 1  (Sensor 1) Opened/Closed')]", "//*[contains(text(), 'Armed Away')]");
+    }
+    @Test (priority = 1, retryAnalyzer = RetryAnalizer.class)
+    public void ArmAwayExitDelay_12() throws Exception {
+        ArmAway_Open_Close_during_Exit_Delay(12, "65 00 1A", "//*[contains(text(), 'Door/Window 2  (Sensor 2) Opened/Closed')]", "//*[contains(text(), 'Armed Away')]");
+    }
+    @Test(priority = 2, retryAnalyzer = RetryAnalizer.class)
+    public void ArmAwayExitDelay_13 () throws Exception {
+        ArmAway_Open_Close_during_Exit_Delay_Alarm(13, "65 00 2A","//*[contains(text(), 'Door/Window 3  (Sensor 3) Opened/Closed')]","//*[contains(text(), 'Armed Away')]");
     }
     @Test(priority = 3, retryAnalyzer = RetryAnalizer.class)
-    public void  ArmAway_Open_Close_group_14_during_Exit_Delay() throws Exception {
-        Home_Page home = PageFactory.initElements(driver, Home_Page.class);
-        logger.info("ArmAway -Open/Close Group 14 contact sensor during exit delay");
-        ARM_AWAY(15);
-        logger.info("Open/Close a sensor");
-        sensors.primary_call("65 00 3A", open);
-        Thread.sleep(2000);
-        sensors.primary_call("65 00 3A", close);
-        Thread.sleep(17000);
-        verify_armaway();
-        Thread.sleep(3000);
-        home.ArwAway_State.click();
-        enter_default_user_code();
-
-        /*** ADC website verification ***/
-
-        adc.New_ADC_session(accountID);
-        Thread.sleep(2000);
-        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
-        Thread.sleep(10000);
-        try {
-            WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 4  (Sensor 4) Opened/Closed')]"));
-            if (history_message.isDisplayed()) {
-                logger.info("Pass: message is displayed " + history_message.getText());
-            } else {
-                logger.info("I don't see the message");
-            }
-        }catch (Exception e ){
-            System.out.println("***No such element found!***");
-        }
-        try {
-            WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Armed Away')]"));
-            Assert.assertTrue(history_message.isDisplayed());{
-                logger.info("Pass: message is displayed " + history_message.getText());
-            }
-        }catch (Exception e){
-            logger.info("***No such element found!***");
-        }
+    public void  ArmAwayExitDelay_14() throws Exception {
+        ArmAway_Open_Close_during_Exit_Delay(14, "65 00 3A", "//*[contains(text(), 'Door/Window 4  (Sensor 4) Opened/Closed')]", "//*[contains(text(), 'Armed Away')]");
     }
     @Test(priority = 4, retryAnalyzer = RetryAnalizer.class)
-    public void  ArmAway_Open_Close_group_16_during_Exit_Delay() throws Exception {
-        Home_Page home = PageFactory.initElements(driver, Home_Page.class);
-        logger.info("ArmAway -Open/Close Group 16 contact sensor during exit delay");
-        ARM_AWAY(15);
-        logger.info("Open/Close a sensor");
-        sensors.primary_call("65 00 4A", open);
-        Thread.sleep(2000);
-        sensors.primary_call("65 00 4A", close);
-        Thread.sleep(17000);
-        verify_armaway();
-        Thread.sleep(3000);
-        home.ArwAway_State.click();
-        enter_default_user_code();
 
-        /*** ADC website verification ***/
-
-        adc.New_ADC_session(accountID);
-        Thread.sleep(2000);
-        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
-        Thread.sleep(10000);
-        try {
-            WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 5  (Sensor 5) Opened/Closed')]"));
-            Assert.assertTrue(history_message.isDisplayed());
-            {
-                System.out.println("Pass: message is displayed " + history_message.getText());
-            }
-        }catch (Exception e){
-            System.out.println("");
-        }
-        try {
-            WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Armed Away')]"));
-            Assert.assertTrue(history_message.isDisplayed());{
-                logger.info("Pass: message is displayed " + history_message.getText());
-            }
-        }catch (Exception e){
-            logger.info("***No such element found!***");
-        }
+    public void  ArmAwayExitDelay_16() throws Exception {
+        ArmAway_Open_Close_during_Exit_Delay(16, "65 00 4A", "//*[contains(text(), 'Door/Window 5  (Sensor 5) Opened/Closed')]", "//*[contains(text(), 'Armed Away')]");
     }
     @Test(priority = 5, retryAnalyzer = RetryAnalizer.class)
-    public void  ArmAway_Open_Close_group_8_during_Exit_Delay() throws Exception {
-        logger.info("ArmAway -Open/Close Group 8 contact sensor during exit delay");
-        ARM_AWAY(15);
-        logger.info("Open/Close a sensor");
-        sensors.primary_call("65 00 5A", open);
-        Thread.sleep(2000);
-        sensors.primary_call("65 00 5A", close);
-        Thread.sleep(2000);
-        verify_in_alarm();
-        Thread.sleep(30000);
-        enter_default_user_code();
-
-        /*** ADC website verification ***/
-
-        adc.New_ADC_session(accountID);
-        Thread.sleep(2000);
-        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
-        Thread.sleep(10000);
-        try {
-            WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 6 (Sensor 6) Alarm')]"));
-            Assert.assertTrue( history_message_alarm.isDisplayed());{
-                logger.info("Pass: message is displayed " + " " +history_message_alarm.getText());
-            }
-        }catch (Exception e){
-            logger.info("***No such element found!***");
-        }
-        try {
-            WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Armed Away')]"));
-            Assert.assertTrue(history_message.isDisplayed());{
-                logger.info("Pass: message is displayed " + history_message.getText());
-            }
-        }catch (Exception e){
-            logger.info("***No such element found!***");
-        }
+    public void  ArmAwayExitDelay_8() throws Exception {
+        ArmAway_Open_Close_during_Exit_Delay_Alarm(8, "65 00 5A","//*[contains(text(), 'Door/Window 6 (Sensor 6) Alarm')]", "//*[contains(text(), 'Armed Away')]");
     }
     @Test(priority = 6, retryAnalyzer = RetryAnalizer.class)
-    public void  ArmAway_Open_Close_group_9_during_Exit_Delay() throws Exception {
-        logger.info("ArmAway -Open/Close Group 9 contact sensor during exit delay");
-        ARM_AWAY(15);
-        logger.info("Open/Close a sensor");
-        sensors.primary_call("65 00 6A", open);
-        Thread.sleep(2000);
-        sensors.primary_call("65 00 6A", close);
-        Thread.sleep(31000);
-        verify_in_alarm();
-        Thread.sleep(2000);
-        enter_default_user_code();
-
-        /*** ADC website verification ***/
-
-        adc.New_ADC_session(accountID);
-        Thread.sleep(3000);
-        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
-        Thread.sleep(10000);
-        try {
-            WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Delayed alarm on sensor 7 in partition 1')]"));
-            Assert.assertTrue( history_message_alarm.isDisplayed());{
-              logger.info("Pass: message is displayed " + " " +history_message_alarm.getText());
-            }
-        }catch (Exception e){
-            logger.info("***No such element found!***");
-        }
-        try {
-            WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Armed Away')]"));
-            Assert.assertTrue(history_message.isDisplayed());{
-                logger.info("Pass: message is displayed " + history_message.getText());
-            }
-        }catch (Exception e){
-            logger.info("***No such element found!***");
-        }
+    public void  ArmAwayExitDelay_9() throws Exception {
+        ArmAway_Open_Close_during_Exit_Delay_Alarm(9, "65 00 6A","//*[contains(text(), 'Delayed alarm on sensor 7 in partition 1')]", "//*[contains(text(), 'Armed Away')]");
     }
     @Test(priority = 7, retryAnalyzer = RetryAnalizer.class)
-    public void  ArmAway_Open_Close_group_25_during_Exit_Delay() throws Exception {
-        Home_Page home = PageFactory.initElements(driver, Home_Page.class);
-        logger.info("ArmAway -Open/Close Group 25 contact sensor during exit delay");
-        ARM_AWAY(15);
-        logger.info("Open/Close a sensor");
-        sensors.primary_call("65 00 7A", open);
-        Thread.sleep(2000);
-        sensors.primary_call("65 00 7A", close);
-        Thread.sleep(17000);
-        verify_armaway();
-        Thread.sleep(3000);
-        home.ArwAway_State.click();
-        enter_default_user_code();
-
-        /*** ADC website verification ***/
-
-        adc.New_ADC_session(accountID);
-        Thread.sleep(3000);
-        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
-        Thread.sleep(10000);
-        try {
-            WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Door/Window 8  (Sensor 8) Opened/Closed')]"));
-            Assert.assertTrue( history_message_alarm.isDisplayed());{
-               logger.info("Pass: message is displayed " + " " +history_message_alarm.getText());
-            }
-        }catch (Exception e){
-            logger.info("***No such element found!***");
-        }
-        try {
-            WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Armed Away')]"));
-            Assert.assertTrue(history_message.isDisplayed());{
-                logger.info("Pass: message is displayed " + history_message.getText());
-            }
-        }catch (Exception e){
-            logger.info("***No such element found!***");
-        }
+    public void  ArmAwayExitDelay_25() throws Exception {
+        ArmAway_Open_Close_during_Exit_Delay(25,"65 00 7A",  "//*[contains(text(), 'Door/Window 8  (Sensor 8) Opened/Closed')]","//*[contains(text(), 'Armed Away')]");
     }
-
 
     @AfterTest
     public void tearDown() throws IOException, InterruptedException {

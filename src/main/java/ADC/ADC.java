@@ -148,6 +148,8 @@ public class ADC extends Setup {
         }else if (get_UDID().equals("8ebdbcf1")) {    //Zach
             accountId = "5434890";
             return accountId;
+        }else  if (get_UDID().equals("62e9f0df")) {
+            accountId = "5222397";
         }
         return  accountId;
     }
