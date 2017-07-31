@@ -35,7 +35,7 @@ public class Duress_Authentication_Test extends Setup{
         logger.info("Verify system can not be DISARMED with Duress code when the setting is disabled");
         home.DISARM.click();
         home.ARM_STAY.click();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         home.DISARM.click();
         home.Nine.click();
         home.Nine.click();
@@ -43,7 +43,7 @@ public class Duress_Authentication_Test extends Setup{
         home.Eight.click();
         if(settings.Invalid_User_Code.isDisplayed()){
             logger.info("Pass: Duress code does not work");}
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         enter_default_user_code();
         navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
