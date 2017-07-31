@@ -13,8 +13,7 @@ public class PanelInfo_ServiceCalls extends Setup {
     public Runtime rt = Runtime.getRuntime();
 
 
-    public PanelInfo_ServiceCalls() throws IOException, BiffException {
-    }
+    public PanelInfo_ServiceCalls() throws IOException, BiffException {}
     public void get_PARTITION() throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 36 i32 0 i32 0 i32 1 i32 0 i32 0";
         rt.exec(command);    }
