@@ -121,16 +121,32 @@ public class PanelInfo_ServiceCalls extends Setup {
         String command = adbPath + " shell service call qservice 36 i32 0 i32 0 i32 15 i32 0 i32 0";
         rt.exec(command);}
 
-    public void set_ENTRY_DELAY() throws IOException, InterruptedException {
-        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 15 i32 10 i32 0 i32 0";
+    public void set_NORMAL_ENTRY_DELAY(int sec) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 15 i32 "+ sec +" i32 0 i32 0";
         rt.exec(command);}
 
     public void get_EXIT_DELAY() throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 36 i32 0 i32 0 i32 16 i32 0 i32 0";
         rt.exec(command);}
 
-    public void set_EXIT_DELAY() throws IOException, InterruptedException {
-        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 16 i32 10 i32 0 i32 0";
+    public void set_NORMAL_EXIT_DELAY(int sec) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 16 i32 " +sec+ " i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_LONG_ENTRY_DELAY() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 36 i32 0 i32 0 i32 114 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_LONG_ENTRY_DELAY (int sec) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 114 i32 " + sec + " i32 0 i32 0";
+        rt.exec(command);}
+
+    public void get_LONG_EXIT_DELAY() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 36 i32 0 i32 0 i32 115 i32 0 i32 0";
+        rt.exec(command);}
+
+    public void set_LONG_EXIT_DELAY (int sec) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 115 i32 " + sec + " i32 0 i32 0";
         rt.exec(command);}
 
     public void get_AUTO_BYPASS() throws IOException, InterruptedException {
@@ -145,8 +161,9 @@ public class PanelInfo_ServiceCalls extends Setup {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 20 i32 0 i32 0";
         rt.exec(command);}
 
-    public void set_AUTO_STAY() throws IOException, InterruptedException {
-        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 20 i32 1 i32 0 i32 0";
+        //State: 0 = disable; 1 = enable
+    public void set_AUTO_STAY(int state) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 20 i32 "+state+" i32 0 i32 0";
         rt.exec(command);}
 
     public void get_ARM_STAY_NO_DELAY() throws IOException, InterruptedException {
@@ -580,22 +597,6 @@ public class PanelInfo_ServiceCalls extends Setup {
 
     public void get_LCD_CALIBRATE() throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 72 i32 1 i32 0 i32 0";
-        rt.exec(command);}
-
-    public void get_LONG_ENTRY_DELAY() throws IOException, InterruptedException {
-        String command = adbPath + " shell service call qservice 36 i32 0 i32 0 i32 114 i32 0 i32 0";
-        rt.exec(command);}
-
-    public void set_LONG_ENTRY_DELAY (int LIMIT) throws IOException, InterruptedException {
-        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 114 i32 " + LIMIT + " i32 0 i32 0";
-        rt.exec(command);}
-
-    public void get_LONG_EXIT_DELAY() throws IOException, InterruptedException {
-        String command = adbPath + " shell service call qservice 36 i32 0 i32 0 i32 115 i32 0 i32 0";
-        rt.exec(command);}
-
-    public void set_LONG_EXIT_DELAY (int LIMIT) throws IOException, InterruptedException {
-        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 115 i32 " + LIMIT + " i32 0 i32 0";
         rt.exec(command);}
 
     ///////////// Photo Frame Settings ////////////////
