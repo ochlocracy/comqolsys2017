@@ -360,44 +360,47 @@ public class Misc extends Setup {
         Thread.sleep(2000);
     }
 
+// //        @AfterClass
+// //        public void tearDown () throws IOException, InterruptedException {
+// //            log.endTestCase(page_name);
+// //            driver.quit();
+// //        }}
+// //     //////////////////// AirFX - Sensor Addition //////////////////////
+// //     @Test
+// //     public void AirFX_sensor_adding() throws IOException, InterruptedException {
+// //         TimeUnit.SECONDS.sleep(2);
+// //         adc.getDriver1().manage().window().maximize();
+// //         String ADC_URL = "https://alarmadmin.alarm.com/Support/CustomerInfo.aspx?customer_Id=" + adc.getAccountId();
+// //         adc.getDriver1().get(ADC_URL);
+// //         String login = "qapple";
+// //         String password = "qolsys123";
+// //         Thread.sleep(2000);
+// //         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("txtUsername")));
+// //         adc.getDriver1().findElement(By.id("txtUsername")).sendKeys(login);
+// //         adc.getDriver1().findElement(By.id("txtPassword")).sendKeys(password);
+// //         adc.getDriver1().findElement(By.id("butLogin")).click();
+// //         Thread.sleep(2000);
+// //         adc.getDriver1().get("https://alarmadmin.alarm.com/Support/AirFx/rt_AddSensor.aspx");
+// //         Thread.sleep(10000);
+// //         adc.getDriver1().findElement(By.name("#ctl00_phBody_ucsAddSensor_txtID")).sendKeys("38");
+// //         // adc.getDriver1().findElement(By.id)
 
-    //////////////////// AirFX - Sensor Addition //////////////////////
-    @Test
-    public void AirFX_sensor_adding() throws IOException, InterruptedException {
-        TimeUnit.SECONDS.sleep(2);
-        adc.getDriver1().manage().window().maximize();
-        String ADC_URL = "https://alarmadmin.alarm.com/Support/CustomerInfo.aspx?customer_Id=" + adc.getAccountId();
-        adc.getDriver1().get(ADC_URL);
-        String login = "qapple";
-        String password = "qolsys123";
-        Thread.sleep(2000);
-        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("txtUsername")));
-        adc.getDriver1().findElement(By.id("txtUsername")).sendKeys(login);
-        adc.getDriver1().findElement(By.id("txtPassword")).sendKeys(password);
-        adc.getDriver1().findElement(By.id("butLogin")).click();
-        Thread.sleep(2000);
-        adc.getDriver1().get("https://alarmadmin.alarm.com/Support/AirFx/rt_AddSensor.aspx");
-        Thread.sleep(10000);
-        adc.getDriver1().findElement(By.name("#ctl00_phBody_ucsAddSensor_txtID")).sendKeys("38");
-        // adc.getDriver1().findElement(By.id)
 
+// //         //id.sendKeys("1");
+// //         // adc.driver1.findElement(By.partialLinkText("Sensors")).click();
+// //         //Thread.sleep(2000);
+// //         //adc.Request_equipment_list();
+// //     }
 
-        //id.sendKeys("1");
-        // adc.driver1.findElement(By.partialLinkText("Sensors")).click();
-        //Thread.sleep(2000);
-        //adc.Request_equipment_list();
-    }
+//     @AfterTest
+//     public void tearDown() throws IOException, InterruptedException {
+//         driver.quit();
+// //        for (int i= 8; i>0; i--) {
+// //            delete_from_primary(i);
+// //        }
+//     }
 
-    @AfterTest
-    public void tearDown() throws IOException, InterruptedException {
-        driver.quit();
-//        for (int i= 8; i>0; i--) {
-//            delete_from_primary(i);
-//        }
-    }
-
-    @AfterMethod
-    public void webDriverQuit() {
-        adc.driver1.quit();
-    }
-}
+//     @AfterMethod
+//     public void webDriverQuit() {
+//         adc.driver1.quit();
+//     }
