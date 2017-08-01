@@ -16,7 +16,7 @@ public class Access_Point_Test extends  Setup{
     Logger logger = Logger.getLogger(page_name);
 
     public Access_Point_Test() throws IOException, BiffException {}
-
+//////2.1 version AccessPoint is Enabled by default////////////////////
     @BeforeMethod
     public void capabilities_setup() throws Exception {
         setup_driver(get_UDID(),"http://127.0.1.1", "4723");
@@ -32,11 +32,10 @@ public class Access_Point_Test extends  Setup{
         adv.INSTALLATION.click();
         inst.DEVICES.click();
         devices.WiFi_Devices.click();
-        access.Qolsys_Access_Point.click();
-
-        element_verification(access.Wifi_Access_Point_summery,"Access Point default summery"); //????
-        access.Wifi_Access_Point.click();
-        TimeUnit.SECONDS.sleep(2);
+        access.Access_Point_Settings.click();
+        //element_verification(access.Wifi_Access_Point_summery,"Access Point default summery"); //????
+        //access.Wifi_Access_Point.click();
+        TimeUnit.SECONDS.sleep(4);
         logger.info("Verifying elements on the page...");
         element_verification(access.Wifi_Access_Point_summery_Enabled,"Access Point summery when Enabled");
         element_verification(access.SSID,"SSID");
@@ -57,7 +56,7 @@ public class Access_Point_Test extends  Setup{
 //            logger.info("WPS PUSH BUTTON is Enabled");}
         element_verification(access.AP_PASSWORD,"AP Password");
         swipe_vertical_up();
-        access.Wifi_Access_Point.click();
+ //       access.Wifi_Access_Point.click();
 
     }
     @Test (priority = 2)
@@ -72,7 +71,7 @@ public class Access_Point_Test extends  Setup{
         inst.DEVICES.click();
         devices.WiFi_Devices.click();
         access.Qolsys_Access_Point.click();
-        access.Wifi_Access_Point.click();
+        //access.Wifi_Access_Point.click();
         TimeUnit.SECONDS.sleep(2);
         element_verification(access.Wifi_Access_Point_summery_Enabled, "Access point summery");
         TimeUnit.SECONDS.sleep(2);
@@ -147,7 +146,7 @@ public class Access_Point_Test extends  Setup{
         TimeUnit.SECONDS.sleep(1);
         settings.Back_button.click();
         TimeUnit.SECONDS.sleep(1);
-        access.Associated_Wifi_Clients.click();
+        //access.Associated_Wifi_Clients.click();
         TimeUnit.SECONDS.sleep(1);
         try {
             if (access.No.isDisplayed())
