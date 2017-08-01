@@ -3,6 +3,7 @@ package Cellular;
 import Panel.*;
 import android.widget.RadioButton;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidKeyCode;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -23,7 +24,7 @@ public class Android_settings {
     String page_name = "Native Android setting";
     Logger logger = Logger.getLogger(page_name);
 
-    Setup s = new Setup();
+    Setup a = new Setup();
 
     public WebElement element_verification(WebElement element, String element_name) throws Exception {
         try {
@@ -55,8 +56,9 @@ public class Android_settings {
 
     @BeforeMethod
     public void setUp() throws Exception {
-        setup_driver_and(s.get_UDID(), "http://127.0.1.1", "4723");
-        s.setup_logger(page_name);
+        setup_driver_and(a.get_UDID(), "http://127.0.1.1", "4723");
+        a.setup_logger(page_name);
+
         // setup_driver_and(s.get_UDID(),"http://127.0.1.1", "4723");
     }
 
@@ -65,6 +67,7 @@ public class Android_settings {
 //        adb shell am start com.qolsys
 
     public void Android_settings_elements() throws Exception {
+
         Cellular.Android_settings_elements an_ver = PageFactory.initElements(driver, Android_settings_elements.class);
         logger.info("Verifying Cellular data ...");
         Thread.sleep(2000);
@@ -103,12 +106,15 @@ public class Android_settings {
             System.out.println("NO ONE SELECTED");
             }
         Thread.sleep(2000);
+           // a.tap(40,30);
+
+              Thread.sleep(2000);
         System.out.println("End of testing");
     }
 
     @AfterMethod
     public void tearDown () throws IOException, InterruptedException {
-        s.log.endTestCase(page_name);
+        a.log.endTestCase(page_name);
         driver.quit();
     }
 }

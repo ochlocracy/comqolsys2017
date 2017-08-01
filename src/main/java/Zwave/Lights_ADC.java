@@ -64,18 +64,6 @@ public class Lights_ADC extends Setup{
         getDriver1().findElement(By.id("ctl00_phBody_pageActionButtons_buttonSave")).click();
     }
 
-    public void navigate_to_user_site(String login, String password) {
-        getDriver1().manage().window().maximize();
-        String ADC_URL = "https://alarm.com";
-        getDriver1().get(ADC_URL);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("LOGIN")));
-        getDriver1().findElement(By.partialLinkText("LOGIN")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_ContentPlaceHolder1_loginform_" +
-                "txtUserName")));
-        getDriver1().findElement(By.id("ctl00_ContentPlaceHolder1_loginform_txtUserName")).sendKeys(login);
-        getDriver1().findElement(By.className("password")).sendKeys(password);
-        getDriver1().findElement(By.id("ctl00_ContentPlaceHolder1_loginform_signInButton")).click();
-    }
 
     @BeforeTest
     public void capabilities_setup() throws Exception {
@@ -89,18 +77,7 @@ public class Lights_ADC extends Setup{
         logger.info("individually turning lights on from ADC");
 
         //navigate to user site
-        getDriver1().manage().window().maximize();
-        String ADC_URL = "https://alarm.com";
-        getDriver1().get(ADC_URL);
-        String login = "Gen2-8334";
-        String password = "qolsys1234";
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("LOGIN")));
-        getDriver1().findElement(By.partialLinkText("LOGIN")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_ContentPlaceHolder1_loginform_" +
-                "txtUserName")));
-        getDriver1().findElement(By.id("ctl00_ContentPlaceHolder1_loginform_txtUserName")).sendKeys(login);
-        getDriver1().findElement(By.className("password")).sendKeys(password);
-        getDriver1().findElement(By.id("ctl00_ContentPlaceHolder1_loginform_signInButton")).click();
+        navigate_to_user_site(login, password);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("emPower")));
         getDriver1().findElement(By.partialLinkText("emPower")).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Lights")));
