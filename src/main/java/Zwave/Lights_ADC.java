@@ -35,7 +35,7 @@ public class Lights_ADC extends Setup{
     String arm_stay = "Armed Stay";
     String disarm = "Disarmed";
 
-    //reponses
+    //responses
     String turn_on = "Turn ON";
     //String turn_off = "Turn OFF";
 
