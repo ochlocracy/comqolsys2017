@@ -148,14 +148,12 @@ public class ADC extends Setup {
         }else if (get_UDID().equals("8ebdbcf1")) {    //Zach
             accountId = "5434890";
             return accountId;
-        }else  if (get_UDID().equals("62e9f0df")) {
-            accountId = "5222397";
-            return accountId;
         }else if (get_UDID().equals("8ebdbcb3")) {    //Jeff
         accountId = "4283420";
         return accountId;
-    }
-
+        }else  if (get_UDID().equals("62e9f0df")) {
+            accountId = "5222397";
+        }
         return  accountId;
     }
 
@@ -257,6 +255,15 @@ public class ADC extends Setup {
         getDriver1().findElement(By.id("ctl00_ContentPlaceHolder1_loginform_txtUserName")).sendKeys(login);
         getDriver1().findElement(By.className("password")).sendKeys(password);
         getDriver1().findElement(By.id("ctl00_ContentPlaceHolder1_loginform_signInButton")).click();
+    }
+    public void navigate_to_user_site_lights(String login, String password) {
+        navigate_to_user_site(login, password);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("emPower")));
+        getDriver1().findElement(By.partialLinkText("emPower")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Lights")));
+        getDriver1().findElement(By.id("Lights")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("id('ctl00_phBody_ucLightDeviceRepeater" +
+                "Control_SwitchesAndDimmers_rptDevices_ctl00_btnDevicesViewDeviceOn')")));
     }
     public void Request_equipment_list() throws InterruptedException {
         logger.info("Request sensor list and Sensor names");
