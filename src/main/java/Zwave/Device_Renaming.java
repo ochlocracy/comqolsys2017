@@ -11,7 +11,6 @@ import org.testng.annotations.*;
 
 import java.io.IOException;
 import java.util.List;
-import org.openqa.selenium.support.ui.Select;
 
 /**
  * At least one Zwave device must be paired, no devices can be named "TEMP" or "ADC"
@@ -36,6 +35,17 @@ public class Device_Renaming extends Setup{
         driver.findElement(By.xpath("//android.widget.TextView[@text='Installation']")).click();
         driver.findElement(By.xpath("//android.widget.TextView[@text='Devices']")).click();
         driver.findElement(By.xpath("//android.widget.TextView[@text='Z-wave Devices']")).click();
+    }
+
+    public void renameLightFromUserSite(String name) throws InterruptedException {
+        adc.getDriver1().findElement(By.id("ctl00_phBody_ucLightDeviceRepeaterControl_SwitchesAndDimmers_rptDevices_" +
+                "ctl00_lnkDeviceName")).click();
+        Thread.sleep(5000);
+        WebElement text = adc.getDriver1().findElement(By.id("ctl00_phBody_txtEditName"));
+        text.clear();
+        text.sendKeys(name);
+        adc.getDriver1().findElement(By.id("ctl00_phBody_btnSaveEdit")).click();
+        Thread.sleep(5000);
     }
 
     @BeforeTest
@@ -102,6 +112,7 @@ public class Device_Renaming extends Setup{
         driver.findElement(By.id("com.qolsys:id/ft_home_button")).click();
         swipe_left();
 
+        Thread.sleep(2000);
         if(!driver.findElement(By.id("com.qolsys:id/uiName")).getAttribute("text").equals(rename))
             logger.info("Fail: Name change not reflected in Panel UI (Lights Page)");
         else
@@ -127,16 +138,11 @@ public class Device_Renaming extends Setup{
         int i, j, size;
 
         adc.navigate_to_user_site_lights(login, password);
-        adc.getDriver1().findElement(By.id("ctl00_phBody_ucLightDeviceRepeaterControl_SwitchesAndDimmers_rptDevices_" +
-                "ctl00_lnkDeviceName")).click();
-        Thread.sleep(5000);
-        WebElement text = adc.getDriver1().findElement(By.id("ctl00_phBody_txtEditName"));
-        text.clear();
-        text.sendKeys(rename1);
-        adc.getDriver1().findElement(By.id("ctl00_phBody_btnSaveEdit")).click();
-        Thread.sleep(5000);
+        renameLightFromUserSite(rename1);
 
-        swipe_left();
+        if(driver.findElements(By.id("com.qolsys:id/allOn")).size() == 0)
+            swipe_left();
+
         List<WebElement> li = driver.findElements(By.id("com.qolsys:id/uiName"));
 
         size = li.size();
@@ -152,7 +158,6 @@ public class Device_Renaming extends Setup{
 
         li.clear();
 
-        swipeFromLefttoRight();
         navigate_to_ZWave_Page();
         driver.findElement(By.xpath("//android.widget.TextView[@text='Edit Device']")).click();
 
@@ -168,6 +173,8 @@ public class Device_Renaming extends Setup{
 
         if(i == size)
             logger.info("Fail: Name change not reflected in Panel UI (Edit Z-Wave Devices Page)");
+
+        renameLightFromUserSite("Rename Test Complete");
     }
 
 
