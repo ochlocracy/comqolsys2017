@@ -93,5 +93,7 @@ public class Home_Page {
     public WebElement Emergency_button;
     @FindBy(id = "com.qolsys:id/ft_home_button")
     public WebElement Home_button;
+    @FindBy(id = "com.qolsys:id/t3_home_iv_SensorStatus")
+    public WebElement Tamper_Status;
 }
 
