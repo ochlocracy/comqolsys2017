@@ -1,5 +1,6 @@
 package Zwave;
 
+import ADC.ADC;
 import Panel.Setup;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
@@ -19,6 +20,7 @@ import java.util.List;
 public class Lights_ADC extends Setup{
     String page_name = "Lights_ADC";
     Logger logger = Logger.getLogger(page_name);
+    ADC adc = new ADC();
 
     //ADC Credentials
     String login = "Gen2-8334";
@@ -33,7 +35,7 @@ public class Lights_ADC extends Setup{
     String arm_stay = "Armed Stay";
     String disarm = "Disarmed";
 
-    //reponses
+    //responses
     String turn_on = "Turn ON";
     //String turn_off = "Turn OFF";
 
@@ -64,23 +66,11 @@ public class Lights_ADC extends Setup{
         getDriver1().findElement(By.id("ctl00_phBody_pageActionButtons_buttonSave")).click();
     }
 
-    public void navigate_to_user_site(String login, String password) {
-        getDriver1().manage().window().maximize();
-        String ADC_URL = "https://alarm.com";
-        getDriver1().get(ADC_URL);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("LOGIN")));
-        getDriver1().findElement(By.partialLinkText("LOGIN")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_ContentPlaceHolder1_loginform_" +
-                "txtUserName")));
-        getDriver1().findElement(By.id("ctl00_ContentPlaceHolder1_loginform_txtUserName")).sendKeys(login);
-        getDriver1().findElement(By.className("password")).sendKeys(password);
-        getDriver1().findElement(By.id("ctl00_ContentPlaceHolder1_loginform_signInButton")).click();
-    }
 
     @BeforeTest
     public void capabilities_setup() throws Exception {
         setup_driver( get_UDID(),"http://127.0.1.1", "4723");
-        webDriverSetUp();
+        adc.webDriverSetUp();
         setup_logger(page_name);
     }
 
@@ -89,33 +79,22 @@ public class Lights_ADC extends Setup{
         logger.info("individually turning lights on from ADC");
 
         //navigate to user site
-        getDriver1().manage().window().maximize();
-        String ADC_URL = "https://alarm.com";
-        getDriver1().get(ADC_URL);
-        String login = "Gen2-8334";
-        String password = "qolsys1234";
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("LOGIN")));
-        getDriver1().findElement(By.partialLinkText("LOGIN")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_ContentPlaceHolder1_loginform_" +
-                "txtUserName")));
-        getDriver1().findElement(By.id("ctl00_ContentPlaceHolder1_loginform_txtUserName")).sendKeys(login);
-        getDriver1().findElement(By.className("password")).sendKeys(password);
-        getDriver1().findElement(By.id("ctl00_ContentPlaceHolder1_loginform_signInButton")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("emPower")));
-        getDriver1().findElement(By.partialLinkText("emPower")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Lights")));
-        getDriver1().findElement(By.id("Lights")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("id('ctl00_phBody_ucLightDeviceRepeater" +
+        adc.navigate_to_user_site(login, password);
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("emPower")));
+        adc.getDriver1().findElement(By.partialLinkText("emPower")).click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Lights")));
+        adc.getDriver1().findElement(By.id("Lights")).click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("id('ctl00_phBody_ucLightDeviceRepeater" +
                 "Control_SwitchesAndDimmers_rptDevices_ctl00_btnDevicesViewDeviceOn')")));
 
         //individually turn on all 3 lights
-        getDriver1().findElement(By.xpath("id('ctl00_phBody_ucLightDeviceRepeaterControl_SwitchesAndDimmers_rptDevices" +
+        adc.getDriver1().findElement(By.xpath("id('ctl00_phBody_ucLightDeviceRepeaterControl_SwitchesAndDimmers_rptDevices" +
                 "_ctl00_btnDevicesViewDeviceOn')")).click();
         Thread.sleep(2000);
-        getDriver1().findElement(By.xpath("id('ctl00_phBody_ucLightDeviceRepeaterControl_SwitchesAndDimmers_rptDevices" +
+        adc.getDriver1().findElement(By.xpath("id('ctl00_phBody_ucLightDeviceRepeaterControl_SwitchesAndDimmers_rptDevices" +
                 "_ctl01_btnDevicesViewDeviceOn')")).click();
         Thread.sleep(2000);
-        getDriver1().findElement(By.xpath("id('ctl00_phBody_ucLightDeviceRepeaterControl_SwitchesAndDimmers_rptDevices" +
+        adc.getDriver1().findElement(By.xpath("id('ctl00_phBody_ucLightDeviceRepeaterControl_SwitchesAndDimmers_rptDevices" +
                 "_ctl02_btnDevicesViewDeviceOn')")).click();
         Thread.sleep(2000);
 
@@ -128,13 +107,13 @@ public class Lights_ADC extends Setup{
         logger.info("individually turning lights off from ADC");
 
         //individually turn all 3 lights off
-        getDriver1().findElement(By.xpath("id('ctl00_phBody_ucLightDeviceRepeaterControl_SwitchesAndDimmers_rptDevices_" +
+        adc.getDriver1().findElement(By.xpath("id('ctl00_phBody_ucLightDeviceRepeaterControl_SwitchesAndDimmers_rptDevices_" +
                 "ctl00_btnDevicesViewDeviceOff')")).click();
         Thread.sleep(2000);
-        getDriver1().findElement(By.xpath("id('ctl00_phBody_ucLightDeviceRepeaterControl_SwitchesAndDimmers_rptDevices" +
+        adc.getDriver1().findElement(By.xpath("id('ctl00_phBody_ucLightDeviceRepeaterControl_SwitchesAndDimmers_rptDevices" +
                 "_ctl01_btnDevicesViewDeviceOff')")).click();
         Thread.sleep(2000);
-        getDriver1().findElement(By.xpath("id('ctl00_phBody_ucLightDeviceRepeaterControl_SwitchesAndDimmers_rptDevices" +
+        adc.getDriver1().findElement(By.xpath("id('ctl00_phBody_ucLightDeviceRepeaterControl_SwitchesAndDimmers_rptDevices" +
                 "_ctl02_btnDevicesViewDeviceOff')")).click();
         Thread.sleep(2000);
 
@@ -146,26 +125,26 @@ public class Lights_ADC extends Setup{
         logger.info("turning lights on as a group in ADC");
 
         //begin creation of new group
-        getDriver1().findElement(By.xpath("id('ctl00_phBody_lnkNewGroup')")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("id('ctl00_lblPageTitle')")));
-        getDriver1().findElement(By.xpath("id('ctl00_phBody_txtName')")).sendKeys("test");
-        getDriver1().findElement(By.xpath("id('ctl00_phBody_LinkButtonWithPermissionsChecker1')")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("id('ctl00_phBody_rptEditDevices_ctl00_" +
+        adc.getDriver1().findElement(By.xpath("id('ctl00_phBody_lnkNewGroup')")).click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("id('ctl00_lblPageTitle')")));
+        adc.getDriver1().findElement(By.xpath("id('ctl00_phBody_txtName')")).sendKeys("test");
+        adc.getDriver1().findElement(By.xpath("id('ctl00_phBody_LinkButtonWithPermissionsChecker1')")).click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("id('ctl00_phBody_rptEditDevices_ctl00_" +
                 "lblDevice')")));
 
         //add all 3 lights & save
-        getDriver1().findElement(By.xpath("id('ctl00_phBody_rptEditDevices_ctl00_lblDevice')")).click();
-        getDriver1().findElement(By.xpath("id('ctl00_phBody_rptEditDevices_ctl01_lblDevice')")).click();
-        getDriver1().findElement(By.xpath("id('ctl00_phBody_rptEditDevices_ctl02_lblDevice')")).click();
-        getDriver1().findElement(By.xpath("//button[contains(.,'Done')]")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_btnSave")));
+        adc.getDriver1().findElement(By.xpath("id('ctl00_phBody_rptEditDevices_ctl00_lblDevice')")).click();
+        adc.getDriver1().findElement(By.xpath("id('ctl00_phBody_rptEditDevices_ctl01_lblDevice')")).click();
+        adc.getDriver1().findElement(By.xpath("id('ctl00_phBody_rptEditDevices_ctl02_lblDevice')")).click();
+        adc.getDriver1().findElement(By.xpath("//button[contains(.,'Done')]")).click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_btnSave")));
         Thread.sleep(2000);
-        getDriver1().findElement(By.id("ctl00_phBody_btnSave")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("id('ctl00_phBody_ucLightGroupRepeater" +
+        adc.getDriver1().findElement(By.id("ctl00_phBody_btnSave")).click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("id('ctl00_phBody_ucLightGroupRepeater" +
                 "Control_SwitchesAndDimmers_rptGroups_ctl00_lblGroupName')")));
 
         //turn on group
-        getDriver1().findElement(By.xpath("id('ctl00_phBody_ucLightGroupRepeaterControl_SwitchesAndDimmers_" +
+        adc.getDriver1().findElement(By.xpath("id('ctl00_phBody_ucLightGroupRepeaterControl_SwitchesAndDimmers_" +
                 "rptGroups_ctl00_btnGroupOn')")).click();
         Thread.sleep(3000);
 
@@ -177,14 +156,14 @@ public class Lights_ADC extends Setup{
         logger.info("turning lights off as a group in ADC");
 
         //turn off group
-        getDriver1().findElement(By.xpath("id('ctl00_phBody_ucLightGroupRepeaterControl_SwitchesAndDimmers_" +
+        adc.getDriver1().findElement(By.xpath("id('ctl00_phBody_ucLightGroupRepeaterControl_SwitchesAndDimmers_" +
                 "rptGroups_ctl00_btnGroupOff')")).click();
         Thread.sleep(10000);
 
         //delete group
-        getDriver1().findElement(By.id("ctl00_phBody_ucLightGroupRepeaterControl_SwitchesAndDimmers_rptGroups_ctl00" +
+        adc.getDriver1().findElement(By.id("ctl00_phBody_ucLightGroupRepeaterControl_SwitchesAndDimmers_rptGroups_ctl00" +
                 "_lnkGroupEdit")).click();
-        getDriver1().findElement(By.id("ctl00_phBody_btnDelete")).click();
+        adc.getDriver1().findElement(By.id("ctl00_phBody_btnDelete")).click();
 
         checkPanelUI(light_off);
     }
@@ -227,7 +206,7 @@ public class Lights_ADC extends Setup{
     public void tearDown () throws IOException, InterruptedException {
         log.endTestCase(page_name);
         driver.quit();
-        getDriver1().quit();
+        adc.getDriver1().quit();
     }
 
 }

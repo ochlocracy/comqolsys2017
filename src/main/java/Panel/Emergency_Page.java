@@ -12,6 +12,8 @@ public class Emergency_Page {
     public WebElement Police_icon;
     @FindBy(id ="com.qolsys:id/tv_fire")
     public WebElement Fire_icon;
+    @FindBy(id = "com.qolsys:id/tv_action_img")
+    public WebElement Fire_icon_Alarmed;
     @FindBy(id ="com.qolsys:id/tv_medical")
     public WebElement Auxiliary_icon;
     @FindBy(id ="com.qolsys:id/tv_police_title")
