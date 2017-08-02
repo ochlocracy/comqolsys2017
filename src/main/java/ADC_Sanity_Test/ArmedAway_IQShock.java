@@ -1,35 +1,33 @@
 package ADC_Sanity_Test;
 
 import ADC.ADC;
-import Panel.Home_Page;
-import jxl.read.biff.BiffException;
-import org.apache.log4j.Logger;
 import Panel.Setup;
 import Sensors.Sensors;
+import jxl.read.biff.BiffException;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
-import javax.swing.plaf.InternalFrameUI;
 import java.io.IOException;
 
-public class ArmedStay_IQShock extends Setup {
+public class ArmedAway_IQShock extends Setup {
 
-    String page_name = "ArmedStay_IQShock";
+    String page_name = "ArmedAway_IQShock";
     Logger logger = Logger.getLogger(page_name);
     Sensors sensors = new Sensors();
     ADC adc = new ADC();
     String AccountID = adc.getAccountId();
+
+    public ArmedAway_IQShock() throws IOException, BiffException {}
+
     private int Normal_Exit_Delay = 30000;
     private String open = "06 00";
     private String close = "04 01";
     private String activate = "02 01";
     private String tamper = "01 01";
-
-    public ArmedStay_IQShock() throws IOException, BiffException {}
 
     public void add_primary_call(int zone, int group, int sensor_dec, int sensor_type) throws IOException {
         String add_primary = " shell service call qservice 50 i32 " + zone + " i32 " + group + " i32 " + sensor_dec + " i32 " + sensor_type;
@@ -42,9 +40,8 @@ public class ArmedStay_IQShock extends Setup {
         rt.exec(adbPath + deleteFromPrimary);
         System.out.println(deleteFromPrimary);}
 
-    public void ArmStay_Tamper_Sensor_during_Exit_Delay_Alarm(String DLID, String element_to_verify) throws Exception {
-        ARM_STAY();
-        Thread.sleep(3000);
+    public void ArmAway_Tamper_Sensor_during_Exit_Delay_Alarm(String DLID, String element_to_verify) throws Exception {
+        ARM_AWAY(20);
         logger.info("Activate a sensor");
         sensors.primary_call(DLID, tamper);
         Thread.sleep(2000);
@@ -88,14 +85,21 @@ public class ArmedStay_IQShock extends Setup {
         add_primary_call(34, 13, 6684829, 107);
     }
 
-    @Test(dependsOnMethods = {"addSensorsGroup13"})
+    @Test(priority = 1, dependsOnMethods = {"addSensorsGroup13"})
     public void TestSensor33G13() throws Exception {
-        ArmStay_Tamper_Sensor_during_Exit_Delay_Alarm("66 00 C9", "//*[contains(text(), 'Sensor 33 Group 13 Tamper**')]");
+        ArmAway_Tamper_Sensor_during_Exit_Delay_Alarm("66 00 C9", "//*[contains(text(), 'Sensor 33 Group 13 Tamper**')]");
     }
 
-    @Test(dependsOnMethods = {"addSensorsGroup13"})
+    @Test(priority = 2, dependsOnMethods = {"addSensorsGroup13"})
     public void TestSensor34G13() throws Exception {
-        ArmStay_Tamper_Sensor_during_Exit_Delay_Alarm("66 00 D9", "//*[contains(text(), 'Sensor 34 Group 13 Tamper**')]");
+        ArmAway_Tamper_Sensor_during_Exit_Delay_Alarm("66 00 D9", "//*[contains(text(), 'Sensor 34 Group 13 Tamper**')]");
+    }
+
+    @AfterClass
+    public void delete_IQShock_G_13() throws IOException, InterruptedException {
+        for (int i = 34; i >= 33; i--) {
+            delete_from_primary(i);
+        }
     }
 
     //Test Sensor Group 17
@@ -108,19 +112,18 @@ public class ArmedStay_IQShock extends Setup {
         add_primary_call(34, 17, 6684829, 107);
     }
 
-    @Test(dependsOnMethods = {"addSensorsGroup17"})
+    @Test(priority = 3, dependsOnMethods = {"addSensorsGroup17"})
     public void TestSensor33G17() throws Exception {
-        ArmStay_Tamper_Sensor_during_Exit_Delay_Alarm("66 00 C9", "//*[contains(text(), 'Sensor 33 Group 17 Tamper**')]");
+        ArmAway_Tamper_Sensor_during_Exit_Delay_Alarm("66 00 C9", "//*[contains(text(), 'Sensor 33 Group 17 Tamper**')]");
     }
 
-    @Test(dependsOnMethods = {"addSensorsGroup17"})
+    @Test(priority = 4, dependsOnMethods = {"addSensorsGroup17"})
     public void TestSensor34G17() throws Exception {
-        ArmStay_Tamper_Sensor_during_Exit_Delay_Alarm("66 00 D9", "//*[contains(text(), 'Sensor 34 Group 17 Tamper**')]");
+        ArmAway_Tamper_Sensor_during_Exit_Delay_Alarm("66 00 D9", "//*[contains(text(), 'Sensor 34 Group 17 Tamper**')]");
     }
 
-    @AfterTest
-    public void tearDown() throws IOException, InterruptedException {
-        driver.quit();
+    @AfterClass
+    public void deleteIQ_Shock_G_17 () throws IOException, InterruptedException {
         for (int i = 34; i >= 33; i--) {
             delete_from_primary(i);
         }
