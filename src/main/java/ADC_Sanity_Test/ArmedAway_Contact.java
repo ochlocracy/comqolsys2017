@@ -19,17 +19,25 @@ import java.util.concurrent.TimeUnit;
 
 public class ArmedAway_Contact extends Setup{
 
-    String page_name = "Arm Stay mode";
+    String page_name = "Arm Away mode contact sensor testing";
     Logger logger = Logger.getLogger(page_name);
     Sensors sensors = new Sensors();
     ADC adc = new ADC();
     PanelInfo_ServiceCalls servcall = new PanelInfo_ServiceCalls();
 
+    /*** If you want to run tests only on the panel, please set ADCexecute value to false ***/
+    String ADCexecute = "true";
+
     public ArmedAway_Contact() throws IOException, BiffException {}
 
-    private int Normal_Exit_Delay = 30000;
+    private int Normal_Exit_Delay = 10;
+    private int Normal_Entry_Delay = 11;
+    private int Long_Exit_Delay = 12;
+    private int Long_Entry_Delay = 13;
     private String open = "06 00";
     private String close = "04 00";
+    private String tamper = "01 00";
+    String AccountID = adc.getAccountId();
 
     public void add_primary_call(int zone, int group, int sensor_dec, int sensor_type) throws IOException {
         String add_primary = " shell service call qservice 50 i32 " + zone + " i32 " + group + " i32 " + sensor_dec + " i32 " + sensor_type;
@@ -40,18 +48,42 @@ public class ArmedAway_Contact extends Setup{
         String deleteFromPrimary = " shell service call qservice 51 i32 " + zone;
         rt.exec(adbPath + deleteFromPrimary);
         System.out.println(deleteFromPrimary);}
+    public void ADC_verification (String string, String string1) throws IOException, InterruptedException {
+        String[] message = {string, string1};
+
+        if (ADCexecute.equals("true")) {
+            adc.New_ADC_session(AccountID);
+            adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
+            Thread.sleep(10000);
+            for (int i =0; i< message.length; i++) {
+                try {
+                    WebElement history_message = adc.driver1.findElement(By.xpath(message[i]));
+                    Assert.assertTrue(history_message.isDisplayed());
+                    {
+                        System.out.println("Pass: message is displayed " + history_message.getText());
+                    }
+                } catch (Exception e) {
+                    System.out.println("***No such element found!***");
+                }
+            }
+        }else{
+            System.out.println("Set execute to TRUE to run ADC verification part");
+        }
+        Thread.sleep(2000);
+    }
 
     @BeforeTest
     public void capabilities_setup() throws Exception {
         setup_driver(get_UDID(),"http://127.0.1.1", "4723");
         setup_logger(page_name);
-        servcall.set_NORMAL_ENTRY_DELAY(10);
+        servcall.set_NORMAL_ENTRY_DELAY(Normal_Exit_Delay);
         Thread.sleep(1000);
-        servcall.set_NORMAL_EXIT_DELAY(11);
+        servcall.set_NORMAL_EXIT_DELAY(Normal_Entry_Delay);
         Thread.sleep(1000);
-        servcall.set_LONG_ENTRY_DELAY(12);
+        servcall.set_LONG_ENTRY_DELAY(Long_Exit_Delay);
         Thread.sleep(1000);
-        servcall.set_LONG_EXIT_DELAY(13);
+        servcall.set_LONG_EXIT_DELAY(Long_Entry_Delay);
+
         servcall.set_AUTO_STAY(0);
         servcall.set_ARM_STAY_NO_DELAY_disable();
     }
@@ -82,7 +114,7 @@ public class ArmedAway_Contact extends Setup{
     public void ArmAway_Open_Close_during_Exit_Delay(int group, String DLID, String element_to_verify, String element_to_verify2 ) throws Exception {
         logger.info("ArmAway -Open/Close Group " + group + " contact sensor during exit delay");
         Home_Page home = PageFactory.initElements(driver, Home_Page.class);
-        ARM_AWAY(5);
+        ARM_AWAY(Long_Exit_Delay/2);
         logger.info("Open/Close a sensor");
         sensors.primary_call(DLID, open);
         Thread.sleep(2000);
@@ -92,33 +124,14 @@ public class ArmedAway_Contact extends Setup{
         Thread.sleep(5000);
         home.ArwAway_State.click();
         enter_default_user_code();
-
-        /*** ADC website verification ***/
-
-        adc.New_ADC_session(adc.getAccountId());
-        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
-        Thread.sleep(10000);
-        try {
-            WebElement history_message = adc.driver1.findElement(By.xpath(element_to_verify));
-            Assert.assertTrue(history_message.isDisplayed());{
-                System.out.println("Pass: message is displayed " + history_message.getText());
-            }
-        }catch (Exception e){
-            System.out.println("No such element found");
-        }
-        try {
-            WebElement history_message = adc.driver1.findElement(By.xpath(element_to_verify2));
-            Assert.assertTrue(history_message.isDisplayed());{
-                System.out.println("Pass: message is displayed " + history_message.getText());
-            }
-        }catch (Exception e){
-            System.out.println("***No such element found!***");
-        }
         Thread.sleep(2000);
+
+        ADC_verification(element_to_verify, element_to_verify2);
+
     }
     public void ArmAway_Open_Close_during_Exit_Delay_Alarm(int group, String DLID, String element_to_verify, String element_to_verify2) throws Exception {
-        logger.info("ArmAway - Open/Close Group " +group+ " contact sensor during exit delay");
-        ARM_AWAY(5);
+        logger.info("ArmAway - Open/Close Group " + group + " contact sensor during exit delay");
+        ARM_AWAY(Long_Exit_Delay / 2);
         logger.info("Open/Close a sensor");
         sensors.primary_call(DLID, open);
         Thread.sleep(2000);
@@ -127,30 +140,9 @@ public class ArmedAway_Contact extends Setup{
         verify_in_alarm();
         Thread.sleep(2000);
         enter_default_user_code();
-
-        /*** ADC website verification ***/
-
-        adc.New_ADC_session(adc.getAccountId());
         Thread.sleep(2000);
-        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
-        adc.driver1.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        try {
-            WebElement history_message = adc.driver1.findElement(By.xpath(element_to_verify));
-            Assert.assertTrue(history_message.isDisplayed()); {
-                logger.info("Pass: message is displayed " + history_message.getText());
-            }
-        }catch (Exception e){
-            logger.info("***No such elements found!***");
-        }
-        try {
-            WebElement history_message = adc.driver1.findElement(By.xpath(element_to_verify2));
-            Assert.assertTrue(history_message.isDisplayed());{
-                logger.info("Pass: message is displayed " + history_message.getText());
-            }
-        }catch (Exception e){
-            logger.info("***No such element found!***");
-        }
-        Thread.sleep(2000);
+
+        ADC_verification(element_to_verify, element_to_verify2);
     }
 
     @Test (dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
@@ -170,7 +162,6 @@ public class ArmedAway_Contact extends Setup{
         ArmAway_Open_Close_during_Exit_Delay(14, "65 00 3A", "//*[contains(text(), 'Door/Window 4  (Sensor 4) Opened/Closed')]", "//*[contains(text(), 'Armed Away')]");
     }
     @Test(priority = 4, retryAnalyzer = RetryAnalizer.class)
-
     public void  ArmAwayExitDelay_16() throws Exception {
         ArmAway_Open_Close_during_Exit_Delay(16, "65 00 4A", "//*[contains(text(), 'Door/Window 5  (Sensor 5) Opened/Closed')]", "//*[contains(text(), 'Armed Away')]");
     }
@@ -187,12 +178,106 @@ public class ArmedAway_Contact extends Setup{
         ArmAway_Open_Close_during_Exit_Delay(25,"65 00 7A",  "//*[contains(text(), 'Door/Window 8  (Sensor 8) Opened/Closed')]","//*[contains(text(), 'Armed Away')]");
     }
 
+    /* ARM AWAY Open-Close sensors*/
+
+    public void ArmAway_Open_Close(int group, String DLID, String element_to_verify, String element_to_verify2 ) throws Exception {
+        logger.info("ArmAway -Open/Close Group " + group + " contact sensor during exit delay");
+        Home_Page home = PageFactory.initElements(driver, Home_Page.class);
+        ARM_AWAY(Long_Exit_Delay);
+        logger.info("Open/Close a sensor");
+        sensors.primary_call(DLID, open);
+        Thread.sleep(2000);
+        sensors.primary_call(DLID, close);
+        Thread.sleep(17000);
+        verify_in_alarm();
+        Thread.sleep(2000);
+        enter_default_user_code();
+        Thread.sleep(2000);
+
+        ADC_verification(element_to_verify, element_to_verify2);
+    }
+    public void ArmAway_Open_Close_ArmAway(int group, String DLID, String element_to_verify, String element_to_verify2 ) throws Exception {
+        logger.info("ArmAway -Open/Close Group " + group + " contact sensor during exit delay");
+        Home_Page home = PageFactory.initElements(driver, Home_Page.class);
+        ARM_AWAY(Long_Exit_Delay);
+        logger.info("Open/Close a sensor");
+        sensors.primary_call(DLID, open);
+        Thread.sleep(2000);
+        sensors.primary_call(DLID, close);
+        Thread.sleep(17000);
+        verify_armaway();
+        Thread.sleep(2000);
+        home.ArwAway_State.click();
+        enter_default_user_code();
+        Thread.sleep(2000);
+
+        ADC_verification(element_to_verify, element_to_verify2);
+    }
+
+    @Test (dependsOnMethods = {"addSensors"}, priority = 8, retryAnalyzer = RetryAnalizer.class)
+    public void ArmAway_10() throws Exception {
+        ArmAway_Open_Close(10, "65 00 0A", "//*[contains(text(), 'Door/Window 1  (Sensor 1) Opened/Closed')]", "//*[contains(text(), 'Delayed alarm on sensor 1 in partition 1')]");
+    }
+    @Test (priority = 9, retryAnalyzer = RetryAnalizer.class)
+    public void ArmAway_12() throws Exception {
+        ArmAway_Open_Close(12, "65 00 1A", "//*[contains(text(), 'Door/Window 2  (Sensor 2) Opened/Closed')]", "//*[contains(text(), 'Delayed alarm on sensor 2 in partition 2')]");
+    }
+    @Test (priority = 10, retryAnalyzer = RetryAnalizer.class)
+    public void ArmAway_13() throws Exception {
+        ArmAway_Open_Close(13, "65 00 2A", "//*[contains(text(), 'Door/Window 3  (Sensor 3) Opened/Closed')]", "//*[contains(text(), 'Pending Alarm')]");
+    }
+    @Test (priority = 11, retryAnalyzer = RetryAnalizer.class)
+    public void ArmAway_14() throws Exception {
+        ArmAway_Open_Close(14, "65 00 3A", "//*[contains(text(), 'Door/Window 4  (Sensor 4) Opened/Closed')]", "//*[contains(text(), 'Pending Alarm')]");
+    }
+    @Test (priority = 12, retryAnalyzer = RetryAnalizer.class)
+    public void ArmAway_16() throws Exception {
+        ArmAway_Open_Close(16, "65 00 4A", "//*[contains(text(), 'Door/Window 5  (Sensor 5) Opened/Closed')]", "//*[contains(text(), 'Pending Alarm')]");
+    }
+    @Test (priority = 13, retryAnalyzer = RetryAnalizer.class)
+    public void ArmAway_8() throws Exception {
+        ArmAway_Open_Close(8, "65 00 5A", "//*[contains(text(), 'Delayed alarm')]", "//*[contains(text(), 'Pending Alarm')]");
+    }
+    @Test (priority = 14, retryAnalyzer = RetryAnalizer.class)
+    public void ArmAway_9() throws Exception {
+        ArmAway_Open_Close(9, "65 00 6A", "//*[contains(text(), 'Entry delay on sensor 7')]", "//*[contains(text(), 'Pending Alarm')]");
+    }
+    @Test (priority = 15, retryAnalyzer = RetryAnalizer.class)
+    public void ArmAway_25() throws Exception {
+        ArmAway_Open_Close_ArmAway(25, "65 00 7A", "//*[contains(text(), 'Door/Window 8  (Sensor 8) Opened/Closed')]", "//*[contains(text(), 'Armed Away')]");
+    }
+
+    /* ARM AWAY Tamper sensors*/
+
+    public void ArmAway_Tamper(int group, String DLID, String element_to_verify, String element_to_verify1 ) throws Exception {
+        logger.info("ArmAway -Open/Close Group " + group + " contact sensor during exit delay");
+        Home_Page home = PageFactory.initElements(driver, Home_Page.class);
+        ARM_AWAY(Long_Exit_Delay);
+        logger.info("Open/Close a sensor");
+        sensors.primary_call(DLID, tamper);
+        Thread.sleep(2000);
+        sensors.primary_call(DLID, close);
+        Thread.sleep(17000);
+        verify_in_alarm();
+        Thread.sleep(2000);
+        enter_default_user_code();
+        Thread.sleep(2000);
+
+        ADC_verification(element_to_verify, element_to_verify1);
+
+    }
+    @Test (priority = 16, retryAnalyzer = RetryAnalizer.class)
+    public void ArmAway_Tamper_10() throws Exception {
+        ArmAway_Tamper(10, "65 00 0A", "//*[contains(text(), 'Sensor 1 Tamper**')]", "//*[contains(text(), 'Sensor 1 End of tamper')]");
+    }
+
+
     @AfterTest
     public void tearDown() throws IOException, InterruptedException {
         driver.quit();
-        for (int i= 8; i>0; i--) {
-            delete_from_primary(i);
-        }
+//        for (int i= 8; i>0; i--) {
+//            delete_from_primary(i);
+//        }
     }
     @AfterMethod
     public void webDriverQuit(){
