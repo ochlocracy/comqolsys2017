@@ -19,18 +19,17 @@ import java.io.IOException;
 /**
  * Created by qolsys on 7/27/17. Edited 7/27/17 by Jeff Maus
  */
-public class ArmedStay_Smoke extends Setup{
+public class ArmedStay_SmokeSensor extends Setup{
     // PRECONDITIONS: Disable SIA limits, set Entry-Exit Delay time to 30, 31, 32, 33 sec; Disable ArmStay No-Delay setting
 
-    public ArmedStay_Smoke() throws IOException, BiffException {}
+    public ArmedStay_SmokeSensor() throws IOException, BiffException {}
 
-    String page_name = "Arm Stay mode";
+    String page_name = "ADC Smoke Test: Smoke Sensor";
     Logger logger = Logger.getLogger(page_name);
     Sensors sensors = new Sensors();
     ADC adc = new ADC();
     String AccountID = adc.getAccountId();
 
-    private int Normal_Exit_Delay = 30000;
     private String activate = "02 01";
     private String restore = "00 01";
     private String tamper = "01 01";
@@ -60,17 +59,17 @@ public class ArmedStay_Smoke extends Setup{
     @Test
     public void addSensors() throws IOException, InterruptedException {
         Thread.sleep(2000);
-        add_primary_call(1, 26, 6750242, 5);
+        add_primary_call(26, 26, 6750242, 5);
 
 
         adc.New_ADC_session(adc.getAccountId());
-        Thread.sleep(2000);
+        Thread.sleep(10000);
         adc.driver1.findElement(By.partialLinkText("Sensors")).click();
-        Thread.sleep(2000);
+        Thread.sleep(10000);
         adc.Request_equipment_list();
 
     }
-    public void ArmStay_Activate_Restore_sensor_during_Exit_Delay(int group, String DLID, String element_to_verify ) throws Exception {
+    public void ArmStay_Activate_Restore_sensor_during_Exit_Delay(int group, String DLID, String element_to_verify1, String element_to_verify2) throws Exception {
         logger.info("ArmStay -Activate/Restore Group " + group + " smoke sensor during exit delay");
         Emergency_Page emg = PageFactory.initElements(driver, Emergency_Page.class);
         ARM_STAY();
@@ -84,13 +83,22 @@ public class ArmedStay_Smoke extends Setup{
         logger.info("Cancel Emergency Alarm");
         emg.Cancel_Emergency.click();
         enter_default_user_code();
+        Thread.sleep(15000);
         // ADC website verification
         adc.New_ADC_session(AccountID);
-        Thread.sleep(10000);
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
-        Thread.sleep(10000);
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_butSearch"))).click();
         try {
-            WebElement history_message = adc.driver1.findElement(By.xpath(element_to_verify));
+            WebElement history_message = adc.driver1.findElement(By.xpath(element_to_verify1));
+            Assert.assertTrue(history_message.isDisplayed());
+            {
+                logger.info("Pass: message is displayed " + history_message.getText());
+            }
+        } catch (Exception e) {
+            logger.info("***No such element found!***");
+        }
+        try {
+            WebElement history_message = adc.driver1.findElement(By.xpath(element_to_verify2));
             Assert.assertTrue(history_message.isDisplayed());
             {
                 logger.info("Pass: message is displayed " + history_message.getText());
@@ -100,7 +108,7 @@ public class ArmedStay_Smoke extends Setup{
         }
         Thread.sleep(5000);
     }
-    public void ArmStay_Tamper_sensor_during_Arm_Stay(int group, String DLID, String element_to_verify ) throws Exception {
+    public void ArmStay_Tamper_sensor_during_Arm_Stay(int group, String DLID, String element_to_verify1, String element_to_verify2 ) throws Exception {
         logger.info("ArmStay -Tamper Group " +group + " smoke sensor during Arm Stay");
         Home_Page home = PageFactory.initElements(driver, Home_Page.class);
         ARM_STAY();
@@ -108,19 +116,30 @@ public class ArmedStay_Smoke extends Setup{
         verify_armstay();
         logger.info("Tamper a sensor");
         sensors.primary_call(DLID, tamper);
-        verify_disarm();
+        Thread.sleep(2000);
+        verify_armstay();
         element_verification(home.Tamper_Status, "Tampered");
         Thread.sleep(5000);
         sensors.primary_call(DLID, restore);
         Thread.sleep(2000);
         DISARM();
+        Thread.sleep(15000);
        // ADC website verification
         adc.New_ADC_session(AccountID);
-        Thread.sleep(10000);
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
-        Thread.sleep(10000);
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_butSearch"))).click();
+        Thread.sleep(2000);
         try {
-            WebElement history_message = adc.driver1.findElement(By.xpath(element_to_verify));
+            WebElement history_message = adc.driver1.findElement(By.xpath(element_to_verify1));
+            Assert.assertTrue(history_message.isDisplayed());{
+                logger.info("Pass: message is displayed " + history_message.getText());
+            }
+        }catch (Exception e){
+            logger.info("***No such element found!***");
+        }
+        Thread.sleep(2000);
+        try {
+            WebElement history_message = adc.driver1.findElement(By.xpath(element_to_verify2));
             Assert.assertTrue(history_message.isDisplayed());{
                 logger.info("Pass: message is displayed " + history_message.getText());
             }
@@ -132,16 +151,16 @@ public class ArmedStay_Smoke extends Setup{
 
     @Test (dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
     public void ArmStayExitDelay_26() throws Exception {
-        ArmStay_Activate_Restore_sensor_during_Exit_Delay(26, "67 00 22", "//*[contains(text(), 'Smoke Detector 1 (Sensor 1) Fire Alarm', 'Smoke Detector 1 (Sensor 1) Reset')]");
+        ArmStay_Activate_Restore_sensor_during_Exit_Delay(26, "67 00 22", "//*[contains(text(), '(Sensor 26) Fire Alarm')]", "//*[contains(text(), '(Sensor 26) Reset')]");
     }
     @Test  (priority = 1, retryAnalyzer = RetryAnalizer.class)
     public  void ArmStayTamper_26() throws Exception {
-        ArmStay_Tamper_sensor_during_Arm_Stay(26,"67 00 22", "//*[contains(text(), 'Smoke Detector 1 (Sensor 1) Tamper', 'Smoke Detector 1 (Sensor 1) End of Tamper')]");
+    ArmStay_Tamper_sensor_during_Arm_Stay(26,"67 00 22", "//*[contains(text(), '(Sensor 26) Tamper')]", "//*[contains(text(), 'End of Tamper')]");
     }
     @AfterTest
     public void tearDown() throws IOException, InterruptedException {
         driver.quit();
-        for (int i= 1; i>0; i--) {
+        for (int i= 26; i>0; i--) {
             delete_from_primary(i);
         }
     }
