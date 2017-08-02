@@ -46,7 +46,7 @@ public class ArmedStay_GlassBreak extends Setup {
         // shell service call qservice 50 i32 2 i32 10 i32 6619296 i32 1
     }
 
-    public void Armstay_Trigger_Sensor_During_Exit_Delay_Alarm(int group, String DLID,String element_to_verify ) throws Exception {
+    public void Armstay_Trigger_Sensor_During_Exit_Delay_Alarm(int group, String DLID,String element_to_verify, String element_to_verify2) throws Exception {
         logger.info("ArmStay -Trip glass break " +group + " sensor during exit delay");
         ARM_STAY();
         Thread.sleep(3000);
@@ -189,7 +189,7 @@ public class ArmedStay_GlassBreak extends Setup {
 
     @Test(dependsOnMethods = {"addGlassBreakSensor"})
     public void ArmstayExitDelay_13() throws Exception{
-        Armstay_Trigger_Sensor_During_Exit_Delay_Alarm(13,"67 00 99","//*[contains(text(), 'Glass Break 1 (Sensor 1) Alarm')]");
+        Armstay_Trigger_Sensor_During_Exit_Delay_Alarm(13,"67 00 99","//*[contains(text(), 'Glass Break 1 (Sensor 1) Alarm')]","//*[contains(text(), 'Glass Break 1 (Sensor 1) Alarm')]");
 
     }
 
