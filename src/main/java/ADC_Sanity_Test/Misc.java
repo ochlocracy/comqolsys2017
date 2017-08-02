@@ -14,7 +14,7 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-import org.openqa.selenium.Keys;
+import org.openqa.selenium.support.ui.Select;
 
 public class Misc extends Setup {
 
@@ -29,22 +29,28 @@ public class Misc extends Setup {
     private String keyfobAway = "04 04";
     private String keyfobStay = "04 01";
     private String keyfobDisarm = "08 01";
+    private String Motion_Activated = "02 01";
+    private String Motion_Restore = "00 01";
+    private String Motion_Tamper = "01 01";
 
     public void add_primary_call(int zone, int group, int sensor_dec, int sensor_type) throws IOException {
         String add_primary = " shell service call qservice 50 i32 " + zone + " i32 " + group + " i32 " + sensor_dec + " i32 " + sensor_type;
         rt.exec(adbPath + add_primary);
         // shell service call qservice 50 i32 2 i32 10 i32 6619296 i32 1
     }
+
     public void delete_from_primary(int zone) throws IOException, InterruptedException {
         String deleteFromPrimary = " shell service call qservice 51 i32 " + zone;
         rt.exec(adbPath + deleteFromPrimary);
-        System.out.println(deleteFromPrimary);}
+        System.out.println(deleteFromPrimary);
+    }
 
     @BeforeTest
     public void capabilities_setup() throws Exception {
         setup_driver(get_UDID(), "http://127.0.1.1", "4723");
         setup_logger(page_name);
     }
+
     @BeforeMethod
     public void webDriver() {
         adc.webDriverSetUp();
@@ -84,7 +90,7 @@ public class Misc extends Setup {
         Thread.sleep(10000);
         try {
             WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Keyfob 38 ')]"));
-                Assert.assertTrue(history_message_alarm.isDisplayed());
+            Assert.assertTrue(history_message_alarm.isDisplayed());
             {
                 System.out.println("Dealer website history: " + " " + history_message_alarm.getText());
             }
@@ -113,7 +119,7 @@ public class Misc extends Setup {
         Thread.sleep(10000);
         try {
             WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Keyfob 39 ')]"));
-                Assert.assertTrue(history_message_alarm.isDisplayed());
+            Assert.assertTrue(history_message_alarm.isDisplayed());
             {
                 System.out.println("Dealer website history: " + " " + history_message_alarm.getText());
             }
@@ -142,7 +148,7 @@ public class Misc extends Setup {
         Thread.sleep(10000);
         try {
             WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Keyfob 40 ')]"));
-                Assert.assertTrue(history_message_alarm.isDisplayed());
+            Assert.assertTrue(history_message_alarm.isDisplayed());
             {
                 System.out.println("Dealer website history: " + " " + history_message_alarm.getText());
             }
@@ -172,7 +178,7 @@ public class Misc extends Setup {
         Thread.sleep(10000);
         try {
             WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Keyfob 38 ')]"));
-                Assert.assertTrue(history_message_alarm.isDisplayed());
+            Assert.assertTrue(history_message_alarm.isDisplayed());
             {
                 System.out.println("Dealer website history: " + " " + history_message_alarm.getText());
             }
@@ -181,6 +187,7 @@ public class Misc extends Setup {
         }
         Thread.sleep(3000);
     }
+
     @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
     public void ArmStay_by_keyfob_group6() throws Exception {
         Home_Page home = PageFactory.initElements(driver, Home_Page.class);
@@ -200,7 +207,7 @@ public class Misc extends Setup {
         Thread.sleep(10000);
         try {
             WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Keyfob 39 ')]"));
-                Assert.assertTrue(history_message_alarm.isDisplayed());
+            Assert.assertTrue(history_message_alarm.isDisplayed());
             {
                 System.out.println("Dealer website history: " + " " + history_message_alarm.getText());
             }
@@ -209,6 +216,7 @@ public class Misc extends Setup {
         }
         Thread.sleep(3000);
     }
+
     @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
     public void ArmStay_by_keyfob_group4() throws Exception {
         Home_Page home = PageFactory.initElements(driver, Home_Page.class);
@@ -237,6 +245,7 @@ public class Misc extends Setup {
         }
         Thread.sleep(3000);
     }
+
     /**** DISARM BY KEY FOB *****/
     //normal delay 30, 31; long delay 32, 33
     @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
@@ -262,11 +271,12 @@ public class Misc extends Setup {
             WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), ' Keyfob 38 ')]"));
             Assert.assertTrue(history_message.isDisplayed());
             logger.info("Dealer website history: " + history_message.getText());
-        } catch (Exception e){
+        } catch (Exception e) {
             logger.info("***No such element found!***");
         }
         Thread.sleep(2000);
-        }
+    }
+
     @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
     public void Disarm_by_keyfob_group6() throws Exception {
         Home_Page home = PageFactory.initElements(driver, Home_Page.class);
@@ -290,11 +300,12 @@ public class Misc extends Setup {
             WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), ' Keyfob 39 ')]"));
             Assert.assertTrue(history_message.isDisplayed());
             logger.info("Dealer website history: " + history_message.getText());
-        } catch (Exception e){
+        } catch (Exception e) {
             logger.info("***No such element found!***");
         }
         Thread.sleep(2000);
     }
+
     @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
     public void Disarm_by_keyfob_group4() throws Exception {
         Home_Page home = PageFactory.initElements(driver, Home_Page.class);
@@ -318,46 +329,109 @@ public class Misc extends Setup {
             WebElement history_message = adc.driver1.findElement(By.xpath("//*[contains(text(), ' Keyfob 40 ')]"));
             Assert.assertTrue(history_message.isDisplayed());
             logger.info("Dealer website history: " + history_message.getText());
-        } catch (Exception e){
+        } catch (Exception e) {
             logger.info("***No such element found!***");
         }
         Thread.sleep(2000);
     }
 
 
-/**** AirFX - Sensor Addition ***
-   @Test
-   public void AirFX_sensor_adding() throws IOException, InterruptedException {
+    /**** AirFX - Sensor Addition ****/
+    @Test
+    public void AirFX_sensor_adding() throws IOException, InterruptedException {
        TimeUnit.SECONDS.sleep(2);
-       adc.getDriver1().manage().window().maximize();
-       String ADC_URL = "https://alarmadmin.alarm.com/Support/CustomerInfo.aspx?customer_Id=" + adc.getAccountId();
-       adc.getDriver1().get(ADC_URL);
-       String login = "qapple";
-       String password = "qolsys123";
-       Thread.sleep(2000);
-       adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("txtUsername")));
-       adc.getDriver1().findElement(By.id("txtUsername")).sendKeys(login);
-       adc.getDriver1().findElement(By.id("txtPassword")).sendKeys(password);
-       adc.getDriver1().findElement(By.id("butLogin")).click();
-       Thread.sleep(2000);
-       adc.getDriver1().get("https://alarmadmin.alarm.com/Support/AirFx/rt_AddSensor.aspx");
-       Thread.sleep(10000);
-       adc.getDriver1().findElement(By.name("#ctl00_phBody_ucsAddSensor_txtID")).sendKeys("38");
-       // adc.getDriver1().findElement(By.id)
+        String ID = "25";
+        String DL = "550084";
+        String sensor1 = "sensor1";
+        adc.getDriver1().manage().window().maximize();
+        String ADC_URL = "https://alarmadmin.alarm.com/Support/CustomerInfo.aspx?customer_Id=" + adc.getAccountId();
+        adc.getDriver1().get(ADC_URL);
+        String login = "qapple";
+        String password = "qolsys123";
+        Thread.sleep(2000);
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("txtUsername")));
+        adc.getDriver1().findElement(By.id("txtUsername")).sendKeys(login);
+        adc.getDriver1().findElement(By.id("txtPassword")).sendKeys(password);
+        adc.getDriver1().findElement(By.id("butLogin")).click();
+        Thread.sleep(2000);
+        adc.getDriver1().get("https://alarmadmin.alarm.com/Support/AirFx/rt_AddSensor.aspx");
+        Thread.sleep(2000);
+        adc.getDriver1().findElement(By.id("ctl00_phBody_ucsAddSensor_txtID")).sendKeys(ID); //ID
+        Select type_menu = new Select(adc.getDriver1().findElement(By.id("ctl00_phBody_ucsAddSensor_ddlSensorType")));
+        type_menu.selectByVisibleText("Motion");
+        Select group_menu = new Select(adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_ucsAddSensor_ddlSensorGroup_IQpanel"))));
+        group_menu.selectByVisibleText("35");
+        Thread.sleep(2000);
+        adc.getDriver1().findElement(By.id("ctl00_phBody_ucsAddSensor_UcEligibleSensorName1_txtSN")).sendKeys(sensor1);
+        adc.getDriver1().findElement(By.id("ctl00_phBody_ucsAddSensor_txtDL")).sendKeys(DL);
+        Select RF_type_menu = new Select(adc.getDriver1().findElement(By.id("ctl00_phBody_ucsAddSensor_ddlRFType")));
+        RF_type_menu.selectByVisibleText("GE 319 RF");
+        Thread.sleep(2000);
+        adc.getDriver1().findElement(By.id("ctl00_phBody_ucsAddSensor_btnAdd")).click();
+        logger.info("Sensor1 added successfully");
+        Thread.sleep(2000);
+
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
+        logger.info("Checking for the notification in the Event History of Dealer Site ");
+        Thread.sleep(2000);
+        try {
+            WebElement history_message = adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), ' WirelessSensor #25 ')]")));
+            Assert.assertTrue(history_message.isDisplayed());
+            logger.info("Dealer website history: " + history_message.getText());
+        } catch (Exception e) {
+            logger.info("***No such element found!***");
+        }
+
+        Thread.sleep(4000);
+        Slide_Menu menu = PageFactory.initElements(driver, Slide_Menu.class);
+        Settings_Page settings = PageFactory.initElements(driver, Settings_Page.class);
+        logger.info("Checking for the notification in the Event History of Panel ");
+        Thread.sleep(10000);
+        menu.Slide_menu_open.click();
+        Thread.sleep(2000);
+        menu.Settings.click();
+        settings.STATUS.click();
+        Thread.sleep(2000);
+        Status_page_elements tabs = PageFactory.initElements(driver, Status_page_elements.class);
+        tabs.HISTORY_tab.click();
+        Thread.sleep(2000);
+//@FindBy(xpath = "//android.widget.TextView[@text='Software']")
+       /* try {
+            WebElement history_message = tabs.HISTORY_tab.findElement(By.id("//com.qolsys:id/textView3[@text='Active']"));
+            Assert.assertTrue(history_message.isDisplayed());
+            logger.info("Panel history: " + history_message.getText());
+        } catch (Exception e) {
+            logger.info("***No such element found!***");
+        }
+        Thread.sleep(2000);*/
+        sensors.primary_call("55 00 84", Motion_Tamper);
+        logger.info("sensor1 Tampered");
+        sensors.primary_call("55 00 84", Motion_Restore);
+        logger.info("sensor1 IDLE");
+        sensors.primary_call("55 00 84", Motion_Activated);
+        logger.info("sensor1 Activated");
+        sensors.primary_call("55 00 84", Motion_Restore);
+        logger.info("sensor1 IDLE");
+        /*Thread.sleep(2000);
+        try {
+            WebElement history_message = tabs.HISTORY_tab.findElement(By.id("//com.qolsys:id/textView3[@text=' Idle ']"));
+            Assert.assertTrue(history_message.isDisplayed());
+            logger.info("Panel history: " + history_message.getText());
+        } catch (Exception e) {
+            logger.info("***No such element found!***");
+        }*/
+    }
 
 
-       //id.sendKeys("1");
-       // adc.driver1.findElement(By.partialLinkText("Sensors")).click();
-       //Thread.sleep(2000);
-       //adc.Request_equipment_list();
-   }*/
-       @AfterTest
+
+
+   @AfterTest
        public void tearDown () throws IOException, InterruptedException {
            log.endTestCase(page_name);
            driver.quit();
-           for (int i= 40; i>37; i--) {
-               delete_from_primary(i);
-           }
+         //  for (int i= 40; i>37; i--) {
+           //    delete_from_primary(i);
+         //  }
        }
 
     @AfterMethod

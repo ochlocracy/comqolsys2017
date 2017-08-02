@@ -150,7 +150,9 @@ public class ADC extends Setup {
             return accountId;
         }else  if (get_UDID().equals("62e9f0df")) {
             accountId = "5222397";
-        }
+        }else  if (get_UDID().equals("62964b68")) {
+        accountId = "5389996";
+    }
         return  accountId;
     }
 
