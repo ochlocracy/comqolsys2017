@@ -19,6 +19,7 @@ public class Device_Renaming extends Setup{
     String page_name = "Device Renaming";
     Logger logger = Logger.getLogger(page_name);
     ADC adc = new ADC();
+    String rename = "";
     String rename1 = "Family Room Light";
     String rename2 = "ADC";
 
