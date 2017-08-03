@@ -242,9 +242,9 @@ public class ADC extends Setup {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("txtUsername")));
         getDriver1().findElement(By.id("txtUsername")).sendKeys(login);
         getDriver1().findElement(By.id("txtPassword")).sendKeys(password);
-
         getDriver1().findElement(By.id("butLogin")).click();
         getDriver1().findElement(By.partialLinkText("Equipment")).click();
+        TimeUnit.SECONDS.sleep(2);
     }
     public void navigate_to_user_site(String login, String password) {
         getDriver1().manage().window().maximize();
