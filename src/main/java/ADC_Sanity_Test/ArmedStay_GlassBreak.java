@@ -76,7 +76,7 @@ public class ArmedStay_GlassBreak extends Setup {
         try {
             WebElement history_message = adc.driver1.findElement(By.xpath(element_to_verify));
             Assert.assertTrue(history_message.isDisplayed());{
-                logger.info("Pass: message is displayed " + history_message.getText());
+                logger.info("Pass: message is displayed: " + history_message.getText());
             }
         }catch (Exception e){
             logger.info("***No such element found!***");
@@ -117,7 +117,7 @@ public class ArmedStay_GlassBreak extends Setup {
             WebElement history_message = adc.driver1.findElement(By.xpath(element_to_verify));
             Assert.assertTrue(history_message.isDisplayed());
             {
-                logger.info("Pass: message is displayed " + history_message.getText());
+                logger.info("Pass: message is displayed: " + history_message.getText());
             }
         } catch (Exception e) {
             logger.info("***No such element found!***");
@@ -154,7 +154,7 @@ public class ArmedStay_GlassBreak extends Setup {
             WebElement history_message = adc.driver1.findElement(By.xpath(element_to_verify));
             Assert.assertTrue(history_message.isDisplayed());
             {
-                logger.info("Pass: message is displayed " + history_message.getText());
+                logger.info("Pass: message is displayed: " + history_message.getText());
             }
         } catch (Exception e) {
             logger.info("***No such element found!***");
@@ -189,7 +189,7 @@ public class ArmedStay_GlassBreak extends Setup {
             WebElement history_message = adc.driver1.findElement(By.xpath(element_to_verify));
             Assert.assertTrue(history_message.isDisplayed());
             {
-                logger.info("Pass: message is displayed " + history_message.getText());
+                logger.info("Pass: message is displayed: " + history_message.getText());
             }
         } catch (Exception e) {
             logger.info("***No such element found!***");
@@ -244,12 +244,12 @@ public class ArmedStay_GlassBreak extends Setup {
 
     @Test(priority = 2)
     public void Armstay_tamper_13() throws Exception{
-        Armstay_tamper_Sensor_After_Exit_Delay_Alarm(13,"67 00 39", "");
+        Armstay_tamper_Sensor_After_Exit_Delay_Alarm(13,"67 00 99", "//*[contains(text(), 'Glass Break 1 (Sensor 1) Tamper')]");
     }
 
     @Test(priority = 3)
     public void Armstay_tamper_17() throws Exception{
-        Armstay_tamper_Sensor_After_Exit_Delay(17,"67 00 39", "");
+        Armstay_tamper_Sensor_After_Exit_Delay(17,"67 00 39", "//*[contains(text(), 'Glass Break 2 (Sensor 2) Tamper')]");
     }
 
 
