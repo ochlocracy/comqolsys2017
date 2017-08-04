@@ -16,7 +16,7 @@ import org.testng.annotations.*;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-/*** Estimate execution time: 26 min, just panel:  min ***/
+/*** Estimate execution time: 26 min, just panel:   min ***/
 
 public class ArmedStay_Contact extends Setup {
 

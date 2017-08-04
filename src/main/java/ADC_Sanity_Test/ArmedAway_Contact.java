@@ -16,7 +16,7 @@ import org.testng.annotations.*;
 
 import java.io.IOException;
 
-/** Estimate execution time: 31 min, just panel: 22 min ***/
+/** Estimate execution time: 31 min, just panel: 22 min  ***/
 
 public class ArmedAway_Contact extends Setup{
 
