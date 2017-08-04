@@ -15,6 +15,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.support.ui.Select;
 
@@ -56,8 +58,8 @@ public class Misc extends Setup {
         adc.driver1.findElement(By.partialLinkText("Sensors")).click();
         Thread.sleep(2000);
         adc.Request_equipment_list();
-      //  Thread.sleep(60000);
-         }
+        //  Thread.sleep(60000);
+    }
 
     @BeforeTest
     public void capabilities_setup() throws Exception {
@@ -351,9 +353,9 @@ public class Misc extends Setup {
 
 
     /**** AirFX - Sensor Addition ****/
-    @Test
+    @Test (priority = 1)
     public void AirFX_sensor_addition() throws IOException, InterruptedException {
-       TimeUnit.SECONDS.sleep(2);
+        TimeUnit.SECONDS.sleep(2);
         String ID = "1";
         String DL = "6500A0";
         String sensor1 = "sensor1";
@@ -394,17 +396,12 @@ public class Misc extends Setup {
         } catch (Exception e) {
             logger.info("***No such element found!***");
         }
-
         Thread.sleep(2000);
         sensors.primary_call("65 00 0A", D_Tamper);
         logger.info("sensor1 Tampered");
         Thread.sleep(2000);
         sensors.primary_call("65 00 0A", D_Restore);
         logger.info("sensor1 Restored");
-        //sensors.primary_call("65 00 0A", D_Open);
-       // logger.info("sensor1 Opened");
-       // sensors.primary_call("65 00 0A", D_Restore);
-      //  logger.info("sensor1 Closed");
         Thread.sleep(2000);
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_dgEvents_ctl103_refreshButton"))).click();
         Thread.sleep(3000);
@@ -416,57 +413,56 @@ public class Misc extends Setup {
             logger.info("***No such element found!***");
         }
         try {
-            WebElement history_message = adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), 'Sensor 1 End of tamper')]")));
-            Assert.assertTrue(history_message.isDisplayed());
-            logger.info("Dealer website history: " + history_message.getText());
+            WebElement history_message1 = adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), 'Sensor 1 End of tamper')]")));
+            Assert.assertTrue(history_message1.isDisplayed());
+            logger.info("Dealer website history: " + history_message1.getText());
         } catch (Exception e) {
             logger.info("***No such element found!***");
         }
-        /*   Slide_Menu menu = PageFactory.initElements(driver, Slide_Menu.class);
+        Thread.sleep(4000);
+        Slide_Menu menu = PageFactory.initElements(driver, Slide_Menu.class);
         Settings_Page settings = PageFactory.initElements(driver, Settings_Page.class);
+        Status_page_elements tabs = PageFactory.initElements(driver, Status_page_elements.class);
         logger.info("Checking for the notification in the Event History of Panel ");
-        Thread.sleep(10000);
+        Thread.sleep(2000);
         menu.Slide_menu_open.click();
         Thread.sleep(2000);
         menu.Settings.click();
         settings.STATUS.click();
         Thread.sleep(2000);
-        Status_page_elements tabs = PageFactory.initElements(driver, Status_page_elements.class);
         tabs.HISTORY_tab.click();
-        Thread.sleep(2000);
-
-       /* try {
-            WebElement history_message = tabs.HISTORY_tab.findElement(By.id("//com.qolsys:id/textView3[@text='Active']"));
-            Assert.assertTrue(history_message.isDisplayed());
-            logger.info("Panel history: " + history_message.getText());
-        } catch (Exception e) {
-            logger.info("***No such element found!***");
+        Thread.sleep(4000);
+        List<WebElement> events = driver.findElements(By.id("com.qolsys:id/textView3"));
+        String event;
+        String str;
+        str = events.get(3).getText();
+        event = "Active";
+        if (str.equals(event)) {
+            logger.info("sensor1 was added and the sensor1 status is " + str);
         }
-        Thread.sleep(2000);*/
-
-        /*
-        try {
-            WebElement history_message = tabs.HISTORY_tab.findElement(By.id("//com.qolsys:id/textView3[@text='Sensor 1 Tamper**']"));
-            Assert.assertTrue(history_message.isDisplayed());
-            logger.info("Panel history: " + history_message.getText());
-        } catch (Exception e) {
-            logger.info("***No such element found!***");
+        else if (!event.equals(str)) {
+            logger.info("***No such element found!***");}
+        str = events.get(2).getText();
+        event = "Tampered";
+        if (str.equals(event)) {
+            logger.info("The sensor1 status is " + str);
         }
-        try {
-            WebElement history_message = tabs.HISTORY_tab.findElement(By.id("//com.qolsys:id/textView3[@text='Sensor 1 End of tamper']"));
-            Assert.assertTrue(history_message.isDisplayed());
-            logger.info("Panel history: " + history_message.getText());
-        } catch (Exception e) {
-            logger.info("***No such element found!***");
-        }*/
+        else if (!event.equals(str)) {
+            logger.info("***No such element found!***");}
+        str = events.get(1).getText();
+        event = "Closed";
+        if (str.equals(event)) {
+            logger.info("The sensor1 status is " + str);
+        }
+        else if (!event.equals(str)) {
+            logger.info("***No such element found!***");}
     }
 
-
     /**** AirFX - Change Sensor Type and Sensor Group ****/
-    @Test //(dependsOnMethods = {"AirFX_sensor_adding"})
+    @Test (priority = 2)
     public void AirFX_change_sensor_group() throws InterruptedException, IOException {
         adc.getDriver1().manage().window().maximize();
-       String ADC_URL = "https://alarmadmin.alarm.com/Support/CustomerInfo.aspx?customer_Id=" + adc.getAccountId();
+        String ADC_URL = "https://alarmadmin.alarm.com/Support/CustomerInfo.aspx?customer_Id=" + adc.getAccountId();
         adc.getDriver1().get(ADC_URL);
         String login = "qapple";
         String password = "qolsys123";
@@ -485,13 +481,13 @@ public class Misc extends Setup {
         group_menu.selectByVisibleText("26");
         Thread.sleep(2000);
         adc.getDriver1().findElement(By.id("ctl00_phBody_btnSubmit")).click();
-        Thread.sleep(2000);
+        Thread.sleep(4000);
         try {
             Alert alert = adc.driver1.switchTo().alert();
             adc.driver1.switchTo().alert().accept();
             alert.accept();
-        } catch (NoAlertPresentException Ex)
-        {}
+        } catch (NoAlertPresentException Ex) {
+        }
         logger.info("Sensor group and type were changed successfully");
         Thread.sleep(2000);
         adc.driver1.get("https://alarmadmin.alarm.com/Support/Commands/GetSensorNames.aspx");
@@ -508,13 +504,36 @@ public class Misc extends Setup {
             Assert.assertTrue(history_message.isDisplayed());
             logger.info("Dealer website history: " + history_message.getText());
         } catch (Exception e) {
-            logger.info("***No such element found!***");        }
-}
-
+            logger.info("***No such element found!***");
+        }
+        Thread.sleep(4000);
+        Slide_Menu menu = PageFactory.initElements(driver, Slide_Menu.class);
+        Settings_Page settings = PageFactory.initElements(driver, Settings_Page.class);
+        Status_page_elements tabs = PageFactory.initElements(driver, Status_page_elements.class);
+        logger.info("Checking for the notification in the Event History of Panel ");
+        Thread.sleep(2000);
+        menu.Slide_menu_open.click();
+        Thread.sleep(2000);
+        menu.Settings.click();
+        settings.STATUS.click();
+        Thread.sleep(2000);
+        tabs.HISTORY_tab.click();
+        Thread.sleep(4000);
+        List<WebElement> events = driver.findElements(By.id("com.qolsys:id/textView3"));
+        String event;
+        String str;
+        str = events.get(1).getText();
+        event = "Group Changed (Door/Window-12-Entry-Exit-Long Delay)";
+        if (str.equals(event)) {
+            logger.info("sensor1 : " + str);
+        }
+        else if (!event.equals(str)) {
+            logger.info("***No such element found!***");}
+    }
 
 
     /**** AirFX - Change Sensor Name ****/
-    @Test //(dependsOnMethods = {"AirFX_sensor_adding"})
+    @Test (priority = 3)
     public void AirFX_change_sensor_name() throws InterruptedException, IOException {
         adc.getDriver1().manage().window().maximize();
         String ADC_URL = "https://alarmadmin.alarm.com/Support/CustomerInfo.aspx?customer_Id=" + adc.getAccountId();
@@ -540,8 +559,8 @@ public class Misc extends Setup {
             Alert alert = adc.driver1.switchTo().alert();
             adc.driver1.switchTo().alert().accept();
             alert.accept();
-        } catch (NoAlertPresentException Ex)
-        {}
+        } catch (NoAlertPresentException Ex) {
+        }
         logger.info("Sensor name was changed successfully");
         Thread.sleep(2000);
         adc.driver1.get("https://alarmadmin.alarm.com/Support/Commands/GetSensorNames.aspx");
@@ -557,11 +576,35 @@ public class Misc extends Setup {
             Assert.assertTrue(history_message.isDisplayed());
             logger.info("Dealer website history: " + history_message.getText());
         } catch (Exception e) {
-            logger.info("***No such element found!***");        }
-    }
+            logger.info("***No such element found!***");
+        }
+        Thread.sleep(4000);
+        Slide_Menu menu = PageFactory.initElements(driver, Slide_Menu.class);
+        Settings_Page settings = PageFactory.initElements(driver, Settings_Page.class);
+        Status_page_elements tabs = PageFactory.initElements(driver, Status_page_elements.class);
+        logger.info("Checking for the notification in the Event History of Panel ");
+        Thread.sleep(4000);
+        menu.Slide_menu_open.click();
+        Thread.sleep(2000);
+        menu.Settings.click();
+        settings.STATUS.click();
+        Thread.sleep(2000);
+        tabs.HISTORY_tab.click();
+        Thread.sleep(4000);
+        List<WebElement> events = driver.findElements(By.id("com.qolsys:id/textView3"));
+        String event;
+        String str;
+        str = events.get(1).getText();
+        event = "Name Changed (New custom name)";
+        if (str.equals(event)) {
+            System.out.println("sensor1 : " + str);
+        }
+        else if (!event.equals(str)) {
+            System.out.println("***No such element found!***");}
+         }
 
     /**** AirFX - Sensor Deletion ****/
-    @Test //(dependsOnMethods = {"AirFX_sensor_adding"})
+    @Test (priority = 4)
     public void AirFX_sensor_deletion() throws InterruptedException, IOException {
         adc.getDriver1().manage().window().maximize();
         String ADC_URL = "https://alarmadmin.alarm.com/Support/CustomerInfo.aspx?customer_Id=" + adc.getAccountId();
@@ -585,8 +628,8 @@ public class Misc extends Setup {
             Alert alert = adc.driver1.switchTo().alert();
             adc.driver1.switchTo().alert().accept();
             alert.accept();
-        } catch (NoAlertPresentException Ex)
-        {}
+        } catch (NoAlertPresentException Ex) {
+        }
         logger.info("Sensor was deleted successfully");
         Thread.sleep(2000);
         adc.driver1.get("https://alarmadmin.alarm.com/Support/Commands/GetSensorNames.aspx");
@@ -598,20 +641,99 @@ public class Misc extends Setup {
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_dgEvents_ctl103_refreshButton"))).click();
         Thread.sleep(3000);
         try {
-            WebElement history_message = adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("//*[contains(text(), ' WirelessSensor #1 ')]")));
+            WebElement history_message = adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), 'Delete WirelessSensor #1 ')]")));
             Assert.assertTrue(history_message.isDisplayed());
             logger.info("Dealer website history: " + history_message.getText());
         } catch (Exception e) {
-            logger.info("***No such element found!***");        }
+            logger.info("***No such element found!***");
+        }
+        Thread.sleep(4000);
+        Slide_Menu menu = PageFactory.initElements(driver, Slide_Menu.class);
+        Settings_Page settings = PageFactory.initElements(driver, Settings_Page.class);
+        Status_page_elements tabs = PageFactory.initElements(driver, Status_page_elements.class);
+        logger.info("Checking for the notification in the Event History of Panel ");
+        Thread.sleep(2000);
+        menu.Slide_menu_open.click();
+        Thread.sleep(2000);
+        menu.Settings.click();
+        settings.STATUS.click();
+        Thread.sleep(2000);
+        tabs.HISTORY_tab.click();
+        Thread.sleep(2000);
+        List<WebElement> events = driver.findElements(By.id("com.qolsys:id/textView3"));
+        String event;
+        String str;
+        str = events.get(1).getText();
+        event = "Sensor Deleted";
+        if (str.equals(event)) {
+            System.out.println("sensor1 : " + str);
+        }
+        else if (!event.equals(str)) {
+            System.out.println("***No such element found!***");}
     }
+
+
+
+    /**** Panel History ****/
+    @Test
+    public void Panel_history() throws IOException, InterruptedException {
+
+       /* Thread.sleep(2000);
+        sensors.primary_call("65 00 0A", D_Tamper);
+        logger.info("sensor1 Tampered");
+        Thread.sleep(2000);
+        sensors.primary_call("65 00 0A", D_Restore);
+        logger.info("sensor1 Restored");
+        sensors.primary_call("65 00 0A", D_Open);
+        logger.info("sensor1 Opened");
+        sensors.primary_call("65 00 0A", D_Restore);
+        logger.info("sensor1 Closed");
+        Thread.sleep(2000);*/
+        Slide_Menu menu = PageFactory.initElements(driver, Slide_Menu.class);
+        Settings_Page settings = PageFactory.initElements(driver, Settings_Page.class);
+        Status_page_elements tabs = PageFactory.initElements(driver, Status_page_elements.class);
+        logger.info("Checking for the notification in the Event History of Panel ");
+        Thread.sleep(2000);
+        menu.Slide_menu_open.click();
+        Thread.sleep(2000);
+        menu.Settings.click();
+        settings.STATUS.click();
+        Thread.sleep(1000);
+
+        tabs.HISTORY_tab.click();
+        Thread.sleep(1000);
+        //  List<WebElement> devices_name = driver.findElements(By.id("com.qolsys:id/textView2"));
+        //  for (int j = 1; j < devices_name.size(); j++) {
+        //     logger.info("Sensor name: " + devices_name.get(j).getText());
+        //  }
+        List<WebElement> events = driver.findElements(By.id("com.qolsys:id/textView3"));
+        String event;
+        String str;
+        //for (int i = 1; i < events.size(); i++) {
+            //logger.info("History message: " + events.get(i).getText());
+            //
+
+            str = events.get(1).getText();
+            event = "Openrf";
+            if (str.equals(event)) {
+                System.out.println("sensor1 " + str);
+                        }
+            else if (!event.equals(str)) {
+           System.out.println("***No such element found!***");
+        }
+
+    }
+
+
+
 
    @AfterTest
        public void tearDown () throws IOException, InterruptedException {
            log.endTestCase(page_name);
            driver.quit();
-           for (int i= 40; i>37; i--) {
-           delete_from_primary(i);
-           }
+           //for (int i= 40; i>37; i--) {
+           //delete_from_primary(i);
+          // }
        }
 
     @AfterMethod
