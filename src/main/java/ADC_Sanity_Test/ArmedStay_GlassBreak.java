@@ -233,21 +233,21 @@ public class ArmedStay_GlassBreak extends Setup {
 
     @Test(dependsOnMethods = {"addGlassBreakSensor"})
     public void ArmstayExitDelay_13() throws Exception{
-        Armstay_Trigger_Sensor_During_Exit_Delay_Alarm(13,"67 00 99","//*[contains(text(), 'Glass Break 1 (Sensor 1) Alarm')]","//*[contains(text(), 'Glass Break 1 (Sensor 1) Alarm')]");
+        Armstay_Trigger_Sensor_During_Exit_Delay_Alarm(13,"67 00 99","//*[contains(text(), 'Glass Break 1 (Sensor 1) Pending Alarm')]","//*[contains(text(), 'Glass Break 1 (Sensor 1) Alarm')]");
 
     }
 
-    @Test(priority = 1, dependsOnMethods = {"addGlassBreakSensor"})
+    @Test(priority = 1 /*,dependsOnMethods = {"addGlassBreakSensor"}*/)
     public void ArmstayExitDelay_17() throws Exception{
-        Armstay_Trigger_Sensor_During_Exit_Delay(17,"67 00 39","//*[contains(text(), 'Panel disarmed by user 1')]");
+        Armstay_Trigger_Sensor_During_Exit_Delay(17,"67 00 39","//*[contains(text(), 'Glass Break 2 (Sensor 2) Tamper')]");
     }
 
-    @Test(priority = 2)
+    @Test(priority = 2,dependsOnMethods = {"addGlassBreakSensor"})
     public void Armstay_tamper_13() throws Exception{
         Armstay_tamper_Sensor_After_Exit_Delay_Alarm(13,"67 00 99", "//*[contains(text(), 'Glass Break 1 (Sensor 1) Tamper')]");
     }
 
-    @Test(priority = 3)
+    @Test(priority = 3,dependsOnMethods = {"addGlassBreakSensor"})
     public void Armstay_tamper_17() throws Exception{
         Armstay_tamper_Sensor_After_Exit_Delay(17,"67 00 39", "//*[contains(text(), 'Glass Break 2 (Sensor 2) Tamper')]");
     }
