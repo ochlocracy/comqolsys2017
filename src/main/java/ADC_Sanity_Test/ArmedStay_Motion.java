@@ -89,6 +89,8 @@ public class ArmedStay_Motion extends Setup{
         Thread.sleep(2000);
 
         ADC_verification(element_to_verify, element_to_verify2);
+        //sensors.primary_call(DLID, close);
+        //Thread.sleep(2000);
     }
 
     @BeforeTest
@@ -131,21 +133,21 @@ public class ArmedStay_Motion extends Setup{
 
     @Test (dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
     public void ArmStayDelay_17() throws Exception {
-        ArmStay_Activate_During_Delay(17, "55 00 54", "//*[contains(text(), 'Motion 2 (Sensor 2) Activated')]", "//*[contains(text(), 'Armed Stay')]");
+        ArmStay_Activate_During_Delay(17, "55 00 54", "//*[contains(text(), '(Sensor 2) Activated')]", "//*[contains(text(), 'Armed Stay')]");
     }
 
     @Test (priority = 1, retryAnalyzer = RetryAnalizer.class)
     public void ArmStayDelay_15() throws Exception {
-        ArmStay_Activate_During_Delay(15, "55 00 44", "//*[contains(text(), 'Motion 1 (Sensor 1) Activated')]", "//*[contains(text(), 'Armed Stay')]");
+        ArmStay_Activate_During_Delay(15, "55 00 44", "//*[contains(text(), '(Sensor 1) Activated')]", "//*[contains(text(), 'Armed Stay')]");
     }
 
 
     @AfterTest
     public void tearDown() throws IOException, InterruptedException {
         driver.quit();
-        /*for (int i= 5; i>0; i--) {
+        for (int i= 5; i>0; i--) {
             delete_from_primary(i);
-        }*/
+        }
     }
 
     @AfterMethod
