@@ -49,6 +49,7 @@ public class ArmedStay_GlassBreak extends Setup {
     public void Armstay_Trigger_Sensor_During_Exit_Delay_Alarm(int group, String DLID,String element_to_verify, String element_to_verify2) throws Exception {
         logger.info("ArmStay -Trip glass break " +group + " sensor during exit delay");
         ARM_STAY();
+
         Thread.sleep(3000);
         logger.info("Trip glass break sensor " + group);
         sensors.primary_call(DLID, active);
