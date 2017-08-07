@@ -153,7 +153,9 @@ public class ADC extends Setup {
         return accountId;
         }else  if (get_UDID().equals("62e9f0df")) {
             accountId = "5222397";
-        }
+        }else  if (get_UDID().equals("62964b68")) {
+        accountId = "5389996";
+    }
         return  accountId;
     }
 
@@ -234,15 +236,15 @@ public class ADC extends Setup {
         getDriver1().manage().window().maximize();
         String ADC_URL = "https://alarmadmin.alarm.com/Support/CustomerInfo.aspx?customer_Id="+accountID;
         getDriver1().get(ADC_URL);
-        String login = "qapple";
-        String password = "qolsys123";
+        String login = "qautomation";
+        String password = "Qolsys123";
         Thread.sleep(2000);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("txtUsername")));
         getDriver1().findElement(By.id("txtUsername")).sendKeys(login);
         getDriver1().findElement(By.id("txtPassword")).sendKeys(password);
-
         getDriver1().findElement(By.id("butLogin")).click();
         getDriver1().findElement(By.partialLinkText("Equipment")).click();
+        TimeUnit.SECONDS.sleep(2);
     }
     public void navigate_to_user_site(String login, String password) {
         getDriver1().manage().window().maximize();

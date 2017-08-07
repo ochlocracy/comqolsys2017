@@ -14,7 +14,7 @@ public class Android_settings_elements {
     public WebElement APN_summary;
     @FindBy(id = "com.android.settings:id/apn_radiobutton")
     public WebElement APN_selection_button;
-    @FindBy(xpath = "//*[@class='android.widget.ImageButton' and @index='0']")
+    @FindBy(xpath = "//*[@class='android.widget.ImageButton' && @index='0']")
     public WebElement APN_page_back_button;
 }
 

@@ -46,16 +46,17 @@ public class ArmedStay_GlassBreak extends Setup {
         // shell service call qservice 50 i32 2 i32 10 i32 6619296 i32 1
     }
 
-    public void Armstay_Trigger_Sensor_During_Exit_Delay_Alarm(int group, String DLID,String element_to_verify ) throws Exception {
+    public void Armstay_Trigger_Sensor_During_Exit_Delay_Alarm(int group, String DLID,String element_to_verify, String element_to_verify2) throws Exception {
         logger.info("ArmStay -Trip glass break " +group + " sensor during exit delay");
         ARM_STAY();
         Thread.sleep(3000);
-        logger.info("Trip glass break sensor");
+        logger.info("Trip glass break sensor " + group);
         sensors.primary_call(DLID, active);
         Thread.sleep(2000);
-        logger.info("Restore Glass Break");
+        logger.info("Restore Glass Break " + group);
         sensors.primary_call(DLID, restore);
         Thread.sleep(2000);
+
         logger.info("Verify Alarm");
         verify_in_alarm();
         Thread.sleep(1000);
@@ -63,7 +64,7 @@ public class ArmedStay_GlassBreak extends Setup {
         enter_default_user_code();
 
         /*** ADC website verification ***/
-
+        logger.info("ADC website verification");
         adc.New_ADC_session(AccountID);
         Thread.sleep(3000);
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
@@ -75,7 +76,7 @@ public class ArmedStay_GlassBreak extends Setup {
         try {
             WebElement history_message = adc.driver1.findElement(By.xpath(element_to_verify));
             Assert.assertTrue(history_message.isDisplayed());{
-                logger.info("Pass: message is displayed " + history_message.getText());
+                logger.info("Pass: message is displayed: " + history_message.getText());
             }
         }catch (Exception e){
             logger.info("***No such element found!***");
@@ -87,19 +88,25 @@ public class ArmedStay_GlassBreak extends Setup {
         logger.info("ArmStay -Trip glass break " + group + " sensor during exit delay");
         ARM_STAY();
         Thread.sleep(5000);
-        logger.info("Trip glass break sensor");
+        logger.info("Trip glass break sensor " +group);
         sensors.primary_call(DLID, active);
         Thread.sleep(2000);
-        logger.info("Restore Glass Break");
+        logger.info("Restore Glass Break " +group);
         sensors.primary_call(DLID, restore);
         Thread.sleep(Normal_Exit_Delay);
-
+        /**if
+         *  alarm is verifed = true
+         *
+         * else
+         *  disarm with user method
+         **/
         logger.info("Disarm System");
         DISARM();
         logger.info("Verify Disarm");
         verify_disarm();
 
         /*** ADC website verification ***/
+        logger.info("ADC website verification");
         adc.New_ADC_session(AccountID);
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
         Thread.sleep(3000);
@@ -110,7 +117,7 @@ public class ArmedStay_GlassBreak extends Setup {
             WebElement history_message = adc.driver1.findElement(By.xpath(element_to_verify));
             Assert.assertTrue(history_message.isDisplayed());
             {
-                logger.info("Pass: message is displayed " + history_message.getText());
+                logger.info("Pass: message is displayed: " + history_message.getText());
             }
         } catch (Exception e) {
             logger.info("***No such element found!***");
@@ -118,6 +125,42 @@ public class ArmedStay_GlassBreak extends Setup {
 
     }
 
+    public void Armstay_tamper_Sensor_After_Exit_Delay_Alarm(int group, String DLID,String element_to_verify ) throws Exception {
+        logger.info("ArmStay -Trip glass break " + group + " sensor during exit delay");
+        ARM_STAY();
+        Thread.sleep(Normal_Exit_Delay);
+        logger.info("Tamper glass break sensor " + group);
+        sensors.primary_call(DLID, tamper);
+        Thread.sleep(2000);
+        logger.info("Restore Glass Break " + group);
+        sensors.primary_call(DLID, restore);
+        Thread.sleep(3000);
+
+        logger.info("Verify Alarm");
+        verify_in_alarm();
+        Thread.sleep(1000);
+        logger.info("Disarm with 1234");
+        enter_default_user_code();
+
+        /*** ADC website verification ***/
+        logger.info("ADC website verification");
+        adc.New_ADC_session(AccountID);
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
+        Thread.sleep(3000);
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_butSearch"))).click();
+
+        Thread.sleep(10000);
+        try {
+            WebElement history_message = adc.driver1.findElement(By.xpath(element_to_verify));
+            Assert.assertTrue(history_message.isDisplayed());
+            {
+                logger.info("Pass: message is displayed: " + history_message.getText());
+            }
+        } catch (Exception e) {
+            logger.info("***No such element found!***");
+        }
+
+    }
     public void Armstay_tamper_Sensor_After_Exit_Delay(int group, String DLID,String element_to_verify ) throws Exception {
         logger.info("ArmStay -Trip glass break " + group + " sensor during exit delay");
         ARM_STAY();
@@ -135,6 +178,7 @@ public class ArmedStay_GlassBreak extends Setup {
         verify_disarm();
 
         /*** ADC website verification ***/
+        logger.info("ADC website verification");
         adc.New_ADC_session(AccountID);
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
         Thread.sleep(3000);
@@ -145,7 +189,7 @@ public class ArmedStay_GlassBreak extends Setup {
             WebElement history_message = adc.driver1.findElement(By.xpath(element_to_verify));
             Assert.assertTrue(history_message.isDisplayed());
             {
-                logger.info("Pass: message is displayed " + history_message.getText());
+                logger.info("Pass: message is displayed: " + history_message.getText());
             }
         } catch (Exception e) {
             logger.info("***No such element found!***");
@@ -189,23 +233,23 @@ public class ArmedStay_GlassBreak extends Setup {
 
     @Test(dependsOnMethods = {"addGlassBreakSensor"})
     public void ArmstayExitDelay_13() throws Exception{
-        Armstay_Trigger_Sensor_During_Exit_Delay_Alarm(13,"67 00 99","//*[contains(text(), 'Glass Break 1 (Sensor 1) Alarm')]");
+        Armstay_Trigger_Sensor_During_Exit_Delay_Alarm(13,"67 00 99","//*[contains(text(), 'Glass Break 1 (Sensor 1) Pending Alarm')]","//*[contains(text(), 'Glass Break 1 (Sensor 1) Alarm')]");
 
     }
 
-    @Test(priority = 1, dependsOnMethods = {"addGlassBreakSensor"})
+    @Test(priority = 1 /*,dependsOnMethods = {"addGlassBreakSensor"}*/)
     public void ArmstayExitDelay_17() throws Exception{
-        Armstay_Trigger_Sensor_During_Exit_Delay(17,"67 00 99","//*[contains(text(), 'Panel disarmed by user 1')]");
+        Armstay_Trigger_Sensor_During_Exit_Delay(17,"67 00 39","//*[contains(text(), 'Glass Break 2 (Sensor 2) Tamper')]");
     }
 
-    @Test(priority = 2)
+    @Test(priority = 2,dependsOnMethods = {"addGlassBreakSensor"})
     public void Armstay_tamper_13() throws Exception{
-        Armstay_tamper_Sensor_After_Exit_Delay(13,"67 00 39", "");
+        Armstay_tamper_Sensor_After_Exit_Delay_Alarm(13,"67 00 99", "//*[contains(text(), 'Glass Break 1 (Sensor 1) Tamper')]");
     }
 
-    @Test(priority = 3)
+    @Test(priority = 3,dependsOnMethods = {"addGlassBreakSensor"})
     public void Armstay_tamper_17() throws Exception{
-        Armstay_tamper_Sensor_After_Exit_Delay(17,"67 00 39", "");
+        Armstay_tamper_Sensor_After_Exit_Delay(17,"67 00 39", "//*[contains(text(), 'Glass Break 2 (Sensor 2) Tamper')]");
     }
 
 
