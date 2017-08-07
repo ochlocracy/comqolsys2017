@@ -237,9 +237,9 @@ public class ArmedStay_GlassBreak extends Setup {
 
     }
 
-    @Test(priority = 1 /*,dependsOnMethods = {"addGlassBreakSensor"}*/)
+    @Test(priority = 1,dependsOnMethods = {"addGlassBreakSensor"})
     public void ArmstayExitDelay_17() throws Exception{
-        Armstay_Trigger_Sensor_During_Exit_Delay(17,"67 00 39","//*[contains(text(), 'Glass Break 2 (Sensor 2) Tamper')]");
+        Armstay_Trigger_Sensor_During_Exit_Delay(17,"67 00 39","//*[contains(text(), 'Sensor 2 Tamper**')]");
     }
 
     @Test(priority = 2,dependsOnMethods = {"addGlassBreakSensor"})
@@ -249,7 +249,7 @@ public class ArmedStay_GlassBreak extends Setup {
 
     @Test(priority = 3,dependsOnMethods = {"addGlassBreakSensor"})
     public void Armstay_tamper_17() throws Exception{
-        Armstay_tamper_Sensor_After_Exit_Delay(17,"67 00 39", "//*[contains(text(), 'Glass Break 2 (Sensor 2) Tamper')]");
+        Armstay_tamper_Sensor_After_Exit_Delay(17,"67 00 39", "//*[contains(text(), 'Sensor 2 Tamper**')]");
     }
 
 
