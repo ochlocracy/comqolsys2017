@@ -101,7 +101,7 @@ public class Dual_path_page extends Setup{
         h.Back_button.click();
         Thread.sleep(2000);
         adv.WI_FI.click();
-        Thread.sleep(2000);
+        Thread.sleep(6000);
         w.Checkbox.click();
         logger.info("The WiFi setting is enabled back");
     }
@@ -126,7 +126,7 @@ public class Dual_path_page extends Setup{
 
 
 
-    @Test(priority = 5, dependsOnMethods = {"accessDual_path_page"})
+    @Test(priority = 3, dependsOnMethods = {"accessDual_path_page"})
     public void Dual_path_disabled() throws Exception {
         Dual_path_page_elements d_test = PageFactory.initElements(driver, Dual_path_page_elements.class);
         logger.info("Dual path control check-box is Disabled");
