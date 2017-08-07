@@ -13,6 +13,7 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by qolsys on 7/27/17.
@@ -44,13 +45,11 @@ public class ArmedStay_Motion extends Setup{
         rt.exec(adbPath + add_primary);
         // shell service call qservice 50 i32 2 i32 10 i32 6619296 i32 1
     }
-
     public void delete_from_primary(int zone) throws IOException, InterruptedException {
         String deleteFromPrimary = " shell service call qservice 51 i32 " + zone;
         rt.exec(adbPath + deleteFromPrimary);
         System.out.println(deleteFromPrimary);
     }
-
     public void ADC_verification (String string, String string1) throws IOException, InterruptedException {
         String[] message = {string, string1};
 
@@ -81,10 +80,10 @@ public class ArmedStay_Motion extends Setup{
         logger.info("ArmStay During Delay Activate Group " + group + " motion sensor");
         ARM_STAY();
         logger.info("Activate a sensor");
+        TimeUnit.SECONDS.sleep(Long_Exit_Delay/2);
         sensors.primary_call(DLID, activate);
-        Thread.sleep(13000);
+        TimeUnit.SECONDS.sleep(Long_Exit_Delay);
         verify_armstay();
-        Thread.sleep(5000);
         DISARM();
         Thread.sleep(2000);
 
@@ -108,7 +107,6 @@ public class ArmedStay_Motion extends Setup{
         //servcall.set_AUTO_STAY(0);
         servcall.set_ARM_STAY_NO_DELAY_disable();
     }
-
     @BeforeMethod
     public  void webDriver(){
         adc.webDriverSetUp();
@@ -132,22 +130,23 @@ public class ArmedStay_Motion extends Setup{
     }
 
     @Test (dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
+    public void ArmStayDelay_15() throws Exception {
+        ArmStay_Activate_During_Delay(15, "55 00 44", "//*[contains(text(), '(Sensor 1) Activated')]", "//*[contains(text(), 'Armed Stay')]");
+    }
+    @Test (priority = 1, retryAnalyzer = RetryAnalizer.class)
     public void ArmStayDelay_17() throws Exception {
         ArmStay_Activate_During_Delay(17, "55 00 54", "//*[contains(text(), '(Sensor 2) Activated')]", "//*[contains(text(), 'Armed Stay')]");
     }
 
-    @Test (priority = 1, retryAnalyzer = RetryAnalizer.class)
-    public void ArmStayDelay_15() throws Exception {
-        ArmStay_Activate_During_Delay(15, "55 00 44", "//*[contains(text(), '(Sensor 1) Activated')]", "//*[contains(text(), 'Armed Stay')]");
-    }
+
 
 
     @AfterTest
     public void tearDown() throws IOException, InterruptedException {
         driver.quit();
-        for (int i= 5; i>0; i--) {
-            delete_from_primary(i);
-        }
+//        for (int i= 5; i>0; i--) {
+//            delete_from_primary(i);
+//        }
     }
 
     @AfterMethod
