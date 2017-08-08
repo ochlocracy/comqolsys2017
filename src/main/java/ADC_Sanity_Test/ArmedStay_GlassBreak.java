@@ -235,7 +235,6 @@ public class ArmedStay_GlassBreak extends Setup {
     @Test(dependsOnMethods = {"addGlassBreakSensor"})
     public void ArmstayExitDelay_13() throws Exception{
         Armstay_Trigger_Sensor_During_Exit_Delay_Alarm(13,"67 00 99","//*[contains(text(), 'Glass Break 1 (Sensor 1) Pending Alarm')]","//*[contains(text(), 'Glass Break 1 (Sensor 1) Alarm')]");
-
     }
 
     @Test(priority = 1,dependsOnMethods = {"addGlassBreakSensor"})
@@ -253,7 +252,6 @@ public class ArmedStay_GlassBreak extends Setup {
         Armstay_tamper_Sensor_After_Exit_Delay(17,"67 00 39", "//*[contains(text(), 'Sensor 2 Tamper**')]");
     }
 
-
     @AfterTest
     public void tearDown() throws IOException, InterruptedException {
         driver.quit();
@@ -266,6 +264,4 @@ public class ArmedStay_GlassBreak extends Setup {
     public void webDriverQuit() {
         adc.driver1.quit();
     }
-
 }
-
