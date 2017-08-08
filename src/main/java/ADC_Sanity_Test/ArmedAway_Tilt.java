@@ -17,9 +17,8 @@ import org.testng.annotations.*;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by qolsys on 8/7/17.
- */
+/*** Estimate execution time: 10 min, just panel:   min ***/
+
 public class ArmedAway_Tilt extends Setup {
 
     String page_name = "Arm Away mode tilt sensor testing";
