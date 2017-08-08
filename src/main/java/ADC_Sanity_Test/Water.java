@@ -28,7 +28,7 @@ public class Water extends Setup{
     private int Normal_Entry_Delay = 11;
     private int Long_Exit_Delay = 13;
     private int Long_Entry_Delay = 12;
-    String activate = "02 01";
+    String activate = "06 01";
     String restore = "00 02";
     String tamper = "01 01";
 
@@ -93,7 +93,7 @@ public class Water extends Setup{
     public void addSensors() throws IOException, InterruptedException {
         Thread.sleep(2000);
         logger.info("Adding a list of sensors");
-        add_primary_call(1, 38, 7672224, 15);
+        add_primary_call(1, 38, 7672224, 22);
 
 
         adc.New_ADC_session(adc.getAccountId());
@@ -103,7 +103,7 @@ public class Water extends Setup{
         adc.Request_equipment_list();
     }
     public void ArmStay_Activate_sensor_during_Exit_Delay(int group, String DLID, String element_to_verify, String element_to_verify2 ) throws Exception {
-        logger.info("ArmStay -Activate Group " +group + " tilt sensor during exit delay");
+        logger.info("ArmStay -Activate Group " +group + " water sensor during exit delay");
         ARM_STAY();
         TimeUnit.SECONDS.sleep(Long_Exit_Delay/2);
         logger.info("Activate a sensor");
@@ -117,9 +117,8 @@ public class Water extends Setup{
     }
     @Test (dependsOnMethods = {"addSensors"})
     public void ArmStayExitDelay_38 () throws Exception {
-        ArmStay_Activate_sensor_during_Exit_Delay(38, "75 11 0A", "//*[contains(text(), 'Water 1 (Sensor 1) Pending Alarm (Awaiting Panel's Programmed Delay)')]", "//*[contains(text(), 'Delayed alarm on sensor 1 in partition 1')]");
+        ArmStay_Activate_sensor_during_Exit_Delay(38, "75 11 0A", "//*[contains(text(), 'Multi-Function-1 1')]", "//*[contains(text(), 'Delayed alarm on sensor 1 in partition 1')]");
     }
-
     public void ArmStay_Activate_sensor_Alarm(int group, String DLID, String element_to_verify, String element_to_verify2 ) throws Exception {
         logger.info("ArmStay -Open/Close Group " +group + " tilt sensor during exit delay");
         ARM_STAY();
@@ -136,9 +135,8 @@ public class Water extends Setup{
     }
     @Test (priority = 2)
     public void ArmStay_38() throws Exception {
-        ArmStay_Activate_sensor_Alarm(38, "75 11 0A", "//*[contains(text(), 'Water 1 (Sensor 1) Pending Alarm (Awaiting Panel's Programmed Delay)')]", "//*[contains(text(), 'Delayed alarm on sensor 1 in partition 1')]");
+        ArmStay_Activate_sensor_Alarm(38, "75 11 0A", "//*[contains(text(), 'Multi-Function-1 1')]", "//*[contains(text(), 'Delayed alarm on sensor 1 in partition 1')]");
     }
-
     /*** Tamper sensor ***/
     public void ArmStay_Tamper_sensor(int group, String DLID, String element_to_verify, String element_to_verify2 ) throws Exception {
         logger.info("ArmStay -Open/Close Group " +group + " tilt sensor during exit delay");
@@ -157,7 +155,60 @@ public class Water extends Setup{
     }
     @Test (priority = 3)
     public void ArmStayTamper_38() throws Exception {
-        ArmStay_Tamper_sensor(38, "75 11 0A", "//*[contains(text(), 'Water 1 (Sensor 1) Pending Alarm (Awaiting Panel's Programmed Delay)')]", "//*[contains(text(), 'Delayed alarm on sensor 1 in partition 1')]");
+        ArmStay_Tamper_sensor(38, "75 11 0A", "//*[contains(text(), 'Multi-Function-1 1')]", "//*[contains(text(), 'Delayed alarm on sensor 1 in partition 1')]");
+    }
+
+    /*** ARM AWAY ***/
+    public void ArmAway_Activate_sensor_during_Exit_Delay(int group, String DLID, String element_to_verify, String element_to_verify2 ) throws Exception {
+        logger.info("ArmAway -Activate Group " +group + " water sensor during exit delay");
+        ARM_AWAY(Long_Exit_Delay/2);
+        logger.info("Activate a sensor");
+        sensors.primary_call(DLID, activate);
+        Thread.sleep(2000);
+        verify_in_alarm();
+        enter_default_user_code();
+        Thread.sleep(2000);
+
+        ADC_verification(element_to_verify, element_to_verify2);
+    }
+    @Test (priority = 4)
+    public void ArmAwayExitDelay_38() throws Exception {
+        ArmAway_Activate_sensor_during_Exit_Delay(38, "75 11 0A", "//*[contains(text(), 'Multi-Function-1 1')]", "//*[contains(text(), 'Delayed alarm on sensor 1 in partition 1')]");
+    }
+    public void ArmAway_Activate_sensor_Alarm(int group, String DLID, String element_to_verify, String element_to_verify2 ) throws Exception {
+        logger.info("ArmAway -Open/Close Group " +group + " water sensor during exit delay");
+        ARM_AWAY(Long_Exit_Delay);
+        Thread.sleep(2000);
+        logger.info("Activate a sensor");
+        sensors.primary_call(DLID, activate);
+        Thread.sleep(2000);
+        verify_in_alarm();
+        enter_default_user_code();
+        Thread.sleep(2000);
+
+        ADC_verification(element_to_verify, element_to_verify2);
+    }
+    @Test (priority = 5)
+    public void ArmAway_38() throws Exception {
+        ArmAway_Activate_sensor_Alarm(38, "75 11 0A", "//*[contains(text(), 'Multi-Function-1 1')]", "//*[contains(text(), 'Delayed alarm on sensor 1 in partition 1')]");
+    }
+    public void ArmAway_Tamper_sensor(int group, String DLID, String element_to_verify, String element_to_verify2 ) throws Exception {
+        logger.info("ArmStay -Open/Close Group " +group + " tilt sensor during exit delay");
+        ARM_AWAY(Long_Exit_Delay);
+        Thread.sleep(2000);
+        logger.info("Activate a sensor");
+        sensors.primary_call(DLID, tamper);
+        Thread.sleep(2000);
+        sensors.primary_call(DLID, restore);
+        verify_in_alarm();
+        enter_default_user_code();
+        Thread.sleep(2000);
+
+        ADC_verification(element_to_verify, element_to_verify2);
+    }
+    @Test (priority = 6)
+    public void ArmAwayTamper_38() throws Exception {
+        ArmAway_Tamper_sensor(38, "75 11 0A", "//*[contains(text(), 'Multi-Function-1 1')]", "//*[contains(text(), 'Delayed alarm on sensor 1 in partition 1')]");
     }
 
     @AfterTest
