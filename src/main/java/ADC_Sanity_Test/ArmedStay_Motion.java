@@ -15,9 +15,6 @@ import org.testng.annotations.*;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by qolsys on 7/27/17.
- */
 public class ArmedStay_Motion extends Setup{
 
     String page_name = "Arm Stay mode motion sensor testing";
@@ -130,14 +127,16 @@ public class ArmedStay_Motion extends Setup{
         ADC_verification(element_to_verify, element_to_verify2);
         Thread.sleep(2000);
         verify_in_alarm();
+        TimeUnit.MINUTES.sleep(1);
         adc.getDriver1().findElement(By.id("ctl00_phBody_butSearch")).click();
+        TimeUnit.SECONDS.sleep(3);
         history_verification("//*[contains(text(), '(Sensor " + sensor + ") Alarm')]");
         enter_default_user_code();
 
         //sensors.primary_call(DLID, close);
         //Thread.sleep(2000);
     }
-    public void ArmStay_Tamper(int group, int sensor, String DLID, String element_to_verify, String element_to_verify2) throws Exception {
+    public void ArmStay_Tamper_Alarm(int group, int sensor, String DLID, String element_to_verify, String element_to_verify2) throws Exception {
         logger.info("ArmStay After Delay Tamper Group " + group + " motion sensor");
         ARM_STAY();
         logger.info("Tamper a sensor");
@@ -150,8 +149,25 @@ public class ArmedStay_Motion extends Setup{
         Thread.sleep(2000);
         sensors.primary_call(DLID, close);
         Thread.sleep(2000);
-        history_verification("//*[contains(text(), '(Sensor " + sensor + ") End of Tamper')]");
+        adc.getDriver1().findElement(By.id("ctl00_phBody_butSearch")).click();
+        history_verification("//*[contains(text(), 'End of Tamper')]");
         enter_default_user_code();
+    }
+    public void ArmStay_Tamper(int group, int sensor, String DLID, String element_to_verify, String element_to_verify2) throws Exception {
+        logger.info("ArmStay After Delay Tamper Group " + group + " motion sensor");
+        ARM_STAY();
+        logger.info("Tamper a sensor");
+        TimeUnit.SECONDS.sleep(Long_Exit_Delay);
+        verify_armstay();
+        sensors.primary_call(DLID, tamper);
+        Thread.sleep(2000);
+        verify_armstay();
+        sensors.primary_call(DLID, close);
+        ADC_verification(element_to_verify, element_to_verify2);
+        adc.getDriver1().findElement(By.id("ctl00_phBody_butSearch")).click();
+        Thread.sleep(5000);
+        history_verification("//*[contains(text(),  'End of Tamper')]");
+        DISARM();
     }
 
     @BeforeTest
@@ -235,7 +251,7 @@ public class ArmedStay_Motion extends Setup{
 
     @Test (priority = 8, retryAnalyzer = RetryAnalizer.class)
     public void ArmStayTamperAfterDelay_15() throws Exception {
-        ArmStay_Tamper(15, 1, DLID_15, "//*[contains(text(), '(Sensor 1) Tamper')]", Armed_Stay);
+        ArmStay_Tamper_Alarm(15, 1, DLID_15, "//*[contains(text(), '(Sensor 1) Tamper')]", Armed_Stay);
     }
     @Test (priority = 9, retryAnalyzer = RetryAnalizer.class)
     public void ArmStayTamperAfterDelay_17() throws Exception {
@@ -255,7 +271,7 @@ public class ArmedStay_Motion extends Setup{
     @Test (priority = 12, retryAnalyzer = RetryAnalizer.class)
     public void ArmStayTamperAfterDelay_35() throws Exception {
         //sensors.primary_call(DLID_35, close);
-        ArmStay_Tamper(35, 5, DLID_35, "//*[contains(text(), '(Sensor 5) Tamper')]", Armed_Stay);
+        ArmStay_Tamper_Alarm(35, 5, DLID_35, "//*[contains(text(), '(Sensor 5) Tamper')]", Armed_Stay);
     }
 
 

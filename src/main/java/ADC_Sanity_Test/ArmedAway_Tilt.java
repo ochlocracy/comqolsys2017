@@ -131,11 +131,11 @@ public class ArmedAway_Tilt extends Setup {
         ArmAway_Open_Close_sensor_during_Exit_Delay(10, "63 00 EA", "//*[contains(text(), 'Opened/Closed')]", "//*[contains(text(), 'Armed Away')]");
     }
     @Test(priority = 1)
-    public void ArmStayExitDelay_12 () throws Exception {
+    public void ArmAwayExitDelay_12 () throws Exception {
         ArmAway_Open_Close_sensor_during_Exit_Delay(12, "63 00 FA", "//*[contains(text(), 'Opened/Closed')]", "//*[contains(text(), 'Armed Away')]");
     }
     @Test(priority = 2)
-    public void ArmStayExitDelay_25 () throws Exception {
+    public void ArmAwayExitDelay_25 () throws Exception {
         ArmAway_Open_Close_sensor_during_Exit_Delay(25, "63 00 0A", "//*[contains(text(), 'Opened/Closed')]", "//*[contains(text(), 'Armed Away')]");
     }
 

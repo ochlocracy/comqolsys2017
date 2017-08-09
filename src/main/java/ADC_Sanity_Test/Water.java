@@ -100,6 +100,9 @@ public class Water extends Setup{
         adc.driver1.findElement(By.partialLinkText("Sensors")).click();
         Thread.sleep(2000);
         adc.Request_equipment_list();
+        Thread.sleep(2000);
+
+
     }
     public void ArmStay_Activate_sensor_during_Exit_Delay(int group, String DLID, String element_to_verify, String element_to_verify2 ) throws Exception {
         logger.info("ArmStay -Activate Group " +group + " water sensor during exit delay");
