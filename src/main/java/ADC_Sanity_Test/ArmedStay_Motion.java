@@ -78,8 +78,6 @@ public class ArmedStay_Motion extends Setup{
             adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_butSearch"))).click();
             Thread.sleep(5000);
             for (int i =0; i< message.length; i++) {
-                if(message[i].equals(""))
-                    continue;
 
                 history_verification(message[i]);
             }

@@ -79,8 +79,6 @@ public class ArmedAway_Motion extends Setup{
             adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_butSearch"))).click();
             Thread.sleep(5000);
             for (int i =0; i< message.length; i++) {
-                if(message[i].equals(""))
-                    continue;
 
                 history_verification(message[i]);
             }
@@ -144,12 +142,18 @@ public class ArmedAway_Motion extends Setup{
         verify_armaway();
         sensors.primary_call(DLID, tamper);
         Thread.sleep(2000);
-        verify_in_alarm();
-        ADC_verification(element_to_verify, element_to_verify2);
-        Thread.sleep(2000);
         sensors.primary_call(DLID, close);
-        Thread.sleep(5000);
+
+        if(group == 25)
+            verify_armaway();
+        else
+            verify_in_alarm();
+
+        ADC_verification(element_to_verify, element_to_verify2);
         history_verification("//*[contains(text(), '(Sensor " + sensor + ") End of Tamper')]");
+
+        if (group == 25)
+            driver.findElement(By.id("com.qolsys:id/main")).click();
         enter_default_user_code();
     }
 
