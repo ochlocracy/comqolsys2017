@@ -31,4 +31,5 @@ public class Emergency_Page {
     public WebElement Emergency_sent_text;
     @FindBy(id ="com.qolsys:id/tv_emg_cancel")
     public WebElement Cancel_Emergency;
+
 }
