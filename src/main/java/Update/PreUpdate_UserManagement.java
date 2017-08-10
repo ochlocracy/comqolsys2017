@@ -131,7 +131,6 @@ public class PreUpdate_UserManagement extends Setup {
 
     }
 
-
     @AfterTest
     public void tearDown() throws IOException, InterruptedException {
         driver.quit();

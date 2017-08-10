@@ -138,7 +138,6 @@ public class PreUpdate_Sensors extends Setup {
         sensors.primary_call("67 00 39", restore);
         Thread.sleep(1000);
 
-
         logger.info("Open/close tilt sensors");
         open_close("63 00 EA");
         open_close("63 00 FA");
