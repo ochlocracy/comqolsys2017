@@ -20,7 +20,7 @@ import java.io.IOException;
 public class Keypad extends Setup{
     public Keypad() throws IOException, BiffException {}
 
-    String page_name = "Arm Stay Arm Away KeyFob sensor testing";
+    String page_name = "Arm Stay Arm Away Keypad sensor testing";
     Logger logger = Logger.getLogger(page_name);
     Sensors sensors = new Sensors();
     ADC adc = new ADC();

@@ -224,7 +224,14 @@ public class PanelInfo_ServiceCalls extends Setup {
 
     public void get_WiFi() throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 32 i32 0 i32 0";
-        rt.exec(command);}
+        rt.exec(command);
+        String value = (execCmd(command)).toString();
+        System.out.println(value);
+        if (value.contains("00000000 00000000 ")) {
+            System.out.println("WiFi has disabled");
+        } else if (value.contains("00000000 00000001 ")) {
+            System.out.println("WiFi has connected");}
+        }
 
     //0 for disabled, 1 for enabled
     public void set_WiFi(int state) throws IOException, InterruptedException {
@@ -233,7 +240,10 @@ public class PanelInfo_ServiceCalls extends Setup {
 
     public void get_WiFi_name() throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 38 i32 0 i32 0 i32 33 i32 0 i32 0";
-        rt.exec(command);}
+        rt.exec(command);
+        String value = (execCmd(command)).toString();
+        System.out.println(value);
+           }
 
     public void set_WiFi_name(String Name) throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 41 i32 0 i32 0 i32 33 s16 " + Name + " i32 0 i32 0";
