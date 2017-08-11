@@ -112,8 +112,8 @@ public class PanelInfo_ServiceCalls extends Setup {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 14 i32 0 i32 0";
         rt.exec(command);}
 
-    public void set_SIREN_DISABLE(boolean booleanValue) throws IOException, InterruptedException {
-        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 14 i32 " + booleanValue + " i32 0 i32 0";
+    public void set_SIREN_DISABLE(int value) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 14 i32 " + value + " i32 0 i32 0";
         rt.exec(command);}
 
     public void get_ENTRY_DELAY() throws IOException, InterruptedException {
@@ -454,14 +454,14 @@ public class PanelInfo_ServiceCalls extends Setup {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 90 i32 0 i32 0";
         rt.exec(command);}
 
-    public void set_AUTO_UPLOAD_LOGS(boolean Value) throws IOException, InterruptedException {
+    public void set_AUTO_UPLOAD_LOGS(int Value) throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 90 i32 " + Value + " i32 0 i32 0";
         rt.exec(command);}
     public void get_FIRE_VERIFICATION() throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 100 i32 0 i32 0";
         rt.exec(command);}
 
-    public void set_FIRE_VERIFICATION(boolean Value) throws IOException, InterruptedException {
+    public void set_FIRE_VERIFICATION(int Value) throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 100 i32 " + Value + " i32 0 i32 0";
         rt.exec(command);}
 
@@ -478,7 +478,7 @@ public class PanelInfo_ServiceCalls extends Setup {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 103 i32 0 i32 0";
         rt.exec(command);}
 
-    public void set_SEVERE_WEATHER_SIREN_WARNING(boolean Value) throws IOException, InterruptedException {
+    public void set_SEVERE_WEATHER_SIREN_WARNING(int Value) throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 103 i32 " + Value + " i32 0 i32 0";
         rt.exec(command);}
 
