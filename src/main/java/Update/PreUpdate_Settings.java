@@ -104,6 +104,12 @@ public class PreUpdate_Settings extends Setup{
         Thread.sleep(one_sec);
         servcall.set_RF_JAM_DETECT_enable();
         Thread.sleep(one_sec);
+        servcall.set_HOME_OWNER_IMAGE_SETTINGS(ON);
+        Thread.sleep(one_sec);
+        servcall.set_HOME_OWNER_SECURITY_AND_ARMING(ON);
+        Thread.sleep(one_sec);
+        servcall.set_HOME_OWNER_SIREN_AND_ALARMS(ON);
+        Thread.sleep(one_sec);
 
 
     }
