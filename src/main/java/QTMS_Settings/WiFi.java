@@ -136,7 +136,7 @@ public void Connect_toKnown_WiFiNetwork_SASW_001() throws Exception {
         logger.info("SASW 002 Pass: user can not connect to the wifi network, network notification grayed out");}
 
     /*** WiFi is connected ***/
-    @Test// (priority = 3)
+    @Test (priority = 3)
     public void Forgot_wifi_credentials_SASW_003() throws Exception {
         Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
         WiFi_setting_page_elements wifi = PageFactory.initElements(driver, WiFi_setting_page_elements.class);
