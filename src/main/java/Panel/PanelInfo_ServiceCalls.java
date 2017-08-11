@@ -112,8 +112,8 @@ public class PanelInfo_ServiceCalls extends Setup {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 14 i32 0 i32 0";
         rt.exec(command);}
 
-    public void set_SIREN_DISABLE(boolean booleanValue) throws IOException, InterruptedException {
-        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 14 i32 " + booleanValue + " i32 0 i32 0";
+    public void set_SIREN_DISABLE(int value) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 14 i32 " + value + " i32 0 i32 0";
         rt.exec(command);}
 
     public void get_ENTRY_DELAY() throws IOException, InterruptedException {
@@ -152,8 +152,9 @@ public class PanelInfo_ServiceCalls extends Setup {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 19 i32 0 i32 0";
         rt.exec(command);}
 
-    public void set_AUTO_BYPASS() throws IOException, InterruptedException {
-        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 19 i32 0 i32 0 i32 0";
+
+    public void set_AUTO_BYPASS(int state) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 19 i32 " + state + " i32 0 i32 0";
         rt.exec(command);}
 
     public void get_AUTO_STAY() throws IOException, InterruptedException {
@@ -225,8 +226,9 @@ public class PanelInfo_ServiceCalls extends Setup {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 32 i32 0 i32 0";
         rt.exec(command);}
 
-    public void set_WiFi() throws IOException, InterruptedException {
-        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 32 i32 0 i32 0 i32 0";
+    //0 for disabled, 1 for enabled
+    public void set_WiFi(int state) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 32 i32 " + state + " i32 0 i32 0";
         rt.exec(command);}
 
     public void get_WiFi_name() throws IOException, InterruptedException {
@@ -289,16 +291,18 @@ public class PanelInfo_ServiceCalls extends Setup {
         String command = adbPath + " shell service call qservice 36 i32 0 i32 0 i32 39 i32 0 i32 0";
         rt.exec(command);}
 
-    public void set_SPEAKER_VOLUME() throws IOException, InterruptedException {
-        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 39 i32 20 i32 0 i32 0";
+    //sets media volume
+    public void set_SPEAKER_VOLUME(int level) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 39 i32 " + level + " i32 0 i32 0";
         rt.exec(command);}
 
     public void get_ALL_VOICE_PROMPTS() throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 42 i32 0 i32 0";
         rt.exec(command);}
 
-    public void set_ALL_VOICE_PROMPTS() throws IOException, InterruptedException {
-        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 42 i32 1 i32 0 i32 0";
+    //0 for disable, 1 for enable
+    public void set_ALL_VOICE_PROMPTS(int state) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 42 i32 " + state + " i32 0 i32 0";
         rt.exec(command);}
 
     public void get_SENSOR_VOICE_PROMPTS() throws IOException, InterruptedException {
@@ -329,8 +333,9 @@ public class PanelInfo_ServiceCalls extends Setup {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 46 i32 0 i32 0";
         rt.exec(command);}
 
-    public void set_ALL_CHIMES() throws IOException, InterruptedException {
-        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 46 i32 1 i32 0 i32 0";
+    //0 for disabled, 1 for enabled
+    public void set_ALL_CHIMES(int state) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 46 i32 " + state + " i32 0 i32 0";
         rt.exec(command);}
 
     public void get_SENSOR_CHIMES() throws IOException, InterruptedException {
@@ -409,8 +414,8 @@ public class PanelInfo_ServiceCalls extends Setup {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 84 i32 0 i32 0";
         rt.exec(command);}
 
-    public void set_AUTO_EXIT_TIME_EXTENSION(boolean Value) throws IOException, InterruptedException {
-        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 84 i32 " + Value + " i32 0 i32 0";
+    public void set_AUTO_EXIT_TIME_EXTENSION(int state) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 84 i32 " + state + " i32 0 i32 0";
         rt.exec(command);}
 
     public void get_DEVICE_LIMIT_SMART_SOCKET() throws IOException, InterruptedException {
@@ -449,14 +454,14 @@ public class PanelInfo_ServiceCalls extends Setup {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 90 i32 0 i32 0";
         rt.exec(command);}
 
-    public void set_AUTO_UPLOAD_LOGS(boolean Value) throws IOException, InterruptedException {
+    public void set_AUTO_UPLOAD_LOGS(int Value) throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 90 i32 " + Value + " i32 0 i32 0";
         rt.exec(command);}
     public void get_FIRE_VERIFICATION() throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 100 i32 0 i32 0";
         rt.exec(command);}
 
-    public void set_FIRE_VERIFICATION(boolean Value) throws IOException, InterruptedException {
+    public void set_FIRE_VERIFICATION(int Value) throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 100 i32 " + Value + " i32 0 i32 0";
         rt.exec(command);}
 
@@ -473,7 +478,7 @@ public class PanelInfo_ServiceCalls extends Setup {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 103 i32 0 i32 0";
         rt.exec(command);}
 
-    public void set_SEVERE_WEATHER_SIREN_WARNING(boolean Value) throws IOException, InterruptedException {
+    public void set_SEVERE_WEATHER_SIREN_WARNING(int Value) throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 103 i32 " + Value + " i32 0 i32 0";
         rt.exec(command);}
 
@@ -481,8 +486,9 @@ public class PanelInfo_ServiceCalls extends Setup {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 104 i32 0 i32 0";
         rt.exec(command);}
 
-    public void set_SECURE_DELETE_IMAGES(boolean Value) throws IOException, InterruptedException {
-        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 104 i32 " + Value + " i32 0 i32 0";
+    //0 for disabled, 1 for enabled
+    public void set_SECURE_DELETE_IMAGES(int state) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 104 i32 " + state + " i32 0 i32 0";
         rt.exec(command);}
 
     public void get_USER_NAME (int userID) throws IOException, InterruptedException {
@@ -743,8 +749,9 @@ public class PanelInfo_ServiceCalls extends Setup {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 102 i32 0 i32 0";
         rt.exec(command);}
 
-    public void set_DISARM_PHOTO (boolean value) throws IOException, InterruptedException {
-        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 102 i32 " + value + " i32 0 i32 0";
+    //0 for disabled, 1 for enabled
+    public void set_DISARM_PHOTO (int state) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 102 i32 " + state + " i32 0 i32 0";
         rt.exec(command);}
 
     public void get_HOME_OWNER_SIREN_AND_ALARMS() throws IOException, InterruptedException {
@@ -776,7 +783,7 @@ public class PanelInfo_ServiceCalls extends Setup {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 109 i32 0 i32 0";
         rt.exec(command);}
 
-    public void set_ALARM_VIDEOS (boolean value) throws IOException, InterruptedException {
+    public void set_ALARM_VIDEOS (int value) throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 109 i32 " + value + " i32 0 i32 0";
         rt.exec(command);}
 
@@ -792,8 +799,9 @@ public class PanelInfo_ServiceCalls extends Setup {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 111 i32 0 i32 0";
         rt.exec(command);}
 
-    public void set_ENABLE_ALL_TROUBLE_BEEPS (boolean value) throws IOException, InterruptedException {
-        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 111 i32 " + value + " i32 0 i32 0";
+    //0 for disabled, 1 for enabled
+    public void set_ENABLE_ALL_TROUBLE_BEEPS (int state) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 111 i32 " + state + " i32 0 i32 0";
         rt.exec(command);}
 
     public void get_PANEL_TAMPER_TROUBLE_BEEP() throws IOException, InterruptedException {
