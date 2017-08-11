@@ -768,7 +768,7 @@ public class PanelInfo_ServiceCalls extends Setup {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 105 i32 0 i32 0";
         rt.exec(command);}
 
-    public void set_HOME_OWNER_SIREN_AND_ALARMS (boolean value) throws IOException, InterruptedException {
+    public void set_HOME_OWNER_SIREN_AND_ALARMS (int value) throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 105 i32 " + value + " i32 0 i32 0";
         rt.exec(command);}
 
@@ -776,7 +776,7 @@ public class PanelInfo_ServiceCalls extends Setup {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 106 i32 0 i32 0";
         rt.exec(command);}
 
-    public void set_HOME_OWNER_SECURITY_AND_ARMING (boolean value) throws IOException, InterruptedException {
+    public void set_HOME_OWNER_SECURITY_AND_ARMING (int value) throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 106 i32 " + value + " i32 0 i32 0";
         rt.exec(command);}
 
@@ -784,7 +784,7 @@ public class PanelInfo_ServiceCalls extends Setup {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 107 i32 0 i32 0";
         rt.exec(command);}
 
-    public void set_HOME_OWNER_IMAGE_SETTINGS (boolean value) throws IOException, InterruptedException {
+    public void set_HOME_OWNER_IMAGE_SETTINGS (int value) throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 107 i32 " + value + " i32 0 i32 0";
         rt.exec(command);}
 
