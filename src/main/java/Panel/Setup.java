@@ -124,7 +124,7 @@ public class Setup {
         Thread.sleep(2000);
     }
 
-    public WebElement element_verification(WebElement element, String element_name) throws  Exception{
+    public WebElement element_verification(WebElement element, String element_name ) throws  Exception{
         try {
             if (element.isDisplayed()) {
                 logger.info("Pass: " + element_name + " is present, value = " + element.getText());

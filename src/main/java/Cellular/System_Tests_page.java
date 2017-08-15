@@ -25,5 +25,8 @@ public class System_Tests_page {
     public WebElement DAUGHTER_CARDS_TEST;
     @FindBy(xpath = "//android.widget.TextView[@text='Panel Test']")
     public WebElement PANEL_TEST;
+    @FindBy(id = "com.qolsys:id/ft_back")
+    public WebElement Back_button;
+
 
 }

@@ -982,4 +982,10 @@ ADC can restart the QolSys apps: */
     public void EVENT_ADC_CONNECTIVITY_ERROR_UPDATE8192 () throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 1 i32 0 i32 1550 i32 0 i32 0 i32 0 i32 8192 i32 0 i32 0 i32 0";
         rt.exec(command);}
+    public void Wifi_disable () throws IOException, InterruptedException {
+        String command = adbPath + " shell svc wifi disable";
+        rt.exec(command);}
+    public void Wifi_enable () throws IOException, InterruptedException {
+        String command = adbPath + " shell svc wifi enable";
+        rt.exec(command);}
    }
