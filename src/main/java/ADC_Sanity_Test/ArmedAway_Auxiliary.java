@@ -17,14 +17,14 @@ import org.testng.annotations.*;
 import java.io.IOException;
 
 /**
- * Created by qolsysauto on 8/7/17.
+ * Created by qolsysauto on 8/16/17.
  */
-public class ArmedStay_Auxiliary extends Setup{
+public class ArmedAway_Auxiliary extends Setup{
     // PRECONDITIONS: Disable SIA limits, set Entry-Exit Delay time to 30, 31, 32, 33 sec; Disable ArmStay No-Delay setting
     /*** If you want to run tests only on the panel, please set ADCexecute value to false ***/
     String ADCexecute = "true";
-    public ArmedStay_Auxiliary() throws IOException, BiffException {}
-    String page_name = "ADC Smoke Test: Auxiliary Arm Stay";
+    public ArmedAway_Auxiliary() throws IOException, BiffException {}
+    String page_name = "ADC Smoke Test: Auxiliary Arm Away";
     PanelInfo_ServiceCalls servcall = new PanelInfo_ServiceCalls();
     Logger logger = Logger.getLogger(page_name);
     Sensors sensors = new Sensors();
@@ -36,7 +36,6 @@ public class ArmedStay_Auxiliary extends Setup{
     private int Long_Exit_Delay = 13;
     private int Long_Entry_Delay = 12;
     private String activate = "03 01";
-    private int autoStay = 0;
 
     public void add_primary_call(int zone, int group, int sensor_dec, int sensor_type) throws IOException {
         String add_primary = " shell service call qservice 50 i32 " + zone + " i32 " + group + " i32 " + sensor_dec + " i32 " + sensor_type;
@@ -111,23 +110,23 @@ public class ArmedStay_Auxiliary extends Setup{
     }
 
     public void ArmStay_Activate_Silent_Sensor(int group, String DLID, String element_to_verify1, String element_to_verify2) throws Exception {
-        logger.info("ArmStay -Activate Group " + group + " Silent Auxiliary Police Pendant during Arm Stay");
-        ARM_STAY();
-        Thread.sleep(13000);
+        logger.info("ArmAway -Activate Group " + group + " Silent Auxiliary Police Pendant during Arm Away");
+        ARM_AWAY(13);
+        Thread.sleep(1000);
         logger.info("Activate a sensor");
         sensors.primary_call(DLID, activate);
         Thread.sleep(2000);
-        verify_armstay();
+        verify_armaway();
         DISARM();
         Thread.sleep(15000);
         // ADC website verification
         ADC_verification(element_to_verify1, element_to_verify2);
     }
     public void ArmStay_Activate_Medical_Sensor(int group, String DLID, String element_to_verify1, String element_to_verify2) throws Exception {
-        logger.info("ArmStay -Activate Group " + group + " Auxiliary Medical Pendant during Arm Stay");
+        logger.info("ArmAway -Activate Group " + group + " Auxiliary Medical Pendant during Arm Away");
         Emergency_Page emg = PageFactory.initElements(driver, Emergency_Page.class);
-        ARM_STAY();
-        Thread.sleep(13000);
+        ARM_AWAY(13);
+        Thread.sleep(1000);
         logger.info("Activate a sensor");
         sensors.primary_call(DLID, activate);
         Thread.sleep(2000);
@@ -142,10 +141,10 @@ public class ArmedStay_Auxiliary extends Setup{
     }
 
     public void ArmStay_Activate_Police_Sensor(int group, String DLID, String element_to_verify1, String element_to_verify2) throws Exception {
-        logger.info("ArmStay -Activate Group " + group + " Auxiliary Police Pendant during Arm Stay");
+        logger.info("ArmAway -Activate Group " + group + " Auxiliary Police Pendant during Arm Away");
         Emergency_Page emg = PageFactory.initElements(driver, Emergency_Page.class);
-        ARM_STAY();
-        Thread.sleep(13000);
+        ARM_AWAY(13);
+        Thread.sleep(1000);
         logger.info("Activate a sensor");
         sensors.primary_call(DLID, activate);
         Thread.sleep(2000);
