@@ -18,8 +18,8 @@ import Panel.PanelInfo_ServiceCalls;
 import java.io.IOException;
 import java.util.List;
 
-public class SystemTest_DualPath_WiFi extends Setup{
-    public SystemTest_DualPath_WiFi() throws IOException, BiffException {}
+public class WiFi extends Setup{
+    public WiFi() throws IOException, BiffException {}
 
     String page_name = "QTMS WiFI test cases";
     Logger logger = Logger.getLogger(page_name);
@@ -37,21 +37,21 @@ public class SystemTest_DualPath_WiFi extends Setup{
         setup_driver(get_UDID(), "http://127.0.1.1", "4723");
         setup_logger(page_name);  }
 
-    /*** SystemTest_DualPath_WiFi is connected ***/
+    /*** WiFi is connected ***/
     @Test
     public void SASW_004_SASW_005_SASW_006_SASW_009_SASW_0010_SASW_011_SASW_012() throws Exception {
         Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
         WiFi_setting_page_elements wifi = PageFactory.initElements(driver, WiFi_setting_page_elements.class);
         Home_Page home =PageFactory.initElements(driver, Home_Page.class);
         navigate_to_Advanced_Settings_page();
-        element_verification(adv.WI_FI, "SystemTest_DualPath_WiFi icon");
+        element_verification(adv.WI_FI, "WiFi icon");
         adv.WI_FI.click();
         logger.info("SASW_004 Pass: WI-FI icon is present and enabled under the Advanced settings page");
         logger.info("SASW_005 Pass: User can access Wi-Fi page in Disarm mode");
         Thread.sleep(1000);
         List<WebElement> li = driver.findElements(By.id("android:id/title"));
         String value1 = li.get(0).getText();
-        logger.info("SystemTest_DualPath_WiFi network name: " + value1);
+        logger.info("WiFi network name: " + value1);
         li.get(0).click();
         Thread.sleep(1000);
         List<WebElement> li11 = driver.findElements(By.id("com.qolsys:id/name"));
@@ -83,10 +83,10 @@ public class SystemTest_DualPath_WiFi extends Setup{
         navigate_to_Advanced_Settings_page();
         adv.WI_FI.click();
         wifi.Back_button.click();
-        element_verification(adv.WI_FI, "SystemTest_DualPath_WiFi icon");
+        element_verification(adv.WI_FI, "WiFi icon");
         logger.info("SASW_010 Pass: User is taken back to the previous page."); }
 
-/*** SystemTest_DualPath_WiFi setting is disabled, One network has known ***/
+/*** WiFi setting is disabled, One network has known ***/
 @Test(priority = 2)
 public void Connect_toKnown_WiFiNetwork_SASW_001() throws Exception {
     Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
@@ -115,12 +115,12 @@ public void Connect_toKnown_WiFiNetwork_SASW_001() throws Exception {
     servcall.get_WiFi();
     List<WebElement> li = driver.findElements(By.id("android:id/title"));
     String value1 = li.get(0).getText();
-    logger.info("SystemTest_DualPath_WiFi network name: " + value1);
+    logger.info("WiFi network name: " + value1);
     logger.info("SASW 001 Pass: User is able to connect to the known wi-fi network. ");
  }
-    /*** SystemTest_DualPath_WiFi is connected ***/
+    /*** WiFi is connected ***/
     @Test (priority = 1)
-    public void WiFiCheckbox_uncheck_SASW_002() throws Exception {
+    public void WiFiCheckbox_unchecked_SASW_002() throws Exception {
         Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
         WiFi_setting_page_elements wifi = PageFactory.initElements(driver, WiFi_setting_page_elements.class);
         Settings_Page settings = PageFactory.initElements(driver, Settings_Page.class);
@@ -135,7 +135,7 @@ public void Connect_toKnown_WiFiNetwork_SASW_001() throws Exception {
         servcall.get_WiFi();
         logger.info("SASW 002 Pass: user can not connect to the wifi network, network notification grayed out");}
 
-    /*** SystemTest_DualPath_WiFi is connected ***/
+    /*** WiFi is connected ***/
     @Test (priority = 3)
     public void Forgot_wifi_credentials_SASW_003() throws Exception {
         Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
@@ -149,7 +149,7 @@ public void Connect_toKnown_WiFiNetwork_SASW_001() throws Exception {
         Thread.sleep(1000);
         List<WebElement> li = driver.findElements(By.id("android:id/title"));
         String value1 = li.get(0).getText();
-        logger.info("SystemTest_DualPath_WiFi network name: " + value1);
+        logger.info("WiFi network name: " + value1);
         li.get(0).click();
         logger.info("Press Forget button");
         wifi.FORGET.click();

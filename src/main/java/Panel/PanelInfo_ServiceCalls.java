@@ -988,4 +988,14 @@ ADC can restart the QolSys apps: */
     public void Wifi_enable () throws IOException, InterruptedException {
         String command = adbPath + " shell svc wifi enable";
         rt.exec(command);}
+    public void EVENT_DISARM () throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 1 i32 0 i32 0 i32 0 i32 0 i32 0 i32 1 i32 0 i32 0 i32 1";
+        rt.exec(command);}
+    public void EVENT_ARM_STAY () throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 1 i32 0 i32 1 i32 0 i32 0 i32 0 i32 1 i32 0 i32 0 i32 1";
+        rt.exec(command);}
+    public void EVENT_ARM_AWAY () throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 1 i32 0 i32 2 i32 0 i32 0 i32 0 i32 1 i32 0 i32 0 i32 1";
+        rt.exec(command);}
+
    }

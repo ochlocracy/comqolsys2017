@@ -21,49 +21,19 @@ import org.testng.annotations.*;
 import java.io.IOException;
 import java.util.List;
 
-public class Dual_path extends Setup{
-    public Dual_path() throws IOException, BiffException {}
+public class SystemTest_Dual_path_panel extends Setup{
+    public SystemTest_Dual_path_panel() throws IOException, BiffException {}
     String page_name = "Dual-Path QTMS test cases";
     Logger logger = Logger.getLogger(page_name);
-    ADC adc = new ADC();
     PanelInfo_ServiceCalls servcall = new PanelInfo_ServiceCalls();
-    String AccountID = adc.getAccountId();
-    String ADCexecute = "true";
 
-    public void ADC_verification (String string, String string1, String string3) throws IOException, InterruptedException {
-        String[] message = {string, string1, string3};
 
-        if (ADCexecute.equals("true")) {
-            adc.New_ADC_session(AccountID);
-            adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
-            Thread.sleep(10000);
-            for (int i =0; i< message.length; i++) {
-                try {
-                    WebElement history_message = adc.driver1.findElement(By.xpath(message[i]));
-                    Assert.assertTrue(history_message.isDisplayed());
-                    {
-                        System.out.println("Dealer Site History: " + history_message.getText());
-                    }
-                } catch (Exception e) {
-                    System.out.println("***No such element found!***");
-                }
-            }
-        }else{
-            System.out.println("Set execute to TRUE to run ADC verification part");
-        }
-        Thread.sleep(2000);
-    }
-
-    @BeforeTest
+       @BeforeTest
     public void capabilities_setup() throws Exception {
         setup_driver(get_UDID(), "http://127.0.1.1", "4723");
         setup_logger(page_name);}
 
-    @BeforeMethod
-    public void webDriver() {
-        adc.webDriverSetUp();
-    }
-    /*** SystemTest_DualPath_WiFi On and Dual Path ON ***/
+      /*** WiFi On and Dual Path ON ***/
     @Test
     public void SASST_027() throws Exception {
         Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
@@ -77,7 +47,7 @@ public class Dual_path extends Setup{
         element_verification(dual.Test_result, "Dual_path_Test_result_text");
         logger.info("SASST_027 Pass:Dual Path Wi-Fi test pass if Dual-Path control is enabled and Wi-Fi is connected.");}
 
-    /*** SystemTest_DualPath_WiFi On and Dual Path Off ***/
+    /*** WiFi On and Dual Path Off ***/
     @Test (priority = 2)
     public void SASST_028() throws Exception {
         servcall.get_WiFi_name();
@@ -308,7 +278,7 @@ public class Dual_path extends Setup{
                 " 'Network connection failed.' shows after user try to check Dual-Path control checkbox when Wi-Fi is disabled.\n" +
                 "WiFi is disabled by click to forget wifi credentials ");
                 }
-    /*** SystemTest_DualPath_WiFi Off and Dual Path Off ***/
+    /*** WiFi Off and Dual Path Off ***/
 
     @Test(priority = 10)
     public void SASST_029() throws Exception {
@@ -339,8 +309,4 @@ public class Dual_path extends Setup{
         log.endTestCase(page_name);
         driver.quit(); }
 
-    @AfterMethod
-    public void webDriverQuit(){
-        adc.driver1.quit();
-    }
     }
