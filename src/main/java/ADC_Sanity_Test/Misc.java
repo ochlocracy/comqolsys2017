@@ -731,9 +731,9 @@ public class Misc extends Setup {
        public void tearDown () throws IOException, InterruptedException {
            log.endTestCase(page_name);
            driver.quit();
-           //for (int i= 40; i>37; i--) {
-           //delete_from_primary(i);
-          // }
+           for (int i= 40; i>37; i--) {
+           delete_from_primary(i);
+           }
        }
 
     @AfterMethod

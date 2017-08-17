@@ -27,7 +27,7 @@ public class ArmedAway_Contact extends Setup{
     PanelInfo_ServiceCalls servcall = new PanelInfo_ServiceCalls();
 
     /*** If you want to run tests only on the panel, please set ADCexecute value to false ***/
-    String ADCexecute = "false";
+    String ADCexecute = "true";
 
     public ArmedAway_Contact() throws IOException, BiffException {}
 

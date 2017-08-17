@@ -1,6 +1,7 @@
 package ADC_Sanity_Test;
 
 import ADC.ADC;
+import Panel.Home_Page;
 import Panel.PanelInfo_ServiceCalls;
 import Panel.Setup;
 import Sensors.Sensors;
@@ -8,6 +9,7 @@ import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -17,9 +19,9 @@ import java.util.concurrent.TimeUnit;
 
 /*** Estimate execution time: 10 min, just panel:   min ***/
 
-public class ArmedStay_Tilt extends Setup{
+public class ArmedAway_Tilt extends Setup {
 
-    String page_name = "Arm Stay mode tilt sensor testing";
+    String page_name = "Arm Away mode tilt sensor testing";
     Logger logger = Logger.getLogger(page_name);
     Sensors sensors = new Sensors();
     ADC adc = new ADC();
@@ -34,10 +36,10 @@ public class ArmedStay_Tilt extends Setup{
     String close = "04 01";
     String tamper = "01 01";
 
-    public ArmedStay_Tilt() throws IOException, BiffException {}
-
     /*** If you want to run tests only on the panel, please set ADCexecute value to false ***/
     String ADCexecute = "true";
+
+    public ArmedAway_Tilt() throws IOException, BiffException {}
 
     public void add_primary_call(int zone, int group, int sensor_dec, int sensor_type) throws IOException {
         String add_primary = " shell service call qservice 50 i32 " + zone + " i32 " + group + " i32 " + sensor_dec + " i32 " + sensor_type;
@@ -107,40 +109,40 @@ public class ArmedStay_Tilt extends Setup{
         Thread.sleep(2000);
         adc.Request_equipment_list();
     }
-    public void ArmStay_Open_Close_sensor_during_Exit_Delay(int group, String DLID, String element_to_verify, String element_to_verify2 ) throws Exception {
-        logger.info("ArmStay -Open/Close Group " +group + " tilt sensor during exit delay");
-        ARM_STAY();
-        TimeUnit.SECONDS.sleep(Long_Exit_Delay/2);
+    public void ArmAway_Open_Close_sensor_during_Exit_Delay(int group, String DLID, String element_to_verify, String element_to_verify2 ) throws Exception {
+        Home_Page home = PageFactory.initElements(driver, Home_Page.class);
+        logger.info("ArmAway -Open/Close Group " +group + " tilt sensor during exit delay");
+        ARM_AWAY(Long_Exit_Delay/2);
         logger.info("Open/Close a sensor");
         sensors.primary_call(DLID, open);
         Thread.sleep(2000);
         sensors.primary_call(DLID, close);
         TimeUnit.SECONDS.sleep(Normal_Exit_Delay);
-        verify_armstay();
+        verify_armaway();
         Thread.sleep(3000);
-        DISARM();
+        home.ArwAway_State.click();
+        enter_default_user_code();
         Thread.sleep(2000);
 
         ADC_verification(element_to_verify, element_to_verify2);
     }
-
     @Test (dependsOnMethods = {"addSensors"})
-    public void ArmStayExitDelay_10 () throws Exception {
-        ArmStay_Open_Close_sensor_during_Exit_Delay(10, "63 00 EA", "//*[contains(text(), 'Opened/Closed')]", "//*[contains(text(), 'Armed Stay')]");
+    public void ArmAwayExitDelay_10 () throws Exception {
+        ArmAway_Open_Close_sensor_during_Exit_Delay(10, "63 00 EA", "//*[contains(text(), 'Opened/Closed')]", "//*[contains(text(), 'Armed Away')]");
     }
     @Test(priority = 1)
-    public void ArmStayExitDelay_12 () throws Exception {
-        ArmStay_Open_Close_sensor_during_Exit_Delay(12, "63 00 FA", "//*[contains(text(), 'Opened/Closed')]", "//*[contains(text(), 'Armed Stay')]");
+    public void ArmAwayExitDelay_12 () throws Exception {
+        ArmAway_Open_Close_sensor_during_Exit_Delay(12, "63 00 FA", "//*[contains(text(), 'Opened/Closed')]", "//*[contains(text(), 'Armed Away')]");
     }
     @Test(priority = 2)
-    public void ArmStayExitDelay_25 () throws Exception {
-        ArmStay_Open_Close_sensor_during_Exit_Delay(25, "63 00 0A", "//*[contains(text(), 'Opened/Closed')]", "//*[contains(text(), 'Armed Stay')]");
+    public void ArmAwayExitDelay_25 () throws Exception {
+        ArmAway_Open_Close_sensor_during_Exit_Delay(25, "63 00 0A", "//*[contains(text(), 'Opened/Closed')]", "//*[contains(text(), 'Armed Away')]");
     }
+
     /*** Open-Close sensor, disarm during Dialer Delay ***/
-    public void ArmStay_Open_Close_sensor_Alarm(int group, String DLID, String element_to_verify, String element_to_verify2 ) throws Exception {
-        logger.info("ArmStay -Open/Close Group " +group + " tilt sensor during exit delay");
-        ARM_STAY();
-        TimeUnit.SECONDS.sleep(Long_Exit_Delay);
+    public void ArmAway_Open_Close_sensor_Alarm(int group, String DLID, String element_to_verify, String element_to_verify2 ) throws Exception {
+        logger.info("ArmAway -Open/Close Group " +group + " tilt sensor during exit delay");
+        ARM_AWAY(Long_Exit_Delay);
         Thread.sleep(2000);
         logger.info("Open/Close a sensor");
         sensors.primary_call(DLID, open);
@@ -153,42 +155,40 @@ public class ArmedStay_Tilt extends Setup{
 
         ADC_verification(element_to_verify, element_to_verify2);
     }
-    public void ArmStay_Open_Close_sensor(int group, String DLID, String element_to_verify, String element_to_verify2 ) throws Exception {
-        logger.info("ArmStay -Open/Close Group " +group + " tilt sensor during exit delay");
-        ARM_STAY();
-        TimeUnit.SECONDS.sleep(Long_Exit_Delay);
+    public void ArmAway_Open_Close_sensor(int group, String DLID, String element_to_verify, String element_to_verify2 ) throws Exception {
+        Home_Page home = PageFactory.initElements(driver, Home_Page.class);
+        logger.info("ArmAway -Open/Close Group " +group + " tilt sensor during exit delay");
+        ARM_AWAY(Long_Exit_Delay);
         Thread.sleep(2000);
         logger.info("Open/Close a sensor");
         sensors.primary_call(DLID, open);
         Thread.sleep(2000);
         sensors.primary_call(DLID, close);
+        TimeUnit.SECONDS.sleep(Long_Entry_Delay);
+        verify_armaway();
         Thread.sleep(2000);
-        verify_armstay();
-        DISARM();
+        home.ArwAway_State.click();
+        enter_default_user_code();
         Thread.sleep(2000);
 
         ADC_verification(element_to_verify, element_to_verify2);
     }
-
     @Test(priority = 3)
-    public void ArmStay_10 () throws Exception {
-        ArmStay_Open_Close_sensor_Alarm(10, "63 00 EA", "//*[contains(text(), 'Opened/Closed')]", "//*[contains(text(), 'Armed Stay')]");
+    public void ArmAway_10 () throws Exception {
+        ArmAway_Open_Close_sensor_Alarm(10, "63 00 EA", "//*[contains(text(), 'Opened/Closed')]", "//*[contains(text(), 'Armed Away')]");
     }
     @Test(priority = 4)
-    public void ArmStay_12() throws Exception {
-        ArmStay_Open_Close_sensor_Alarm(12, "63 00 FA", "//*[contains(text(), 'Entry delay')]", "//*[contains(text(), 'Armed Stay')]");
+    public void ArmAway_12() throws Exception {
+        ArmAway_Open_Close_sensor_Alarm(12, "63 00 FA", "//*[contains(text(), 'Entry delay')]", "//*[contains(text(), 'Armed Away')]");
     }
     @Test(priority = 5)
-    public void ArmStay_25() throws Exception {
-        ArmStay_Open_Close_sensor(25, "63 00 0A", "//*[contains(text(), 'Opened/Closed')]", "//*[contains(text(), 'Armed Stay')]");
+    public void ArmAway_25() throws Exception {
+        ArmAway_Open_Close_sensor(25, "63 00 0A", "//*[contains(text(), 'Opened/Closed')]", "//*[contains(text(), 'Armed Away')]");
     }
-
     /*** Tamper sensor ***/
-
-    public void ArmStay_Tamper_sensor_Alarm(int group, String DLID, String element_to_verify, String element_to_verify1) throws Exception {
-        logger.info("ArmStay Tamper Group " +group + " contact sensor");
-        ARM_STAY();
-        TimeUnit.SECONDS.sleep(Long_Exit_Delay);
+    public void ArmAway_Tamper_sensor_Alarm(int group, String DLID, String element_to_verify, String element_to_verify1) throws Exception {
+        logger.info("ArmAway Tamper Group " +group + " contact sensor");
+        ARM_AWAY(Long_Exit_Delay);
         Thread.sleep(2000);
         logger.info("Tamper a sensor");
         sensors.primary_call(DLID, tamper);
@@ -202,35 +202,35 @@ public class ArmedStay_Tilt extends Setup{
 
         ADC_verification(element_to_verify, element_to_verify1);
     }
-    public void ArmStay_Tamper_sensor(int group, String DLID, String element_to_verify, String element_to_verify1) throws Exception {
-        logger.info("ArmStay Tamper Group " +group + " contact sensor");
-        ARM_STAY();
-        TimeUnit.SECONDS.sleep(Long_Exit_Delay);
+    public void ArmAway_Tamper_sensor(int group, String DLID, String element_to_verify, String element_to_verify1) throws Exception {
+        Home_Page home = PageFactory.initElements(driver, Home_Page.class);
+        logger.info("ArmAway Tamper Group " +group + " contact sensor");
+        ARM_AWAY(Long_Exit_Delay);
         Thread.sleep(2000);
         logger.info("Tamper a sensor");
         sensors.primary_call(DLID, tamper);
         Thread.sleep(2000);
         sensors.primary_call(DLID, close);
-        Thread.sleep(3000);
-        verify_armstay();
+        TimeUnit.SECONDS.sleep(Long_Entry_Delay);
+        verify_armaway();
         Thread.sleep(2000);
-        DISARM();
+        home.ArwAway_State.click();
+        enter_default_user_code();
         Thread.sleep(2000);
 
         ADC_verification(element_to_verify, element_to_verify1);
     }
-
     @Test(priority = 6)
-    public void ArmStay_Tamper_10() throws Exception {
-        ArmStay_Tamper_sensor_Alarm(10, "63 00 EA", "//*[contains(text(), 'Sensor 1 Tamper**')]","//*[contains(text(), 'End of Tamper')]");
+    public void ArmAway_Tamper_10() throws Exception {
+        ArmAway_Tamper_sensor_Alarm(10, "63 00 EA", "//*[contains(text(), 'Sensor 1 Tamper**')]","//*[contains(text(), 'End of Tamper')]");
     }
     @Test(priority = 7)
-    public void ArmStay_Tamper_12() throws Exception {
-        ArmStay_Tamper_sensor_Alarm(12, "63 00 FA", "//*[contains(text(), 'Sensor 2 Tamper**')]","//*[contains(text(), 'End of Tamper')]");
+    public void ArmAway_Tamper_12() throws Exception {
+        ArmAway_Tamper_sensor_Alarm(12, "63 00 FA", "//*[contains(text(), 'Sensor 2 Tamper**')]","//*[contains(text(), 'End of Tamper')]");
     }
     @Test(priority = 8)
-    public void ArmStay_Tamper_25() throws Exception {
-        ArmStay_Tamper_sensor(25, "63 00 0A", "//*[contains(text(), 'Sensor 3 Tamper**')]","//*[contains(text(), 'End of Tamper')]");
+    public void ArmAway_Tamper_25() throws Exception {
+        ArmAway_Tamper_sensor(25, "63 00 0A", "//*[contains(text(), 'Sensor 3 Tamper**')]","//*[contains(text(), 'End of Tamper')]");
     }
 
     @AfterTest

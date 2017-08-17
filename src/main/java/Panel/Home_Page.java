@@ -71,10 +71,16 @@ public class Home_Page {
     public WebElement Three;
     @FindBy(id="com.qolsys:id/tv_keyFour")
     public WebElement Four;
+    @FindBy(id="com.qolsys:id/tv_keyFive")
+    public WebElement Five;
+    @FindBy(id="com.qolsys:id/tv_keySix")
+    public WebElement Six;
     @FindBy(id="com.qolsys:id/tv_keyEight")
     public WebElement Eight;
     @FindBy(id="com.qolsys:id/tv_keyNine")
     public WebElement Nine;
+    @FindBy(id="com.qolsys:id/tv_zero")
+    public WebElement Zero;
     @FindBy(id="com.qolsys:id/tv_name")
     public WebElement Red_banner_sensor_name;
     @FindBy(id="com.qolsys:id/tv_status")

@@ -15,9 +15,13 @@ import org.testng.annotations.*;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-public class ArmedStay_Motion extends Setup{
+/**
+ * Created by nchortek on 8/8/17.
+ */
+public class ArmedAway_Motion extends Setup{
 
-    String page_name = "Arm Stay mode motion sensor testing";
+
+    String page_name = "Arm Away mode motion sensor testing";
     Logger logger = Logger.getLogger(page_name);
     Sensors sensors = new Sensors();
     ADC adc = new ADC();
@@ -26,7 +30,7 @@ public class ArmedStay_Motion extends Setup{
     /*** If you want to run tests only on the panel, please set ADCexecute value to false ***/
     String ADCexecute = "true";
 
-    public ArmedStay_Motion() throws IOException, BiffException {}
+    public ArmedAway_Motion() throws IOException, BiffException {}
 
     private int Normal_Exit_Delay = 10;
     private int Normal_Entry_Delay = 11;
@@ -40,7 +44,7 @@ public class ArmedStay_Motion extends Setup{
     private String DLID_20 = "55 00 64";
     private String DLID_25 = "55 00 74";
     private String DLID_35 = "55 00 84";
-    private String Armed_Stay = "//*[contains(text(), 'Armed Stay')]";
+    private String Armed_Away = "//*[contains(text(), 'Armed Away')]";
     String AccountID = adc.getAccountId();
 
     public void add_primary_call(int zone, int group, int sensor_dec, int sensor_type) throws IOException {
@@ -84,29 +88,14 @@ public class ArmedStay_Motion extends Setup{
         Thread.sleep(2000);
     }
 
-    public void ArmStay_Activate_During_Delay(int group, String DLID, String element_to_verify, String element_to_verify2 ) throws Exception {
-        logger.info("ArmStay During Delay Activate Group " + group + " motion sensor");
-        ARM_STAY();
+    public void ArmAway_Activate_During_Delay(int group, String DLID, String element_to_verify, String element_to_verify2 ) throws Exception {
+        logger.info("ArmAway During Delay Activate Group " + group + " motion sensor");
+        ARM_AWAY(Long_Exit_Delay/3);
         logger.info("Activate a sensor");
-        TimeUnit.SECONDS.sleep(Long_Exit_Delay/3);
         sensors.primary_call(DLID, activate);
         TimeUnit.SECONDS.sleep(Long_Exit_Delay);
-        verify_armstay();
-        DISARM();
-        Thread.sleep(2000);
-
-        ADC_verification(element_to_verify, element_to_verify2);
-        //sensors.primary_call(DLID, close);
-        //Thread.sleep(2000);
-    }
-    public void ArmStay_Activate_After_Delay_Disarm_During_Entry(int group, String DLID, String element_to_verify, String element_to_verify2) throws Exception {
-        logger.info("ArmStay After Delay Activate Group " + group + " motion sensor");
-        ARM_STAY();
-        logger.info("Activate a sensor");
-        TimeUnit.SECONDS.sleep(Long_Exit_Delay);
-        verify_armstay();
-        sensors.primary_call(DLID, activate);
-        TimeUnit.SECONDS.sleep(Long_Exit_Delay/3);
+        verify_armaway();
+        driver.findElement(By.id("com.qolsys:id/main")).click();
         enter_default_user_code();
         Thread.sleep(2000);
 
@@ -114,58 +103,58 @@ public class ArmedStay_Motion extends Setup{
         //sensors.primary_call(DLID, close);
         //Thread.sleep(2000);
     }
-    public void ArmStay_Activate_After_Delay_Disarm_During_Dialer(int group, int sensor, String DLID, String element_to_verify, String element_to_verify2) throws Exception {
-        logger.info("ArmStay After Delay Activate Group " + group + " motion sensor");
-        ARM_STAY();
+    public void ArmAway_Activate_After_Delay_Disarm_During_Entry(int group, String DLID, String element_to_verify, String element_to_verify2) throws Exception {
+        logger.info("ArmAway After Delay Activate Group " + group + " motion sensor");
+        ARM_AWAY(Long_Exit_Delay);
         logger.info("Activate a sensor");
-        TimeUnit.SECONDS.sleep(Long_Exit_Delay);
-        verify_armstay();
+        verify_armaway();
+        sensors.primary_call(DLID, activate);
+        TimeUnit.SECONDS.sleep(Long_Exit_Delay/3);
+        //driver.findElement(By.id("com.qolsys:id/main")).click();
+        enter_default_user_code();
+        Thread.sleep(2000);
+
+        ADC_verification(element_to_verify, element_to_verify2);
+        //sensors.primary_call(DLID, close);
+        //Thread.sleep(2000);
+    }
+    public void ArmAway_Activate_After_Delay_Disarm_During_Dialer(int group, int sensor, String DLID, String element_to_verify, String element_to_verify2) throws Exception {
+        logger.info("ArmAway After Delay Activate Group " + group + " motion sensor");
+        ARM_AWAY(Long_Exit_Delay);
+        logger.info("Activate a sensor");
+        verify_armaway();
         sensors.primary_call(DLID, activate);
         Thread.sleep(2000);
         ADC_verification(element_to_verify, element_to_verify2);
         Thread.sleep(2000);
         verify_in_alarm();
-        TimeUnit.MINUTES.sleep(1);
         adc.getDriver1().findElement(By.id("ctl00_phBody_butSearch")).click();
-        TimeUnit.SECONDS.sleep(3);
         history_verification("//*[contains(text(), '(Sensor " + sensor + ") Alarm')]");
         enter_default_user_code();
 
         //sensors.primary_call(DLID, close);
         //Thread.sleep(2000);
     }
-    public void ArmStay_Tamper_Alarm(int group, String DLID, String element_to_verify, String element_to_verify2) throws Exception {
-        logger.info("ArmStay After Delay Tamper Group " + group + " motion sensor");
-        ARM_STAY();
+    public void ArmAway_Tamper(int group, int sensor, String DLID, String element_to_verify, String element_to_verify2) throws Exception {
+        logger.info("ArmAway After Delay Tamper Group " + group + " motion sensor");
+        ARM_AWAY(Long_Exit_Delay);
         logger.info("Tamper a sensor");
-        TimeUnit.SECONDS.sleep(Long_Exit_Delay);
-        verify_armstay();
+        verify_armaway();
         sensors.primary_call(DLID, tamper);
         Thread.sleep(2000);
-        verify_in_alarm();
-        ADC_verification(element_to_verify, element_to_verify2);
-        Thread.sleep(2000);
         sensors.primary_call(DLID, close);
-        Thread.sleep(2000);
-        adc.getDriver1().findElement(By.id("ctl00_phBody_butSearch")).click();
-        history_verification("//*[contains(text(), 'End of Tamper')]");
+
+        if(group == 25)
+            verify_armaway();
+        else
+            verify_in_alarm();
+
+        ADC_verification(element_to_verify, element_to_verify2);
+        history_verification("//*[contains(text(), '(Sensor " + sensor + ") End of Tamper')]");
+
+        if (group == 25)
+            driver.findElement(By.id("com.qolsys:id/main")).click();
         enter_default_user_code();
-    }
-    public void ArmStay_Tamper(int group, String DLID, String element_to_verify, String element_to_verify2) throws Exception {
-        logger.info("ArmStay After Delay Tamper Group " + group + " motion sensor");
-        ARM_STAY();
-        logger.info("Tamper a sensor");
-        TimeUnit.SECONDS.sleep(Long_Exit_Delay);
-        verify_armstay();
-        sensors.primary_call(DLID, tamper);
-        Thread.sleep(2000);
-        verify_armstay();
-        sensors.primary_call(DLID, close);
-        ADC_verification(element_to_verify, element_to_verify2);
-        adc.getDriver1().findElement(By.id("ctl00_phBody_butSearch")).click();
-        Thread.sleep(5000);
-        history_verification("//*[contains(text(),  'End of Tamper')]");
-        DISARM();
     }
 
     @BeforeTest
@@ -181,7 +170,7 @@ public class ArmedStay_Motion extends Setup{
         servcall.set_LONG_EXIT_DELAY(Long_Entry_Delay);
 
         //servcall.set_AUTO_STAY(0);
-        servcall.set_ARM_STAY_NO_DELAY_disable();
+        //servcall.set_ARM_STAY_NO_DELAY_disable();
     }
     @BeforeMethod
     public  void webDriver(){
@@ -206,79 +195,79 @@ public class ArmedStay_Motion extends Setup{
     }
 
     @Test (dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
-    public void ArmStayDelay_15() throws Exception {
-        ArmStay_Activate_During_Delay(15, DLID_15, "//*[contains(text(), '(Sensor 1) Activated')]", Armed_Stay);
+    public void ArmAwayDelay_15() throws Exception {
+        ArmAway_Activate_During_Delay(15, DLID_15, "//*[contains(text(), '(Sensor 1) Activated')]", Armed_Away);
     }
     @Test (priority = 1, retryAnalyzer = RetryAnalizer.class)
-    public void ArmStayDelay_17() throws Exception {
-        ArmStay_Activate_During_Delay(17, DLID_17, "//*[contains(text(), '(Sensor 2) Activated')]", Armed_Stay);
+    public void ArmAwayDelay_17() throws Exception {
+        ArmAway_Activate_During_Delay(17, DLID_17, "//*[contains(text(), '(Sensor 2) Activated')]", Armed_Away);
     }
     @Test (priority = 2, retryAnalyzer = RetryAnalizer.class)
-    public void ArmStayDelay_20() throws Exception {
-        ArmStay_Activate_During_Delay(20, DLID_20, "//*[contains(text(), '(Sensor 3) Activated')]", Armed_Stay);
+    public void ArmAwayDelay_20() throws Exception {
+        ArmAway_Activate_During_Delay(20, DLID_20, "//*[contains(text(), '(Sensor 3) Activated')]", Armed_Away);
     }
     @Test (priority = 3, retryAnalyzer = RetryAnalizer.class)
-    public void ArmStayDelay_25() throws Exception {
-        ArmStay_Activate_During_Delay(25, DLID_25, "//*[contains(text(), '(Sensor 4) Activated')]", Armed_Stay);
+    public void ArmAwayDelay_25() throws Exception {
+        ArmAway_Activate_During_Delay(25, DLID_25, "//*[contains(text(), '(Sensor 4) Activated')]", Armed_Away);
     }
     @Test (priority = 4, retryAnalyzer = RetryAnalizer.class)
-    public void ArmStayDelay_35() throws Exception {
-        ArmStay_Activate_During_Delay(35, DLID_35, "//*[contains(text(), '(Sensor 5) Activated')]", Armed_Stay);
+    public void ArmAwayDelay_35() throws Exception {
+        ArmAway_Activate_During_Delay(35, DLID_35, "//*[contains(text(), '(Sensor 5) Activated')]", Armed_Away);
     }
 
 
     @Test (priority = 5, retryAnalyzer = RetryAnalizer.class)
-    public void ArmStayAfterDelayDisarmDuringEntry_35() throws Exception {
-        ArmStay_Activate_After_Delay_Disarm_During_Entry(35, DLID_35, "//*[contains(text(), 'Entry delay on sensor 5')]", Armed_Stay);
+    public void ArmAwayAfterDelayDisarmDuringEntry_35() throws Exception {
+        ArmAway_Activate_After_Delay_Disarm_During_Entry(35, DLID_35, "//*[contains(text(), 'Entry delay on sensor 5')]", Armed_Away);
     }
 
 
     @Test (priority = 6, retryAnalyzer = RetryAnalizer.class)
-    public void ArmStayAfterDelayDisarmDuringDialer_15() throws Exception {
-        ArmStay_Activate_After_Delay_Disarm_During_Dialer(15, 1, DLID_15, "//*[contains(text(), '(Sensor 1) Pending Alarm')]", Armed_Stay);
+    public void ArmAwayAfterDelayDisarmDuringDialer_15() throws Exception {
+        ArmAway_Activate_After_Delay_Disarm_During_Dialer(15, 1, DLID_15, "//*[contains(text(), '(Sensor 1) Pending Alarm')]", Armed_Away);
         //adc.getDriver1().findElement(By.id("ctl00_phBody_butSearch")).click();
         //history_verification("//*[contains(text(), '(Sensor 1) Alarm')]");
     }
     @Test (priority = 7, retryAnalyzer = RetryAnalizer.class)
-    public void ArmStayAfterDelayDisarmDuringDialer_35() throws Exception {
-        ArmStay_Activate_After_Delay_Disarm_During_Dialer(35, 5, DLID_35, "//*[contains(text(), '(Sensor 5) Pending Alarm')]", Armed_Stay);
+    public void ArmAwayAfterDelayDisarmDuringDialer_35() throws Exception {
+        ArmAway_Activate_After_Delay_Disarm_During_Dialer(35, 5, DLID_35, "//*[contains(text(), '(Sensor 5) Pending Alarm')]", Armed_Away);
         //adc.getDriver1().findElement(By.id("ctl00_phBody_butSearch")).click();
         //history_verification("//*[contains(text(), '(Sensor 5) Alarm')]");
     }
 
 
     @Test (priority = 8, retryAnalyzer = RetryAnalizer.class)
-    public void ArmStayTamperAfterDelay_15() throws Exception {
-        ArmStay_Tamper_Alarm(15, DLID_15, "//*[contains(text(), '(Sensor 1) Tamper')]", Armed_Stay);
+    public void ArmAwayTamperAfterDelay_15() throws Exception {
+        ArmAway_Tamper(15, 1, DLID_15, "//*[contains(text(), '(Sensor 1) Tamper')]", Armed_Away);
     }
     @Test (priority = 9, retryAnalyzer = RetryAnalizer.class)
-    public void ArmStayTamperAfterDelay_17() throws Exception {
+    public void ArmAwayTamperAfterDelay_17() throws Exception {
         //sensors.primary_call(DLID_17, close);
-        ArmStay_Tamper(17, DLID_17, "//*[contains(text(), '(Sensor 2) Tamper')]", Armed_Stay);
+        ArmAway_Tamper(17, 2, DLID_17, "//*[contains(text(), '(Sensor 2) Tamper')]", Armed_Away);
     }
     @Test (priority = 10, retryAnalyzer = RetryAnalizer.class)
-    public void ArmStayTamperAfterDelay_20() throws Exception {
+    public void ArmAwayTamperAfterDelay_20() throws Exception {
         //sensors.primary_call(DLID_20, close);
-        ArmStay_Tamper(20, DLID_20, "//*[contains(text(), '(Sensor 3) Tamper')]", Armed_Stay);
+        ArmAway_Tamper(20, 3, DLID_20, "//*[contains(text(), '(Sensor 3) Tamper')]", Armed_Away);
     }
     @Test (priority = 11, retryAnalyzer = RetryAnalizer.class)
-    public void ArmStayTamperAfterDelay_25() throws Exception {
+    public void ArmAwayTamperAfterDelay_25() throws Exception {
         //sensors.primary_call(DLID_25, close);
-        ArmStay_Tamper(25, DLID_25, "//*[contains(text(), '(Sensor 4) Tamper')]", Armed_Stay);
+        ArmAway_Tamper(25, 4, DLID_25, "//*[contains(text(), '(Sensor 4) Tamper')]", Armed_Away);
     }
     @Test (priority = 12, retryAnalyzer = RetryAnalizer.class)
-    public void ArmStayTamperAfterDelay_35() throws Exception {
+    public void ArmAwayTamperAfterDelay_35() throws Exception {
         //sensors.primary_call(DLID_35, close);
-        ArmStay_Tamper_Alarm(35, DLID_35, "//*[contains(text(), '(Sensor 5) Tamper')]", Armed_Stay);
+        ArmAway_Tamper(35, 5, DLID_35, "//*[contains(text(), '(Sensor 5) Tamper')]", Armed_Away);
     }
 
 
     @AfterTest
     public void tearDown() throws IOException, InterruptedException {
         driver.quit();
-        for (int i= 5; i>0; i--) {
-            delete_from_primary(i);
-        }
+//        for (int i= 5; i>0; i--) {
+//            delete_from_primary(i);
+//        }
     }
 
     @AfterMethod
