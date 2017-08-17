@@ -27,7 +27,7 @@ public class PostUpdate_Settings extends Setup{
         if(result.equals(expected))
             logger.info("[Pass] " + setting + " has value: " + expected);
         else
-            logger.info("[Fail] " + setting + " has value: " + result + ", expected:" + expected);
+            logger.info("[Fail] " + setting + " has value: " + result + ". Expected:" + expected);
     }
 
     @BeforeTest
