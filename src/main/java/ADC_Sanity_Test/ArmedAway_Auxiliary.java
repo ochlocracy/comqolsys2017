@@ -2,6 +2,7 @@ package ADC_Sanity_Test;
 
 import ADC.ADC;
 import Panel.Emergency_Page;
+import Panel.Home_Page;
 import Panel.PanelInfo_ServiceCalls;
 import Panel.Setup;
 import Sensors.Sensors;
@@ -111,13 +112,17 @@ public class ArmedAway_Auxiliary extends Setup{
 
     public void ArmStay_Activate_Silent_Sensor(int group, String DLID, String element_to_verify1, String element_to_verify2) throws Exception {
         logger.info("ArmAway -Activate Group " + group + " Silent Auxiliary Police Pendant during Arm Away");
-        ARM_AWAY(13);
+        Home_Page home = PageFactory.initElements(driver, Home_Page.class);
+        ARM_AWAY(Long_Exit_Delay);
         Thread.sleep(1000);
+        verify_armaway();
         logger.info("Activate a sensor");
         sensors.primary_call(DLID, activate);
         Thread.sleep(2000);
         verify_armaway();
-        DISARM();
+        //DISARM();
+        home.ArwAway_State.click();
+        enter_default_user_code();
         Thread.sleep(15000);
         // ADC website verification
         ADC_verification(element_to_verify1, element_to_verify2);
@@ -125,8 +130,9 @@ public class ArmedAway_Auxiliary extends Setup{
     public void ArmStay_Activate_Medical_Sensor(int group, String DLID, String element_to_verify1, String element_to_verify2) throws Exception {
         logger.info("ArmAway -Activate Group " + group + " Auxiliary Medical Pendant during Arm Away");
         Emergency_Page emg = PageFactory.initElements(driver, Emergency_Page.class);
-        ARM_AWAY(13);
+        ARM_AWAY(Long_Exit_Delay);
         Thread.sleep(1000);
+        verify_armaway();
         logger.info("Activate a sensor");
         sensors.primary_call(DLID, activate);
         Thread.sleep(2000);
@@ -143,8 +149,9 @@ public class ArmedAway_Auxiliary extends Setup{
     public void ArmStay_Activate_Police_Sensor(int group, String DLID, String element_to_verify1, String element_to_verify2) throws Exception {
         logger.info("ArmAway -Activate Group " + group + " Auxiliary Police Pendant during Arm Away");
         Emergency_Page emg = PageFactory.initElements(driver, Emergency_Page.class);
-        ARM_AWAY(13);
+        ARM_AWAY(Long_Exit_Delay);
         Thread.sleep(1000);
+        verify_armaway();
         logger.info("Activate a sensor");
         sensors.primary_call(DLID, activate);
         Thread.sleep(2000);
