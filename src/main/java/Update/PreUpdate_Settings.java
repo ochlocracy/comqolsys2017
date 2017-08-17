@@ -1,9 +1,7 @@
 package Update;
 
-import ADC.ADC;
 import Panel.PanelInfo_ServiceCalls;
 import Panel.Setup;
-import Sensors.Sensors;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.testng.annotations.AfterTest;
@@ -48,17 +46,29 @@ public class PreUpdate_Settings extends Setup{
         logger.info("Trouble Beeps: Enabled");
         servcall.set_ENABLE_ALL_TROUBLE_BEEPS(ON);
         Thread.sleep(one_sec);
+        logger.info("Fire Safety Device Trouble Beeps: Enabled");
+        servcall.set_FIRE_SAFETY_DEVICE_TROUBLE_BEEPS(ON);
+        Thread.sleep(one_sec);
+        //logger.info("Touch Sound: Disabled");
+        //servcall.set_TOUCH_SOUND(false);
+       // Thread.sleep(one_sec);
         logger.info("Wifi: Enabled");
         servcall.set_WiFi(ON);
         Thread.sleep(one_sec);
-        logger.info("Secure Delete Images: Enabled");
+        logger.info("Secure Delete Images: Disabled");
         servcall.set_SECURE_DELETE_IMAGES(OFF);
         Thread.sleep(one_sec);
         logger.info("Disarm Photos: Disabled");
         servcall.set_DISARM_PHOTO(OFF);
         Thread.sleep(one_sec);
-        logger.info("Alarm Videos: Enabled");
-        servcall.set_ALARM_VIDEOS(ON);
+        //logger.info("Alarm Videos: Enabled");
+        //servcall.set_ALARM_VIDEOS(ON);
+        //Thread.sleep(one_sec);
+        logger.info("Alarm Photos: Disabled");
+        servcall.set_ALARM_PHOTOS(OFF);
+        Thread.sleep(one_sec);
+        logger.info("Settings Photos: Enabled");
+        servcall.set_SETTINGS_PHOTOS(ON);
         Thread.sleep(one_sec);
         logger.info("Duress Authentication: Enabled");
         servcall.set_DURESS_AUTHENTICATION_enable();
@@ -81,6 +91,12 @@ public class PreUpdate_Settings extends Setup{
         logger.info("Auto Exit Time Extension: Disabled");
         servcall.set_AUTO_EXIT_TIME_EXTENSION(OFF);
         Thread.sleep(one_sec);
+        logger.info("Keyfob Alarm Disarm: Enabled");
+        servcall.set_KEYFOB_ALARM_DISARM(ON);
+        Thread.sleep(one_sec);
+        logger.info("Keyfob Disarming: Disabled");
+        servcall.set_KEYFOB_DISARMING(OFF);
+        Thread.sleep(one_sec);
         logger.info("Normal Entry Delay: 33 seconds");
         servcall.set_NORMAL_ENTRY_DELAY(33);
         Thread.sleep(one_sec);
@@ -102,14 +118,24 @@ public class PreUpdate_Settings extends Setup{
         logger.info("Severe Weather Siren Warning: Disabled");
         servcall.set_SEVERE_WEATHER_SIREN_WARNING(OFF);
         Thread.sleep(one_sec);
+        //The change to the dialer delay does not seem to be doing anything, service calls suggest it's locked to 20 seconds
         logger.info("Dialer Delay: 23 seconds");
         servcall.set_DIALER_DELAY(23);
         Thread.sleep(one_sec);
-        logger.info("Siren Timeout: 7 seconds");
-        servcall.set_SIREN_TIMEOUT(7);
+        logger.info("Siren Timeout: 7 minutes");
+        servcall.set_SIREN_TIMEOUT(420);
         Thread.sleep(one_sec);
         logger.info("Water Freeze Alarm: Enabled");
         servcall.set_WATER_FREEZE_ALARM();
+        Thread.sleep(one_sec);
+        logger.info("Police Panic: Disabled");
+        servcall.set_POLICE_PANIC(OFF);
+        Thread.sleep(one_sec);
+        logger.info("Fire Panic: Disabled");
+        servcall.set_FIRE_PANIC(OFF);
+        Thread.sleep(one_sec);
+        logger.info("Auxillary Panic: Disabled");
+        servcall.set_AUXILLARY_PANIC(OFF);
         Thread.sleep(one_sec);
         logger.info("Auto Upload Logs: Enabled");
         servcall.set_AUTO_UPLOAD_LOGS(ON);
@@ -135,6 +161,18 @@ public class PreUpdate_Settings extends Setup{
         logger.info("RF Jam Detection: Enabled");
         servcall.set_RF_JAM_DETECT_enable();
         Thread.sleep(one_sec);
+        logger.info("Open/Close Reports for Auto Learn: Disabled");
+        servcall.set_OPEN_CLOSE_REPORTS_FOR_AUTO_LEARN(OFF);
+        Thread.sleep(one_sec);
+        logger.info("Bluetooth: Enabled");
+        servcall.set_BLUETOOTH(ON);
+        Thread.sleep(one_sec);
+        logger.info("Bluetooth Disarm: Enabled");
+        servcall.set_BLUETOOTH_DISARM(ON);
+        Thread.sleep(one_sec);
+        logger.info("Bluetooth Disarm Timeout: 30 seconds");
+        servcall.set_BLUETOOTH_DISARM_TIMEOUT(30);
+        Thread.sleep(one_sec);
         logger.info("Allow Master Code to Access Camera Settings: Enabled");
         servcall.set_HOME_OWNER_IMAGE_SETTINGS(ON);
         Thread.sleep(one_sec);
@@ -144,8 +182,6 @@ public class PreUpdate_Settings extends Setup{
         logger.info("Allow Master Code to Access Siren and Alarms Settings: Enabled");
         servcall.set_HOME_OWNER_SIREN_AND_ALARMS(ON);
         Thread.sleep(one_sec);
-
-
     }
 
     @AfterTest
