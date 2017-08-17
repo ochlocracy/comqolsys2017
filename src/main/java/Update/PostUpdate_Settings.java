@@ -2,7 +2,6 @@ package Update;
 
 import Panel.PanelInfo_ServiceCalls;
 import Panel.Setup;
-import android.os.Build;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.testng.annotations.AfterTest;
