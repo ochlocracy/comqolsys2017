@@ -55,15 +55,15 @@ public class PreUpdate_Settings extends Setup{
         logger.info("Wifi: Enabled");
         servcall.set_WiFi(ON);
         Thread.sleep(one_sec);
-        logger.info("Secure Delete Images: Enabled");
+        logger.info("Secure Delete Images: Disabled");
         servcall.set_SECURE_DELETE_IMAGES(OFF);
         Thread.sleep(one_sec);
         logger.info("Disarm Photos: Disabled");
         servcall.set_DISARM_PHOTO(OFF);
         Thread.sleep(one_sec);
-        logger.info("Alarm Videos: Enabled");
-        servcall.set_ALARM_VIDEOS(ON);
-        Thread.sleep(one_sec);
+        //logger.info("Alarm Videos: Enabled");
+        //servcall.set_ALARM_VIDEOS(ON);
+        //Thread.sleep(one_sec);
         logger.info("Alarm Photos: Disabled");
         servcall.set_ALARM_PHOTOS(OFF);
         Thread.sleep(one_sec);
@@ -118,11 +118,12 @@ public class PreUpdate_Settings extends Setup{
         logger.info("Severe Weather Siren Warning: Disabled");
         servcall.set_SEVERE_WEATHER_SIREN_WARNING(OFF);
         Thread.sleep(one_sec);
+        //The change to the dialer delay does not seem to be doing anything, service calls suggest it's locked to 20 seconds
         logger.info("Dialer Delay: 23 seconds");
         servcall.set_DIALER_DELAY(23);
         Thread.sleep(one_sec);
-        logger.info("Siren Timeout: 7 seconds");
-        servcall.set_SIREN_TIMEOUT(7);
+        logger.info("Siren Timeout: 7 minutes");
+        servcall.set_SIREN_TIMEOUT(420);
         Thread.sleep(one_sec);
         logger.info("Water Freeze Alarm: Enabled");
         servcall.set_WATER_FREEZE_ALARM();

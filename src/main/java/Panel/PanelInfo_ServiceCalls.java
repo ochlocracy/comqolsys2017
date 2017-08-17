@@ -634,7 +634,7 @@ public class PanelInfo_ServiceCalls extends Setup {
         String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 75 i32 0 i32 0 i32 0";
         rt.exec(command);}
 
-    public void get_TROUBLE_BEEPS_LOW_BATTESIA_POWER_RESTORATIONRY() throws IOException, InterruptedException {
+    public void get_SIA_POWER_RESTORATION() throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 74 i32 0 i32 0";
         rt.exec(command);}
 
