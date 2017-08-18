@@ -8,19 +8,23 @@ import Panel.PanelInfo_ServiceCalls;
 import Panel.Setup;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
+import org.junit.rules.Timeout;
+import org.omg.CORBA.TIMEOUT;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class SystemTest_DualPath_ADC extends Setup{
     public SystemTest_DualPath_ADC() throws IOException, BiffException {}
 
-    String page_name = "Dual-Path QTMS test cases";
+    String page_name = "QTMS SystemTest_DualPath test cases";
     Logger logger = Logger.getLogger(page_name);
     ADC adc = new ADC();
     PanelInfo_ServiceCalls servcall = new PanelInfo_ServiceCalls();
@@ -81,9 +85,70 @@ public class SystemTest_DualPath_ADC extends Setup{
     }
     @Test
     public void SASST_031() throws Exception {
-
-        logger.info("SASST_031 Pass.");
-
+        servcall.get_ALL_CHIMES();
+        Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
+        System_Tests_page sys = PageFactory.initElements(driver, System_Tests_page.class);
+        Dual_path_page_elements dual = PageFactory.initElements(driver, Dual_path_page_elements.class);
+        navigate_to_Advanced_Settings_page();
+        adv.SYSTEM_TESTS.click();
+        sys.DUAL_PATH_TEST.click();
+        dual.start_button.click();
+        Thread.sleep(5000);
+        element_verification(dual.Test_result, "Test result");
+        logger.info("ADC AirFX");
+        adc.getDriver1().manage().window().maximize();
+        String ADC_URL = "https://alarmadmin.alarm.com/Support/CustomerInfo.aspx?customer_Id=" + adc.getAccountId();
+        String new_name = "New custom name";
+        adc.getDriver1().get(ADC_URL);
+        String login = "qapple";
+        String password = "qolsys123";
+        Thread.sleep(2000);
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("txtUsername")));
+        adc.getDriver1().findElement(By.id("txtUsername")).sendKeys(login);
+        adc.getDriver1().findElement(By.id("txtPassword")).sendKeys(password);
+        adc.getDriver1().findElement(By.id("butLogin")).click();
+        Thread.sleep(2000);
+        adc.getDriver1().get("https://alarmadmin.alarm.com/Support/AirFx/rt_ChimeSettings.aspx");
+        Thread.sleep(1000);
+        Select type_menu = new Select(adc.getDriver1().findElement(By.id("ctl00_phBody_drpdwnStatusAllChime")));
+        type_menu.selectByVisibleText("OFF");
+        Thread.sleep(1000);
+        adc.getDriver1().findElement(By.id("ctl00_phBody_btnSubmit")).click();
+        Thread.sleep(300000);
+        servcall.get_ALL_CHIMES();
+    }
+    @Test
+    public void SASST_030_usersitearming() throws Exception {
+        Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
+        System_Tests_page sys = PageFactory.initElements(driver, System_Tests_page.class);
+        Dual_path_page_elements dual = PageFactory.initElements(driver, Dual_path_page_elements.class);
+        navigate_to_Advanced_Settings_page();
+        adv.SYSTEM_TESTS.click();
+        sys.DUAL_PATH_TEST.click();
+        dual.start_button.click();
+        Thread.sleep(5000);
+        element_verification(dual.Test_result, "Test result");
+        adc.getDriver1().manage().window().maximize();
+        String ADC_URL = "https://www.alarm.com/login.aspx";
+        adc.getDriver1().get(ADC_URL);
+        String login = "aut_new";
+        String password = "qolsys123";
+        Thread.sleep(2000);
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_ContentPlaceHolder1_loginform_txtUserName")));
+        adc.getDriver1().findElement(By.id("ctl00_ContentPlaceHolder1_loginform_txtUserName")).sendKeys(login);
+        adc.getDriver1().findElement(By.xpath(".//*[@id='aspnetForm']/div[5]/div/div[1]/div[1]/div/div[2]/input")).sendKeys(password);
+        adc.getDriver1().findElement(By.id("ctl00_ContentPlaceHolder1_loginform_signInButton")).click();
+        Thread.sleep(2000);
+        adc.getDriver1().findElement(By.id("ctl00_phBody_ArmingStateWidget_btnArmStay")).click();
+        Thread.sleep(2000);
+      // adc.getDriver1().findElement(By.id("ctl00_phBody_ArmingStateWidget_cbArmOptionSilent")).click();
+       // adc.getDriver1().findElement(By.id("ctl00_phBody_ArmingStateWidget_cbArmOptionNoEntryDelay")).click();
+        adc.getDriver1().findElement(By.id("ctl00_phBody_ArmingStateWidget_btnArmOptionStay")).click();
+        Thread.sleep(300000);
+        verify_armstay();
+        logger.info("SASST_030 Pass:Remote arming takes less than 5 minutes after Dual path test passed.");
+        Thread.sleep(3000);
+        servcall.EVENT_DISARM();
     }
 
     @AfterTest

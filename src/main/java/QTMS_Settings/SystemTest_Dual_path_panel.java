@@ -23,7 +23,7 @@ import java.util.List;
 
 public class SystemTest_Dual_path_panel extends Setup{
     public SystemTest_Dual_path_panel() throws IOException, BiffException {}
-    String page_name = "Dual-Path QTMS test cases";
+    String page_name = "QTMS SystemTest_DualPath test cases panel part";
     Logger logger = Logger.getLogger(page_name);
     PanelInfo_ServiceCalls servcall = new PanelInfo_ServiceCalls();
 

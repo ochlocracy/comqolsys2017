@@ -224,14 +224,9 @@ public class PanelInfo_ServiceCalls extends Setup {
 
     public void get_WiFi() throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 32 i32 0 i32 0";
-        rt.exec(command);
-        String value = (execCmd(command)).toString();
-        System.out.println(value);
-        if (value.contains("00000000 00000000 ")) {
-            System.out.println("WiFi has disabled");
-        } else if (value.contains("00000000 00000001 ")) {
-            System.out.println("WiFi has connected");}
-        }
+        rt.exec(command);}
+
+
 
     //0 for disabled, 1 for enabled
     public void set_WiFi(int state) throws IOException, InterruptedException {
@@ -341,7 +336,14 @@ public class PanelInfo_ServiceCalls extends Setup {
 
     public void get_ALL_CHIMES() throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 46 i32 0 i32 0";
-        rt.exec(command);}
+        rt.exec(command);
+        String value = (execCmd(command)).toString();
+        System.out.println(value);
+        if (value.contains("00000000 00000000 ")) {
+            System.out.println("All Chimes setting disabled");
+        } else if (value.contains("00000000 00000001 ")) {
+            System.out.println("All Chimes setting enabled");}
+    }
 
     //0 for disabled, 1 for enabled
     public void set_ALL_CHIMES(int state) throws IOException, InterruptedException {
@@ -997,5 +999,28 @@ ADC can restart the QolSys apps: */
     public void EVENT_ARM_AWAY () throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 1 i32 0 i32 2 i32 0 i32 0 i32 0 i32 1 i32 0 i32 0 i32 1";
         rt.exec(command);}
-
+    public void get_Cell_data () throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 107";
+        rt.exec(command);
+        String value = (execCmd(command)).toString();
+        System.out.println(value);}
+    public void Cell_data_verification () throws IOException, InterruptedException {
+        String command = adbPath + " shell busybox route ";
+        rt.exec(command);
+        String value = (execCmd(command)).toString();
+        System.out.println(value);}
+    public void DTMF () throws IOException, InterruptedException {
+        String command = adbPath + " shell logcat -v time | grep DTMF";
+        rt.exec(command);
+        String value = (execCmd(command)).toString();
+        System.out.println(value);
+   }
+    public void logcat_stop () throws IOException, InterruptedException {
+        String command = adbPath + " shell logcat -d";
+    }
+    public void TwowayvoiceCall (int number) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 98 i32 0 s16 "+ number;
+        rt.exec(command);
+        String value = (execCmd(command)).toString();
+        System.out.println(value);}
    }
