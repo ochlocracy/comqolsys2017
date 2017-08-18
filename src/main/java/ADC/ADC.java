@@ -246,6 +246,14 @@ public class ADC extends Setup {
         getDriver1().findElement(By.partialLinkText("Equipment")).click();
         TimeUnit.SECONDS.sleep(2);
     }
+    //must be on the Equipment page
+    public void get_image_sensors() throws InterruptedException {
+        getDriver1().findElement(By.xpath("/html/body/form/table/tbody/tr/td[2]/div/div[2]/div[3]/div/div/ul/li[4]/a")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_btnRequestInfo"))).click();
+        TimeUnit.MINUTES.sleep(2);
+        getDriver1().findElement(By.id("ctl00_phBody_btnRefreshPage")).click();
+        TimeUnit.SECONDS.sleep(2);
+    }
     public void navigate_to_user_site(String login, String password) {
         getDriver1().manage().window().maximize();
         String ADC_URL = "https://alarm.com";
