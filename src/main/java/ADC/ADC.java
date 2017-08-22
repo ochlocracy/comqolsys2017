@@ -155,6 +155,10 @@ public class ADC extends Setup {
             accountId = "5222397";
         }else  if (get_UDID().equals("62964b68")) {
         accountId = "5389996";
+        }else  if (get_UDID().equals("62c74a45")) { //Olga new verizon
+            accountId = "5222509";
+        }else  if (get_UDID().equals("62964b68")) { //Olga AT&T
+            accountId = "5389996";
     }
         return  accountId;
     }

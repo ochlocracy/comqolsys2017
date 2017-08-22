@@ -227,6 +227,16 @@ public class Setup {
             take_screenshot();
             logger.info("Failed: System is NOT ARMED STAY");}
     }
+    public boolean verify_armstay_l() throws Exception {
+        Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        if (home_page.Disarmed_text.getText().equals("ARMED STAY")) {
+            logger.info("Pass: System is ARMED STAY");
+            return true;
+        } else {
+            take_screenshot();
+            logger.info("Failed: System is NOT ARMED STAY");}
+        return false;
+    }
 
     public void verify_armaway() throws Exception {
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);

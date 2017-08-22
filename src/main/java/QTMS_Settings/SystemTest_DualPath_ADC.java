@@ -8,8 +8,6 @@ import Panel.PanelInfo_ServiceCalls;
 import Panel.Setup;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
-import org.junit.rules.Timeout;
-import org.omg.CORBA.TIMEOUT;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -19,7 +17,7 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
+
 
 public class SystemTest_DualPath_ADC extends Setup{
     public SystemTest_DualPath_ADC() throws IOException, BiffException {}
@@ -56,6 +54,7 @@ public class SystemTest_DualPath_ADC extends Setup{
 
     @BeforeTest
     public void capabilities_setup() throws Exception {
+
         setup_driver(get_UDID(), "http://127.0.1.1", "4723");
         setup_logger(page_name);}
 
@@ -126,12 +125,12 @@ public class SystemTest_DualPath_ADC extends Setup{
         adv.SYSTEM_TESTS.click();
         sys.DUAL_PATH_TEST.click();
         dual.start_button.click();
-        Thread.sleep(5000);
+        Thread.sleep(6000);
         element_verification(dual.Test_result, "Test result");
         adc.getDriver1().manage().window().maximize();
         String ADC_URL = "https://www.alarm.com/login.aspx";
         adc.getDriver1().get(ADC_URL);
-        String login = "aut_new";
+        String login = "pan7aut";
         String password = "qolsys123";
         Thread.sleep(2000);
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_ContentPlaceHolder1_loginform_txtUserName")));
@@ -144,12 +143,30 @@ public class SystemTest_DualPath_ADC extends Setup{
       // adc.getDriver1().findElement(By.id("ctl00_phBody_ArmingStateWidget_cbArmOptionSilent")).click();
        // adc.getDriver1().findElement(By.id("ctl00_phBody_ArmingStateWidget_cbArmOptionNoEntryDelay")).click();
         adc.getDriver1().findElement(By.id("ctl00_phBody_ArmingStateWidget_btnArmOptionStay")).click();
+        Thread.sleep(2000);
         Thread.sleep(300000);
-        verify_armstay();
-        logger.info("SASST_030 Pass:Remote arming takes less than 5 minutes after Dual path test passed.");
-        Thread.sleep(3000);
+        verify_armstay_l();
+
+
+                logger.info("SASST_030 Pass:Remote arming takes less than 5 minutes after Dual path test passed.");
         servcall.EVENT_DISARM();
-    }
+            }
+
+    @Test
+    public void usersitearming() throws Exception {
+
+
+            for (int t=1000; t <= 300000; t++){
+
+                if(!verify_armstay_l()) {
+                    t++;
+                    System.out.println("wait!");
+                                    }
+                else {
+                    logger.info("SASST_030 Pass.");
+                    break;
+                }
+    }}
 
     @AfterTest
     public void tearDown () throws IOException, InterruptedException {
