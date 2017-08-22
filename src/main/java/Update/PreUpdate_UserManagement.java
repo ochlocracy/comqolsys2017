@@ -6,16 +6,19 @@ import Panel.Setup;
 import Panel.User_Management_Page;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.util.List;
 
 public class PreUpdate_UserManagement extends Setup {
 
-    String page_name = "Add Users";
+    String page_name = "PreUpdate User Management set up";
     Logger logger = Logger.getLogger(page_name);
 
     public PreUpdate_UserManagement() throws IOException, BiffException {}
@@ -128,9 +131,21 @@ public class PreUpdate_UserManagement extends Setup {
         home.Zero.click();
         Thread.sleep(1000);
         verify_disarm();
-
     }
-
+    @Test (priority = 6)
+    public void deleteNewUsers() throws Exception {
+        logger.info("Adding a new Guest NewGuest with the code 8800");
+        User_Management_Page user_m =  PageFactory.initElements(driver, User_Management_Page.class);
+        Home_Page home =  PageFactory.initElements(driver, Home_Page.class);
+        navigateToUserManagementPage();
+        List<WebElement> delete = driver.findElements(By.id("com.qolsys:id/deleteImg"));
+        for (int i=3; i>0; i--) {
+            delete.get(1).click();
+            user_m.User_Management_Delete_User_Ok.click();
+        }
+        Thread.sleep(1000);
+        home.Home_button.click();
+    }
     @AfterTest
     public void tearDown() throws IOException, InterruptedException {
         driver.quit();
