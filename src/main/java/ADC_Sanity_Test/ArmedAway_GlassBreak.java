@@ -13,36 +13,37 @@ import org.testng.annotations.*;
 
 import java.io.IOException;
 
-
 /**
+ * Exit Delay
+ * 1) trigger group 13 glass break sensor during exit delay
+ * 2) trigger group 17 glass break sensor during exit delay
  *
+ * Tamper
+ * 1) tamper group 13 glass break
+ * 2) tamper group 17 glass break
  */
-public class ArmedStay_GlassBreak extends Setup {
+public class ArmedAway_GlassBreak extends Setup {
 
-    String page_name = "Arm Stay mode";
+    String page_name = "Arm Away Mode";
     Logger logger = Logger.getLogger(page_name);
     Sensors sensors = new Sensors();
     ADC adc = new ADC();
     String AccountID = adc.getAccountId();
-
 
     private int Normal_Exit_Delay = 35000;
     private String active = "02 01";
     private String tamper = "01 01";
     private String restore = "04 01";
 
-
-    public ArmedStay_GlassBreak() throws IOException, BiffException {}
+    public ArmedAway_GlassBreak() throws IOException, BiffException {}
 
     public void add_primary_call(int zone, int group, int sensor_dec, int sensor_type) throws IOException {
         String add_primary = " shell service call qservice 50 i32 " + zone + " i32 " + group + " i32 " + sensor_dec + " i32 " + sensor_type;
         rt.exec(adbPath + add_primary);
-        // shell service call qservice 50 i32 2 i32 10 i32 6619296 i32 1
     }
-
-    public void Armstay_Trigger_Sensor_During_Exit_Delay_Alarm(int group, String DLID,String element_to_verify, String element_to_verify2) throws Exception {
-        logger.info("ArmStay -Trip glass break " +group + " sensor during exit delay");
-        ARM_STAY();
+    public void ArmsAway_Trigger_Sensor_During_Exit_Delay_Alarm(int group, String DLID,String element_to_verify, String element_to_verify2) throws Exception {
+        logger.info("ArmAway -Trip glass break " +group + " sensor during exit delay");
+        ARM_AWAY(0);
         Thread.sleep(3000);
         logger.info("Trip glass break sensor " + group);
         sensors.primary_call(DLID, active);
@@ -76,21 +77,21 @@ public class ArmedStay_GlassBreak extends Setup {
         }
         Thread.sleep(2000);
     }
-
-    public void Armstay_Trigger_Sensor_During_Exit_Delay(int group, String DLID,String element_to_verify ) throws Exception {
+    public void ArmAway_Trigger_Sensor_During_Exit_Delay(int group, String DLID,String element_to_verify ) throws Exception {
         logger.info("ArmStay -Trip glass break " + group + " sensor during exit delay");
-        ARM_STAY();
-        Thread.sleep(5000);
-        logger.info("Trip glass break sensor " +group);
+        ARM_AWAY(0);
+        Thread.sleep(3000);
+        logger.info("Trip glass break sensor " + group);
         sensors.primary_call(DLID, active);
         Thread.sleep(2000);
-        logger.info("Restore Glass Break " +group);
+        logger.info("Restore Glass Break " + group);
         sensors.primary_call(DLID, restore);
-        Thread.sleep(Normal_Exit_Delay);
-        logger.info("Disarm System");
-        DISARM();
-        logger.info("Verify Disarm");
-        verify_disarm();
+        Thread.sleep(2000);
+        logger.info("Verify Alarm");
+        verify_in_alarm();
+        Thread.sleep(1000);
+        logger.info("Disarm with 1234");
+        enter_default_user_code();
 
         /*** ADC website verification ***/
         logger.info("ADC website verification");
@@ -111,10 +112,9 @@ public class ArmedStay_GlassBreak extends Setup {
         }
 
     }
-
-    public void Armstay_tamper_Sensor_After_Exit_Delay_Alarm(int group, String DLID,String element_to_verify ) throws Exception {
+    public void ArmAway_tamper_Sensor_After_Exit_Delay_Alarm(int group, String DLID,String element_to_verify ) throws Exception {
         logger.info("ArmStay -Trip glass break " + group + " sensor during exit delay");
-        ARM_STAY();
+        ARM_AWAY(0);
         Thread.sleep(Normal_Exit_Delay);
         logger.info("Tamper glass break sensor " + group);
         sensors.primary_call(DLID, tamper);
@@ -147,20 +147,21 @@ public class ArmedStay_GlassBreak extends Setup {
         }
 
     }
-    public void Armstay_tamper_Sensor_After_Exit_Delay(int group, String DLID,String element_to_verify ) throws Exception {
+    public void ArmAway_tamper_Sensor_After_Exit_Delay(int group, String DLID,String element_to_verify ) throws Exception {
         logger.info("ArmStay -Trip glass break " + group + " sensor during exit delay");
-        ARM_STAY();
+        ARM_AWAY(0);
         Thread.sleep(Normal_Exit_Delay);
-        logger.info("Tamper glass break sensor");
+        logger.info("Tamper glass break sensor " + group);
         sensors.primary_call(DLID, tamper);
         Thread.sleep(2000);
-        logger.info("Restore Glass Break");
+        logger.info("Restore Glass Break " + group);
         sensors.primary_call(DLID, restore);
         Thread.sleep(3000);
-        logger.info("Disarm System");
-        DISARM();
-        logger.info("Verify Disarm");
-        verify_disarm();
+        logger.info("Verify Alarm");
+        verify_in_alarm();
+        Thread.sleep(1000);
+        logger.info("Disarm with 1234");
+        enter_default_user_code();
 
         /*** ADC website verification ***/
         logger.info("ADC website verification");
@@ -217,23 +218,23 @@ public class ArmedStay_GlassBreak extends Setup {
     }
 
     @Test(dependsOnMethods = {"addGlassBreakSensor"})
-    public void ArmstayExitDelay_13() throws Exception{
-        Armstay_Trigger_Sensor_During_Exit_Delay_Alarm(13,"67 00 99","//*[contains(text(), 'Glass Break 1 (Sensor 1) Pending Alarm')]","//*[contains(text(), 'Glass Break 1 (Sensor 1) Alarm')]");
+    public void ArmsAwayExitDelay_13() throws Exception{
+        ArmsAway_Trigger_Sensor_During_Exit_Delay_Alarm(13,"67 00 99","//*[contains(text(), 'Glass Break 1 (Sensor 1) Pending Alarm')]","//*[contains(text(), 'Glass Break 1 (Sensor 1) Alarm')]");
     }
 
     @Test(priority = 1,dependsOnMethods = {"addGlassBreakSensor"})
-    public void ArmstayExitDelay_17() throws Exception{
-        Armstay_Trigger_Sensor_During_Exit_Delay(17,"67 00 39","//*[contains(text(), 'Sensor 2 Tamper**')]");
+    public void ArmAwayExitDelay_17() throws Exception{
+        ArmAway_Trigger_Sensor_During_Exit_Delay(17,"67 00 39","//*[contains(text(), 'Pending Alarm')]");
     }
 
     @Test(priority = 2,dependsOnMethods = {"addGlassBreakSensor"})
-    public void Armstay_tamper_13() throws Exception{
-        Armstay_tamper_Sensor_After_Exit_Delay_Alarm(13,"67 00 99", "//*[contains(text(), 'Glass Break 1 (Sensor 1) Tamper')]");
+    public void ArmAway_tamper_13() throws Exception{
+        ArmAway_tamper_Sensor_After_Exit_Delay_Alarm(13,"67 00 99", "//*[contains(text(), 'Pending Alarm')]");
     }
 
     @Test(priority = 3,dependsOnMethods = {"addGlassBreakSensor"})
-    public void Armstay_tamper_17() throws Exception{
-        Armstay_tamper_Sensor_After_Exit_Delay(17,"67 00 39", "//*[contains(text(), 'Sensor 2 Tamper**')]");
+    public void ArmAway_tamper_17() throws Exception{
+        ArmAway_tamper_Sensor_After_Exit_Delay(17,"67 00 39", "//*[contains(text(), 'Pending Alarm')]");
     }
 
     @AfterTest
@@ -249,3 +250,6 @@ public class ArmedStay_GlassBreak extends Setup {
         adc.driver1.quit();
     }
 }
+
+
+
