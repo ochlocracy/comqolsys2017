@@ -23,7 +23,7 @@ public class CarbonMonoxide extends Setup {
 
     String page_name = "CarbonMonoxide";
     Logger logger = Logger.getLogger(page_name);
-    Sensors sensors = new Sensors ();
+    Sensors sensors = new Sensors();
     ADC adc = new ADC();
     String AccountID = adc.getAccountId();
     PanelInfo_ServiceCalls servcall = new PanelInfo_ServiceCalls();
@@ -73,7 +73,7 @@ public class CarbonMonoxide extends Setup {
                     System.out.println("***No such element found!***");
                 }
             }
-        } else  {
+        } else {
             System.out.println("Set execute to TRUE to run ADC verification part");
         }
         Thread.sleep(2000);
@@ -157,8 +157,8 @@ public class CarbonMonoxide extends Setup {
 
     /*** Arm Stay Tamper ***/
 
-    public void ArmStay_Tamper_Sensor(int group, String DLID, String element_to_verify, String element_to_verify2 ) throws Exception {
-        logger.info("ArmStay -Open/Close Group " +group + " Carbon Monoxide during exit delay");
+    public void ArmStay_Tamper_Sensor(int group, String DLID, String element_to_verify, String element_to_verify2) throws Exception {
+        logger.info("ArmStay -Open/Close Group " + group + " Carbon Monoxide during exit delay");
         ARM_STAY();
         TimeUnit.SECONDS.sleep(Long_Exit_Delay);
         Thread.sleep(2000);
@@ -198,8 +198,8 @@ public class CarbonMonoxide extends Setup {
         ArmAway_Activate_Sensor_during_Exit_Delay(34, "75 00 AA", "//*[contains(text(), 'Activated/Normal')]", "//*[contains(text(), 'Pending Alarm')]");
     }
 
-    public void ArmAway_Activate_Sensor_Alarm(int group, String DLID, String element_to_verify, String element_to_verify2 ) throws Exception {
-        logger.info("ArmAway -Open/Close Group " +group + " Carbon Monoxide during exit delay");
+    public void ArmAway_Activate_Sensor_Alarm(int group, String DLID, String element_to_verify, String element_to_verify2) throws Exception {
+        logger.info("ArmAway -Open/Close Group " + group + " Carbon Monoxide during exit delay");
         ARM_AWAY(Long_Exit_Delay);
         Thread.sleep(2000);
         logger.info("Activate a sensor");
@@ -211,7 +211,8 @@ public class CarbonMonoxide extends Setup {
 
         ADC_verification(element_to_verify, element_to_verify2);
     }
-    @Test (priority = 5)
+
+    @Test(priority = 5)
     public void ArmAway_34() throws Exception {
         ArmAway_Activate_Sensor_Alarm(34, "75 00 AA", "//*[contains(text(), 'Multi-Function-1 1')]", "//*[contains(text(), 'Delayed alarm on sensor 1 in partition 1')]");
     }
@@ -248,8 +249,9 @@ public class CarbonMonoxide extends Setup {
     @AfterTest
     public void tearDown() throws IOException, InterruptedException {
         driver.quit();
-        for (int i = 2; i > 0; i--) {
-            delete_from_primary(i);
-        }
+        delete_from_primary(27);
     }
 }
+
+
+
