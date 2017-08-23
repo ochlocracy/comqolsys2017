@@ -44,7 +44,7 @@ public class CarbonMonoxide extends Setup {
     }
 
     public void add_primary_call(int zone, int group, int sensor_dec, int sensor_type) throws IOException {
-        String add_primary = " shell service call qservice 50 i32" + zone + "i32" + group + "i32" + sensor_dec + " i32 " + sensor_type;
+        String add_primary = " shell service call qservice 50 i32 " + zone + " i32 " + group + " i32 " + sensor_dec + " i32 " + sensor_type;
         rt.exec(adbPath + add_primary);
         // shell service call qservice 50 i32 2 i32 10 i32 6619296 i32 1
     }
@@ -53,7 +53,6 @@ public class CarbonMonoxide extends Setup {
         String deleteFromPrimary = " shell service call qservice 51 i32 " + zone;
         rt.exec(adbPath + deleteFromPrimary);
         System.out.println(deleteFromPrimary);
-
     }
 
     public void ADC_verification(String string, String string1) throws IOException, InterruptedException {
@@ -61,14 +60,14 @@ public class CarbonMonoxide extends Setup {
 
         if (ADCexecute.equals("true")) {
             adc.New_ADC_session(AccountID);
-            adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("history"))).click();
+            adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
             Thread.sleep(10000);
             for (int i = 0; i < message.length; i++) {
                 try {
                     WebElement history_message = adc.driver1.findElement(By.xpath(message[i]));
                     Assert.assertTrue(history_message.isDisplayed());
                     {
-                        System.out.println("Pass: message is displayed " + history_message.getText());
+                        System.out.println(" Pass: message is displayed " + history_message.getText());
                     }
                 } catch (Exception e) {
                     System.out.println("***No such element found!***");
@@ -97,38 +96,25 @@ public class CarbonMonoxide extends Setup {
     }
 
     @BeforeMethod
-    public void webDriver() { adc.webDriverSetUp(); }
+    public void webDriver() {
+        adc.webDriverSetUp();
+    }
 
     @Test
     public void addSensor() throws IOException, InterruptedException {
         Thread.sleep(2000);
-        logger.info("Adding a list of sensors");
-        add_primary_call(1, 34, 7667882, 6);
+        logger.info("Adding Sensor");
+        add_primary_call(27, 34, 7667882, 6);
 
         adc.New_ADC_session(adc.getAccountId());
         Thread.sleep(2000);
         adc.driver1.findElement(By.partialLinkText("Sensors")).click();
         Thread.sleep(2000);
         adc.Request_equipment_list();
+        Thread.sleep(2000);
     }
 
     /*** ArmStay Activate***/
-
-    public void ArmStay_Activate_Sensor_during_Exit_Delay_Alarm(int group, String DLID, String element_to_verify, String element_to_verify1) throws Exception {
-        logger.info("ArmStay -Activate " + group + " Carbon Monoxide during exit delay");
-        ARM_STAY();
-        TimeUnit.SECONDS.sleep(Long_Exit_Delay / 2);
-        logger.info("Activate a sensor");
-        sensors.primary_call(DLID, activate);
-        Thread.sleep(2000);
-        sensors.primary_call(DLID, close);
-        Thread.sleep(2000);
-        verify_in_alarm();
-        enter_default_user_code();
-        Thread.sleep(2000);
-
-        ADC_verification(element_to_verify, element_to_verify1);
-    }
 
     public void ArmStay_Activate_Sensor_during_Exit_Delay(int group, String DLID, String element_to_verify, String element_to_verify1) throws Exception {
         logger.info("ArmStay -Activate " + group + " Carbon Monoxide during exit delay");
@@ -137,11 +123,23 @@ public class CarbonMonoxide extends Setup {
         logger.info("Activate a sensor");
         sensors.primary_call(DLID, activate);
         Thread.sleep(2000);
-        sensors.primary_call(DLID, close);
-        TimeUnit.SECONDS.sleep(Long_Exit_Delay / 2);
-        verify_armstay();
+        verify_in_alarm();
+        enter_default_user_code();
         Thread.sleep(2000);
-        DISARM();
+
+        ADC_verification(element_to_verify, element_to_verify1);
+    }
+
+    public void ArmStay_Activate_Sensor_Alarm(int group, String DLID, String element_to_verify, String element_to_verify1) throws Exception {
+        logger.info("ArmStay -Activate " + group + " Carbon Monoxide during exit delay");
+        ARM_STAY();
+        TimeUnit.SECONDS.sleep(Long_Exit_Delay / 2);
+        Thread.sleep(2000);
+        logger.info("Activate a sensor");
+        sensors.primary_call(DLID, activate);
+        Thread.sleep(2000);
+        verify_in_alarm();
+        enter_default_user_code();
         Thread.sleep(2000);
 
         ADC_verification(element_to_verify, element_to_verify1);
@@ -149,64 +147,45 @@ public class CarbonMonoxide extends Setup {
 
     @Test(dependsOnMethods = {"addSensor"})
     public void ArmStayExitDelay_34() throws Exception {
-        ArmStay_Activate_Sensor_during_Exit_Delay_Alarm(34, "57 00 AA", "//*[contains(text(), 'Activated/Normal')]", "//*[contains(text(), 'Pending Alarm')]");
-        Thread.sleep(3000);
-        ArmStay_Activate_Sensor_during_Exit_Delay(34, "57 00 AA", "//*[contains(text(), 'Armed Stay')]", "//*[contains(text(), 'Activated')]");
+        ArmStay_Activate_Sensor_during_Exit_Delay(34, "75 00 AA", "//*[contains(text(), 'Activated/Normal')]", "//*[contains(text(), 'Pending Alarm')]");
+    }
+
+    @Test(priority = 2)
+    public void ArmStay_34() throws Exception {
+        ArmStay_Activate_Sensor_Alarm(34, "75 00 AA", "//*[contains(text(), 'Armed Stay')]", "//*[contains(text(), 'Activated')]");
     }
 
     /*** Arm Stay Tamper ***/
 
-    public void ArmStay_Tamper_Alarm(int group, String DLID, String element_to_verify, String element_to_verify1) throws Exception {
-        logger.info("ArmStay Tamper Group " + group + " contact sensor");
+    public void ArmStay_Tamper_Sensor(int group, String DLID, String element_to_verify, String element_to_verify2 ) throws Exception {
+        logger.info("ArmStay -Open/Close Group " +group + " Carbon Monoxide during exit delay");
         ARM_STAY();
         TimeUnit.SECONDS.sleep(Long_Exit_Delay);
         Thread.sleep(2000);
-        logger.info("Tamper a sensor");
+        logger.info("Activate a sensor");
         sensors.primary_call(DLID, tamper);
         Thread.sleep(2000);
         sensors.primary_call(DLID, close);
-        Thread.sleep(3000);
-        verify_in_alarm();
-        Thread.sleep(2000);
-        enter_default_user_code();
-        Thread.sleep(2000);
-
-        ADC_verification(element_to_verify, element_to_verify1);
-    }
-
-    public void ArmStay_Tamper(int group, String DLID, String element_to_verify, String element_to_verify1) throws Exception {
-        logger.info("ArmStay Tamper Group " + group + " contact sensor");
-        ARM_STAY();
-        TimeUnit.SECONDS.sleep(Long_Exit_Delay);
-        Thread.sleep(2000);
-        logger.info("Tamper a sensor");
-        sensors.primary_call(DLID, tamper);
-        Thread.sleep(2000);
-        sensors.primary_call(DLID, close);
-        Thread.sleep(3000);
         verify_armstay();
-        Thread.sleep(2000);
         DISARM();
         Thread.sleep(2000);
 
-        ADC_verification(element_to_verify, element_to_verify1);
+        ADC_verification(element_to_verify, element_to_verify2);
     }
 
-    @Test(priority = 2)
-    public void ArmStay_Tamper_13() throws Exception {
-        ArmStay_Tamper_Alarm(34, "57 00 AA", "//*[contains(text(), 'Tamper')]", "//*[contains(text(), 'End of Tamper')]");
+    @Test(priority = 3)
+    public void ArmStayTamper_34() throws Exception {
+        ArmStay_Tamper_Sensor(34, "75 00 AA", "//*[contains(text(), 'Tamper')]", "//*[contains(text(), 'End of Tamper')]");
     }
 
     /*** ArmAway Activate***/
 
-    public void ArmAway_Activate_Sensor_during_Exit_Delay_Alarm(int group, String DLID, String element_to_verify, String element_to_verify1) throws Exception {
+    public void ArmAway_Activate_Sensor_during_Exit_Delay(int group, String DLID, String element_to_verify, String element_to_verify1) throws Exception {
         logger.info("ArmStay -Activate " + group + " Carbon Monoxide during exit delay");
         ARM_AWAY(Long_Exit_Delay / 2);
         logger.info("Activate a sensor");
         sensors.primary_call(DLID, activate);
         Thread.sleep(2000);
-        sensors.primary_call(DLID, close);
-        Thread.sleep(2000);
         verify_in_alarm();
         enter_default_user_code();
         Thread.sleep(2000);
@@ -214,14 +193,32 @@ public class CarbonMonoxide extends Setup {
         ADC_verification(element_to_verify, element_to_verify1);
     }
 
-    @Test(priority = 3)
+    @Test(priority = 4)
     public void ArmAwayExitDelay_34() throws Exception {
-        ArmAway_Activate_Sensor_during_Exit_Delay_Alarm(34, "57 00 AA", "//*[contains(text(), 'Activated/Normal')]", "//*[contains(text(), 'Pending Alarm')]");
+        ArmAway_Activate_Sensor_during_Exit_Delay(34, "75 00 AA", "//*[contains(text(), 'Activated/Normal')]", "//*[contains(text(), 'Pending Alarm')]");
+    }
+
+    public void ArmAway_Activate_Sensor_Alarm(int group, String DLID, String element_to_verify, String element_to_verify2 ) throws Exception {
+        logger.info("ArmAway -Open/Close Group " +group + " Carbon Monoxide during exit delay");
+        ARM_AWAY(Long_Exit_Delay);
+        Thread.sleep(2000);
+        logger.info("Activate a sensor");
+        sensors.primary_call(DLID, activate);
+        Thread.sleep(2000);
+        verify_in_alarm();
+        enter_default_user_code();
+        Thread.sleep(2000);
+
+        ADC_verification(element_to_verify, element_to_verify2);
+    }
+    @Test (priority = 5)
+    public void ArmAway_34() throws Exception {
+        ArmAway_Activate_Sensor_Alarm(34, "75 00 AA", "//*[contains(text(), 'Multi-Function-1 1')]", "//*[contains(text(), 'Delayed alarm on sensor 1 in partition 1')]");
     }
 
     /*** ArmAway Tamper ***/
 
-    public void ArmAway_Tamper_Alarm(int group, String DLID, String element_to_verify, String element_to_verify1) throws Exception {
+    public void ArmAway_Tamper_Sensor(int group, String DLID, String element_to_verify, String element_to_verify1) throws Exception {
         logger.info("ArmStay Tamper Group " + group + " contact sensor");
         ARM_AWAY(Long_Exit_Delay);
         Thread.sleep(2000);
@@ -238,9 +235,9 @@ public class CarbonMonoxide extends Setup {
         ADC_verification(element_to_verify, element_to_verify1);
     }
 
-    @Test(priority = 4)
-    public void ArmAway_Tamper_34() throws Exception {
-        ArmAway_Tamper_Alarm(34, "57 00 AA", "//*[contains(text(), 'Sensor 1 Tamper**')]", "//*[contains(text(), 'End of Tamper')]");
+    @Test(priority = 6)
+    public void ArmAwayTamper_34() throws Exception {
+        ArmAway_Tamper_Sensor(34, "75 00 AA", "//*[contains(text(), 'Sensor 1 Tamper**')]", "//*[contains(text(), 'End of Tamper')]");
     }
 
     @AfterMethod
