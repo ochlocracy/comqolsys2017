@@ -15,13 +15,7 @@ import java.io.IOException;
 
 
 /**
- * Exit Delay
- * 1) trigger group 13 glass break sensor during exit delay
- * 2) trigger group 17 glass break sensor during exit delay
  *
- * Tamper
- * 1) tamper group 13 glass break
- * 2) tamper group 17 glass break
  */
 public class ArmedStay_GlassBreak extends Setup {
 
@@ -49,7 +43,6 @@ public class ArmedStay_GlassBreak extends Setup {
     public void Armstay_Trigger_Sensor_During_Exit_Delay_Alarm(int group, String DLID,String element_to_verify, String element_to_verify2) throws Exception {
         logger.info("ArmStay -Trip glass break " +group + " sensor during exit delay");
         ARM_STAY();
-
         Thread.sleep(3000);
         logger.info("Trip glass break sensor " + group);
         sensors.primary_call(DLID, active);
@@ -57,7 +50,6 @@ public class ArmedStay_GlassBreak extends Setup {
         logger.info("Restore Glass Break " + group);
         sensors.primary_call(DLID, restore);
         Thread.sleep(2000);
-
         logger.info("Verify Alarm");
         verify_in_alarm();
         Thread.sleep(1000);
@@ -95,12 +87,6 @@ public class ArmedStay_GlassBreak extends Setup {
         logger.info("Restore Glass Break " +group);
         sensors.primary_call(DLID, restore);
         Thread.sleep(Normal_Exit_Delay);
-        /**if
-         *  alarm is verifed = true
-         *
-         * else
-         *  disarm with user method
-         **/
         logger.info("Disarm System");
         DISARM();
         logger.info("Verify Disarm");
@@ -136,7 +122,6 @@ public class ArmedStay_GlassBreak extends Setup {
         logger.info("Restore Glass Break " + group);
         sensors.primary_call(DLID, restore);
         Thread.sleep(3000);
-
         logger.info("Verify Alarm");
         verify_in_alarm();
         Thread.sleep(1000);
@@ -172,7 +157,6 @@ public class ArmedStay_GlassBreak extends Setup {
         logger.info("Restore Glass Break");
         sensors.primary_call(DLID, restore);
         Thread.sleep(3000);
-
         logger.info("Disarm System");
         DISARM();
         logger.info("Verify Disarm");
