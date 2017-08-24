@@ -171,13 +171,13 @@ public class Lights_ADC extends Setup{
     @Test (priority = 4)
     public void rules() throws Exception{
         logger.info("testing ADC rule creation");
-        /*navigate_to_user_site(login, password);
+        /*adc.navigate_to_user_site(login, password);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("emPower")));
         getDriver1().findElement(By.partialLinkText("emPower")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Rules")));*/
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Rules")));
 
         //create rules
-        /*getDriver1().findElement(By.id("Rules")).click();
+        getDriver1().findElement(By.id("Rules")).click();
 
         add_light_rule(disarm, turn_on, 0);
         add_light_rule(arm_stay, turn_on, 1);
