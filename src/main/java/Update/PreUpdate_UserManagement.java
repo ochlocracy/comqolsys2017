@@ -158,7 +158,7 @@ public class PreUpdate_UserManagement extends Setup {
     @Test (priority = 7)
     public void verifyADC() throws InterruptedException {
         TimeUnit.MINUTES.sleep(3);
-        adc.navigate_to_user_site("Gen2-8334", "qolsys1234");
+        adc.navigate_to_user_site("mypanel01", "qolsys123");
         adc.getDriver1().findElement(By.id("Users")).click();
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div/form/div[4]/div[2]/div/" +
                 "div[3]/div[3]/div[1]/div/div/div[2]/div/div[2]/a[1]/span[1]/span"))).click();

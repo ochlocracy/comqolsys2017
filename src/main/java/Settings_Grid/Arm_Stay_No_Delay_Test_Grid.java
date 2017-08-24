@@ -1,4 +1,4 @@
-package Settings;
+package Settings_Grid;
 
 import Panel.*;
 import jxl.read.biff.BiffException;
@@ -11,12 +11,14 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-public class Secure_Arming_Test_Grid {
+public class Arm_Stay_No_Delay_Test_Grid {
+
     Setup1 s = new Setup1();
-    String page_name = "Secure Arming testing";
+    String page_name = "Arm Stay No Delay testing";
     Logger logger = Logger.getLogger(page_name);
 
-    public Secure_Arming_Test_Grid() throws IOException, BiffException {}
+    public Arm_Stay_No_Delay_Test_Grid() throws IOException, BiffException {}
+
     @Parameters({"deviceName_", "applicationName_", "UDID_", "platformVersion_", "URL_", "PORT_" })
     @BeforeClass
     public void setUp(String deviceName_, String applicationName_, String UDID_, String platformVersion_, String URL_, String PORT_) throws Exception {
@@ -25,17 +27,40 @@ public class Secure_Arming_Test_Grid {
     }
     @Parameters({"UDID_"})
     @Test
-    public void Verify_Secure_Arming_works(String UDID_) throws Exception {
-        Settings_Page settings = PageFactory.initElements(s.getDriver(), Settings_Page.class);
+    public void Verify_Arm_Stay_No_Delay_works(String UDID_) throws Exception {
         Security_Arming_Page arming = PageFactory.initElements(s.getDriver(), Security_Arming_Page.class);
+        Settings_Page settings = PageFactory.initElements(s.getDriver(), Settings_Page.class);
         Advanced_Settings_Page adv = PageFactory.initElements(s.getDriver(), Advanced_Settings_Page.class);
         Installation_Page inst = PageFactory.initElements(s.getDriver(), Installation_Page.class);
         Home_Page home = PageFactory.initElements(s.getDriver(), Home_Page.class);
         Thread.sleep(2000);
-        logger.info("Verify no code is required to Arm the system when setting is disabled");
+        logger.info("Verify that Arm Stay - No Delay works when enabled");
+        s.ARM_STAY();
+        s.verify_armstay(UDID_);
         home.DISARM.click();
-        home.ARM_STAY.click();
+        s.enter_default_user_code();
         Thread.sleep(2000);
+        logger.info("Verify that Arm Stay - No Delay does not work when disabled");
+        s.navigate_to_Advanced_Settings_page();
+        adv.INSTALLATION.click();
+        Thread.sleep(2000);
+        inst.SECURITY_AND_ARMING.click();
+        Thread.sleep(3000);
+        s.swipe_vertical();
+        arming.Arm_Stay_No_Delay.click();
+        Thread.sleep(2000);
+        settings.Home_button.click();
+        s.ARM_STAY();
+        Thread.sleep(2000);
+        try {
+            if (home.Disarmed_text.getText().equals("ARMED STAY"))
+                s.take_screenshot();
+            logger.info(UDID_ + " Failed: System is ARMED STAY");
+        } catch (Exception e) {
+            logger.info(UDID_ + " Pass: System is NOT ARMED STAY");
+        } finally {
+        }
+        Thread.sleep(15000);
         s.verify_armstay(UDID_);
         home.DISARM.click();
         s.enter_default_user_code();
@@ -44,48 +69,13 @@ public class Secure_Arming_Test_Grid {
         adv.INSTALLATION.click();
         Thread.sleep(2000);
         inst.SECURITY_AND_ARMING.click();
-        Thread.sleep(2000);
-        arming.Secure_Arming.click();
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         s.swipe_vertical();
         Thread.sleep(2000);
-        arming.Auto_Stay.click();
+        arming.Arm_Stay_No_Delay.click();
         Thread.sleep(2000);
         settings.Home_button.click();
-        Thread.sleep(2000);
-        logger.info("Verify code is required to Arm the system when setting is enabled");
-        logger.info("Arm Stay the system");
-        s.ARM_STAY();
-        if(home.Enter_Code_to_Access_the_Area.isDisplayed()){
-            logger.info(UDID_ +" Pass: code is requires to Arm the system");
-        }
-        s.enter_default_user_code();
-        Thread.sleep(2000);
-        home.DISARM.click();
-        s.enter_default_user_code();
-        Thread.sleep(2000);
-        logger.info("Arm Away the system");
-        home.DISARM.click();
-        home.ARM_AWAY.click();
-        if(home.Enter_Code_to_Access_the_Area.isDisplayed()){
-            logger.info(UDID_ +" Pass: code is requires to Arm the system");
-        }
-        s.enter_default_user_code();
-        Thread.sleep(15000);
-        home.ArwAway_State.click();
-        s.enter_default_user_code();
-        Thread.sleep(2000);
-        s.navigate_to_Advanced_Settings_page();
-        adv.INSTALLATION.click();
-        Thread.sleep(2000);
-        inst.SECURITY_AND_ARMING.click();
-        Thread.sleep(2000);
-        arming.Secure_Arming.click();
-        Thread.sleep(2000);
-        s.swipe_vertical();
-        Thread.sleep(2000);
-        arming.Auto_Stay.click();
-        Thread.sleep(2000);
+        Thread.sleep(3000);
     }
     @AfterClass
     public void tearDown () throws IOException, InterruptedException {
