@@ -33,6 +33,10 @@ public class PreUpdate_Settings extends Setup{
         int OFF = 0;
         int one_sec = 1000;
 
+
+        logger.info("SIA Limits: Disabled");
+        servcall.set_SIA_LIMITS_disable();
+        Thread.sleep(one_sec);
         //sets media volume to 1
         logger.info("Media Volume: 1/7");
         servcall.set_SPEAKER_VOLUME(ON);
@@ -51,7 +55,7 @@ public class PreUpdate_Settings extends Setup{
         Thread.sleep(one_sec);
         //logger.info("Touch Sound: Disabled");
         //servcall.set_TOUCH_SOUND(false);
-       // Thread.sleep(one_sec);
+        //Thread.sleep(one_sec);
         logger.info("Wifi: Enabled");
         servcall.set_WiFi(ON);
         Thread.sleep(one_sec);
@@ -140,6 +144,7 @@ public class PreUpdate_Settings extends Setup{
         logger.info("Auto Upload Logs: Enabled");
         servcall.set_AUTO_UPLOAD_LOGS(ON);
         Thread.sleep(one_sec);
+        //The following setting causes Refuse Arming When Battery Low to be inaccessible
         logger.info("Power Management: Disabled");
         servcall.set_POWER_MANAGEMENT_ON_OFF_disable();
         Thread.sleep(one_sec);
@@ -154,9 +159,6 @@ public class PreUpdate_Settings extends Setup{
         Thread.sleep(one_sec);
         logger.info("Cell Signal Timeout: 25 seconds");
         servcall.set_Cell_Signal_Timeout(25);
-        Thread.sleep(one_sec);
-        logger.info("SIA Limits: Disabled");
-        servcall.set_SIA_LIMITS_disable();
         Thread.sleep(one_sec);
         logger.info("RF Jam Detection: Enabled");
         servcall.set_RF_JAM_DETECT_enable();
