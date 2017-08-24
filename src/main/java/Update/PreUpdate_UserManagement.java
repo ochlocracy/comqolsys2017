@@ -39,9 +39,19 @@ public class PreUpdate_UserManagement extends Setup {
             driver.hideKeyboard();
         } catch (Exception e) {}
     }
-    public void checkCodes(List<WebElement> li, List<String> exp, int size){
+    public void checkCodes(List<String> exp) throws InterruptedException {
         logger.info("Checking user codes on ADC");
-        int i;
+        adc.navigate_to_user_site("Gen2-8334", "qolsys1234");
+        adc.getDriver1().findElement(By.id("Users")).click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_HeaderLinks1_imgReload"))).click();
+        Thread.sleep(3000);
+        adc.getDriver1().findElement(By.xpath("/html/body/div/form/div[4]/div[2]/div/div[3]/div[3]/div[1]/div/div/" +
+                "div[2]/div/div[2]/a[1]/span[1]/span")).click();
+        Thread.sleep(3000);
+        List<WebElement> li = adc.getDriver1().findElements(By.id("pinCode"));
+
+        int i, size;
+        size = li.size();
 
         for(i = 2; i < size; i++){
             String s1 = li.get(i).getText().split(" ")[0];
@@ -50,6 +60,32 @@ public class PreUpdate_UserManagement extends Setup {
                 logger.info("Pass: User Code " + s2 + " is displayed.");
             else
                 logger.info("Fail: " + s1 + " is displayed. Expected " + s2);
+        }
+    }
+    public void editCodes(List<WebElement> li, List<String> exp, int size) throws InterruptedException {
+        int i;
+
+        for(i = 1; i < size; i++){
+            li.get(i).click();
+            String code = exp.get(i-1);
+            Thread.sleep(3000);
+
+            WebElement user_code = driver.findElement(By.id("com.qolsys:id/user_pin"));
+            WebElement user_code_confirm = driver.findElement(By.id("com.qolsys:id/confirm_pin"));
+
+            user_code.click();
+            user_code.clear();
+            user_code.sendKeys(code);
+            user_code_confirm.click();
+            user_code_confirm.clear();
+            user_code_confirm.sendKeys(code);
+
+            try{
+                driver.hideKeyboard();
+            } catch (Exception e) {}
+
+            driver.findElement(By.id("com.qolsys:id/Save")).click();
+            Thread.sleep(3000);
         }
     }
 
@@ -158,23 +194,30 @@ public class PreUpdate_UserManagement extends Setup {
     @Test (priority = 7)
     public void verifyADC() throws InterruptedException {
         TimeUnit.MINUTES.sleep(3);
-        adc.navigate_to_user_site("Gen2-8334", "qolsys1234");
-        adc.getDriver1().findElement(By.id("Users")).click();
-        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div/form/div[4]/div[2]/div/" +
-                "div[3]/div[3]/div[1]/div/div/div[2]/div/div[2]/a[1]/span[1]/span"))).click();
-        adc.getDriver1().findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
-        Thread.sleep(3000);
-        List<WebElement> li = adc.getDriver1().findElements(By.id("pinCode"));
-        List<String> expected = Arrays.asList("5643", "3331", "8800", "9998");;
-
-        int size;
-        size = li.size();
-        checkCodes(li, expected, size);
+        List<String> exp = Arrays.asList("5643", "3331", "8800", "9998");
+        checkCodes(exp);
     }
-
     @Test (priority = 8)
+    public void editPanelCodes() throws InterruptedException {
+        int size;
+
+        Home_Page home =  PageFactory.initElements(driver, Home_Page.class);
+        navigateToUserManagementPage();
+
+        List<WebElement> li = driver.findElements(By.id("com.qolsys:id/editImg"));
+        List<String> exp = Arrays.asList("5641", "3330", "8801", "9997");
+        size = li.size();
+
+        editCodes(li, exp, size);
+
+        TimeUnit.MINUTES.sleep(3);
+        checkCodes(exp);
+
+        home.Home_button.click();
+    }
+    @Test (priority = 9)
     public void deleteNewUsers() throws Exception {
-        logger.info("Adding a new Guest NewGuest with the code 8800");
+        logger.info("Deleting new users from panel");
         User_Management_Page user_m =  PageFactory.initElements(driver, User_Management_Page.class);
         Home_Page home =  PageFactory.initElements(driver, Home_Page.class);
         navigateToUserManagementPage();
@@ -187,8 +230,9 @@ public class PreUpdate_UserManagement extends Setup {
         home.Home_button.click();
         servcall.set_DURESS_AUTHENTICATION_disable();
     }
-    @Test (priority = 8)
+    @Test (priority = 10)
     public void adcDelete() throws InterruptedException {
+        logger.info("Deleting new users from ADC");
         adc.navigate_to_user_site("Gen2-8334", "qolsys1234");
         adc.getDriver1().findElement(By.id("Users")).click();
         Thread.sleep(3000);
@@ -196,14 +240,22 @@ public class PreUpdate_UserManagement extends Setup {
         Thread.sleep(3000);
         int i;
         for(i = 0; i < 4; i++) {
-            logger.info("deleting user code");
-            adc.getDriver1().findElement(By.xpath("/html/body/div/form/div[4]/div[2]/div/div[3]/div[3]/div[1]/div/div/div[5]/div[2]/div[2]/div[1]/a")).click();
-            logger.info("confirming deletion");
+            //logger.info("deleting user code");
+            adc.getDriver1().findElement(By.xpath("/html/body/div/form/div[4]/div[2]/div/div[3]/div[3]/div[1]/div/" +
+                    "div/div[5]/div[2]/div[2]/div[1]/a")).click();
+            //logger.info("confirming deletion");
             adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[1]/form/div[4]/div[2]" +
                     "/div/div[3]/div[3]/div[1]/div/div/div[7]/div[1]/div/div/div[3]/button[1]"))).click();
+            Thread.sleep(5000);
         }
 
+        List<WebElement> li = adc.getDriver1().findElements(By.xpath("/html/body/div/form/div[4]/div[2]/div/div[3]/" +
+                "div[3]/div[1]/div/div/div[5]/div[2]/div[2]/div[1]/a"));
 
+        if(li.size() == 0)
+            logger.info("Pass: User codes deleted successfully");
+        else
+            logger.info("Fail: Unsuccessful deletion of user codes");
     }
 
     @AfterMethod
