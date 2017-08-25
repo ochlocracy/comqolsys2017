@@ -130,7 +130,7 @@ public class PreUpdate_Settings extends Setup{
         servcall.set_SIREN_TIMEOUT(420);
         Thread.sleep(one_sec);
         logger.info("Water Freeze Alarm: Enabled");
-        servcall.set_WATER_FREEZE_ALARM();
+        servcall.set_WATER_FREEZE_ALARM_enable();
         Thread.sleep(one_sec);
         logger.info("Police Panic: Disabled");
         servcall.set_POLICE_PANIC(OFF);
@@ -185,6 +185,8 @@ public class PreUpdate_Settings extends Setup{
         servcall.set_HOME_OWNER_SIREN_AND_ALARMS(ON);
         Thread.sleep(one_sec);
     }
+
+
 
     @AfterTest
     public void tearDown() throws IOException, InterruptedException {

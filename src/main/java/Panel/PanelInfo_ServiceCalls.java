@@ -612,8 +612,11 @@ public class PanelInfo_ServiceCalls extends Setup {
     public void get_WATER_FREEZE_ALARM () throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 122  i32 0 i32 0";
         rt.exec(command);}
-    public void set_WATER_FREEZE_ALARM() throws IOException, InterruptedException {
+    public void set_WATER_FREEZE_ALARM_enable() throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 122  i32 1 i32 0";
+        rt.exec(command);}
+    public void set_WATER_FREEZE_ALARM_disable() throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 122  i32 0 i32 0";
         rt.exec(command);}
 
     public void get_SIREN_ANNUNCIATION () throws IOException, InterruptedException {
