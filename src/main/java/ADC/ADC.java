@@ -3,12 +3,15 @@ package ADC;
 import Panel.Setup;
 import Sensors.Sensors;
 import jxl.read.biff.BiffException;
+import net.sf.cglib.core.internal.Function;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.firefox.internal.ProfilesIni;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 
 import java.io.IOException;
 import java.util.List;
@@ -362,5 +365,17 @@ public class ADC extends Setup {
         String event = " shell rfinjector 02 "+DLID+" "+status+" 00";
         mySensors.rt.exec(adbPath + " -s " +UDID_ + event);
         System.out.println(event);
+    }
+    public WebElement fluentWait(String identifier) throws TimeoutException {
+        FluentWait<WebDriver> fwait = new FluentWait<>(driver1)
+                .withTimeout(30, TimeUnit.SECONDS)
+                .pollingEvery(2, TimeUnit.SECONDS)
+                .ignoring(NoSuchElementException.class);
+
+        WebElement ele = null;
+        // start waiting for given element
+        ele = fwait.until(ExpectedConditions.visibilityOfElementLocated(By.id(identifier)));
+
+        return ele;
     }
 }

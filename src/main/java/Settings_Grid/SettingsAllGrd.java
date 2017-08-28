@@ -1,4 +1,4 @@
-package Settings;
+package Settings_Grid;
 
 import Panel.Setup1;
 import jxl.read.biff.BiffException;

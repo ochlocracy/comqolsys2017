@@ -1,6 +1,7 @@
-package Settings;
+package Settings_Grid;
 
 import Panel.*;
+import Sensors.Sensors;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.support.PageFactory;
@@ -11,70 +12,64 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-public class Arm_Stay_No_Delay_Test_Grid {
+public class Auto_Stay_Test_Grid {
 
     Setup1 s = new Setup1();
-    String page_name = "Arm Stay No Delay testing";
+    String page_name = "Auto Stay testing";
     Logger logger = Logger.getLogger(page_name);
+    Sensors sensors = new Sensors();
+    private int delay = 15;
 
-    public Arm_Stay_No_Delay_Test_Grid() throws IOException, BiffException {}
-
+    public Auto_Stay_Test_Grid() throws IOException, BiffException {}
     @Parameters({"deviceName_", "applicationName_", "UDID_", "platformVersion_", "URL_", "PORT_" })
     @BeforeClass
     public void setUp(String deviceName_, String applicationName_, String UDID_, String platformVersion_, String URL_, String PORT_) throws Exception {
         s.setCapabilities(URL_);
         s.setup_logger(page_name, UDID_);
     }
-    @Parameters({"UDID_"})
+    @Parameters ({"UDID_"})
     @Test
-    public void Verify_Arm_Stay_No_Delay_works(String UDID_) throws Exception {
+    public void Verify_Auto_Stay_works(String UDID_) throws Exception {
         Security_Arming_Page arming = PageFactory.initElements(s.getDriver(), Security_Arming_Page.class);
         Settings_Page settings = PageFactory.initElements(s.getDriver(), Settings_Page.class);
         Advanced_Settings_Page adv = PageFactory.initElements(s.getDriver(), Advanced_Settings_Page.class);
         Installation_Page inst = PageFactory.initElements(s.getDriver(), Installation_Page.class);
         Home_Page home = PageFactory.initElements(s.getDriver(), Home_Page.class);
+        logger.info("Adding sensors...");
+        s.add_primary_call(1, 10, 6619296, 1, UDID_);
         Thread.sleep(2000);
-        logger.info("Verify that Arm Stay - No Delay works when enabled");
-        s.ARM_STAY();
+        logger.info("Verify that Auto Stay works when enabled");
+        Thread.sleep(3000);
+        logger.info("Arm Away the system");
+        s.ARM_AWAY(delay);
         s.verify_armstay(UDID_);
         home.DISARM.click();
         s.enter_default_user_code();
-        Thread.sleep(2000);
-        logger.info("Verify that Arm Stay - No Delay does not work when disabled");
+        logger.info("Verify that Auto Stay does not work when disabled");
         s.navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
         Thread.sleep(2000);
         inst.SECURITY_AND_ARMING.click();
         Thread.sleep(3000);
         s.swipe_vertical();
-        arming.Arm_Stay_No_Delay.click();
+        arming.Auto_Stay.click();
         Thread.sleep(2000);
         settings.Home_button.click();
-        s.ARM_STAY();
-        Thread.sleep(2000);
-        try {
-            if (home.Disarmed_text.getText().equals("ARMED STAY"))
-                s.take_screenshot();
-            logger.info(UDID_ + " Failed: System is ARMED STAY");
-        } catch (Exception e) {
-            logger.info(UDID_ + " Pass: System is NOT ARMED STAY");
-        } finally {
-        }
-        Thread.sleep(15000);
-        s.verify_armstay(UDID_);
-        home.DISARM.click();
+        logger.info("Arm Away the system");
+        s.ARM_AWAY(delay);
+        s.verify_armaway(UDID_);
+        home.ArwAway_State.click();
         s.enter_default_user_code();
-        Thread.sleep(2000);
         s.navigate_to_Advanced_Settings_page();
         adv.INSTALLATION.click();
         Thread.sleep(2000);
         inst.SECURITY_AND_ARMING.click();
         Thread.sleep(3000);
         s.swipe_vertical();
-        Thread.sleep(2000);
-        arming.Arm_Stay_No_Delay.click();
+        arming.Auto_Stay.click();
         Thread.sleep(2000);
         settings.Home_button.click();
+        s.delete_from_primary(UDID_,1);
         Thread.sleep(3000);
     }
     @AfterClass
