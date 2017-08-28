@@ -155,7 +155,7 @@ public class SystemTest_Dual_path_panel extends Setup{
         element_verification(dual.WiFi_status, "WiFi status");
         dual.Dual_path_Control_check_box.click();
         Thread.sleep(2000);
-        dual.Dual_path_Control_check_box.click();
+       dual.Dual_path_Control_check_box.click();
         element_verification(dual.warning_message, "Warning message");
         System.out.println("Press 'OK'");
         dual.warning_message_OK_button.click();
@@ -163,15 +163,16 @@ public class SystemTest_Dual_path_panel extends Setup{
         " 'Network connection failed.' shows after user try to check Dual-Path control checkbox when Wi-Fi is disabled.\n" +
                 "WiFi is disabled by service call");
         servcall.Wifi_enable();
+        Thread.sleep(4000);
         dual.Back_button.click();
         sys.DUAL_PATH_TEST.click();
         Thread.sleep(2000);
         dual.Dual_path_Control_check_box.click();
-        dual.warning_message_OK_button.click();
-        dual.Dual_path_Control_check_box.click();
+//       dual.warning_message_OK_button.click();
+   //   dual.Dual_path_Control_check_box.click();
         element_verification(dual.WiFi_status, "WiFi status");
-      }
 
+    }
     @Test(priority = 7)
     public void SASST_026a() throws Exception {
         servcall.Wifi_disable();

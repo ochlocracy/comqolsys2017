@@ -89,13 +89,13 @@ public class SystemTest_WiFi_Cell extends Setup{
         cell.Back_button.click();
         sys.CELLULAR_TEST.click();
         cell.start_button.click();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         element_verification(cell.Carrier_name, "Carrier name");
         element_verification(cell.Cellular_status, "Cellular Status");
         element_verification(cell.signal_strength, "signal strength");
         element_verification(cell.test_result, "Test Result");
         logger.info(" SASST_4 Pass: Cellular test passed successfully when wifi is disabled");
-        servcall.Cell_data_verification();
+        servcall.data_verification();
         servcall.get_Cell_data();
         servcall.Wifi_enable();
         }

@@ -113,6 +113,7 @@ public class SystemTest_DualPath_ADC extends Setup{
         type_menu.selectByVisibleText("OFF");
         Thread.sleep(1000);
         adc.getDriver1().findElement(By.id("ctl00_phBody_btnSubmit")).click();
+        System.out.println("Please wait 5 minutes to get update of setting value");
         Thread.sleep(300000);
         servcall.get_ALL_CHIMES();
     }
@@ -146,13 +147,13 @@ public class SystemTest_DualPath_ADC extends Setup{
         Thread.sleep(2000);
         Thread.sleep(300000);
         verify_armstay_l();
-
+        System.out.println("Please wait 5 minutes to get update of User site");
 
                 logger.info("SASST_030 Pass:Remote arming takes less than 5 minutes after Dual path test passed.");
         servcall.EVENT_DISARM();
             }
 
-    @Test
+    /*
     public void usersitearming() throws Exception {
 
 
@@ -166,7 +167,7 @@ public class SystemTest_DualPath_ADC extends Setup{
                     logger.info("SASST_030 Pass.");
                     break;
                 }
-    }}
+    }}*/
 
     @AfterTest
     public void tearDown () throws IOException, InterruptedException {

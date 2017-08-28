@@ -31,11 +31,23 @@ public class Cell extends Setup{
     public void SASST_031() throws Exception {
 servcall.DTMF();
 Thread.sleep(2000);
-servcall.logcat_stop();
-        logger.info("DTMF");
 
+        logger.info("DTMF");
+        killLogcat();
 
     }
+    @Test
+    public void cell() throws Exception {
+        servcall.get_Cell_data();
+        Thread.sleep(2000);
+servcall.APN_disable();
+        Thread.sleep(6000);
+        servcall.get_Cell_data();
+        logger.info("Cellular test");
+       // killLogcat();
+        servcall.data_verification();
+        servcall.get_Cell_data();
+        }
 
     @AfterTest
     public void tearDown () throws IOException, InterruptedException {
