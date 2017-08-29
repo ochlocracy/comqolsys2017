@@ -12,6 +12,8 @@ public class Emergency_Page {
     public WebElement Police_icon;
     @FindBy(id ="com.qolsys:id/tv_fire")
     public WebElement Fire_icon;
+    @FindBy(id = "com.qolsys:id/tv_action_img")
+    public WebElement Fire_icon_Alarmed;
     @FindBy(id ="com.qolsys:id/tv_medical")
     public WebElement Auxiliary_icon;
     @FindBy(id ="com.qolsys:id/tv_police_title")
@@ -29,4 +31,10 @@ public class Emergency_Page {
     public WebElement Emergency_sent_text;
     @FindBy(id ="com.qolsys:id/tv_emg_cancel")
     public WebElement Cancel_Emergency;
+    @FindBy(xpath = "//android.widget.TextView[@text='Police Emergency Sent']")
+    public WebElement Police_Emergency_Alarmed;
+    @FindBy(xpath = "//android.widget.TextView[@text='Auxiliary Emergency Sent']")
+    public WebElement Auxiliary_Emergency_Alarmed;
+    @FindBy(xpath = "//android.widget.TextView[@text='Fire Emergency Sent']")
+    public WebElement Fire_Emergency_Alarmed;
 }

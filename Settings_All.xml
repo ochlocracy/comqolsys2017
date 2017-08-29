@@ -11,25 +11,25 @@
         <parameter name="PORT_" value="4725"/>
         <classes>
             <class name="Panel.Activity_Monitor_Page_Test1"/>
-            <class name="Settings.Alarm_Photos_Test_Grid"/>
-            <class name="Settings.Allow_Master_Code_to_access_Camera_Settings_Page_Test_Grid"/>
-            <class name="Settings.Allow_Master_Code_to_access_Security_and_Arming_Test_Grid"/>
-            <class name="Settings.Allow_Master_Code_to_access_Siren_and_Alarms_Test_Grid"/>
-            <class name="Settings.Arm_Stay_No_Delay_Test_Grid"/>
-            <class name="Settings.Auto_Bypass_Test_Grid"/>
-            <class name="Settings.Auto_Exit_Time_Extension_Test_Grid"/>
-            <class name="Settings.Auto_Stay_Test_Grid"/>
-            <!--<class name="Settings.Dealer_Code_Test_Grid"/>-->
-            <!--<class name="Settings.Disarm_Photos_Test_Grid"/>-->
-            <!--<class name="Settings.Duress_Authentication_Test_Grid"/>-->
-            <!--<class name="Settings.Installer_Code_Test_Grid"/>-->
-            <!--<class name="Settings.Keyfob_Instant_Arming_Test_Grid"/>-->
-            <!--<class name="Settings.Keyfob_Disarming_Test_Grid"/>-->
-            <!--<class name="Settings.Keyfob_Alarm_Disarm_Test_Grid"/>-->
-            <!--<class name="Settings.Panic_Disable_Test_Grid"/>-->
-            <!--<class name="Settings.Secure_Arming_Test_Grid"/>-->
-            <!--<class name="Settings.Secure_Delete_Images_Test_Grid"/>-->
-            <!--<class name="Settings.Settings_Photos_Test_Grid"/>-->
+            <class name="Settings_Grid.Alarm_Photos_Test_Grid"/>
+            <class name="Settings_Grid.Allow_Master_Code_to_access_Camera_Settings_Page_Test_Grid"/>
+            <class name="Settings_Grid.Allow_Master_Code_to_access_Security_and_Arming_Test_Grid"/>
+            <class name="Settings_Grid.Allow_Master_Code_to_access_Siren_and_Alarms_Test_Grid"/>
+            <class name="Settings_Grid.Arm_Stay_No_Delay_Test_Grid"/>
+            <class name="Settings_Grid.Auto_Bypass_Test_Grid"/>
+            <class name="Settings_Grid.Auto_Exit_Time_Extension_Test_Grid"/>
+            <class name="Settings_Grid.Auto_Stay_Test_Grid"/>
+            <!--<class naSettings_Grid.Dealer_Code_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Disarm_Photos_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Duress_Authentication_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Installer_Code_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Keyfob_Instant_Arming_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Keyfob_Disarming_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Keyfob_Alarm_Disarm_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Panic_Disable_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Secure_Arming_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Secure_Delete_Images_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Settings_Photos_Test_GridGrid"/>-->
         </classes>
     </test>
     <test name="Test2">
@@ -41,25 +41,25 @@
         <parameter name="PORT_" value="4727"/>
         <classes>
             <class name="Panel.Activity_Monitor_Page_Test1"/>
-            <class name="Settings.Alarm_Photos_Test_Grid"/>
-            <class name="Settings.Allow_Master_Code_to_access_Camera_Settings_Page_Test_Grid"/>
-            <class name="Settings.Allow_Master_Code_to_access_Security_and_Arming_Test_Grid"/>
-            <class name="Settings.Allow_Master_Code_to_access_Siren_and_Alarms_Test_Grid"/>
-            <class name="Settings.Arm_Stay_No_Delay_Test_Grid"/>
-            <class name="Settings.Auto_Bypass_Test_Grid"/>
-            <class name="Settings.Auto_Exit_Time_Extension_Test_Grid"/>
-            <class name="Settings.Auto_Stay_Test_Grid"/>
-            <!--<class name="Settings.Dealer_Code_Test_Grid"/>-->
-            <!--<class name="Settings.Disarm_Photos_Test_Grid"/>-->
-            <!--<class name="Settings.Duress_Authentication_Test_Grid"/>-->
-            <!--<class name="Settings.Installer_Code_Test_Grid"/>-->
-            <!--<class name="Settings.Keyfob_Instant_Arming_Test_Grid"/>-->
-            <!--<class name="Settings.Keyfob_Disarming_Test_Grid"/>-->
-            <!--<class name="Settings.Keyfob_Alarm_Disarm_Test_Grid"/>-->
-            <!--<class name="Settings.Panic_Disable_Test_Grid"/>-->
-            <!--<class name="Settings.Secure_Arming_Test_Grid"/>-->
-            <!--<class name="Settings.Secure_Delete_Images_Test_Grid"/>-->
-            <!--<class name="Settings.Settings_Photos_Test_Grid"/>-->
+            <class name="Settings_Grid.Alarm_Photos_Test_Grid"/>
+            <class name="Settings_Grid.Allow_Master_Code_to_access_Camera_Settings_Page_Test_Grid"/>
+            <class name="Settings_Grid.Allow_Master_Code_to_access_Security_and_Arming_Test_Grid"/>
+            <class name="Settings_Grid.Allow_Master_Code_to_access_Siren_and_Alarms_Test_Grid"/>
+            <class name="Settings_Grid.Arm_Stay_No_Delay_Test_Grid"/>
+            <class name="Settings_Grid.Auto_Bypass_Test_Grid"/>
+            <class name="Settings_Grid.Auto_Exit_Time_Extension_Test_Grid"/>
+            <class name="Settings_Grid.Auto_Stay_Test_Grid"/>
+            <!--<class naSettings_Grid.Dealer_Code_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Disarm_Photos_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Duress_Authentication_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Installer_Code_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Keyfob_Instant_Arming_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Keyfob_Disarming_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Keyfob_Alarm_Disarm_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Panic_Disable_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Secure_Arming_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Secure_Delete_Images_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Settings_Photos_Test_GridGrid"/>-->
         </classes>
     </test>
     <test name="Test3">
@@ -71,25 +71,25 @@
         <parameter name="PORT_" value="4729"/>
         <classes>
             <class name="Panel.Activity_Monitor_Page_Test1"/>
-            <class name="Settings.Alarm_Photos_Test_Grid"/>
-            <class name="Settings.Allow_Master_Code_to_access_Camera_Settings_Page_Test_Grid"/>
-            <class name="Settings.Allow_Master_Code_to_access_Security_and_Arming_Test_Grid"/>
-            <class name="Settings.Allow_Master_Code_to_access_Siren_and_Alarms_Test_Grid"/>
-            <class name="Settings.Arm_Stay_No_Delay_Test_Grid"/>
-            <class name="Settings.Auto_Bypass_Test_Grid"/>
-            <class name="Settings.Auto_Exit_Time_Extension_Test_Grid"/>
-            <class name="Settings.Auto_Stay_Test_Grid"/>
-            <!--<class name="Settings.Dealer_Code_Test_Grid"/>-->
-            <!--<class name="Settings.Disarm_Photos_Test_Grid"/>-->
-            <!--<class name="Settings.Duress_Authentication_Test_Grid"/>-->
-            <!--<class name="Settings.Installer_Code_Test_Grid"/>-->
-            <!--<class name="Settings.Keyfob_Instant_Arming_Test_Grid"/>-->
-            <!--<class name="Settings.Keyfob_Disarming_Test_Grid"/>-->
-            <!--<class name="Settings.Keyfob_Alarm_Disarm_Test_Grid"/>-->
-            <!--<class name="Settings.Panic_Disable_Test_Grid"/>-->
-            <!--<class name="Settings.Secure_Arming_Test_Grid"/>-->
-            <!--<class name="Settings.Secure_Delete_Images_Test_Grid"/>-->
-            <!--<class name="Settings.Settings_Photos_Test_Grid"/>-->
+            <class name="Settings_Grid.Alarm_Photos_Test_Grid"/>
+            <class name="Settings_Grid.Allow_Master_Code_to_access_Camera_Settings_Page_Test_Grid"/>
+            <class name="Settings_Grid.Allow_Master_Code_to_access_Security_and_Arming_Test_Grid"/>
+            <class name="Settings_Grid.Allow_Master_Code_to_access_Siren_and_Alarms_Test_Grid"/>
+            <class name="Settings_Grid.Arm_Stay_No_Delay_Test_Grid"/>
+            <class name="Settings_Grid.Auto_Bypass_Test_Grid"/>
+            <class name="Settings_Grid.Auto_Exit_Time_Extension_Test_Grid"/>
+            <class name="Settings_Grid.Auto_Stay_Test_Grid"/>
+            <!--<class naSettings_Grid.Dealer_Code_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Disarm_Photos_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Duress_Authentication_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Installer_Code_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Keyfob_Instant_Arming_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Keyfob_Disarming_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Keyfob_Alarm_Disarm_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Panic_Disable_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Secure_Arming_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Secure_Delete_Images_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Settings_Photos_Test_GridGrid"/>-->
         </classes>
     </test>
     <test name="Test4">
@@ -101,25 +101,25 @@
         <parameter name="PORT_" value="4731"/>
         <classes>
             <class name="Panel.Activity_Monitor_Page_Test1"/>
-            <class name="Settings.Alarm_Photos_Test_Grid"/>
-            <class name="Settings.Allow_Master_Code_to_access_Camera_Settings_Page_Test_Grid"/>
-            <class name="Settings.Allow_Master_Code_to_access_Security_and_Arming_Test_Grid"/>
-            <class name="Settings.Allow_Master_Code_to_access_Siren_and_Alarms_Test_Grid"/>
-            <class name="Settings.Arm_Stay_No_Delay_Test_Grid"/>
-            <class name="Settings.Auto_Bypass_Test_Grid"/>
-            <class name="Settings.Auto_Exit_Time_Extension_Test_Grid"/>
-            <class name="Settings.Auto_Stay_Test_Grid"/>
-            <!--<class name="Settings.Dealer_Code_Test_Grid"/>-->
-            <!--<class name="Settings.Disarm_Photos_Test_Grid"/>-->
-            <!--<class name="Settings.Duress_Authentication_Test_Grid"/>-->
-            <!--<class name="Settings.Installer_Code_Test_Grid"/>-->
-            <!--<class name="Settings.Keyfob_Instant_Arming_Test_Grid"/>-->
-            <!--<class name="Settings.Keyfob_Disarming_Test_Grid"/>-->
-            <!--<class name="Settings.Keyfob_Alarm_Disarm_Test_Grid"/>-->
-            <!--<class name="Settings.Panic_Disable_Test_Grid"/>-->
-            <!--<class name="Settings.Secure_Arming_Test_Grid"/>-->
-            <!--<class name="Settings.Secure_Delete_Images_Test_Grid"/>-->
-            <!--<class name="Settings.Settings_Photos_Test_Grid"/>-->
+            <class name="Settings_Grid.Alarm_Photos_Test_Grid"/>
+            <class name="Settings_Grid.Allow_Master_Code_to_access_Camera_Settings_Page_Test_Grid"/>
+            <class name="Settings_Grid.Allow_Master_Code_to_access_Security_and_Arming_Test_Grid"/>
+            <class name="Settings_Grid.Allow_Master_Code_to_access_Siren_and_Alarms_Test_Grid"/>
+            <class name="Settings_Grid.Arm_Stay_No_Delay_Test_Grid"/>
+            <class name="Settings_Grid.Auto_Bypass_Test_Grid"/>
+            <class name="Settings_Grid.Auto_Exit_Time_Extension_Test_Grid"/>
+            <class name="Settings_Grid.Auto_Stay_Test_Grid"/>
+            <!--<class naSettings_Grid.Dealer_Code_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Disarm_Photos_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Duress_Authentication_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Installer_Code_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Keyfob_Instant_Arming_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Keyfob_Disarming_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Keyfob_Alarm_Disarm_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Panic_Disable_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Secure_Arming_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Secure_Delete_Images_Test_GridGrid"/>-->
+            <!--<class naSettings_Grid.Settings_Photos_Test_GridGrid"/>-->
         </classes>
     </test>
 </suite>

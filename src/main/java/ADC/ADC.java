@@ -3,12 +3,15 @@ package ADC;
 import Panel.Setup;
 import Sensors.Sensors;
 import jxl.read.biff.BiffException;
+import net.sf.cglib.core.internal.Function;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.firefox.internal.ProfilesIni;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 
 import java.io.IOException;
 import java.util.List;
@@ -148,7 +151,18 @@ public class ADC extends Setup {
         }else if (get_UDID().equals("8ebdbcf1")) {    //Zach
             accountId = "5434890";
             return accountId;
-        }
+        }else if (get_UDID().equals("8ebdbcb3")) {    //Jeff
+        accountId = "4283420";
+        return accountId;
+        }else  if (get_UDID().equals("62e9f0df")) {
+            accountId = "5222397";
+        }else  if (get_UDID().equals("62964b68")) {
+        accountId = "5389996";
+        }else  if (get_UDID().equals("62c74a45")) { //Olga new verizon
+            accountId = "5222509";
+        }else  if (get_UDID().equals("62964b68")) { //Olga AT&T
+            accountId = "5389996";
+    }
         return  accountId;
     }
 
@@ -229,15 +243,23 @@ public class ADC extends Setup {
         getDriver1().manage().window().maximize();
         String ADC_URL = "https://alarmadmin.alarm.com/Support/CustomerInfo.aspx?customer_Id="+accountID;
         getDriver1().get(ADC_URL);
-        String login = "qapple";
-        String password = "qolsys123";
+        String login = "qautomation";
+        String password = "Qolsys123";
         Thread.sleep(2000);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("txtUsername")));
         getDriver1().findElement(By.id("txtUsername")).sendKeys(login);
         getDriver1().findElement(By.id("txtPassword")).sendKeys(password);
-
         getDriver1().findElement(By.id("butLogin")).click();
         getDriver1().findElement(By.partialLinkText("Equipment")).click();
+        TimeUnit.SECONDS.sleep(2);
+    }
+    //must be on the Equipment page
+    public void get_image_sensors() throws InterruptedException {
+        getDriver1().findElement(By.xpath("/html/body/form/table/tbody/tr/td[2]/div/div[2]/div[3]/div/div/ul/li[4]/a")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_btnRequestInfo"))).click();
+        TimeUnit.MINUTES.sleep(2);
+        getDriver1().findElement(By.id("ctl00_phBody_btnRefreshPage")).click();
+        TimeUnit.SECONDS.sleep(2);
     }
     public void navigate_to_user_site(String login, String password) {
         getDriver1().manage().window().maximize();
@@ -251,6 +273,15 @@ public class ADC extends Setup {
         getDriver1().findElement(By.className("password")).sendKeys(password);
         getDriver1().findElement(By.id("ctl00_ContentPlaceHolder1_loginform_signInButton")).click();
     }
+    public void navigate_to_user_site_lights(String login, String password) {
+        navigate_to_user_site(login, password);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("emPower")));
+        getDriver1().findElement(By.partialLinkText("emPower")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Lights")));
+        getDriver1().findElement(By.id("Lights")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("id('ctl00_phBody_ucLightDeviceRepeater" +
+                "Control_SwitchesAndDimmers_rptDevices_ctl00_btnDevicesViewDeviceOn')")));
+    }
     public void Request_equipment_list() throws InterruptedException {
         logger.info("Request sensor list and Sensor names");
         getDriver1().findElement(By.id("ctl00_phBody_sensorList_butRequest")).click();
@@ -258,19 +289,26 @@ public class ADC extends Setup {
         logger.info("Request equipment list");
         getDriver1().findElement(By.id("ctl00_refresh_sensors_button_btnRefreshPage")).click();
         TimeUnit.SECONDS.sleep(3);
-//        getDriver1().findElement(By.xpath("//input[@value='Request Sensor Names']")).click();
-//        Alert alert = getDriver1().switchTo().alert();
-//        getDriver1().switchTo().alert().accept();
-//        alert.accept();
-//        TimeUnit.SECONDS.sleep(10);
-//        getDriver1().findElement(By.id("ctl00_refresh_sensors_button_btnRefreshPage")).click();
-//        TimeUnit.SECONDS.sleep(5);
-//        getDriver1().findElement(By.xpath("//input[@value='Request Sensor Names']")).click();
-//        alert =  getDriver1().switchTo().alert();
-//        getDriver1().switchTo().alert();
-//        alert.accept();
-//        TimeUnit.SECONDS.sleep(10);
-//        getDriver1().findElement(By.id("ctl00_refresh_sensors_button_btnRefreshPage")).click();
+        getDriver1().findElement(By.xpath("//input[@value='Request Sensor Names']")).click();
+        TimeUnit.SECONDS.sleep(2);
+        try {
+        Alert alert = getDriver1().switchTo().alert();
+        getDriver1().switchTo().alert().accept();
+        alert.accept();
+        } catch (Exception e) {}
+        TimeUnit.SECONDS.sleep(2);
+        getDriver1().findElement(By.id("ctl00_refresh_sensors_button_btnRefreshPage")).click();
+        TimeUnit.SECONDS.sleep(5);
+        getDriver1().findElement(By.xpath("//input[@value='Request Sensor Names']")).click();
+        TimeUnit.SECONDS.sleep(2);
+        try {
+            Alert alert =  getDriver1().switchTo().alert();
+            getDriver1().switchTo().alert();
+            alert.accept();
+        } catch (Exception e){}
+        TimeUnit.SECONDS.sleep(2);
+        getDriver1().findElement(By.id("ctl00_refresh_sensors_button_btnRefreshPage")).click();
+        TimeUnit.SECONDS.sleep(2);
     }
     public void Sensor_verification(String name, String group, String sensor_type, int number) {
         //number = number of the table row
@@ -327,5 +365,17 @@ public class ADC extends Setup {
         String event = " shell rfinjector 02 "+DLID+" "+status+" 00";
         mySensors.rt.exec(adbPath + " -s " +UDID_ + event);
         System.out.println(event);
+    }
+    public WebElement fluentWait(String identifier) throws TimeoutException {
+        FluentWait<WebDriver> fwait = new FluentWait<>(driver1)
+                .withTimeout(30, TimeUnit.SECONDS)
+                .pollingEvery(2, TimeUnit.SECONDS)
+                .ignoring(NoSuchElementException.class);
+
+        WebElement ele = null;
+        // start waiting for given element
+        ele = fwait.until(ExpectedConditions.visibilityOfElementLocated(By.id(identifier)));
+
+        return ele;
     }
 }

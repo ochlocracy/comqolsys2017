@@ -61,7 +61,7 @@ public class Home_Page {
     public WebElement Bypass_Tab;
     @FindBy(id="com.qolsys:id/main")
     public WebElement ArwAway_State;
-    @FindBy(xpath = "//android.widget.TextView[@text='ALARM']")
+    @FindBy(xpath = "//android.widget.TextView[@text='AL ARM']")
     public WebElement ALARM;
     @FindBy(id="com.qolsys:id/tv_keyOne")
     public WebElement One;
@@ -71,10 +71,16 @@ public class Home_Page {
     public WebElement Three;
     @FindBy(id="com.qolsys:id/tv_keyFour")
     public WebElement Four;
+    @FindBy(id="com.qolsys:id/tv_keyFive")
+    public WebElement Five;
+    @FindBy(id="com.qolsys:id/tv_keySix")
+    public WebElement Six;
     @FindBy(id="com.qolsys:id/tv_keyEight")
     public WebElement Eight;
     @FindBy(id="com.qolsys:id/tv_keyNine")
     public WebElement Nine;
+    @FindBy(id="com.qolsys:id/tv_zero")
+    public WebElement Zero;
     @FindBy(id="com.qolsys:id/tv_name")
     public WebElement Red_banner_sensor_name;
     @FindBy(id="com.qolsys:id/tv_status")
@@ -93,5 +99,7 @@ public class Home_Page {
     public WebElement Emergency_button;
     @FindBy(id = "com.qolsys:id/ft_home_button")
     public WebElement Home_button;
+    @FindBy(id = "com.qolsys:id/t3_home_iv_SensorStatus")
+    public WebElement Tamper_Status;
 }
 

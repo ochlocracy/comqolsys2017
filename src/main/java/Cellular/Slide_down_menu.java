@@ -16,7 +16,15 @@ public class Slide_down_menu extends Setup{
         String page_name = "Slide down Menu";
        Logger logger = Logger.getLogger(page_name);
 
-      @BeforeMethod
+    public void swipe_vertical1() throws InterruptedException {
+        int starty = 620;
+        int endy = 250;
+        int startx = 1000;
+        driver.swipe(startx, starty, startx, endy, 3000);
+        Thread.sleep(2000);
+    }
+
+    @BeforeMethod
     public void capabilities_setup() throws Exception {
         setup_driver(get_UDID(), "http://127.0.1.1", "4723");
         setup_logger(page_name);

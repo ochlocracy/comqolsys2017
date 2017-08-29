@@ -50,7 +50,6 @@ public class WiFi_Devices_Page {
     public WebElement WPS_PUSH_BUTTON;
     @FindBy(xpath = "//android.widget.TextView[@text='AP PASSWORD']")
     public WebElement AP_PASSWORD;
-
     @FindBy(xpath = "//android.widget.TextView[@text='No']")
     public WebElement No;
     @FindBy(xpath = "//android.widget.TextView[@text='MAC Address']")
@@ -62,7 +61,12 @@ public class WiFi_Devices_Page {
     @FindBy(xpath = "//android.widget.TextView[@text='Actions']")
     public WebElement Actions;
 
-
-
-
+    @FindBy(xpath = "//android.widget.TextView[@text='Access Point Settings']")
+    public WebElement Access_Point_Settings;
+    @FindBy(xpath = "//android.widget.TextView[@text='Access Point Connected Devices']")
+    public WebElement Access_Point_Connected_Devices;
+    @FindBy(xpath = "//android.widget.TextView[@text='WI-FI']")
+    public WebElement WiFi;
+    @FindBy(xpath = "//android.widget.TextView[@text='IQ Remote Devices']")
+    public WebElement IQ_Remote_Devices;
 }
