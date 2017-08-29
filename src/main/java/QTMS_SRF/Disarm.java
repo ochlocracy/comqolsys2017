@@ -1,22 +1,24 @@
 package QTMS_SRF;
 
 import ADC.ADC;
-import Panel.Home_Page;
-import Panel.PanelInfo_ServiceCalls;
-import Panel.Settings_Page;
-import Panel.Setup;
+import Panel.*;
 import Sensors.Sensors;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+import java.beans.Visibility;
 import java.io.IOException;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.concurrent.TimeUnit;
 
 public class Disarm extends Setup {
 
@@ -24,10 +26,11 @@ public class Disarm extends Setup {
 
     private int Normal_Exit_Delay = 10;
     private int Normal_Entry_Delay = 11;
-    private int Long_Exit_Delay = 13;
-    private int Long_Entry_Delay = 12;
+    private int Long_Exit_Delay = 12;
+    private int Long_Entry_Delay = 13;
     private String open = "06 00";
     private String close = "04 00";
+    private String tamper = "01 01";
     String door_window10 = "65 00 0A";
     String door_window12 = "65 00 1A";
     String door_window13 = "65 00 2A";
@@ -35,10 +38,12 @@ public class Disarm extends Setup {
     String door_window16 = "65 00 4A";
     String door_window25 = "65 00 5A";
     String door_window8 = "65 00 6A";
+    String door_window9 = "65 00 7A";
     String motion15 = "55 00 44";
     String motion17 = "55 00 54";
     String motion20 = "55 00 64";
     String motion35 = "55 00 74";
+    String newName = "NewSensorName";
 
     String page_name = "SRF Disarm";
     Logger logger = Logger.getLogger(page_name);
@@ -46,6 +51,16 @@ public class Disarm extends Setup {
     ADC adc = new ADC();
     PanelInfo_ServiceCalls servcall = new PanelInfo_ServiceCalls();
     String AccountID = adc.getAccountId();
+
+    public void navigate_to_Security_Sensors_page() {
+        Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
+        Installation_Page inst = PageFactory.initElements(driver, Installation_Page.class);
+        Devices_Page dev = PageFactory.initElements(driver, Devices_Page.class);
+        navigate_to_Advanced_Settings_page();
+        adv.INSTALLATION.click();
+        inst.DEVICES.click();
+        dev.Security_Sensors.click();
+    }
 
     /*** If you want to run tests only on the panel, please set ADCexecute value to false ***/
     String ADCexecute = "true";
@@ -236,34 +251,227 @@ public class Disarm extends Setup {
         delete_from_primary(1);
         Thread.sleep(1000);
     }
-    @Test(priority = 11)
-    public void Disb_22_DW8() throws Exception {
+//    @Test(priority = 11)
+//    public void Disb_22_DW8() throws Exception {
+//        logger.info("*Disb_21* system will disarm from Police Alarm from the User Site, dw 8");
+//        add_primary_call(1, 8, 6619302, 1);
+//        Thread.sleep(1000);
+//        sensors.primary_call(door_window8, open);
+//        Thread.sleep(35000);
+//        adc.New_ADC_session_User("mypanel01", "qolsys123");
+//        adc.driver1.navigate().refresh();
+//        try{
+//        //    driver1.findElement()
+//        }catch ( org.openqa.selenium.NoSuchElementException e){}
+//        //finish here!!!
+//        delete_from_primary(1);
+//        Thread.sleep(5000);
+//    }
+    @Test (priority = 12)
+    public void Disb_23_DW9() throws Exception {
         Settings_Page sett = PageFactory.initElements(driver, Settings_Page.class);
-        Home_Page home = PageFactory.initElements(driver, Home_Page.class);
-        logger.info("*Disb_21* Open/Close event is displayed in panel history for sensor group 8");
-        add_primary_call(1, 8, 6619302, 1);
+        logger.info("*Disb_23* Open/Close event is displayed in panel history for sensor group 9, system goes into alarm at the end of entry delay");
+        add_primary_call(1, 9, 6619303, 1);
+        navigate_to_Settings_page();
+        sett.STATUS.click();
+        sensors.primary_call(door_window9, open);
+        TimeUnit.SECONDS.sleep(Long_Entry_Delay);
+        Thread.sleep(2);
+        sensors.primary_call(door_window9, close);
+        verify_in_alarm();
+        enter_default_user_code();
+        delete_from_primary(1);
         Thread.sleep(1000);
-        //      sensors.primary_call(door_window8, open);
-        //     Thread.sleep(35000);
-        adc.driver1.manage().window().maximize();
-        adc.driver1.get("https://www.alarm.com/web/Security/SystemSummary.aspx");
-        adc.driver1.findElement(By.id("ctl00_ContentPlaceHolder1_loginform_txtUserName")).sendKeys("mypanel01");
-        adc.driver1.findElement(By.className("password")).sendKeys("qolsys123");
-        Thread.sleep(1000);
-        adc.driver1.findElement(By.id("ctl00_ContentPlaceHolder1_loginform_signInButton")).click();
-        Thread.sleep(1000);
-        try {
-            if (adc.driver1.findElement(By.id("ctl00_responsiveBody_pageInfoActions_buttonSave")).isDisplayed()) {
-                adc.driver1.findElement(By.id("ctl00_responsiveBody_pageInfoActions_buttonSave")).click();
-            }
-        } catch (Exception e) {
-        }
-
-        Thread.sleep(5000);
     }
+    @Test (priority = 13)
+    public void Disb_24_DW8() throws Exception {
+        logger.info("*Disb_24* system goes into alarm after sensor tamper, dw8");
+        add_primary_call(1, 8, 6619302, 1);
+        Thread.sleep(2000);
+        sensors.primary_call(door_window8, tamper);
+        Thread.sleep(4000);
+        sensors.primary_call(door_window8, close);
+        verify_in_alarm();
+        enter_default_user_code();
+        delete_from_primary(1);
+        Thread.sleep(1000);
+    }
+    @Test (priority = 14)
+    public void Disb_25_DW9() throws Exception {
+        logger.info("*Disb_25* system goes into alarm after sensor tamper, dw9");
+        add_primary_call(1, 9, 6619303, 1);
+        Thread.sleep(2000);
+        sensors.primary_call(door_window9, tamper);
+        Thread.sleep(4000);
+        sensors.primary_call(door_window9, close);
+        verify_in_alarm();
+        enter_default_user_code();
+        delete_from_primary(1);
+        Thread.sleep(1000);
+    }
+    @Test (priority = 15)
+    public void Disb_26_DW10() throws Exception {
+        Security_Sensors_Page sen = PageFactory.initElements(driver, Security_Sensors_Page.class);
+        Home_Page home = PageFactory.initElements(driver, Home_Page.class);
+        logger.info("*Disb_26* sensor name can be edited and changes will be reflected on the panel and website");
+        add_primary_call(1, 10, 6619296, 1);
+        navigate_to_Security_Sensors_page();
+        sen.Edit_Sensor.click();
+        sen.Edit_Img.click();
+        sen.Custom_Description.clear();
+        sen.Custom_Description.sendKeys(newName);
+        try{
+            driver.hideKeyboard();
+        } catch (Exception e) {}
+        sen.Save.click();
+        home.Home_button.click();
+        Thread.sleep(2000);
+        home.All_Tab.click();
+        Thread.sleep(2000);
+        logger.info("Verify new name is displayed");
+        WebElement newSensorName = driver.findElement(By.xpath("//android.widget.TextView[@text='"+newName+"']"));
+        Assert.assertTrue(newSensorName.isDisplayed());
+        Thread.sleep(1000);
 
+        adc.New_ADC_session(AccountID);
+        Thread.sleep(10000);
+        adc.driver1.findElement(By.partialLinkText("Sensors")).click();
+        Thread.sleep(2000);
+        adc.Request_equipment_list();
+        Thread.sleep(2000);
 
+        WebElement webname = adc.driver1.findElement(By.xpath("/html/body/form/table/tbody/tr/td[2]/div/div[2]/div[7]/div[2]/div[2]/table/tbody/tr[2]/td[2]"));
+        Assert.assertTrue(webname.getText().equals(newName));
+        logger.info("Pass: The name is displayed correctly " + webname.getText());
+    }
+    @Test (dependsOnMethods = {"Disb_26_DW10"}, priority = 16)
+    public void Disb_27_DW10() throws Exception {
+        Security_Sensors_Page sen = PageFactory.initElements(driver, Security_Sensors_Page.class);
+        Home_Page home = PageFactory.initElements(driver, Home_Page.class);
+        logger.info("*Disb_27* sensor can be deleted, change is reflacted on the website");
+        navigate_to_Security_Sensors_page();
+        sen.Delete_Sensor.click();
+        driver.findElement(By.id("com.qolsys:id/checkBox1")).click();
+        sen.Delete.click();
+        sen.OK.click();
+        home.Home_button.click();
+        Thread.sleep(2000);
+        home.All_Tab.click();
+        Thread.sleep(2000);
+        try{
+            WebElement newSensorName = driver.findElement(By.xpath("//android.widget.TextView[@text='"+newName+"']"));
+            Assert.assertTrue(newSensorName.isDisplayed());
+            logger.info("Failed:");
+        } catch (Exception e) {}
+        logger.info("Sensor is deleted successfully");
+        Thread.sleep(1000);
+    }
+    @Test(priority = 17)
+    public void Disb_28_DW10() throws Exception {
+        Security_Sensors_Page sen = PageFactory.initElements(driver, Security_Sensors_Page.class);
+        Home_Page home = PageFactory.initElements(driver, Home_Page.class);
+        logger.info("*Disb_28* readd same sensor from panel");
+        navigate_to_Security_Sensors_page();
+        sen.Add_Sensor.click();
+        logger.info("Adding sensor with DLID 1234A5");
+        sen.Sensor_DLID.sendKeys("1234A5");
+        try{
+        driver.hideKeyboard();}
+        catch (WebDriverException e) {}
+        sen.Save.click();
+        Thread.sleep(1000);
+        home.Back_button.click();
+        Thread.sleep(1000);
+        sen.Edit_Sensor.click();
+        try {
+            WebElement sensor = driver.findElement(By.id("com.qolsys:id/textView2"));
+            Assert.assertTrue(sensor.getText().equals("1234A5"));
+            logger.info("Pass: sensor is displayed");
+        }catch (NoSuchElementException e){}
+        home.Back_button.click();
+        sen.Delete_Sensor.click();
+        logger.info("Deleting sensor with DLID 1234A5");
+        driver.findElement(By.id("com.qolsys:id/checkBox1")).click();
+        sen.Delete.click();
+        sen.OK.click();
+        Thread.sleep(2000);
+        home.Back_button.click();
+        logger.info("Readding sensor with DLID 1234A5");
+        sen.Add_Sensor.click();
+        sen.Sensor_DLID.sendKeys("1234A5");
+        try{
+            driver.hideKeyboard();}
+        catch (WebDriverException e) {}
+        sen.Save.click();
+        Thread.sleep(1000);
+        home.Back_button.click();
+        sen.Edit_Sensor.click();
+        try {
+            WebElement sensor = driver.findElement(By.id("com.qolsys:id/textView2"));
+            Assert.assertTrue(sensor.getText().equals("1234A5"));
+            logger.info("Pass: sensor is displayed");
+        }catch (NoSuchElementException e){}
+        Thread.sleep(1000);
+        delete_from_primary(1);
+    }
+    @Test (priority = 18)
+    public void Disb_33_DW10() throws Exception {
+        logger.info("*Disb-33* System does not allow entry delay. Immediate alarm after triggering a sensor");
+        add_primary_call(1, 10, 6619296, 1);
+        Thread.sleep(1000);
+        logger.info("Arm Stay from User website, select No Entry Delay");
+        adc.New_ADC_session_User("mypanel01", "qolsys123");
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_ArmingStateWidget_btnArmStay")));
+        adc.driver1.findElement(By.id("ctl00_phBody_ArmingStateWidget_btnArmStay")).click();
+        Thread.sleep(5000);
+        WebElement No_Entry_Delay_CheckBox = adc.driver1.findElement(By.id("ctl00_phBody_ArmingStateWidget_cbArmOptionNoEntryDelay"));
+        try{
+            if(!No_Entry_Delay_CheckBox.getAttribute("checked").equals("true")) {
+                System.out.println("setting is not selected");}
+        } catch (NullPointerException e) {
+            No_Entry_Delay_CheckBox.click();
+            e.printStackTrace();
+        }
+        Thread.sleep(2000);
+        adc.driver1.findElement(By.id("ctl00_phBody_ArmingStateWidget_btnArmOptionStay")).click();
+        Thread.sleep(5000);
 
+        verify_armstay();
+        sensors.primary_call(door_window10, open);
+        Thread.sleep(2000);
+        verify_in_alarm();
+        enter_default_user_code();
+        delete_from_primary(1);
+    }
+    @Test(priority =19 )
+    public void Disb_34_DW12() throws Exception {
+        logger.info("*Disb-34* System does not allow entry delay. Immediate alarm after triggering a sensor");
+        add_primary_call(1, 12, 6619297, 1);
+        Thread.sleep(1000);
+        logger.info("Arm Stay from User website, select No Entry Delay");
+        adc.New_ADC_session_User("mypanel01", "qolsys123");
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_ArmingStateWidget_btnArmStay")));
+        adc.driver1.findElement(By.id("ctl00_phBody_ArmingStateWidget_btnArmStay")).click();
+        Thread.sleep(5000);
+        WebElement No_Entry_Delay_CheckBox = adc.driver1.findElement(By.id("ctl00_phBody_ArmingStateWidget_cbArmOptionNoEntryDelay"));
+        try{
+        if(!No_Entry_Delay_CheckBox.getAttribute("checked").equals("true")) {
+            System.out.println("setting is not selected");}
+        } catch (NullPointerException e) {
+            No_Entry_Delay_CheckBox.click();
+            e.printStackTrace();
+        }
+        Thread.sleep(2000);
+        adc.driver1.findElement(By.id("ctl00_phBody_ArmingStateWidget_btnArmOptionStay")).click();
+        Thread.sleep(5000);
+
+        verify_armstay();
+        sensors.primary_call(door_window12, open);
+        Thread.sleep(2000);
+        verify_in_alarm();
+        enter_default_user_code();
+        delete_from_primary(1);
+    }
 
 
     @AfterTest
