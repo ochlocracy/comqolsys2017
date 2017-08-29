@@ -124,7 +124,7 @@ public class Setup {
         Thread.sleep(2000);
     }
 
-    public WebElement element_verification(WebElement element, String element_name) throws  Exception{
+    public WebElement element_verification(WebElement element, String element_name ) throws  Exception{
         try {
             if (element.isDisplayed()) {
                 logger.info("Pass: " + element_name + " is present, value = " + element.getText());
@@ -226,6 +226,16 @@ public class Setup {
         } else {
             take_screenshot();
             logger.info("Failed: System is NOT ARMED STAY");}
+    }
+    public boolean verify_armstay_l() throws Exception {
+        Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        if (home_page.Disarmed_text.getText().equals("ARMED STAY")) {
+            logger.info("Pass: System is ARMED STAY");
+            return true;
+        } else {
+            take_screenshot();
+            logger.info("Failed: System is NOT ARMED STAY");}
+        return false;
     }
 
     public void verify_armaway() throws Exception {

@@ -61,7 +61,7 @@ public class Home_Page {
     public WebElement Bypass_Tab;
     @FindBy(id="com.qolsys:id/main")
     public WebElement ArwAway_State;
-    @FindBy(xpath = "//android.widget.TextView[@text='ALARM']")
+    @FindBy(xpath = "//android.widget.TextView[@text='AL ARM']")
     public WebElement ALARM;
     @FindBy(id="com.qolsys:id/tv_keyOne")
     public WebElement One;

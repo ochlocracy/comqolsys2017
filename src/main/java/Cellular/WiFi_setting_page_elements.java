@@ -18,7 +18,7 @@ public class WiFi_setting_page_elements {
     public WebElement FORGET;
     @FindBy(id = "com.qolsys:id/value")
     public WebElement value;
-    @FindBy(id = "com.qolsys:id/neutral_button")
+    @FindBy(id = "com.qolsys:id/positive_button")
     public WebElement DONE;
     @FindBy(id="com.qolsys:id/ft_emergency")
     public WebElement Emergency_Button;
