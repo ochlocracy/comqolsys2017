@@ -35,6 +35,7 @@ public class Dual_path_page extends Setup{
             Thread.sleep(2000);
             sys.DUAL_PATH_TEST.click();
             Thread.sleep(2000);
+
         }
 /*@Test
     public void wifi_data_off() throws IOException {

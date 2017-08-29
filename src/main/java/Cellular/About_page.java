@@ -3,6 +3,7 @@ package Cellular;
 import Panel.Advanced_Settings_Page;
 import Panel.Setup;
 import jxl.read.biff.BiffException;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -17,7 +18,7 @@ public class About_page extends Setup {
 
     public About_page() throws IOException, BiffException {}
     String page_name = "Cellular on the About page";
-
+    Logger logger = Logger.getLogger(page_name);
     public void swipe_vertical1() throws InterruptedException {
         int starty = 620;
         int endy = 250;
