@@ -16,4 +16,20 @@ public class Security_Sensors_Page {
     public WebElement Sensor_Status;
     @FindBy(xpath = "//android.widget.TextView[@text='Sensor Group']")
     public WebElement Sensor_Group;
+
+
+    @FindBy(id="com.qolsys:id/imageView1")
+    public WebElement Edit_Img;
+    @FindBy(id="com.qolsys:id/sensorDescText")
+    public WebElement Custom_Description;
+    @FindBy(id="com.qolsys:id/addsensor")
+    public WebElement Save;
+    @FindBy(id="com.qolsys:id/btnDelete")
+    public WebElement Delete;
+
+    @FindBy(id="com.qolsys:id/ok")
+    public WebElement OK;
+
+    @FindBy(id="com.qolsys:id/sensor_id")
+    public WebElement Sensor_DLID;
 }
