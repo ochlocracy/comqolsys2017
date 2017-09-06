@@ -2,6 +2,7 @@ package Update;
 
 import Panel.Contact_Us;
 import Panel.Emergency_Page;
+import Panel.Home_Page;
 import Panel.Setup;
 import Sensors.Sensors;
 import jxl.read.biff.BiffException;
@@ -90,11 +91,12 @@ public class PreUpdate_Sensors extends Setup {
         Thread.sleep(500);
     }
 
-    @Test
+    @Test (dependsOnMethods = {"addSensors"})
     public void sensorsCheck() throws Exception {
         logger.info("Open-Close contact sensors");
         Emergency_Page emergency =  PageFactory.initElements(driver, Emergency_Page.class);
         Contact_Us contact =  PageFactory.initElements(driver, Contact_Us.class);
+        Home_Page home =  PageFactory.initElements(driver, Home_Page.class);
         for (int i=5; i>0; i--) {
             open_close("65 00 0A");
             open_close("65 00 1A");
@@ -227,16 +229,16 @@ public class PreUpdate_Sensors extends Setup {
             Thread.sleep(1000);
 
             contact.acknowledge_all_alerts();
+            swipe_left();
+            Thread.sleep(1000);
         }
     }
-//    @Test
-//    public void deleteSensors() throws IOException, InterruptedException {
-//        for (int i = 33; i>0; i--) {
-//            delete_from_primary(i);
-//        }
-//    }
-
-
+    @Test
+    public void deleteSensors() throws IOException, InterruptedException {
+        for (int i = 33; i>0; i--) {
+            delete_from_primary(i);
+        }
+    }
     @AfterTest
     public void tearDown() throws IOException, InterruptedException {
         driver.quit();

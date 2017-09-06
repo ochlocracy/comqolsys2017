@@ -15,14 +15,9 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-/**
- * Created by nchortek on 8/25/17.
- */
 public class Auto_Bypass extends Setup{
 
-    public Auto_Bypass() throws IOException, BiffException {
-    }
-
+    public Auto_Bypass() throws IOException, BiffException {}
 
     String page_name = "Auto Bypass";
     Logger logger = Logger.getLogger(page_name);

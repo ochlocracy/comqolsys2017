@@ -15,6 +15,7 @@ public class Auto_Bypass_Test extends Setup {
     String page_name = "Auto Bypass testing";
     Logger logger = Logger.getLogger(page_name);
     Sensors sensors = new Sensors();
+    PanelInfo_ServiceCalls serv = new PanelInfo_ServiceCalls();
     private String open = "06 00";
     private String close = "04 00";
 
@@ -33,6 +34,7 @@ public class Auto_Bypass_Test extends Setup {
         Installation_Page inst = PageFactory.initElements(driver, Installation_Page.class);
         Home_Page home = PageFactory.initElements(driver, Home_Page.class);
         logger.info("Adding sensors...");
+        serv.set_ARM_STAY_NO_DELAY_enable();
         sensors.add_primary_call(1,10,6619296,1);
         Thread.sleep(2000);
         logger.info("Verify that Auto Bypass works when enabled");
