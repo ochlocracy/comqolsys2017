@@ -966,7 +966,7 @@ public class Disarm extends Setup {
     }
     @Test(priority =52 )
     public void Disb_89_DW13() throws Exception {
-        logger.info("*Disb_88* System will go into pending tamper alarm at the end of exit delay");
+        logger.info("*Disb_89* System will go into pending tamper alarm at the end of exit delay");
         add_primary_call(1, 13, 6619298, 1);
         Thread.sleep(1000);
         ARM_AWAY(Long_Exit_Delay/2);
@@ -979,7 +979,36 @@ public class Disarm extends Setup {
         delete_from_primary(1);
         Thread.sleep(1000);
     }
-
+    @Test(priority =53 )
+    public void Disb_90_DW14() throws Exception {
+        logger.info("*Disb_90* System will go into pending tamper alarm at the end of exit delay");
+        add_primary_call(1, 14, 6619299, 1);
+        Thread.sleep(1000);
+        ARM_AWAY(Long_Exit_Delay/2);
+        sensors.primary_call(door_window14, tamper);
+        TimeUnit.SECONDS.sleep(Long_Exit_Delay/2+2);
+        verify_in_alarm();
+        Thread.sleep(5000);
+        ADC_verification("//*[contains(text(), 'Sensor 1 Tamper**')]", "//*[contains(text(), 'Delayed alarm on sensor 1 in partition 1')]");
+        enter_default_user_code();
+        delete_from_primary(1);
+        Thread.sleep(1000);
+    }
+    @Test(priority =53 )
+    public void Disb_91_DW16() throws Exception {
+        logger.info("*Disb_91* System will go into immediate tamper alarm");
+        add_primary_call(1, 16, 6619300, 1);
+        Thread.sleep(1000);
+        ARM_AWAY(Long_Exit_Delay/2);
+        sensors.primary_call(door_window16, tamper);
+        Thread.sleep(1000);
+        verify_in_alarm();
+        Thread.sleep(5000);
+        ADC_verification("//*[contains(text(), 'Sensor 1 Tamper**')]", "//*[contains(text(), 'Delayed alarm on sensor 1 in partition 1')]");
+        enter_default_user_code();
+        delete_from_primary(1);
+        Thread.sleep(1000);
+    }
 
 
     @AfterTest
