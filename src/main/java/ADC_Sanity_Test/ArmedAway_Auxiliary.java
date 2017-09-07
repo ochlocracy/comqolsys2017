@@ -18,7 +18,7 @@ import org.testng.annotations.*;
 import java.io.IOException;
 
 /**
- * Created by qolsysauto on 8/16/17.
+ * Created by qolsysauto (Jeff) on 8/16/17.
  */
 public class ArmedAway_Auxiliary extends Setup{
     // PRECONDITIONS: Disable SIA limits, set Entry-Exit Delay time to 30, 31, 32, 33 sec; Disable ArmStay No-Delay setting
