@@ -1,13 +1,9 @@
 package ADC_Sanity_Test;
 
 import ADC.ADC;
-import Panel.Home_Page;
-import Panel.PanelInfo_ServiceCalls;
+import Panel.*;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
-import Panel.Setup;
-import Sensors.Sensors;
-import org.apache.tools.ant.types.resources.First;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -15,7 +11,6 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.*;
-
 import javax.swing.plaf.InternalFrameUI;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -25,6 +20,7 @@ public class AirFX extends Setup {
     Logger logger = Logger.getLogger(page_name);
     ADC adc = new ADC();
     String AccountID = adc.getAccountId();
+    PanelInfo_ServiceCalls servcall = new PanelInfo_ServiceCalls();
 
     /*** If you want to run tests only on the panel, please set ADCexecute value to false ***/
     String ADCexecute = "true";
@@ -32,23 +28,33 @@ public class AirFX extends Setup {
     public AirFX() throws IOException, BiffException {
     }
 
+    public void verify_setting(String setting, String call, String expected) throws IOException {
+        String result = execCmd(adbPath + " shell service call qservice " + call).split(" ")[2];
+        if(result.equals(expected))
+            logger.info("[Pass] " + setting + " has value: " + expected);
+        else
+            logger.info("[Fail] " + setting + " has value: " + result + ". Expected:" + expected);
+    }
+
     public void New_ADC_session(String accountID) throws InterruptedException {
         TimeUnit.SECONDS.sleep(2);
-        getDriver1().manage().window().maximize();
+        adc.getDriver1().manage().window().maximize();
         String ADC_URL = "https://alarmadmin.alarm.com/Support/CustomerInfo.aspx?customer_Id="+accountID;
-        getDriver1().get(ADC_URL);
+        adc.getDriver1().get(ADC_URL);
         String login = "qautomation";
         String password = "Qolsys123";
         Thread.sleep(2000);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("txtUsername")));
-        getDriver1().findElement(By.id("txtUsername")).sendKeys(login);
-        getDriver1().findElement(By.id("txtPassword")).sendKeys(password);
-        getDriver1().findElement(By.id("butLogin")).click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("txtUsername")));
+        adc.getDriver1().findElement(By.id("txtUsername")).sendKeys(login);
+        adc.getDriver1().findElement(By.id("txtPassword")).sendKeys(password);
+        adc.getDriver1().findElement(By.id("butLogin")).click();
+        Thread.sleep(1000);
+        adc.driver1.get("https://alarmadmin.alarm.com/Support/AirFx/rt_MainMenu.aspx");
     }
 
-   /* @BeforeTest
+    @BeforeTest
     public void capabilities_setup() throws Exception {
-        setup_driver(get_UDID(), "http://127.0.1.1", "4723");
+        setup_driver( get_UDID(),"http://127.0.1.1", "4723");
         setup_logger(page_name);
     }
 
@@ -56,71 +62,190 @@ public class AirFX extends Setup {
     public void webDriver() {
         adc.webDriverSetUp();
     }
-*/
 
     @Test
-    public void navigate_to_AirFX_page() throws InterruptedException, IOException {
-        getDriver1().findElement(By.partialLinkText("AirFx Remote Toolkit")).click();
-    }
-
-    @Test
-    public void User_Code_Management() throws InterruptedException {
+    public void Code_Management() throws java.lang.Exception {
+        logger.info("Change Installer Code Test Begin");
         String InstallerCode = "4444";
-        getDriver1().findElement(By.partialLinkText("Change Installer Code")).click();
+        New_ADC_session(adc.getAccountId());
+        Thread.sleep(4000);
+        adc.getDriver1().findElement(By.partialLinkText("Change Installer Code")).click();
         Thread.sleep(2000);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Enter desired Installer Code")));
-        getDriver1().findElement(By.id("Enter desired Installer Code")).sendKeys(InstallerCode);
-        logger.info("Installer Code Changed");
+        adc.getDriver1().findElement(By.id("ctl00_phBody_UcsChangeInstallerCode2_txtInstallerCode")).sendKeys(InstallerCode);
+        adc.getDriver1().findElement(By.id("ctl00_phBody_UcsChangeInstallerCode2_btnSendCommand")).click();
+        logger.info("Pass: Installer Code Changed");
+        Thread.sleep(3000);
+        adc.getDriver1().findElement(By.id("ctl00_phBody_UcAirFxNaviFooter1_btnBack")).click();
+        Thread.sleep(2000);
 
+        logger.info("Change 'User Code' Test Begin");
+        String UserLogin = "automation8946";
+        String UserPass = "qolsys123";
         String FirstName = "Test";
         String LastName = "User";
         String NewUserCode = "3333";
-        getDriver1().findElement(By.partialLinkText("Edit Panel User Codes")).click();
+        adc.getDriver1().findElement(By.partialLinkText("Edit Panel User Codes")).click();
         Thread.sleep(2000);
-        getDriver1().findElement(By.partialLinkText("Manager User Codes")).click();
-        getDriver1().findElement(By.partialLinkText("Add User")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("First Name")));
-        getDriver1().findElement(By.id("First Name")).sendKeys(FirstName);
-        getDriver1().findElement(By.id("Last Name")).sendKeys(LastName);
-        getDriver1().findElement(By.className("adc-disarmed device-icon")).click();
-        getDriver1().findElement(By.className("list-item-description text-ellipsis")).click();
-        getDriver1().findElement(By.className("userCodePin")).sendKeys(NewUserCode);
-        getDriver1().findElement(By.className("btn btn-primary action-save btn-add-edit-user")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("Test User")));
-        logger.info("User Code Changed");
+        adc.driver1.get("https://www.alarm.com/web/Users/Users.aspx");
+        Thread.sleep(3000);
+        adc.getDriver1().findElement(By.id("ctl00_ContentPlaceHolder1_loginform_txtUserName")).sendKeys(UserLogin);
+        adc.getDriver1().findElement(By.xpath("/html/body/form/div[5]/div/div[1]/div[1]/div[3]/div[2]/input")).sendKeys(UserPass);
+        adc.getDriver1().findElement(By.id("ctl00_ContentPlaceHolder1_loginform_signInButton")).click();
+        Thread.sleep(2000);
+        adc.getDriver1().findElement(By.id("ctl00_responsiveBody_usersControl_btnNewUser")).click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_userAddEditControl_firstName")));
+        adc.getDriver1().findElement(By.id("ctl00_responsiveBody_userAddEditControl_firstName")).sendKeys(FirstName);
+        adc.getDriver1().findElement(By.id("ctl00_responsiveBody_userAddEditControl_lastName")).sendKeys(LastName);
+        Thread.sleep(3000);
+        adc.getDriver1().findElement(By.id("ctl00_responsiveBody_userAddEditControl_partitionsSelectDisplay")).click();
+        Thread.sleep(1000);
+        adc.getDriver1().findElement(By.xpath("/html/body/div/form/div[4]/div[2]/div/div[3]/div[3]/div[1]/div/div/div/div[1]/div[3]/div[2]/div/div[2]/div[1]/div[2]/ul/li/span")).click(); //panel access toggle-er
+        adc.getDriver1().findElement(By.id("ctl00_responsiveBody_userAddEditControl_userPinCode_userCodePin")).sendKeys(NewUserCode);
+        Thread.sleep(2000);
+        adc.getDriver1().findElement(By.id("ctl00_responsiveBody_userAddEditControl_pageActionButtons_buttonSave")).click(); //save button
+        Thread.sleep(3000);
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Test User")));
+        logger.info("Pass: User Code Changed");
+        adc.getDriver1().findElement(By.id("ctl00_responsiveBody_usersControl_lnkDeleteUser")).click();
+        Thread.sleep(5000);
 
-
-        getDriver1().findElement(By.id("ctl00_phBody_ucAirFxNaviFooter_btnBack")).click();
-
-
-
-        getDriver1().findElement(By.partialLinkText(" Enable/Disable Duress Code")).click();
-        getDriver1().findElement(By.id("ctl00_phBody_ucsDuressCode_drpdwnStatus")).click();
-        getDriver1().findElement(By.partialLinkText("on")).click();
-        getDriver1().findElement(By.className("btnBlue")).click();
-        getDriver1().findElement(By.id("ctl00_phBody_ucAirFxNaviFooter_btnBack")).click();
+        logger.info("Change 'Duress Code' Test Begin");
+        New_ADC_session(adc.getAccountId());
+        //or         adc.driver1.get("https://www.alarm.com/web/Users/Users.aspx");
+        Settings_Page settings = PageFactory.initElements(driver, Settings_Page.class);
+        Security_Arming_Page arming = PageFactory.initElements(driver, Security_Arming_Page.class);
+        Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
+        Installation_Page inst = PageFactory.initElements(driver, Installation_Page.class);
+        Home_Page home = PageFactory.initElements(driver, Home_Page.class);
+        adc.getDriver1().findElement(By.partialLinkText(" Enable/Disable Duress Code")).click();
+        adc.getDriver1().findElement(By.id("ctl00_phBody_ucsDuressCode_drpdwnStatus")).click();
+        adc.getDriver1().findElement(By.partialLinkText("on")).click();
+        adc.getDriver1().findElement(By.className("btnBlue")).click();
+        adc.getDriver1().findElement(By.id("ctl00_phBody_ucAirFxNaviFooter_btnBack")).click();
         logger.info("Enabled Duress Code");
+        logger.info("Verify system can be DISARMED with Duress code when the setting is enabled");
+        home.DISARM.click();
+        home.ARM_STAY.click();
+        Thread.sleep(2000);
+        home.DISARM.click();
+        home.Nine.click();
+        home.Nine.click();
+        home.Nine.click();
+        home.Eight.click();
+        if (settings.Invalid_User_Code.isDisplayed()) {
+            logger.info("Fail: Duress code does not work");
+        }
+        verify_disarm();
+        Thread.sleep(2000);
+        navigate_to_Advanced_Settings_page();
+        adv.INSTALLATION.click();
+        inst.SECURITY_AND_ARMING.click();
+        arming.Duress_Authentication.click();
+        Thread.sleep(2000);
+        logger.info("Pass: Duress Code Changed");
+    }
 
-        // test duress code
+    @Test
+    public void Panel_Settings() throws java.lang.Exception {
+        String ON = "00000001";
+        String OFF = "00000000";
+        int one_sec = 1000;
+        logger.info("Change 'Dialer Delay' Test Begin");
+        String DialerDelay = "5";
+        adc.getDriver1().findElement(By.partialLinkText("Adjust Dialer Delay")).click();
+        adc.getDriver1().findElement(By.id("ctl00_phBody_ucsAdjustDialerDelay_txtDialerDelay")).sendKeys(DialerDelay);
+        Thread.sleep(2000);
+        adc.getDriver1().findElement(By.id("ctl00_phBody_ucsAdjustDialerDelay_btnSendCommand")).click();
+        Thread.sleep(2000);
+        verify_setting("Dialer Delay", "36 i32 0 i32 0 i32 12 i32 0 i32 0", "00000014");
+        logger.info("Pass: Dialer Delay changed");
+        adc.getDriver1().findElement(By.id("ctl00_phBody_ucAirFxNaviFooter_btnBack")).click();
+    }
+
+    @Test
+    public void Alarm_Settings() throws java.lang.Exception {
+        adc.driver1.get("https://alarmadmin.alarm.com/Support/RemoteToolkit.aspx");
+        logger.info("Change 'Siren Timeout' Test Begin");
+        adc.getDriver1().findElement(By.id("ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl01_lblCategoryName")).click();
+        adc.getDriver1().findElement(By.id("ctl00_responsiveBody_ucCommands_ddlNewValue")).click();
+        adc.getDriver1().findElement(By.xpath("/html/body/form/div[13]/div[2]/div/div/div[5]/div/select")).click();
+        logger.info("Pass: Entry/Exit Delay");
+    }
+
+    @Test
+    public void Arming_Settings() throws java.lang.Exception {
+        String ExitDelay = "5";
+        String EntryDelay = "5";
+        logger.info("Change 'Entry/Exit Delay' Test Begin");
+
+        adc.getDriver1().findElement(By.partialLinkText("Change Entry/Exit Delay")).click();
+        Thread.sleep(2000);
+        adc.getDriver1().findElement(By.id("ctl00_phBody_UcsEntryExitDelay_txtEntryDelay1")).sendKeys(EntryDelay);
+        adc.getDriver1().findElement(By.id("ctl00_phBody_UcsEntryExitDelay_txtExitDelay1")).sendKeys(ExitDelay);
+        adc.getDriver1().findElement(By.id("ctl00_phBody_UcsEntryExitDelay_btnSubmit")).click();
+        logger.info("Pass: Entry/Exit Delay");
+        adc.getDriver1().findElement(By.id("ctl00_phBody_ucAirFxNaviFooter_btnBack")).click();
+        Thread.sleep(2000);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //servcall.get_DI
+
+        // ALER_DELAY();
+
+        /*       Thread.sleep(one_sec);
+        public void get_DIALER_DELAY() throws IOException, InterruptedException {
+            String command = adbPath + " shell service call qservice 36 i32 0 i32 0 i32 12 i32 0 i32 0";
+            rt.exec(command);}
+        */
+
+        /*
+        logger.info("Set Panel Time");
+        adc.getDriver1().findElement(By.partialLinkText("Panel Time")).click();
+        adc.getDriver1().findElement(By.id("ctl00_phBody_ucsPanelDatetime_butSetTime")).click();
+        logger.info("Set Weather Info");
+        adc.getDriver1().findElement(By.partialLinkText("Send Weather Info")).click();
+        adc.getDriver1().findElement(By.id("ctl00_phBody_btnSubmit")).click();
+        adc.getDriver1().findElement(By.id("ctl00_phBody_UcAirFxNaviFooter1_btnBack")).click();
+        */
+
 
 
     }
-
 
 
 /*
 
-2. Edit Installer Code
-
-4. Edit Dialer Delay
 
 6. Edit Siren Timeout
 
 8. Edit Disable Siren
-
-10. Edit Entry Delay
-
-12. Edit Exit Delay
 
 14. Edit Auto Bypass
 
@@ -266,4 +391,13 @@ public class AirFX extends Setup {
 */
 
 
+    @AfterTest
+    public void tearDown() throws IOException, InterruptedException {
+        driver.quit();
+    }
+
+    @AfterMethod
+    public void webDriverQuit(){
+        adc.driver1.quit();
+    }
   }
