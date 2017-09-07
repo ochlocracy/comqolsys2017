@@ -141,6 +141,106 @@ public class PostUpdate_Settings extends Setup{
 
     }
 
+    @Test
+    public void setDefaultSettings() throws IOException, InterruptedException {
+        int ON = 1;
+        int OFF = 0;
+        int one_sec = 1000;
+        servcall.set_SIA_LIMITS_disable();
+        Thread.sleep(one_sec);
+        //sets media volume to 1
+        servcall.set_SPEAKER_VOLUME(OFF);
+        Thread.sleep(one_sec);
+        servcall.set_ALL_VOICE_PROMPTS(ON);
+        Thread.sleep(one_sec);
+        servcall.set_ALL_CHIMES(OFF);
+        Thread.sleep(one_sec);
+        servcall.set_ENABLE_ALL_TROUBLE_BEEPS(OFF);
+        Thread.sleep(one_sec);
+        servcall.set_FIRE_SAFETY_DEVICE_TROUBLE_BEEPS(OFF);
+        Thread.sleep(one_sec);
+        servcall.set_SECURE_DELETE_IMAGES(ON);
+        Thread.sleep(one_sec);
+        servcall.set_DISARM_PHOTO(ON);
+        Thread.sleep(one_sec);
+        servcall.set_ALARM_PHOTOS(ON);
+        Thread.sleep(one_sec);
+        servcall.set_SETTINGS_PHOTOS(OFF);
+        Thread.sleep(one_sec);
+        servcall.set_DURESS_AUTHENTICATION_disable();
+        Thread.sleep(one_sec);
+        servcall.set_SECURE_ARMING_disable();
+        Thread.sleep(one_sec);
+        servcall.set_NO_ARMING_ON_LOW_BATTERY_disable();
+        Thread.sleep(one_sec);
+        servcall.set_AUTO_BYPASS(ON);
+        Thread.sleep(one_sec);
+        servcall.set_AUTO_STAY(ON);
+        Thread.sleep(one_sec);
+        servcall.set_ARM_STAY_NO_DELAY_enable();
+        Thread.sleep(one_sec);
+        servcall.set_AUTO_EXIT_TIME_EXTENSION(ON);
+        Thread.sleep(one_sec);
+        servcall.set_KEYFOB_ALARM_DISARM(OFF);
+        Thread.sleep(one_sec);
+        servcall.set_KEYFOB_DISARMING(ON);
+        Thread.sleep(one_sec);
+        servcall.set_NORMAL_ENTRY_DELAY(10);
+        Thread.sleep(one_sec);
+        servcall.set_NORMAL_EXIT_DELAY(11);
+        Thread.sleep(one_sec);
+        servcall.set_LONG_ENTRY_DELAY(12);
+        Thread.sleep(one_sec);
+        servcall.set_LONG_EXIT_DELAY(13);
+        Thread.sleep(one_sec);
+        servcall.set_SIREN_DISABLE(ON);
+        Thread.sleep(one_sec);
+        servcall.set_FIRE_VERIFICATION(OFF);
+        Thread.sleep(one_sec);
+        servcall.set_SEVERE_WEATHER_SIREN_WARNING(ON);
+        Thread.sleep(one_sec);
+        servcall.set_DIALER_DELAY(30);
+        Thread.sleep(one_sec);
+        servcall.set_SIREN_TIMEOUT(240);
+        Thread.sleep(one_sec);
+        servcall.set_WATER_FREEZE_ALARM_disable();
+        Thread.sleep(one_sec);
+        servcall.set_POLICE_PANIC(ON);
+        Thread.sleep(one_sec);
+        servcall.set_FIRE_PANIC(ON);
+        Thread.sleep(one_sec);
+        servcall.set_AUXILLARY_PANIC(ON);
+        Thread.sleep(one_sec);
+        servcall.set_AUTO_UPLOAD_LOGS(OFF);
+        Thread.sleep(one_sec);
+        servcall.set_POWER_MANAGEMENT_ON_OFF_enable();
+        Thread.sleep(one_sec);
+        servcall.set_SIA_POWER_RESTORATION_disable();
+        Thread.sleep(one_sec);
+        servcall.set_LOSS_OF_SUPERVISORY_TIMEOUTY_24h();
+        Thread.sleep(one_sec);
+        servcall.set_LOSS_OF_SUPERVISORY_EMERGENCY_TIMEOUT();
+        Thread.sleep(one_sec);
+        servcall.set_Cell_Signal_Timeout(30);
+        Thread.sleep(one_sec);
+        servcall.set_RF_JAM_DETECT_disable();
+        Thread.sleep(one_sec);
+        servcall.set_OPEN_CLOSE_REPORTS_FOR_AUTO_LEARN(ON);
+        Thread.sleep(one_sec);
+        servcall.set_BLUETOOTH(OFF);
+        Thread.sleep(one_sec);
+        servcall.set_BLUETOOTH_DISARM(OFF);
+        Thread.sleep(one_sec);
+        servcall.set_BLUETOOTH_DISARM_TIMEOUT(10);
+        Thread.sleep(one_sec);
+        servcall.set_HOME_OWNER_IMAGE_SETTINGS(OFF);
+        Thread.sleep(one_sec);
+        servcall.set_HOME_OWNER_SECURITY_AND_ARMING(OFF);
+        Thread.sleep(one_sec);
+        servcall.set_HOME_OWNER_SIREN_AND_ALARMS(OFF);
+        Thread.sleep(one_sec);
+    }
+
     @AfterTest
     public void tearDown() throws IOException, InterruptedException {
         driver.quit();
