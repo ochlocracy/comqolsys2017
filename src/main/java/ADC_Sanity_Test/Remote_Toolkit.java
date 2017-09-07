@@ -15,8 +15,8 @@ import javax.swing.plaf.InternalFrameUI;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-public class AirFX extends Setup {
-    String page_name = "AirFX";
+public class Remote_Toolkit extends Setup {
+    String page_name = "Remote Toolkit";
     Logger logger = Logger.getLogger(page_name);
     ADC adc = new ADC();
     String AccountID = adc.getAccountId();
@@ -25,7 +25,7 @@ public class AirFX extends Setup {
     /*** If you want to run tests only on the panel, please set ADCexecute value to false ***/
     String ADCexecute = "true";
 
-    public AirFX() throws IOException, BiffException {
+    public Remote_Toolkit() throws IOException, BiffException {
     }
 
     public void verify_setting(String setting, String call, String expected) throws IOException {
@@ -188,6 +188,16 @@ public class AirFX extends Setup {
         Thread.sleep(2000);
     }
 
+    @AfterTest
+    public void tearDown() throws IOException, InterruptedException {
+        driver.quit();
+    }
+
+    @AfterMethod
+    public void webDriverQuit(){
+        adc.driver1.quit();
+    }
+}
 
 
 
@@ -215,7 +225,8 @@ public class AirFX extends Setup {
 
 
 
-        //servcall.get_DI
+
+//servcall.get_DI
 
         // ALER_DELAY();
 
@@ -234,10 +245,6 @@ public class AirFX extends Setup {
         adc.getDriver1().findElement(By.id("ctl00_phBody_btnSubmit")).click();
         adc.getDriver1().findElement(By.id("ctl00_phBody_UcAirFxNaviFooter1_btnBack")).click();
         */
-
-
-
-    }
 
 
 /*
@@ -391,13 +398,3 @@ public class AirFX extends Setup {
 */
 
 
-    @AfterTest
-    public void tearDown() throws IOException, InterruptedException {
-        driver.quit();
-    }
-
-    @AfterMethod
-    public void webDriverQuit(){
-        adc.driver1.quit();
-    }
-  }
