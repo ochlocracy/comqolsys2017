@@ -7,13 +7,13 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.Assert;
 import org.testng.annotations.*;
 import javax.swing.plaf.InternalFrameUI;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+import org.testng.annotations.Test;
+
 
 public class Remote_Toolkit extends Setup {
     String page_name = "Remote Toolkit";
@@ -163,12 +163,14 @@ public class Remote_Toolkit extends Setup {
     }
 
     @Test
-    public void Alarm_Settings() throws java.lang.Exception {
+    public void Alarm_Settings() throws Exception {
+        Remote_Toolkit_Variables about = PageFactory.initElements(driver, Remote_Toolkit_Variables.class);
         adc.driver1.get("https://alarmadmin.alarm.com/Support/RemoteToolkit.aspx");
         logger.info("Change 'Siren Timeout' Test Begin");
-        adc.getDriver1().findElement(By.id("ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl01_lblCategoryName")).click();
-        adc.getDriver1().findElement(By.id("ctl00_responsiveBody_ucCommands_ddlNewValue")).click();
-        adc.getDriver1().findElement(By.xpath("/html/body/form/div[13]/div[2]/div/div/div[5]/div/select")).click();
+        element_verification(about.Alarm_Settings, "Alarm Settings");
+        about.Alarm_Settings.click();
+        Thread.sleep(1000);
+
         logger.info("Pass: Entry/Exit Delay");
     }
 
