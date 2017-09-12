@@ -13,10 +13,6 @@ import org.testng.annotations.*;
 
 import java.io.IOException;
 
-
-/**
- *
- */
 public class ArmedStay_GlassBreak extends Setup {
 
     String page_name = "Arm Stay mode";
@@ -25,12 +21,10 @@ public class ArmedStay_GlassBreak extends Setup {
     ADC adc = new ADC();
     String AccountID = adc.getAccountId();
 
-
     private int Normal_Exit_Delay = 35000;
     private String active = "02 01";
     private String tamper = "01 01";
     private String restore = "04 01";
-
 
     public ArmedStay_GlassBreak() throws IOException, BiffException {}
 

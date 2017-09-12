@@ -48,7 +48,7 @@ public class Auto_Bypass extends Setup{
     @BeforeTest
     public void capabilities_setup() throws Exception {
         //setup_driver(get_UDID(), "http://127.0.1.1", "4723");
-        setup_driver(udid_, "http://127.0.1.1", "4723");
+        setup_driver(get_UDID(), "http://127.0.1.1", "4723");
         setup_logger(page_name);
         Thread.sleep(1000);
         servcall.set_SIA_LIMITS_disable();
@@ -66,19 +66,19 @@ public class Auto_Bypass extends Setup{
     public void AB_01() throws IOException, InterruptedException {
         logger.info("Enabling auto bypass and adding sensor");
 
-        adc.webDriverSetUp();
+//        adc.webDriverSetUp();
         servcall.set_AUTO_BYPASS(1);
         Thread.sleep(two_sec);
         add_primary_call(1, 10, 6619296, 1);
-        Thread.sleep(two_sec);
-        adc.New_ADC_session(adc.getAccountId());
-        Thread.sleep(two_sec);
-        adc.driver1.findElement(By.partialLinkText("Sensors")).click();
-        Thread.sleep(two_sec);
-        adc.Request_equipment_list();
-        Thread.sleep(two_sec);
-
-       adc.driver1.quit();
+//        Thread.sleep(two_sec);
+//        adc.New_ADC_session(adc.getAccountId());
+//        Thread.sleep(two_sec);
+//        adc.driver1.findElement(By.partialLinkText("Sensors")).click();
+//        Thread.sleep(two_sec);
+//        adc.Request_equipment_list();
+//        Thread.sleep(two_sec);
+//
+//       adc.driver1.quit();
     }
 
 
@@ -208,7 +208,6 @@ public class Auto_Bypass extends Setup{
 
     @AfterTest
     public void tearDown () throws IOException, InterruptedException {
-        delete_from_primary(1);
         log.endTestCase(page_name);
         driver.quit();
     }

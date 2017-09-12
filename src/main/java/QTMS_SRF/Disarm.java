@@ -345,8 +345,10 @@ public class Disarm extends Setup {
         Thread.sleep(2000);
 
         WebElement webname = adc.driver1.findElement(By.xpath("/html/body/form/table/tbody/tr/td[2]/div/div[2]/div[7]/div[2]/div[2]/table/tbody/tr[2]/td[2]"));
+        Thread.sleep(2000);
         Assert.assertTrue(webname.getText().equals(newName));
         logger.info("Pass: The name is displayed correctly " + webname.getText());
+        Thread.sleep(2000);
     }
     @Test (dependsOnMethods = {"Disb_26_DW10"}, priority = 16)
     public void Disb_27_DW10() throws Exception {
@@ -446,6 +448,7 @@ public class Disarm extends Setup {
         verify_in_alarm();
         enter_default_user_code();
         delete_from_primary(1);
+        Thread.sleep(1000);
     }
     @Test(priority =19 )
     public void Disb_34_DW12() throws Exception {
@@ -475,6 +478,7 @@ public class Disarm extends Setup {
         verify_in_alarm();
         enter_default_user_code();
         delete_from_primary(1);
+        Thread.sleep(1000);
     }
     @Test(priority =20)
     public void Disb_39_DW14_DW16() throws Exception {
@@ -489,6 +493,7 @@ public class Disarm extends Setup {
         TimeUnit.SECONDS.sleep(Long_Exit_Delay);
         verify_armstay();
         DISARM();
+        Thread.sleep(1000);
         delete_from_primary(1);
         delete_from_primary(2);
         Thread.sleep(1000);
@@ -570,7 +575,7 @@ public class Disarm extends Setup {
     public void Disb_47_KF6() throws Exception {
         logger.info("*Disb-47* System will ArmStay instantly armed by keyfob 6");
         add_primary_call(1, 6, 6619388, 102);
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         sensors.primary_call(keyfob6, "04 01");
         Thread.sleep(1000);
         verify_armstay();
@@ -645,6 +650,7 @@ public class Disarm extends Setup {
         TimeUnit.SECONDS.sleep(Long_Exit_Delay);
         verify_in_alarm();
         enter_default_user_code();
+        Thread.sleep(1000);
         delete_from_primary(1);
         Thread.sleep(1000);
     }
@@ -658,6 +664,7 @@ public class Disarm extends Setup {
         Thread.sleep(1000);
         verify_in_alarm();
         enter_default_user_code();
+        Thread.sleep(1000);
         delete_from_primary(1);
         Thread.sleep(1000);
     }
@@ -684,6 +691,7 @@ public class Disarm extends Setup {
         TimeUnit.SECONDS.sleep(Long_Exit_Delay);
         verify_armstay();
         DISARM();
+        Thread.sleep(1000);
         delete_from_primary(1);
         Thread.sleep(1000);
     }
@@ -714,6 +722,7 @@ public class Disarm extends Setup {
         verify_in_alarm();
         enter_default_user_code();
         delete_from_primary(1);
+        Thread.sleep(1000);
     }
     @Test(priority =36 )
     public void Disb_62_DW10() throws Exception {
@@ -733,6 +742,7 @@ public class Disarm extends Setup {
         verify_in_alarm();
         enter_default_user_code();
         delete_from_primary(1);
+        Thread.sleep(1000);
     }
     @Test(priority =37 )
     public void Disb_72_KF1() throws Exception {
@@ -746,6 +756,8 @@ public class Disarm extends Setup {
         home.ArwAway_State.click();
         enter_default_user_code();
         delete_from_primary(1);
+        Thread.sleep(1000);
+
     }
     @Test(priority =38 )
     public void Disb_73_KF1() throws Exception {
@@ -763,6 +775,7 @@ public class Disarm extends Setup {
         Thread.sleep(1000);
         servcall.set_KEYFOB_NO_DELAY_enable();
         delete_from_primary(1);
+        Thread.sleep(1000);
     }
     @Test(priority =39 )
     public void Disb_74_KF1() throws Exception {
@@ -801,14 +814,16 @@ public class Disarm extends Setup {
         logger.info("*Disb-76* System ArmAway instantly from keyfob group 4");
         Home_Page home = PageFactory.initElements(driver, Home_Page.class);
         sensors.add_primary_call(1, 4,  6619387, 102);
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         sensors.primary_call(keyfob4, "04 04");
         Thread.sleep(2000);
         verify_armaway();
         Thread.sleep(1000);
         home.ArwAway_State.click();
         enter_default_user_code();
+        Thread.sleep(1000);
         delete_from_primary(1);
+        Thread.sleep(1000);
     }
     @Test(priority =42 )
     public void Disb_77_KF4() throws Exception {
@@ -822,7 +837,9 @@ public class Disarm extends Setup {
         Thread.sleep(1000);
         DISARM();
         servcall.set_KEYFOB_NO_DELAY_enable();
+        Thread.sleep(1000);
         delete_from_primary(1);
+        Thread.sleep(1000);
     }
     @Test(priority =43 )
     public void Disb_78_KF4() throws Exception {
@@ -838,7 +855,9 @@ public class Disarm extends Setup {
         home.ArwAway_State.click();
         enter_default_user_code();
         servcall.set_KEYFOB_NO_DELAY_enable();
+        Thread.sleep(1000);
         delete_from_primary(1);
+        Thread.sleep(1000);
     }
     @Test(priority =44 )
     public void Disb_79_KF4() throws Exception {
@@ -851,8 +870,11 @@ public class Disarm extends Setup {
         sensors.primary_call(keyfob4, "08 01");
         Thread.sleep(2000);
         verify_disarm();
+        Thread.sleep(1000);
         servcall.set_KEYFOB_NO_DELAY_enable();
+        Thread.sleep(1000);
         delete_from_primary(1);
+        Thread.sleep(1000);
     }
     @Test(priority =45 )
     public void Disb_80_KF4() throws Exception {
@@ -860,14 +882,16 @@ public class Disarm extends Setup {
         logger.info("*Disb-80* System will ArmAway after count down armed from panel, press disarm on keyfob 4");
         servcall.set_KEYFOB_NO_DELAY_disable();
         add_primary_call(1, 4, 6619387, 102);
-        Thread.sleep(1000);
+        Thread.sleep(000);
         ARM_AWAY(Long_Exit_Delay/2);
         sensors.primary_call(keyfob4, "08 01");
         TimeUnit.SECONDS.sleep(Long_Exit_Delay/2+2);
         verify_armaway();
         home.ArwAway_State.click();
         enter_default_user_code();
+        Thread.sleep(1000);
         servcall.set_KEYFOB_NO_DELAY_enable();
+        Thread.sleep(1000);
         delete_from_primary(1);
         Thread.sleep(1000);
     }
@@ -876,12 +900,13 @@ public class Disarm extends Setup {
         Home_Page home = PageFactory.initElements(driver, Home_Page.class);
         logger.info("*Disb-81* System will ArmAway instantly from keyfob 6");
         add_primary_call(1, 6, 6619388, 102);
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         sensors.primary_call(keyfob6, "04 04");
         Thread.sleep(1000);
         verify_armaway();
         home.ArwAway_State.click();
         enter_default_user_code();
+        Thread.sleep(1000);
         delete_from_primary(1);
         Thread.sleep(1000);
     }
@@ -891,7 +916,7 @@ public class Disarm extends Setup {
         logger.info("*Disb-82* System will ArmAway at the end of countdowm from keyfob 6");
         add_primary_call(1, 6, 6619388, 102);
         servcall.set_KEYFOB_NO_DELAY_disable();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         sensors.primary_call(keyfob6, "04 04");
         Thread.sleep(1000);
         TimeUnit.SECONDS.sleep(Long_Exit_Delay + 2);
@@ -906,14 +931,16 @@ public class Disarm extends Setup {
     public void Disb_83_KF6() throws Exception {
         logger.info("*Disb-83* System will Disarm while count down by keyfob group 6, while armed from keyfob");
         servcall.set_KEYFOB_NO_DELAY_disable();
-        add_primary_call(1, 6, 6619388, 102);
         Thread.sleep(1000);
+        add_primary_call(1, 6, 6619388, 102);
+        Thread.sleep(2000);
         sensors.primary_call(keyfob6, "04 04");
         TimeUnit.SECONDS.sleep(Long_Exit_Delay/2);
         sensors.primary_call(keyfob6, "08 01");
         Thread.sleep(1000);
         verify_disarm();
         servcall.set_KEYFOB_NO_DELAY_enable();
+        Thread.sleep(1000);
         delete_from_primary(1);
         Thread.sleep(1000);
     }
@@ -922,15 +949,18 @@ public class Disarm extends Setup {
         Home_Page home = PageFactory.initElements(driver, Home_Page.class);
         logger.info("*Disb-84* System will ArmAway after count down armed from panel, press disarm on keyfob 6");
         servcall.set_KEYFOB_NO_DELAY_disable();
-        add_primary_call(1, 6, 6619388, 102);
         Thread.sleep(1000);
+        add_primary_call(1, 6, 6619388, 102);
+        Thread.sleep(2000);
         ARM_AWAY(Long_Exit_Delay/2);
         sensors.primary_call(keyfob6, "08 01");
         TimeUnit.SECONDS.sleep(Long_Exit_Delay/2+2);
         verify_armaway();
         home.ArwAway_State.click();
         enter_default_user_code();
+        Thread.sleep(1000);
         servcall.set_KEYFOB_NO_DELAY_enable();
+        Thread.sleep(1000);
         delete_from_primary(1);
         Thread.sleep(1000);
     }
@@ -946,6 +976,7 @@ public class Disarm extends Setup {
         Thread.sleep(5000);
         ADC_verification("//*[contains(text(), 'Sensor 1 Tamper**')]", "//*[contains(text(), 'Delayed alarm on sensor 1 in partition 1')]");
         enter_default_user_code();
+        Thread.sleep(1000);
         delete_from_primary(1);
         Thread.sleep(1000);
     }
@@ -961,6 +992,7 @@ public class Disarm extends Setup {
         Thread.sleep(5000);
         ADC_verification("//*[contains(text(), 'Sensor 1 Tamper**')]", "//*[contains(text(), 'Delayed alarm on sensor 1 in partition 1')]");
         enter_default_user_code();
+        Thread.sleep(1000);
         delete_from_primary(1);
         Thread.sleep(1000);
     }
@@ -1008,6 +1040,226 @@ public class Disarm extends Setup {
         enter_default_user_code();
         delete_from_primary(1);
         Thread.sleep(1000);
+    }
+    @Test(priority =54 )
+    public void Disb_109_SM() throws Exception {
+        Emergency_Page emg = PageFactory.initElements(driver, Emergency_Page.class);
+        logger.info("*Disb_109* System will disarm from smoke detector alarm from user website");
+        add_primary_call(1, 26, 6750242, 5);
+        Thread.sleep(1000);
+        sensors.primary_call("67 00 22", "02 01");
+        Thread.sleep(1000);
+        element_verification(emg.Fire_icon_Alarmed, "Fire Emergency Sent");
+        adc.New_ADC_session_User("mypanel01", "qolsys123");
+        Thread.sleep(2000);
+        try{
+            adc.driver1.findElement(By.id("ctl00_phBody_ArmingStateWidget_btnDisarm")).click();
+        }catch ( org.openqa.selenium.NoSuchElementException e){}
+
+        Thread.sleep(5000);
+        verify_disarm();
+        delete_from_primary(1);
+        Thread.sleep(2000);
+    }
+    @Test(priority =55 )
+    public void Disb_114_WAT() throws Exception {
+        logger.info("*Disb_114* System will disarm from water sensor alarm from user website");
+        add_primary_call(1, 38, 7672224, 23);
+        Thread.sleep(1000);
+        sensors.primary_call("75 11 0A", "04 01");
+        Thread.sleep(1000);
+        verify_in_alarm();
+        adc.New_ADC_session_User("mypanel01", "qolsys123");
+        Thread.sleep(2000);
+        try{
+            adc.driver1.findElement(By.id("ctl00_phBody_ArmingStateWidget_btnDisarm")).click();
+        }catch ( org.openqa.selenium.NoSuchElementException e){}
+
+        Thread.sleep(7000);
+        verify_disarm();
+        delete_from_primary(1);
+        Thread.sleep(2000);
+    }
+    @Test(priority =56 )
+    public void Disb_122_CO() throws Exception {
+        logger.info("*Disb_122* System will disarm from CO sensor alarm from user website");
+        add_primary_call(1, 34, 7667882, 6);
+        Thread.sleep(1000);
+        sensors.primary_call("75 00 AA", "02 01");
+        Thread.sleep(1000);
+        verify_in_alarm();
+        adc.New_ADC_session_User("mypanel01", "qolsys123");
+        Thread.sleep(2000);
+        try{
+            adc.driver1.findElement(By.id("ctl00_phBody_ArmingStateWidget_btnDisarm")).click();
+        }catch ( org.openqa.selenium.NoSuchElementException e){}
+
+        Thread.sleep(5000);
+        verify_disarm();
+        delete_from_primary(1);
+        Thread.sleep(2000);
+    }
+    @Test(priority =57 )
+    public void Disb_124_KF1() throws Exception {
+        Emergency_Page emg = PageFactory.initElements(driver, Emergency_Page.class);
+        logger.info("*Disb_124* System stays in Alarm triggered by keyfob disarming from keyfob 1");
+        servcall.set_KEYFOB_ALARM_DISARM(00);
+        add_primary_call(1, 1, 6619386, 102);
+        Thread.sleep(2000);
+        sensors.primary_call(keyfob1, "02 01");
+        Thread.sleep(2000);
+        element_verification(emg.Police_Emergency_Alarmed, "Police Emergency Sent");
+        sensors.primary_call(keyfob1, "08 01");
+        Thread.sleep(2000);
+        sensors.primary_call(keyfob1, "08 01");
+        Thread.sleep(2000);
+        element_verification(emg.Police_Emergency_Alarmed, "Police Emergency Sent");
+        emg.Cancel_Emergency.click();
+        enter_default_user_code();
+        servcall.set_KEYFOB_ALARM_DISARM(01);
+        delete_from_primary(1);
+        Thread.sleep(2000);
+    }
+    @Test(priority =58 )
+    public void Disb_125_KF1() throws Exception {
+        Emergency_Page emg = PageFactory.initElements(driver, Emergency_Page.class);
+        logger.info("*Disb_125* System Disarm from Alarm triggered by keyfob disarming from keyfob 1");
+        add_primary_call(1, 1, 6619386, 102);
+        Thread.sleep(2000);
+        sensors.primary_call(keyfob1, "02 01");
+        Thread.sleep(2000);
+        element_verification(emg.Police_Emergency_Alarmed, "Police Emergency Sent");
+        sensors.primary_call(keyfob1, "08 01");
+        Thread.sleep(2000);
+        verify_disarm();
+        Thread.sleep(2000);
+        delete_from_primary(1);
+        Thread.sleep(2000);
+    }
+    @Test(priority =59 )
+    public void Disb_126_KF1() throws Exception {
+        Emergency_Page emg = PageFactory.initElements(driver, Emergency_Page.class);
+        Home_Page home = PageFactory.initElements(driver, Home_Page.class);
+        logger.info("*Disb_126* System Disarm from alarm from keyfob 1");
+        servcall.set_KEYFOB_DISARMING(00);
+        add_primary_call(1, 1, 6619386, 102);
+        Thread.sleep(2000);
+        home.Emergency_Button.click();
+        emg.Fire_icon.click();
+        Thread.sleep(2000);
+        element_verification(emg.Fire_Emergency_Alarmed, "Fire Emergency Sent");
+        sensors.primary_call(keyfob1, "08 01");
+        Thread.sleep(2000);
+        verify_disarm();
+        Thread.sleep(1000);
+        servcall.set_KEYFOB_DISARMING(00);
+        Thread.sleep(1000);
+        delete_from_primary(1);
+        Thread.sleep(2000);
+    }
+    @Test(priority =59 )
+    public void Disb_127_SM_AUX_DW8_C0() throws Exception {
+        Emergency_Page emg = PageFactory.initElements(driver, Emergency_Page.class);
+        Home_Page home = PageFactory.initElements(driver, Home_Page.class);
+        logger.info("*Disb_126* System Disarm from alarm from keyfob 1");
+        add_primary_call(1, 26, 6750242, 5);// 67 00 22
+        add_primary_call(2, 6, 6361649, 21); //61 12 13
+        add_primary_call(3, 8, 6619302, 1);
+        add_primary_call(4, 34, 7667882, 6);
+        adc.New_ADC_session(adc.getAccountId());
+        Thread.sleep(10000);
+        adc.driver1.findElement(By.partialLinkText("Sensors")).click();
+        Thread.sleep(10000);
+        adc.Request_equipment_list();
+
+        Thread.sleep(2000);
+        sensors.primary_call("67 00 22", "02 01");
+        Thread.sleep(2000);
+        element_verification(emg.Fire_Emergency_Alarmed, "Fire Emergency Sent");
+        Thread.sleep(2000);
+        sensors.primary_call("61 12 13", "03 01");
+        Thread.sleep(500);
+        element_verification(emg.Auxiliary_Emergency_Alarmed, "Auxiliary Emergency Sent");
+        Thread.sleep(2000);
+        sensors.primary_call(door_window8, open);
+        Thread.sleep(2000);
+        sensors.primary_call("75 00 AA", "02 01");
+        Thread.sleep(5000);
+        emg.Cancel_Emergency.click();
+        enter_default_user_code();
+
+        ADC_verification("//*[contains(text(), 'Fire Alarm')]", "//*[contains(text(), 'Auxiliary Pendant 2 (Sensor 2) BeClose Button Press')]");
+
+        Thread.sleep(1000);
+        delete_from_primary(1);
+        delete_from_primary(2);
+        delete_from_primary(3);
+        delete_from_primary(4);
+        Thread.sleep(2000);
+    }
+    @Test(priority =60)
+    public void Disb_129_KF6() throws Exception {
+        Emergency_Page emg = PageFactory.initElements(driver, Emergency_Page.class);
+        logger.info("*Disb_129* System stays in Alarm triggered by keyfob disarming from keyfob 6");
+        servcall.set_KEYFOB_ALARM_DISARM(00);
+        add_primary_call(1, 6, 6619388, 102);
+        Thread.sleep(2000);
+        sensors.primary_call(keyfob6, "02 01");
+        Thread.sleep(2000);
+        element_verification(emg.Auxiliary_Emergency_Alarmed, "Auxiliary Emergency Sent");
+        sensors.primary_call(keyfob6, "08 01");
+        Thread.sleep(2000);
+        sensors.primary_call(keyfob6, "08 01");
+        Thread.sleep(2000);
+        element_verification(emg.Auxiliary_Emergency_Alarmed, "Auxiliary Emergency Sent");
+        emg.Cancel_Emergency.click();
+        enter_default_user_code();
+        servcall.set_KEYFOB_ALARM_DISARM(01);
+        Thread.sleep(1000);
+        delete_from_primary(1);
+        Thread.sleep(2000);
+    }
+    @Test(priority =61)
+    public void Disb_130_KF6() throws Exception {
+        Emergency_Page emg = PageFactory.initElements(driver, Emergency_Page.class);
+        logger.info("*Disb_129* System Disarm from alarm triggered by keyfob disarming from keyfob 6");
+        add_primary_call(1, 6, 6619388, 102);
+        Thread.sleep(2000);
+        sensors.primary_call(keyfob6, "02 01");
+        Thread.sleep(2000);
+        element_verification(emg.Auxiliary_Emergency_Alarmed, "Auxiliary Emergency Sent");
+        sensors.primary_call(keyfob6, "08 01");
+        Thread.sleep(2000);
+        verify_disarm();
+        Thread.sleep(1000);
+        delete_from_primary(1);
+        Thread.sleep(2000);
+    }
+    @Test(priority =62)
+    public void Disb_131_KF6() throws Exception {
+        Emergency_Page emg = PageFactory.initElements(driver, Emergency_Page.class);
+        Home_Page home = PageFactory.initElements(driver, Home_Page.class);
+        logger.info("*Disb_129* System disarmed from alarm by keyfob 6");
+        add_primary_call(1, 6, 6619388, 102);
+        Thread.sleep(2000);
+        home.Emergency_Button.click();
+        emg.Police_icon.click();
+        Thread.sleep(2000);
+        element_verification(emg.Police_Emergency_Alarmed, "Police Emergency Sent");
+        sensors.primary_call(keyfob6, "08 01");
+        Thread.sleep(2000);
+        verify_disarm();
+        delete_from_primary(1);
+        Thread.sleep(2000);
+    }
+    @Test(priority =63)
+    public void Disb_153_GB() throws Exception {
+        logger.info("*Disb_153* System restors status for glass-break from Alarmed to Normal");
+        add_primary_call(1, 13, 6750361, 19);
+        Thread.sleep(2000);
+        sensor_status_check("67 00 99", "Activated", "Normal");
+        delete_from_primary(1);
+        Thread.sleep(2000);
     }
 
 

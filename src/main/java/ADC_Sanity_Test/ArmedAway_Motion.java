@@ -15,9 +15,7 @@ import org.testng.annotations.*;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by nchortek on 8/8/17.
- */
+/**Approximate test run duration:    **/
 public class ArmedAway_Motion extends Setup{
 
 

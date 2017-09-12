@@ -107,7 +107,6 @@ public class ArmedStay_Auxiliary extends Setup{
         adc.driver1.findElement(By.partialLinkText("Sensors")).click();
         Thread.sleep(10000);
         adc.Request_equipment_list();
-
     }
 
     public void ArmStay_Activate_Silent_Sensor(int group, String DLID, String element_to_verify1, String element_to_verify2) throws Exception {
@@ -140,7 +139,6 @@ public class ArmedStay_Auxiliary extends Setup{
         ADC_verification(element_to_verify1, element_to_verify2);
 
     }
-
     public void ArmStay_Activate_Police_Sensor(int group, String DLID, String element_to_verify1, String element_to_verify2) throws Exception {
         logger.info("ArmStay -Activate Group " + group + " Auxiliary Police Pendant during Arm Stay");
         Emergency_Page emg = PageFactory.initElements(driver, Emergency_Page.class);

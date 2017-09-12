@@ -173,21 +173,6 @@ public class PreUpdate_UserManagement extends Setup {
     }
 
     @Test (priority = 8)
-    public void deleteNewUsers() throws Exception {
-        logger.info("Adding a new Guest NewGuest with the code 8800");
-        User_Management_Page user_m =  PageFactory.initElements(driver, User_Management_Page.class);
-        Home_Page home =  PageFactory.initElements(driver, Home_Page.class);
-        navigateToUserManagementPage();
-        List<WebElement> delete = driver.findElements(By.id("com.qolsys:id/deleteImg"));
-        for (int i=3; i>0; i--) {
-            delete.get(1).click();
-            user_m.User_Management_Delete_User_Ok.click();
-        }
-        Thread.sleep(1000);
-        home.Home_button.click();
-        servcall.set_DURESS_AUTHENTICATION_disable();
-    }
-    @Test (priority = 8)
     public void adcDelete() throws InterruptedException {
         adc.navigate_to_user_site("Gen2-8334", "qolsys1234");
         adc.getDriver1().findElement(By.id("Users")).click();
