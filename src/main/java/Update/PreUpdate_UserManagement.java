@@ -170,7 +170,6 @@ public class PreUpdate_UserManagement extends Setup {
         int size;
         size = li.size();
         checkCodes(li, expected, size);
-    }
 
     @Test (priority = 8)
     public void adcDelete() throws InterruptedException {
