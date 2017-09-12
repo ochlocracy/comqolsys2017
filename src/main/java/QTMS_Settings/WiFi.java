@@ -21,7 +21,7 @@ import java.util.List;
 public class WiFi extends Setup{
     public WiFi() throws IOException, BiffException {}
 
-    String page_name = "QTMS WiFI testing";
+    String page_name = "QTMS WiFI test cases";
     Logger logger = Logger.getLogger(page_name);
     PanelInfo_ServiceCalls servcall = new PanelInfo_ServiceCalls();
 
@@ -39,7 +39,7 @@ public class WiFi extends Setup{
 
     /*** WiFi is connected ***/
     @Test
-    public void SASW_004_SASW_005_SASW_006_SASW_009SASW_0010_SASW_011_SASW_012() throws Exception {
+    public void SASW_004_SASW_005_SASW_006_SASW_009_SASW_0010_SASW_011_SASW_012() throws Exception {
         Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
         WiFi_setting_page_elements wifi = PageFactory.initElements(driver, WiFi_setting_page_elements.class);
         Home_Page home =PageFactory.initElements(driver, Home_Page.class);
@@ -120,7 +120,7 @@ public void Connect_toKnown_WiFiNetwork_SASW_001() throws Exception {
  }
     /*** WiFi is connected ***/
     @Test (priority = 1)
-    public void WiFiCheckbox_uncheck_SASW_002() throws Exception {
+    public void WiFiCheckbox_unchecked_SASW_002() throws Exception {
         Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
         WiFi_setting_page_elements wifi = PageFactory.initElements(driver, WiFi_setting_page_elements.class);
         Settings_Page settings = PageFactory.initElements(driver, Settings_Page.class);
@@ -136,7 +136,7 @@ public void Connect_toKnown_WiFiNetwork_SASW_001() throws Exception {
         logger.info("SASW 002 Pass: user can not connect to the wifi network, network notification grayed out");}
 
     /*** WiFi is connected ***/
-    @Test// (priority = 3)
+    @Test (priority = 3)
     public void Forgot_wifi_credentials_SASW_003() throws Exception {
         Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
         WiFi_setting_page_elements wifi = PageFactory.initElements(driver, WiFi_setting_page_elements.class);

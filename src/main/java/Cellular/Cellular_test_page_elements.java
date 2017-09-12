@@ -18,7 +18,8 @@ public class Cellular_test_page_elements {
     public WebElement cancel_button;
     @FindBy(id = "com.qolsys:id/result_text")
     public WebElement test_result;
-
+    @FindBy(id = "com.qolsys:id/ft_back")
+    public WebElement Back_button;
 
 
 

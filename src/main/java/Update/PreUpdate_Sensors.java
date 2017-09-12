@@ -2,6 +2,7 @@ package Update;
 
 import Panel.Contact_Us;
 import Panel.Emergency_Page;
+import Panel.Home_Page;
 import Panel.Setup;
 import Sensors.Sensors;
 import jxl.read.biff.BiffException;
@@ -30,6 +31,10 @@ public class PreUpdate_Sensors extends Setup {
         rt.exec(adbPath + add_primary);
         // shell service call qservice 50 i32 2 i32 10 i32 6619296 i32 1
     }
+    public void delete_from_primary(int zone) throws IOException, InterruptedException {
+        String deleteFromPrimary = " shell service call qservice 51 i32 " + zone;
+        rt.exec(adbPath + deleteFromPrimary);
+        System.out.println(deleteFromPrimary);}
 
     @BeforeTest
     public void capabilities_setup() throws Exception {
@@ -86,145 +91,154 @@ public class PreUpdate_Sensors extends Setup {
         Thread.sleep(500);
     }
 
-    @Test
+    @Test (dependsOnMethods = {"addSensors"})
     public void sensorsCheck() throws Exception {
         logger.info("Open-Close contact sensors");
         Emergency_Page emergency =  PageFactory.initElements(driver, Emergency_Page.class);
         Contact_Us contact =  PageFactory.initElements(driver, Contact_Us.class);
-        open_close("65 00 0A");
-        open_close("65 00 1A");
-        open_close("65 00 2A");
-        open_close("65 00 3A");
-        open_close("65 00 4A");
-        open_close("65 00 5A");
-        enter_default_user_code();
-        Thread.sleep(1000);
-        open_close("65 00 6A");
-        enter_default_user_code();
-        Thread.sleep(1000);
-        open_close("65 00 7A");
-        Thread.sleep(1000);
+        Home_Page home =  PageFactory.initElements(driver, Home_Page.class);
+        for (int i=1; i>0; i--) {
+            open_close("65 00 0A");
+            open_close("65 00 1A");
+            open_close("65 00 2A");
+            open_close("65 00 3A");
+            open_close("65 00 4A");
+            open_close("65 00 5A");
+            enter_default_user_code();
+            Thread.sleep(1000);
+            open_close("65 00 6A");
+            enter_default_user_code();
+            Thread.sleep(1000);
+            open_close("65 00 7A");
+            Thread.sleep(1000);
 
-        logger.info("Activate motion sensors");
-        sensors.primary_call("55 00 44", activate);
-        Thread.sleep(1000);
-        sensors.primary_call("55 00 54", activate);
-        Thread.sleep(1000);
-        sensors.primary_call("55 00 64", activate);
-        Thread.sleep(1000);
-        sensors.primary_call("55 00 74", activate);
-        Thread.sleep(1000);
-        sensors.primary_call("55 00 84", activate);
-        Thread.sleep(1000);
+            logger.info("Activate motion sensors");
+            sensors.primary_call("55 00 44", activate);
+            Thread.sleep(1000);
+            sensors.primary_call("55 00 54", activate);
+            Thread.sleep(1000);
+            sensors.primary_call("55 00 64", activate);
+            Thread.sleep(1000);
+            sensors.primary_call("55 00 74", activate);
+            Thread.sleep(1000);
+            sensors.primary_call("55 00 84", activate);
+            Thread.sleep(1000);
 
-        logger.info("Activate smoke sensors");
-        sensors.primary_call("67 00 22", activate);
-        Thread.sleep(1000);
-        emergency.Cancel_Emergency.click();
-        enter_default_user_code();
-        Thread.sleep(1000);
+            logger.info("Activate smoke sensors");
+            sensors.primary_call("67 00 22", activate);
+            Thread.sleep(1000);
+            emergency.Cancel_Emergency.click();
+            enter_default_user_code();
+            Thread.sleep(1000);
 
-        logger.info("Activate CO sensors");
-        sensors.primary_call("75 00 AA", activate);
-        Thread.sleep(1000);
-        enter_default_user_code();
-        Thread.sleep(1000);
+            logger.info("Activate CO sensors");
+            sensors.primary_call("75 00 AA", activate);
+            Thread.sleep(1000);
+            enter_default_user_code();
+            Thread.sleep(1000);
 
-        logger.info("Activate glassbreak sensors");
-        sensors.primary_call("67 00 99", activate);
-        sensors.primary_call("67 00 99", restore);
-        Thread.sleep(1000);
-        sensors.primary_call("67 00 39", activate);
-        sensors.primary_call("67 00 39", restore);
-        Thread.sleep(1000);
+            logger.info("Activate glassbreak sensors");
+            sensors.primary_call("67 00 99", activate);
+            sensors.primary_call("67 00 99", restore);
+            Thread.sleep(1000);
+            sensors.primary_call("67 00 39", activate);
+            sensors.primary_call("67 00 39", restore);
+            Thread.sleep(1000);
 
-        logger.info("Open/close tilt sensors");
-        open_close("63 00 EA");
-        open_close("63 00 FA");
-        open_close("63 00 0A");
-        Thread.sleep(1000);
+            logger.info("Open/close tilt sensors");
+            open_close("63 00 EA");
+            open_close("63 00 FA");
+            open_close("63 00 0A");
+            Thread.sleep(1000);
 
-        logger.info("Activate IQShock sensors");
-        sensors.primary_call("66 00 C9", activate);
-        sensors.primary_call("66 00 C9", restore);
-        Thread.sleep(1000);
-        sensors.primary_call("66 00 D9", activate);
-        sensors.primary_call("66 00 D9", restore);
-        Thread.sleep(1000);
+            logger.info("Activate IQShock sensors");
+            sensors.primary_call("66 00 C9", activate);
+            sensors.primary_call("66 00 C9", restore);
+            Thread.sleep(1000);
+            sensors.primary_call("66 00 D9", activate);
+            sensors.primary_call("66 00 D9", restore);
+            Thread.sleep(1000);
 
-        logger.info("Activate freeze sensors");
-        sensors.primary_call("73 00 1A", activate);
-        sensors.primary_call("73 00 1A", restore);
-        Thread.sleep(1000);
-        enter_default_user_code();
-        Thread.sleep(1000);
+            logger.info("Activate freeze sensors");
+            sensors.primary_call("73 00 1A", activate);
+            sensors.primary_call("73 00 1A", restore);
+            Thread.sleep(1000);
+            enter_default_user_code();
+            Thread.sleep(1000);
 
-        logger.info("Activate heat sensors");
-        sensors.primary_call("75 00 26", activate);
-        Thread.sleep(1000);
-        emergency.Cancel_Emergency.click();
-        enter_default_user_code();
-        Thread.sleep(1000);
+            logger.info("Activate heat sensors");
+            sensors.primary_call("75 00 26", activate);
+            Thread.sleep(1000);
+            emergency.Cancel_Emergency.click();
+            enter_default_user_code();
+            Thread.sleep(1000);
 
-        logger.info("Activate water sensors");
-        sensors.primary_call("75 11 0A", open);
-        Thread.sleep(1000);
-        enter_default_user_code();
-        Thread.sleep(1000);
+            logger.info("Activate water sensors");
+            sensors.primary_call("75 11 0A", open);
+            Thread.sleep(1000);
+            enter_default_user_code();
+            Thread.sleep(1000);
 
-        logger.info("Activate keyfob sensors");
-        sensors.primary_call("65 00 AF", open);
-        Thread.sleep(1000);
-        emergency.Cancel_Emergency.click();
-        enter_default_user_code();
-        Thread.sleep(1000);
+            logger.info("Activate keyfob sensors");
+            sensors.primary_call("65 00 AF", open);
+            Thread.sleep(1000);
+            emergency.Cancel_Emergency.click();
+            enter_default_user_code();
+            Thread.sleep(1000);
 
-        sensors.primary_call("65 00 BF", open);
-        Thread.sleep(1000);
-        emergency.Cancel_Emergency.click();
-        enter_default_user_code();
-        Thread.sleep(1000);
+            sensors.primary_call("65 00 BF", open);
+            Thread.sleep(1000);
+            emergency.Cancel_Emergency.click();
+            enter_default_user_code();
+            Thread.sleep(1000);
 
-        sensors.primary_call("65 00 CF", open);
-        Thread.sleep(1000);
-        emergency.Cancel_Emergency.click();
-        enter_default_user_code();
-        Thread.sleep(1000);
+            sensors.primary_call("65 00 CF", open);
+            Thread.sleep(1000);
+            emergency.Cancel_Emergency.click();
+            enter_default_user_code();
+            Thread.sleep(1000);
 
-        logger.info("Activate keypad sensors");
-        sensors.primary_call("85 00 AF", open);
-        Thread.sleep(1000);
-        emergency.Cancel_Emergency.click();
-        enter_default_user_code();
-        Thread.sleep(1000);
+            logger.info("Activate keypad sensors");
+            sensors.primary_call("85 00 AF", open);
+            Thread.sleep(1000);
+            emergency.Cancel_Emergency.click();
+            enter_default_user_code();
+            Thread.sleep(1000);
 
-        sensors.primary_call("85 00 BF", "04 04");
-        Thread.sleep(2000);
-        verify_armaway();
-        sensors.primary_call("85 00 BF", "08 01");
-        Thread.sleep(1000);
+            sensors.primary_call("85 00 BF", "04 04");
+            Thread.sleep(2000);
+            verify_armaway();
+            sensors.primary_call("85 00 BF", "08 01");
+            Thread.sleep(1000);
 
-        logger.info("Activate medical pendant sensors");
-        sensors.primary_call("61 12 13", "03 01");
-        Thread.sleep(1000);
-        emergency.Cancel_Emergency.click();
-        enter_default_user_code();
-        Thread.sleep(1000);
+            logger.info("Activate medical pendant sensors");
+            sensors.primary_call("61 12 13", "03 01");
+            Thread.sleep(1000);
+            emergency.Cancel_Emergency.click();
+            enter_default_user_code();
+            Thread.sleep(1000);
 
-        sensors.primary_call("61 12 23", "03 01");
-        Thread.sleep(1000);
-        emergency.Cancel_Emergency.click();
-        enter_default_user_code();
-        Thread.sleep(1000);
+            sensors.primary_call("61 12 23", "03 01");
+            Thread.sleep(1000);
+            emergency.Cancel_Emergency.click();
+            enter_default_user_code();
+            Thread.sleep(1000);
 
-        logger.info("Activate doorbell sensors");
-        open_close("61 BD AA");
-        Thread.sleep(1000);
+            logger.info("Activate doorbell sensors");
+            open_close("61 BD AA");
+            Thread.sleep(1000);
 
-        contact.acknowledge_all_alerts();
+            contact.acknowledge_all_alerts();
+            swipe_left();
+            Thread.sleep(1000);
+        }
     }
-
-
+//    @Test
+//    public void deleteSensors() throws IOException, InterruptedException {
+//        for (int i = 33; i>0; i--) {
+//            delete_from_primary(i);
+//        }
+//    }
     @AfterTest
     public void tearDown() throws IOException, InterruptedException {
         driver.quit();

@@ -16,4 +16,14 @@ public class Dual_path_page_elements {
     public WebElement start_button;
     @FindBy(id = "com.qolsys:id/cancel_button")
     public WebElement cancel_button;
+    @FindBy(id = "com.qolsys:id/cancel")
+    public WebElement warning_message_cancell_button;
+    @FindBy(id = "com.qolsys:id/ok")
+    public WebElement warning_message_OK_button;
+    @FindBy(id = "com.qolsys:id/message")
+    public WebElement warning_message;
+    @FindBy(id = "com.qolsys:id/ft_home_button")
+    public WebElement Home_button;
+    @FindBy(id = "com.qolsys:id/ft_back")
+    public WebElement Back_button;
 }

@@ -25,5 +25,16 @@ public class System_Tests_page {
     public WebElement DAUGHTER_CARDS_TEST;
     @FindBy(xpath = "//android.widget.TextView[@text='Panel Test']")
     public WebElement PANEL_TEST;
-
+    @FindBy(id = "com.qolsys:id/ft_back")
+    public WebElement Back_button;
+    @FindBy(id = "com.qolsys:id/btnRun")
+    public WebElement WiFiTest_Run_button;
+    @FindBy(id = "com.qolsys:id/mbps")
+    public WebElement WiFiTest_speedresult;
+    @FindBy(id = "com.qolsys:id/resultVal")
+    public WebElement WiFiTest_result;
+    @FindBy(id = "com.qolsys:id/timeVal")
+    public WebElement WiFiTest_time;
+    @FindBy(id = "com.qolsys:id/statusVal")
+    public WebElement WiFiTest_status;
 }

@@ -39,8 +39,7 @@ public class IQShock extends Setup {
     private String activate = "02 01";
     private String tamper = "01 01";
 
-    public IQShock() throws IOException, BiffException {
-    }
+    public IQShock() throws IOException, BiffException {}
 
     public void add_primary_call(int zone, int group, int sensor_dec, int sensor_type) throws IOException {
         String add_primary = " shell service call qservice 50 i32 " + zone + " i32 " + group + " i32 " + sensor_dec + " i32 " + sensor_type;
@@ -112,6 +111,17 @@ public class IQShock extends Setup {
         Thread.sleep(2000);
         adc.Request_equipment_list();
     }
+
+    /*** Disarm Activate***/
+    @Test(dependsOnMethods = {"addSensors"})
+    public void Disarm_Activate_13() throws IOException, InterruptedException {
+        logger.info("Activate a sensor");
+        sensors.primary_call("66 00 C9", activate);
+        Thread.sleep(2000);
+        sensors.primary_call("66 00 C9", close);
+        ADC_verification("//*[contains(text(), ' Activated')]", "//*[contains(text(), ' Normal')]");
+    }
+
 
     /*** ArmStay Activate***/
 
@@ -269,9 +279,9 @@ public class IQShock extends Setup {
     @AfterTest
     public void tearDown() throws IOException, InterruptedException {
         driver.quit();
-        for (int i = 2; i > 0; i--) {
-            delete_from_primary(i);
-        }
+//        for (int i = 2; i > 0; i--) {
+//            delete_from_primary(i);
+//        }
     }
 }
 

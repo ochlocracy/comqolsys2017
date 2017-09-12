@@ -250,12 +250,15 @@ public class PanelInfo_ServiceCalls extends Setup {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 32 i32 0 i32 0";
         rt.exec(command);
         String value = (execCmd(command)).toString();
-        System.out.println(value);
+       // System.out.println(value);
         if (value.contains("00000000 00000000 ")) {
-            System.out.println("WiFi has disabled");
-        } else if (value.contains("00000000 00000001 ")) {
-            System.out.println("WiFi has connected");}
+            System.out.println("No WiFi connection");
+        } else if (value.contains("00000000 00000001 ")){
+            System.out.println(" WiFi connected");
         }
+    }
+
+
 
     //0 for disabled, 1 for enabled
     public void set_WiFi(int state) throws IOException, InterruptedException {
@@ -415,7 +418,14 @@ public class PanelInfo_ServiceCalls extends Setup {
 
     public void get_ALL_CHIMES() throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 46 i32 0 i32 0";
-        rt.exec(command);}
+        rt.exec(command);
+        String value = (execCmd(command)).toString();
+        System.out.println(value);
+        if (value.contains("00000000 00000000 ")) {
+            System.out.println("All Chimes setting disabled");
+        } else if (value.contains("00000000 00000001 ")) {
+            System.out.println("All Chimes setting enabled");}
+    }
 
     //0 for disabled, 1 for enabled
     public void set_ALL_CHIMES(int state) throws IOException, InterruptedException {
@@ -1086,4 +1096,80 @@ ADC can restart the QolSys apps: */
     public void EVENT_ADC_CONNECTIVITY_ERROR_UPDATE8192 () throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 1 i32 0 i32 1550 i32 0 i32 0 i32 0 i32 8192 i32 0 i32 0 i32 0";
         rt.exec(command);}
+    public void Wifi_disable () throws IOException, InterruptedException {
+        String command = adbPath + " shell svc wifi disable";
+        rt.exec(command);}
+    public void Wifi_enable () throws IOException, InterruptedException {
+        String command = adbPath + " shell svc wifi enable";
+        rt.exec(command);}
+    public void EVENT_DISARM () throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 1 i32 0 i32 0 i32 0 i32 0 i32 0 i32 1 i32 0 i32 0 i32 1";
+        rt.exec(command);}
+    public void EVENT_ARM_STAY () throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 1 i32 0 i32 1 i32 0 i32 0 i32 0 i32 1 i32 0 i32 0 i32 1";
+        rt.exec(command);}
+    public void EVENT_ARM_AWAY () throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 1 i32 0 i32 2 i32 0 i32 0 i32 0 i32 1 i32 0 i32 0 i32 1";
+        rt.exec(command);}
+    public void get_Cell_data () throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 107";
+        rt.exec(command);
+        String value = (execCmd(command)).toString();
+        System.out.println(value);}
+    public void data_verification () throws IOException, InterruptedException {
+        String command = adbPath + " shell busybox route ";
+        rt.exec(command);
+        String value = (execCmd(command)).toString();
+        System.out.println(value);}
+    public void DTMF () throws IOException, InterruptedException {
+        String command = adbPath + " shell logcat -v time | grep DTMF";
+        rt.exec(command);
+        String value = (execCmd(command)).toString();
+        System.out.println(value);
    }
+    public void logcat_stop () throws IOException, InterruptedException {
+        String command = adbPath + " shell logcat -d";
+    }
+    public void TwowayvoiceCall (int number) throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 98 i32 0 s16 "+ number;
+        rt.exec(command);
+        String value = (execCmd(command)).toString();
+        System.out.println(value);}
+
+    public void WiFi_channel_log () throws IOException, InterruptedException {
+        String command = adbPath + " shell tcpdump -vv -i wlan0 > IdeaProjects/comqolsys2017/log";
+        rt.exec(command);
+        String value = (execCmd(command)).toString();
+        System.out.println(value);}
+
+    public void Cell_channel_log () throws IOException, InterruptedException {
+        String command = adbPath + " shell tcpdump -vv -i rmnet0 > IdeaProjects/comqolsys2017/log";
+        rt.exec(command);
+        String value = (execCmd(command)).toString();
+        System.out.println(value);}
+
+    public void log () throws IOException, InterruptedException {
+        String command = adbPath + " shell logcat -d";
+        rt.exec(command);
+         String value = (execCmd(command)).toString();
+        System.out.println(value);}
+
+
+    public void Cell_enable () throws IOException, InterruptedException {
+        String command = adbPath + " shell svc data disable";
+        rt.exec(command);}
+    public void Cell_disable () throws IOException, InterruptedException {
+        String command = adbPath + " shell svc data enable";
+        rt.exec(command);}
+
+    public void APN_enable () throws IOException, InterruptedException {
+        String command = adbPath + " shell settings put global airplane_mode_on 1 &  adb shell am broadcast -a android.intent.action.AIRPLANE_MODE";
+        rt.exec(command);
+        String value = (execCmd(command)).toString();
+        System.out.println(value);}
+    public void APN_disable () throws IOException, InterruptedException {
+        String command = adbPath + " shell settings put global airplane_mode_on 0 &  adb shell am broadcast -a android.intent.action.AIRPLANE_MODE ";
+        rt.exec(command);
+        String value = (execCmd(command)).toString();
+        System.out.println(value);}
+    }

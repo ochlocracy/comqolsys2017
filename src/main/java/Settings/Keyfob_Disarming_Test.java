@@ -34,7 +34,9 @@ public class Keyfob_Disarming_Test extends Setup{
         Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
         Installation_Page inst = PageFactory.initElements(driver, Installation_Page.class);
         Home_Page home = PageFactory.initElements(driver, Home_Page.class);
+        PanelInfo_ServiceCalls service = PageFactory.initElements(driver, PanelInfo_ServiceCalls.class);
         logger.info("Adding sensors...");
+        service.set_AUTO_STAY(00);
         sensors.add_primary_call(1, 4, 6619386, 102);
         Thread.sleep(2000);
         logger.info("Verify that Keyfob Disarming works when enabled");
@@ -89,6 +91,7 @@ public class Keyfob_Disarming_Test extends Setup{
         Thread.sleep(2000);
         sensors.delete_from_primary(1);
         settings.Home_button.click();
+        service.set_AUTO_STAY(01);
         Thread.sleep(2000);
     }
     @AfterMethod

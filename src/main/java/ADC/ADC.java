@@ -158,6 +158,10 @@ public class ADC extends Setup {
             accountId = "5222397";
         }else  if (get_UDID().equals("62964b68")) {
         accountId = "5389996";
+        }else  if (get_UDID().equals("62c74a45")) { //Olga new verizon
+            accountId = "5222509";
+        }else  if (get_UDID().equals("62964b68")) { //Olga AT&T
+            accountId = "5389996";
     }
         return  accountId;
     }
@@ -249,6 +253,26 @@ public class ADC extends Setup {
         getDriver1().findElement(By.partialLinkText("Equipment")).click();
         TimeUnit.SECONDS.sleep(2);
     }
+    public void New_ADC_session_User(String User, String Password) throws InterruptedException {
+        TimeUnit.SECONDS.sleep(2);
+        getDriver1().manage().window().maximize();
+        String ADC_URL = "https://www.alarm.com/login.aspx";
+        getDriver1().get(ADC_URL);
+        driver1.findElement(By.id("ctl00_ContentPlaceHolder1_loginform_txtUserName")).sendKeys(User);
+        driver1.findElement(By.className("password")).sendKeys(Password);
+        Thread.sleep(1000);
+        driver1.findElement(By.id("ctl00_ContentPlaceHolder1_loginform_signInButton")).click();
+        Thread.sleep(1000);
+        try {
+            if (driver1.findElement(By.id("ctl00_responsiveBody_pageInfoActions_buttonSave")).isDisplayed()) {
+                driver1.findElement(By.id("ctl00_responsiveBody_pageInfoActions_buttonSave")).click();
+            }
+        } catch (NoSuchElementException e) {
+        }
+    }
+
+
+
     //must be on the Equipment page
     public void get_image_sensors() throws InterruptedException {
         getDriver1().findElement(By.xpath("/html/body/form/table/tbody/tr/td[2]/div/div[2]/div[3]/div/div/ul/li[4]/a")).click();

@@ -50,7 +50,7 @@ public class ArmedAway_GlassBreak extends Setup {
         Thread.sleep(2000);
         logger.info("Restore Glass Break " + group);
         sensors.primary_call(DLID, restore);
-        Thread.sleep(2000);
+        Thread.sleep(4000);
         logger.info("Verify Alarm");
         verify_in_alarm();
         Thread.sleep(1000);

@@ -26,19 +26,14 @@ public class Key_Fob extends Setup{
     PanelInfo_ServiceCalls servcall = new PanelInfo_ServiceCalls();
     String AccountID = adc.getAccountId();
 
-    private String keyfobAway = "04 04";
-    private String keyfobStay = "04 01";
-    private String keyfobDisarm = "08 01";
     private String keyfobActivated = "02 01";
     /*** If you want to run tests only on the panel, please set ADCexecute value to false ***/
     String ADCexecute = "true";
     String   element_to_verify = "//*[contains(text(), 'Panel armed-stay ')]";
     String   element_to_verify1 = "//*[contains(text(), 'Panel armed-away ')]";
     String   element_to_verify3 = "//*[contains(text(), 'Panel disarmed ')]";
-    private int Normal_Exit_Delay = 10;
-    private int Normal_Entry_Delay = 11;
     private int Long_Exit_Delay = 13;
-    private int Long_Entry_Delay = 12;
+
 
     public void add_primary_call(int zone, int group, int sensor_dec, int sensor_type) throws IOException {
         String add_primary = " shell service call qservice 50 i32 " + zone + " i32 " + group + " i32 " + sensor_dec + " i32 " + sensor_type;
@@ -100,6 +95,52 @@ public class Key_Fob extends Setup{
         adc.driver1.findElement(By.partialLinkText("Sensors")).click();
         Thread.sleep(2000);
         adc.Request_equipment_list();
+    }
+
+    @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
+    public void Disarm_keyfob_group1() throws Exception {
+        Emergency_Page emg = PageFactory.initElements(driver, Emergency_Page.class);
+        logger.info("****************************DISARM KEY FOB****************************");
+        logger.info("Keyfob group 1: Disarm, panic = Police");
+        Thread.sleep(4000);
+        sensors.primary_call("65 00 AF", keyfobActivated);
+        Thread.sleep(2000);
+        element_verification(emg.Emergency_sent_text, "Emergency Icon" );
+        logger.info("Cancel Emergency Alarm");
+        emg.Cancel_Emergency.click();
+        enter_default_user_code();
+        String   element_to_verify2 = "//*[contains(text(), ' Keyfob 38 Delayed Police Panic')]";
+        ADC_verification(element_to_verify, element_to_verify2, element_to_verify3);
+    }
+    @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
+    public void Disarm_keyfob_group4() throws Exception {
+        Emergency_Page emg = PageFactory.initElements(driver, Emergency_Page.class);
+        logger.info("****************************DISARM KEY FOB****************************");
+        logger.info("Keyfob group 4: Disarm, panic = Auxiliary");
+        Thread.sleep(4000);
+        sensors.primary_call("65 00 CF", keyfobActivated);
+        Thread.sleep(2000);
+        element_verification(emg.Emergency_sent_text, "Emergency Icon" );
+        logger.info("Cancel Emergency Alarm");
+        emg.Cancel_Emergency.click();
+        enter_default_user_code();
+        String   element_to_verify2 = "//*[contains(text(), ' Keyfob 40 Delayed Aux')]";
+        ADC_verification(element_to_verify, element_to_verify2, element_to_verify3);
+    }
+    @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
+    public void Disarm_keyfob_group6() throws Exception {
+        Emergency_Page emg = PageFactory.initElements(driver, Emergency_Page.class);
+        logger.info("****************************DISARM KEY FOB****************************");
+        logger.info("Keyfob group 6: Disarm, panic = Auxiliary");
+        Thread.sleep(4000);
+        sensors.primary_call("65 00 BF", keyfobActivated);
+        Thread.sleep(2000);
+        element_verification(emg.Emergency_sent_text, "Emergency Icon" );
+        logger.info("Cancel Emergency Alarm");
+        emg.Cancel_Emergency.click();
+        enter_default_user_code();
+        String   element_to_verify2 = "//*[contains(text(), 'Keyfob 39 Delayed Aux')]";
+        ADC_verification(element_to_verify, element_to_verify2, element_to_verify3);
     }
 
     @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
