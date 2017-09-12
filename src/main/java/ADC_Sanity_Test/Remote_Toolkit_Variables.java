@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class Remote_Toolkit_Variables {
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl00_lblCategoryName")
-    public WebElement Advanced_Panel_Settings;
+    public WebElement Advanced_Panel_Settings_Dropdown;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl00_rptSettingsCommands_ctl00_lbtnCommandSetting")
     public WebElement Auto_Upload_logs;
@@ -16,7 +16,7 @@ public class Remote_Toolkit_Variables {
     public WebElement Log_Level;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl01_lblCategoryName")
-    public  WebElement Alarm_Settings;
+    public  WebElement Alarm_Settings_Dropdown;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl01_rptSettingsCommands_ctl00_lbtnCommandSetting")
     public WebElement Alarm_Photos;
@@ -40,7 +40,7 @@ public class Remote_Toolkit_Variables {
     public WebElement Siren_Timeout;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl02_lblCategoryName")
-    public WebElement Arming_Setting;
+    public WebElement Arming_Setting_Dropdown;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl02_rptSettingsCommands_ctl00_lbtnCommandSetting")
     public WebElement Auto_Stay;
@@ -67,7 +67,7 @@ public class Remote_Toolkit_Variables {
     public WebElement Secure_Delete_Images;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl03_lblCategoryName")
-    public WebElement Beeps_And_Speakers;
+    public WebElement Beeps_And_Speakers_Dropdown;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl03_rptSettingsCommands_ctl00_lbtnCommandSetting")
     public WebElement All_Chimes;
@@ -136,7 +136,7 @@ public class Remote_Toolkit_Variables {
     public WebElement Water_And_Freeze_Siren;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl04_lblCategoryName")
-    public WebElement Broadband_Settings;
+    public WebElement Broadband_Settings_Dropdown;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl04_rptSettingsCommands_ctl00_lbtnCommandSetting")
     public WebElement Bluetooth_Disarming_Feature;
@@ -148,7 +148,7 @@ public class Remote_Toolkit_Variables {
     public WebElement Wi_Fi_Network_Name;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl05_lblCategoryName")
-    public WebElement Communication;
+    public WebElement Communication_Dropdown;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl05_rptSettingsCommands_ctl00_lbtnCommandSetting")
     public WebElement Dual_Path_Communication_settings;
@@ -166,7 +166,7 @@ public class Remote_Toolkit_Variables {
     public WebElement Request_Firmware_Version;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl05_rptSettingsCommands_ctl05_lbtnCommandSetting")
-    public WebElement Date_and_Time;
+    public WebElement Date_and_Time_Dropdown;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl06_rptSettingsCommands_ctl00_lbtnCommandSetting")
     public WebElement Location;
@@ -178,7 +178,7 @@ public class Remote_Toolkit_Variables {
     public WebElement Set_Panel_Time;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl08_lblCategoryName")
-    public WebElement General;
+    public WebElement General_Dropdown;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl08_rptSettingsCommands_ctl00_lbtnCommandSetting")
     public WebElement Automatic_Upgrade;
@@ -202,7 +202,7 @@ public class Remote_Toolkit_Variables {
     public WebElement Send_Weather_Info;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl09_lblCategoryName")
-    public WebElement Image_Sensor;
+    public WebElement Image_Sensor_Dropdown;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl09_rptSettingsCommands_ctl00_lbtnCommandSetting")
     public WebElement Change_Extended_Range;
@@ -220,7 +220,7 @@ public class Remote_Toolkit_Variables {
     public WebElement Verify_Daughterboard_Attachment;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl10_lblCategoryName")
-    public WebElement Keypad_Screen_Setting;
+    public WebElement Keypad_Screen_Setting_Dropdown;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl10_rptSettingsCommands_ctl00_lbtnCommandSetting")
     public WebElement Automatically_Turn_Off_display;
@@ -262,7 +262,7 @@ public class Remote_Toolkit_Variables {
     public WebElement Transition_Effect;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl14_lblCategoryName")
-    public WebElement Panel_Information;
+    public WebElement Panel_Information_Dropdown;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl14_rptSettingsCommands_ctl00_lbtnCommandSetting")
     public WebElement Account_Number;
@@ -283,7 +283,7 @@ public class Remote_Toolkit_Variables {
     public WebElement Secondary_Panels;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl15_lblCategoryName")
-    public WebElement Sensors;
+    public WebElement Sensors_Dropdown;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl15_rptSettingsCommands_ctl00_lbtnCommandSetting")
     public WebElement Change_Sensor_Name;
@@ -298,7 +298,7 @@ public class Remote_Toolkit_Variables {
     public WebElement Zones_Count;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl16_lblCategoryName")
-    public WebElement Timers;
+    public WebElement Timers_Dropdown;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl16_rptSettingsCommands_ctl00_lbtnCommandSetting")
     public WebElement Arm_Stay_No_Delay;
@@ -327,80 +327,83 @@ public class Remote_Toolkit_Variables {
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl16_rptSettingsCommands_ctl08_lbtnCommandSetting")
     public WebElement SIA_Power_Restoration;
 
-    @FindBy(xpath = "")
-    public WebElement ;
+    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl17_lblCategoryName")
+    public WebElement Trouble_Condition_Settings_Dropdown;
 
-    @FindBy(xpath = "")
-    public WebElement ;
+    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl17_rptSettingsCommands_ctl00_lbtnCommandSetting")
+    public WebElement Loss_Of_Supervisory_Signals_Emergency_only;
 
-    @FindBy(xpath = "")
-    public WebElement ;
+    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl17_rptSettingsCommands_ctl01_lbtnCommandSetting")
+    public WebElement Loss_Of_Supervisory_Signals_Non_Emergency_Sensors;
 
-    @FindBy(xpath = "")
-    public WebElement ;
+    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl17_rptSettingsCommands_ctl02_lbtnCommandSetting")
+    public WebElement Panel_Communication_Test_Frequency;
 
-    @FindBy(xpath = "")
-    public WebElement ;
+    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl19_lblCategoryName")
+    public WebElement User_Codes_Dropdown;
 
-    @FindBy(xpath = "")
-    public WebElement ;
+    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl19_rptSettingsCommands_ctl00_lbtnCommandSetting")
+    public WebElement Allow_Master_Code_to_Access_Image_Settings;
 
-    @FindBy(xpath = "")
-    public WebElement ;
+    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl19_rptSettingsCommands_ctl01_lbtnCommandSetting")
+    public WebElement Allow_Master_Code_to_Access_Security_and_Arming;
 
-    @FindBy(xpath = "")
-    public WebElement ;
+    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl19_rptSettingsCommands_ctl02_lbtnCommandSetting")
+    public WebElement Allow_Master_Code_to_Access_Siren_and_Alarms;
 
-    @FindBy(xpath = "")
-    public WebElement ;
+    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl19_rptSettingsCommands_ctl03_lbtnCommandSetting")
+    public WebElement Allow_Master_Code_ZWave_Management;
 
-    @FindBy(xpath = "")
-    public WebElement ;
+    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl19_rptSettingsCommands_ctl04_lbtnCommandSetting")
+    public WebElement Allow_Master_Code_ZWave_Settings;
 
-    @FindBy(xpath = "")
-    public WebElement ;
+    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl19_rptSettingsCommands_ctl05_lbtnCommandSetting")
+    public WebElement Dealer_Code;
 
-    @FindBy(xpath = "")
-    public WebElement ;
+    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl19_rptSettingsCommands_ctl06_lbtnCommandSetting")
+    public WebElement Duress_Authentication;
 
-    @FindBy(xpath = "")
-    public WebElement ;
+    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl19_rptSettingsCommands_ctl07_lbtnCommandSetting")
+    public WebElement Installer_Code;
 
-    @FindBy(xpath = "")
-    public WebElement ;
+    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl19_rptSettingsCommands_ctl08_lbtnCommandSetting")
+    public WebElement Request_User_Code_Names;
 
-    @FindBy(xpath = "")
-    public WebElement ;
+    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl21_lblCategoryName")
+    public WebElement Z_Wave_Dropdown;
 
-    @FindBy(xpath = "")
-    public WebElement ;
+    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl21_rptSettingsCommands_ctl00_lbtnCommandSetting")
+    public WebElement Door_Lock_Limit;
 
-    @FindBy(xpath = "")
-    public WebElement ;
+    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl21_rptSettingsCommands_ctl01_lbtnCommandSetting")
+    public WebElement Garage_Doors;
 
-    @FindBy(xpath = "")
-    public WebElement ;
+    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl21_rptSettingsCommands_ctl02_lbtnCommandSetting")
+    public WebElement Get_Equipment_List;
 
-    @FindBy(xpath = "")
-    public WebElement ;
+    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl21_rptSettingsCommands_ctl03_lbtnCommandSetting")
+    public WebElement Light_Limit;
 
-    @FindBy(xpath = "")
-    public WebElement ;
+    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl21_rptSettingsCommands_ctl04_lbtnCommandSetting")
+    public WebElement Local_Z_Wave_Voice_Prompts;
 
-    @FindBy(xpath = "")
-    public WebElement ;
+    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl21_rptSettingsCommands_ctl05_lbtnCommandSetting")
+    public WebElement Other_Z_Wave_Device_Limit;
 
-    @FindBy(xpath = "")
-    public WebElement ;
+    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl21_rptSettingsCommands_ctl06_lbtnCommandSetting")
+    public WebElement Rediscover_Network;
 
-    @FindBy(xpath = "")
-    public WebElement ;
+    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl21_rptSettingsCommands_ctl07_lbtnCommandSetting")
+    public WebElement Remote_Z_Wave_Voice_Prompts;
 
-    @FindBy(xpath = "")
-    public WebElement ;
+    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl21_rptSettingsCommands_ctl08_lbtnCommandSetting")
+    public WebElement Smart_Socket_Limit;
 
-    @FindBy(xpath = "")
-    public WebElement ;
+    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl21_rptSettingsCommands_ctl09_lbtnCommandSetting")
+    public WebElement Temperature;
 
-    @FindBy(xpath = "")
-    public WebElement ;
+    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl21_rptSettingsCommands_ctl10_lbtnCommandSetting")
+    public WebElement Thermostat_Limit;
+
+    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl21_rptSettingsCommands_ctl11_lbtnCommandSetting")
+    public WebElement Z_Wave;
