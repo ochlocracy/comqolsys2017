@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.*;
 import javax.swing.plaf.InternalFrameUI;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 import org.testng.annotations.Test;
 
@@ -18,6 +19,7 @@ import org.testng.annotations.Test;
 public class Remote_Toolkit extends Setup {
     String page_name = "Remote Toolkit";
     Logger logger = Logger.getLogger(page_name);
+    ArrayList<WebElement> elem = new ArrayList<>();
     ADC adc = new ADC();
     String AccountID = adc.getAccountId();
     PanelInfo_ServiceCalls servcall = new PanelInfo_ServiceCalls();
@@ -49,7 +51,7 @@ public class Remote_Toolkit extends Setup {
         adc.getDriver1().findElement(By.id("txtPassword")).sendKeys(password);
         adc.getDriver1().findElement(By.id("butLogin")).click();
         Thread.sleep(1000);
-        adc.driver1.get("https://alarmadmin.alarm.com/Support/AirFx/rt_MainMenu.aspx");
+        adc.driver1.get("https://alarmadmin.alarm.com/Support/RemoteToolkit.aspx");
     }
 
     @BeforeTest
@@ -64,15 +66,20 @@ public class Remote_Toolkit extends Setup {
     }
 
     @Test
-    public void Code_Management() throws java.lang.Exception {
+    public void Advanced_Panel_Settings() throws java.lang.Exception {
+        Remote_Toolkit remote = PageFactory.initElements(driver, Remote_Toolkit.class);
+
+
+
+
+
+
+
+
         logger.info("Change Installer Code Test Begin");
         String InstallerCode = "4444";
         New_ADC_session(adc.getAccountId());
         Thread.sleep(4000);
-        adc.getDriver1().findElement(By.partialLinkText("Change Installer Code")).click();
-        Thread.sleep(2000);
-        adc.getDriver1().findElement(By.id("ctl00_phBody_UcsChangeInstallerCode2_txtInstallerCode")).sendKeys(InstallerCode);
-        adc.getDriver1().findElement(By.id("ctl00_phBody_UcsChangeInstallerCode2_btnSendCommand")).click();
         logger.info("Pass: Installer Code Changed");
         Thread.sleep(3000);
         adc.getDriver1().findElement(By.id("ctl00_phBody_UcAirFxNaviFooter1_btnBack")).click();
@@ -167,8 +174,6 @@ public class Remote_Toolkit extends Setup {
         Remote_Toolkit_Variables about = PageFactory.initElements(driver, Remote_Toolkit_Variables.class);
         adc.driver1.get("https://alarmadmin.alarm.com/Support/RemoteToolkit.aspx");
         logger.info("Change 'Siren Timeout' Test Begin");
-        element_verification(about.Alarm_Settings, "Alarm Settings");
-        about.Alarm_Settings.click();
         Thread.sleep(1000);
 
         logger.info("Pass: Entry/Exit Delay");

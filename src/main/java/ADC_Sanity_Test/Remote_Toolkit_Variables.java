@@ -16,7 +16,7 @@ public class Remote_Toolkit_Variables {
     public WebElement Log_Level;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl01_lblCategoryName")
-    public  WebElement Alarm_Settings_Dropdown;
+    public WebElement Alarm_Settings_Dropdown;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl01_rptSettingsCommands_ctl00_lbtnCommandSetting")
     public WebElement Alarm_Photos;
@@ -55,7 +55,7 @@ public class Remote_Toolkit_Variables {
     public WebElement Exit_Delay;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl02_rptSettingsCommands_ctl04_lbtnCommandSetting")
-    public  WebElement Refuse_Arming_When_Battery_Low;
+    public WebElement Refuse_Arming_When_Battery_Low;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl02_rptSettingsCommands_ctl05_lbtnCommandSetting")
     public WebElement Secure_Arming;
@@ -313,10 +313,10 @@ public class Remote_Toolkit_Variables {
     public WebElement Keyfob_No_Delay;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl16_rptSettingsCommands_ctl04_lbtnCommandSetting")
-    public WebElement Long_Entry_Delay;
+    public WebElement Long_Entry_Delay_Toolkit;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl16_rptSettingsCommands_ctl05_lbtnCommandSetting")
-    public WebElement Long_Exit_Delay;
+    public WebElement Long_Exit_Delay_Toolkit;
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl16_rptSettingsCommands_ctl06_lbtnCommandSetting")
     public WebElement Network_Failure_Timeout;
@@ -407,3 +407,5 @@ public class Remote_Toolkit_Variables {
 
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl21_rptSettingsCommands_ctl11_lbtnCommandSetting")
     public WebElement Z_Wave;
+
+}
