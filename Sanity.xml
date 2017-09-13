@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Sanity">
+    <test name="PostUpdate">
+
+        <classes>
+            <class name="Update.PostUpdate_Settings"/>
+            <class name="Update.PreUpdate_Sensors"/>
+            <class name="Update.PostUpdate_UserManagement"/>
+
+            <class name="Settings.Alarm_Photos_Test"/>
+            <class name="Settings.Allow_Master_Code_to_access_Camera_Settings_Test"/>
+            <class name="Settings.Allow_Master_Code_to_access_Security_and_Arming_Test"/>
+            <class name="Settings.Allow_Master_Code_to_access_Siren_and_Alarms_Test"/>
+            <class name="Settings.Arm_Stay_No_Delay_Test"/>
+            <class name="Settings.Auto_Bypass_Test"/>
+            <class name="Settings.Auto_Exit_Time_Extension_Test"/>
+            <class name="Settings.Auto_Stay_Test"/>
+            <class name="Settings.Dealer_Code_Test"/>
+            <class name="Settings.Disarm_Photos_Test"/>
+            <class name="Settings.Duress_Authentication_Test"/>
+            <class name="Settings.Installer_Code_Test"/>
+            <class name="Settings.Keyfob_Alarm_Disarm_Test"/>
+            <class name="Settings.Keyfob_Disarming_Test"/>
+            <class name="Settings.Keyfob_Instant_Arming_Test"/>
+            <class name="Settings.Panic_Disable_Test"/>
+            <class name="Settings.Secure_Arming_Test"/>
+            <class name="Settings.Secure_Delete_Images_Test"/>
+            <class name="Settings.Settings_Photos_Test"/>
+
+        </classes>
+    </test>
+</suite>

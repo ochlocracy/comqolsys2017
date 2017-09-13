@@ -15,9 +15,7 @@ import org.testng.annotations.*;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by nchortek on 8/8/17.
- */
+/**Approximate test run duration:    **/
 public class ArmedAway_Motion extends Setup{
 
 
@@ -265,9 +263,9 @@ public class ArmedAway_Motion extends Setup{
     @AfterTest
     public void tearDown() throws IOException, InterruptedException {
         driver.quit();
-//        for (int i= 5; i>0; i--) {
-//            delete_from_primary(i);
-//        }
+        for (int i= 5; i>0; i--) {
+            delete_from_primary(i);
+        }
     }
 
     @AfterMethod

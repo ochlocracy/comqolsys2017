@@ -172,7 +172,7 @@ public class ArmedAway_Contact extends Setup{
     }
     @Test(priority = 5, retryAnalyzer = RetryAnalizer.class)
     public void  ArmAwayExitDelay_8() throws Exception {
-        ArmAway_Open_Close_during_Exit_Delay_Alarm(8, "65 00 5A","//*[contains(text(), 'Door/Window 6 (Sensor 6) Alarm')]", "//*[contains(text(), 'Armed Away')]");
+        ArmAway_Open_Close_during_Exit_Delay_Alarm(8, "65 00 5A","//*[contains(text(), 'Door/Window 6')]", "//*[contains(text(), 'Armed Away')]");
     }
     @Test(priority = 6, retryAnalyzer = RetryAnalizer.class)
     public void  ArmAwayExitDelay_9() throws Exception {

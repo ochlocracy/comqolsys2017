@@ -10,6 +10,7 @@ import Sensors.Sensors;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -18,9 +19,9 @@ import javax.swing.plaf.InternalFrameUI;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-public class IQShock extends Setup {
+public class CarbonMonoxide extends Setup {
 
-    String page_name = "ArmedStay_IQShock";
+    String page_name = "CarbonMonoxide";
     Logger logger = Logger.getLogger(page_name);
     Sensors sensors = new Sensors();
     ADC adc = new ADC();
@@ -35,11 +36,12 @@ public class IQShock extends Setup {
     private int Long_Exit_Delay = 12;
     private int Long_Entry_Delay = 13;
     private String open = "06 00";
-    private String close = "04 01";
+    private String close = "00 01";
     private String activate = "02 01";
     private String tamper = "01 01";
 
-    public IQShock() throws IOException, BiffException {}
+    public CarbonMonoxide() throws IOException, BiffException {
+    }
 
     public void add_primary_call(int zone, int group, int sensor_dec, int sensor_type) throws IOException {
         String add_primary = " shell service call qservice 50 i32 " + zone + " i32 " + group + " i32 " + sensor_dec + " i32 " + sensor_type;
@@ -65,7 +67,7 @@ public class IQShock extends Setup {
                     WebElement history_message = adc.driver1.findElement(By.xpath(message[i]));
                     Assert.assertTrue(history_message.isDisplayed());
                     {
-                        System.out.println("Pass: message is displayed " + history_message.getText());
+                        System.out.println(" Pass: message is displayed " + history_message.getText());
                     }
                 } catch (Exception e) {
                     System.out.println("***No such element found!***");
@@ -99,40 +101,27 @@ public class IQShock extends Setup {
     }
 
     @Test
-    public void addSensors() throws IOException, InterruptedException {
+    public void addSensor() throws IOException, InterruptedException {
         Thread.sleep(2000);
-        logger.info("Adding a list of sensors");
-        add_primary_call(1, 13, 6684828, 107);
-        add_primary_call(2, 17, 6684829, 107);
+        logger.info("Adding Sensor");
+        add_primary_call(27, 34, 7667882, 6);
 
         adc.New_ADC_session(adc.getAccountId());
         Thread.sleep(2000);
         adc.driver1.findElement(By.partialLinkText("Sensors")).click();
         Thread.sleep(2000);
         adc.Request_equipment_list();
-    }
-
-    /*** Disarm Activate***/
-    @Test(dependsOnMethods = {"addSensors"})
-    public void Disarm_Activate_13() throws IOException, InterruptedException {
-        logger.info("Activate a sensor");
-        sensors.primary_call("66 00 C9", activate);
         Thread.sleep(2000);
-        sensors.primary_call("66 00 C9", close);
-        ADC_verification("//*[contains(text(), ' Activated')]", "//*[contains(text(), ' Normal')]");
     }
-
 
     /*** ArmStay Activate***/
 
-    public void ArmStay_Activate_Sensor_during_Exit_Delay_Alarm(int group, String DLID, String element_to_verify, String element_to_verify1) throws Exception {
-        logger.info("ArmStay -Activate " + group + " IQ Shock during exit delay");
+    public void ArmStay_Activate_Sensor_during_Exit_Delay(int group, String DLID, String element_to_verify, String element_to_verify1) throws Exception {
+        logger.info("ArmStay -Activate " + group + " Carbon Monoxide during exit delay");
         ARM_STAY();
         TimeUnit.SECONDS.sleep(Long_Exit_Delay / 2);
         logger.info("Activate a sensor");
         sensors.primary_call(DLID, activate);
-        Thread.sleep(2000);
-        sensors.primary_call(DLID, close);
         Thread.sleep(2000);
         verify_in_alarm();
         enter_default_user_code();
@@ -141,90 +130,61 @@ public class IQShock extends Setup {
         ADC_verification(element_to_verify, element_to_verify1);
     }
 
-    public void ArmStay_Activate_Sensor_during_Exit_Delay(int group, String DLID, String element_to_verify, String element_to_verify1) throws Exception {
-        logger.info("ArmStay -Activate " + group + " IQ Shock during exit delay");
+    public void ArmStay_Activate_Sensor_Alarm(int group, String DLID, String element_to_verify, String element_to_verify1) throws Exception {
+        logger.info("ArmStay -Activate " + group + " Carbon Monoxide during exit delay");
         ARM_STAY();
         TimeUnit.SECONDS.sleep(Long_Exit_Delay / 2);
+        Thread.sleep(2000);
         logger.info("Activate a sensor");
         sensors.primary_call(DLID, activate);
         Thread.sleep(2000);
-        sensors.primary_call(DLID, close);
-        TimeUnit.SECONDS.sleep(Long_Exit_Delay / 2);
-        verify_armstay();
-        Thread.sleep(2000);
-        DISARM();
+        verify_in_alarm();
+        enter_default_user_code();
         Thread.sleep(2000);
 
         ADC_verification(element_to_verify, element_to_verify1);
     }
 
-    @Test(dependsOnMethods = {"addSensors"})
-    public void ArmStayExitDelay_13() throws Exception {
-        ArmStay_Activate_Sensor_during_Exit_Delay_Alarm(13, "66 00 C9", "//*[contains(text(), 'Activated/Normal')]", "//*[contains(text(), 'Pending Alarm')]");
+    @Test(dependsOnMethods = {"addSensor"})
+    public void ArmStayExitDelay_34() throws Exception {
+        ArmStay_Activate_Sensor_during_Exit_Delay(34, "75 00 AA", "//*[contains(text(), 'Activated/Normal')]", "//*[contains(text(), 'Pending Alarm')]");
     }
 
-    @Test(priority = 1)
-    public void ArmStayExitDelay_17() throws Exception {
-        ArmStay_Activate_Sensor_during_Exit_Delay(17, "66 00 D9", "//*[contains(text(), 'Armed Stay')]", "//*[contains(text(), 'Activated')]");
+    @Test(priority = 2)
+    public void ArmStay_34() throws Exception {
+        ArmStay_Activate_Sensor_Alarm(34, "75 00 AA", "//*[contains(text(), 'Armed Stay')]", "//*[contains(text(), 'Activated')]");
     }
 
     /*** Arm Stay Tamper ***/
 
-    public void ArmStay_Tamper_Alarm(int group, String DLID, String element_to_verify, String element_to_verify1) throws Exception {
-        logger.info("ArmStay Tamper Group " + group + " contact sensor");
+    public void ArmStay_Tamper_Sensor(int group, String DLID, String element_to_verify, String element_to_verify2) throws Exception {
+        logger.info("ArmStay -Open/Close Group " + group + " Carbon Monoxide during exit delay");
         ARM_STAY();
         TimeUnit.SECONDS.sleep(Long_Exit_Delay);
         Thread.sleep(2000);
-        logger.info("Tamper a sensor");
+        logger.info("Activate a sensor");
         sensors.primary_call(DLID, tamper);
         Thread.sleep(2000);
         sensors.primary_call(DLID, close);
-        Thread.sleep(3000);
-        verify_in_alarm();
-        Thread.sleep(2000);
-        enter_default_user_code();
-        Thread.sleep(2000);
-
-        ADC_verification(element_to_verify, element_to_verify1);
-    }
-
-    public void ArmStay_Tamper(int group, String DLID, String element_to_verify, String element_to_verify1) throws Exception {
-        logger.info("ArmStay Tamper Group " + group + " contact sensor");
-        ARM_STAY();
-        TimeUnit.SECONDS.sleep(Long_Exit_Delay);
-        Thread.sleep(2000);
-        logger.info("Tamper a sensor");
-        sensors.primary_call(DLID, tamper);
-        Thread.sleep(2000);
-        sensors.primary_call(DLID, close);
-        Thread.sleep(3000);
         verify_armstay();
-        Thread.sleep(2000);
         DISARM();
         Thread.sleep(2000);
 
-        ADC_verification(element_to_verify, element_to_verify1);
-    }
-
-    @Test(priority = 2)
-    public void ArmStay_Tamper_13() throws Exception {
-        ArmStay_Tamper_Alarm(13, "66 00 C9", "//*[contains(text(), 'Tamper')]", "//*[contains(text(), 'End of Tamper')]");
+        ADC_verification(element_to_verify, element_to_verify2);
     }
 
     @Test(priority = 3)
-    public void ArmStay_Tamper_17() throws Exception {
-        ArmStay_Tamper(17, "66 00 D9", "//*[contains(text(), 'Tamper')]", "//*[contains(text(), 'End of Tamper')]");
+    public void ArmStayTamper_34() throws Exception {
+        ArmStay_Tamper_Sensor(34, "75 00 AA", "//*[contains(text(), 'Tamper')]", "//*[contains(text(), 'End of Tamper')]");
     }
 
     /*** ArmAway Activate***/
 
-    public void ArmAway_Activate_Sensor_during_Exit_Delay_Alarm(int group, String DLID, String element_to_verify, String element_to_verify1) throws Exception {
-        logger.info("ArmStay -Activate " + group + " IQ Shock during exit delay");
+    public void ArmAway_Activate_Sensor_during_Exit_Delay(int group, String DLID, String element_to_verify, String element_to_verify1) throws Exception {
+        logger.info("ArmStay -Activate " + group + " Carbon Monoxide during exit delay");
         ARM_AWAY(Long_Exit_Delay / 2);
         logger.info("Activate a sensor");
         sensors.primary_call(DLID, activate);
-        Thread.sleep(2000);
-        sensors.primary_call(DLID, close);
         Thread.sleep(2000);
         verify_in_alarm();
         enter_default_user_code();
@@ -234,18 +194,32 @@ public class IQShock extends Setup {
     }
 
     @Test(priority = 4)
-    public void ArmAwayExitDelay_13() throws Exception {
-        ArmAway_Activate_Sensor_during_Exit_Delay_Alarm(13, "66 00 C9", "//*[contains(text(), 'Activated/Normal')]", "//*[contains(text(), 'Pending Alarm')]");
+    public void ArmAwayExitDelay_34() throws Exception {
+        ArmAway_Activate_Sensor_during_Exit_Delay(34, "75 00 AA", "//*[contains(text(), 'Activated/Normal')]", "//*[contains(text(), 'Pending Alarm')]");
+    }
+
+    public void ArmAway_Activate_Sensor_Alarm(int group, String DLID, String element_to_verify, String element_to_verify2) throws Exception {
+        logger.info("ArmAway -Open/Close Group " + group + " Carbon Monoxide during exit delay");
+        ARM_AWAY(Long_Exit_Delay);
+        Thread.sleep(2000);
+        logger.info("Activate a sensor");
+        sensors.primary_call(DLID, activate);
+        Thread.sleep(2000);
+        verify_in_alarm();
+        enter_default_user_code();
+        Thread.sleep(2000);
+
+        ADC_verification(element_to_verify, element_to_verify2);
     }
 
     @Test(priority = 5)
-    public void ArmAwayExitDelay_17() throws Exception {
-        ArmAway_Activate_Sensor_during_Exit_Delay_Alarm(17, "66 00 D9", "//*[contains(text(), 'Pending Alarm')]", "//*[contains(text(), 'Delayed alarm')]");
+    public void ArmAway_34() throws Exception {
+        ArmAway_Activate_Sensor_Alarm(34, "75 00 AA", "//*[contains(text(), 'Multi-Function-1 1')]", "//*[contains(text(), 'Delayed alarm on sensor 1 in partition 1')]");
     }
 
     /*** ArmAway Tamper ***/
 
-    public void ArmAway_Tamper_Alarm(int group, String DLID, String element_to_verify, String element_to_verify1) throws Exception {
+    public void ArmAway_Tamper_Sensor(int group, String DLID, String element_to_verify, String element_to_verify1) throws Exception {
         logger.info("ArmStay Tamper Group " + group + " contact sensor");
         ARM_AWAY(Long_Exit_Delay);
         Thread.sleep(2000);
@@ -263,12 +237,8 @@ public class IQShock extends Setup {
     }
 
     @Test(priority = 6)
-    public void ArmAway_Tamper_13() throws Exception {
-        ArmAway_Tamper_Alarm(13, "66 00 C9", "//*[contains(text(), 'Sensor 1 Tamper**')]", "//*[contains(text(), 'End of Tamper')]");
-    }
-    @Test(priority = 7)
-    public void ArmAway_Tamper_17() throws Exception {
-        ArmAway_Tamper_Alarm(17, "66 00 D9", "//*[contains(text(), 'Sensor 2 Tamper**')]", "//*[contains(text(), 'End of Tamper')]");
+    public void ArmAwayTamper_34() throws Exception {
+        ArmAway_Tamper_Sensor(34, "75 00 AA", "//*[contains(text(), 'Sensor 1 Tamper**')]", "//*[contains(text(), 'End of Tamper')]");
     }
 
     @AfterMethod
@@ -279,9 +249,9 @@ public class IQShock extends Setup {
     @AfterTest
     public void tearDown() throws IOException, InterruptedException {
         driver.quit();
-//        for (int i = 2; i > 0; i--) {
-//            delete_from_primary(i);
-//        }
+        delete_from_primary(27);
     }
 }
+
+
 

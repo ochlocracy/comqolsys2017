@@ -7,7 +7,6 @@ import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import Panel.Setup;
 import Sensors.Sensors;
-import org.apache.tools.ant.types.resources.First;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -25,6 +24,7 @@ public class AirFX extends Setup {
     Logger logger = Logger.getLogger(page_name);
     ADC adc = new ADC();
     String AccountID = adc.getAccountId();
+    String InstallerCode = "4444";
 
     /*** If you want to run tests only on the panel, please set ADCexecute value to false ***/
     String ADCexecute = "true";
@@ -50,13 +50,12 @@ public class AirFX extends Setup {
     public void capabilities_setup() throws Exception {
         setup_driver(get_UDID(), "http://127.0.1.1", "4723");
         setup_logger(page_name);
-    }
+    }*/
 
     @BeforeMethod
     public void webDriver() {
         adc.webDriverSetUp();
     }
-*/
 
     @Test
     public void navigate_to_AirFX_page() throws InterruptedException, IOException {
@@ -65,47 +64,11 @@ public class AirFX extends Setup {
 
     @Test
     public void User_Code_Management() throws InterruptedException {
-        String InstallerCode = "4444";
         getDriver1().findElement(By.partialLinkText("Change Installer Code")).click();
         Thread.sleep(2000);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("Enter desired Installer Code")));
         getDriver1().findElement(By.id("Enter desired Installer Code")).sendKeys(InstallerCode);
-        logger.info("Installer Code Changed");
-
-        String FirstName = "Test";
-        String LastName = "User";
-        String NewUserCode = "3333";
-        getDriver1().findElement(By.partialLinkText("Edit Panel User Codes")).click();
-        Thread.sleep(2000);
-        getDriver1().findElement(By.partialLinkText("Manager User Codes")).click();
-        getDriver1().findElement(By.partialLinkText("Add User")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("First Name")));
-        getDriver1().findElement(By.id("First Name")).sendKeys(FirstName);
-        getDriver1().findElement(By.id("Last Name")).sendKeys(LastName);
-        getDriver1().findElement(By.className("adc-disarmed device-icon")).click();
-        getDriver1().findElement(By.className("list-item-description text-ellipsis")).click();
-        getDriver1().findElement(By.className("userCodePin")).sendKeys(NewUserCode);
-        getDriver1().findElement(By.className("btn btn-primary action-save btn-add-edit-user")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("Test User")));
-        logger.info("User Code Changed");
-
-
-        getDriver1().findElement(By.id("ctl00_phBody_ucAirFxNaviFooter_btnBack")).click();
-
-
-
-        getDriver1().findElement(By.partialLinkText(" Enable/Disable Duress Code")).click();
-        getDriver1().findElement(By.id("ctl00_phBody_ucsDuressCode_drpdwnStatus")).click();
-        getDriver1().findElement(By.partialLinkText("on")).click();
-        getDriver1().findElement(By.className("btnBlue")).click();
-        getDriver1().findElement(By.id("ctl00_phBody_ucAirFxNaviFooter_btnBack")).click();
-        logger.info("Enabled Duress Code");
-
-        // test duress code
-
-
     }
-
 
 
 /*
