@@ -5,7 +5,21 @@ import org.junit.rules.Timeout;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import javax.annotation.Generated;
+
 public class Remote_Toolkit_Variables {
+    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_butChange")
+    public WebElement Change;
+
+    @FindBy(xpath = "/html/body/form/div[13]/div[2]/div/div/div[5]/div/select/option[1]")
+    public WebElement Setting_ON;
+
+    @FindBy(xpath = "/html/body/form/div[13]/div[2]/div/div/div[5]/div/select/option[2]")
+    public WebElement Setting_OFF;
+
+    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_ddlNewValue")
+    public WebElement New_Value;
+
     @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl00_lblCategoryName")
     public WebElement Advanced_Panel_Settings_Dropdown;
 

@@ -66,8 +66,43 @@ public class Remote_Toolkit extends Setup {
     }
 
     @Test
-    public void Advanced_Panel_Settings() throws java.lang.Exception {
-        Remote_Toolkit remote = PageFactory.initElements(driver, Remote_Toolkit.class);
+    public void Remote_Advanced_Panel_Settings() throws java.lang.Exception {
+        Remote_Toolkit_Variables remote = PageFactory.initElements(driver, Remote_Toolkit_Variables.class);
+
+        remote.Advanced_Panel_Settings_Dropdown.click();
+        remote.Auto_Upload_logs.click();
+        remote.New_Value.click();
+        adc.getDriver1().findElement(By.xpath("/html/body/form/div[13]/div[2]/div/div/div[5]/div/select/option[1]")).click(); // ON
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Advanced_Panel_Settings_Dropdown.click();
+        remote.Auto_Upload_logs.click();
+        remote.New_Value.click();
+        adc.getDriver1().findElement(By.xpath("/html/body/form/div[13]/div[2]/div/div/div[5]/div/select/option[2]")).click(); // OFF
+        remote.Change.click();
+        logger.info("Upload Logs Tested");
+        remote.Advanced_Panel_Settings_Dropdown.click();
+        remote.Log_Level.click();
+        remote.New_Value.click();
+        //CODE ALL THE VALUES for log level
+        remote.Change.click();
+        Thread.sleep(2000);
+
+
+
+
+
+    }
+
+    @Test
+    public void Remote_Alarm_Settings() throws java.lang.Exception {
+        Remote_Toolkit_Variables remote = PageFactory.initElements(driver, Remote_Toolkit_Variables.class);
+        remote.Alarm_Settings_Dropdown.click();
+        remote.Alarm_Photos.click();
+    }
+
+}
+/*
 
 
 
