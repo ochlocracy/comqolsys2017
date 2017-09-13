@@ -131,7 +131,7 @@ public class SystemTest_DualPath_ADC extends Setup{
         adc.getDriver1().manage().window().maximize();
         String ADC_URL = "https://www.alarm.com/login.aspx";
         adc.getDriver1().get(ADC_URL);
-        String login = "pan7aut";
+        String login = "panAut";
         String password = "qolsys123";
         Thread.sleep(2000);
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_ContentPlaceHolder1_loginform_txtUserName")));
