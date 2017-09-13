@@ -76,5 +76,7 @@ public class Security_Arming_Page {
     public WebElement Input_Field;
     @FindBy(id = "com.qolsys:id/Set")
     public WebElement Delay_Set;
+    @FindBy(id = "android:id/checkbox")
+    public WebElement Checkbox;
 
 }

@@ -131,9 +131,10 @@ public class Keypad extends Setup{
         System.out.println("Pass: the system  continues to be in ARM STAY");
         String   element_to_verify2 = "//*[contains(text(), 'Keypad/Touchscreen(42) Silent Police Panic')]";
         ADC_verification(element_to_verify, element_to_verify2, element_to_verify3);
+        DISARM();
     }
 
-    @Test //(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
+    @Test (dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
     public void Armaway_by_keyfob_group1() throws Exception {
         Home_Page home = PageFactory.initElements(driver, Home_Page.class);
         Emergency_Page emg = PageFactory.initElements(driver, Emergency_Page.class);
@@ -169,7 +170,9 @@ public class Keypad extends Setup{
         System.out.println("Pass: the system continues to be in ARM AWAY");
         String   element_to_verify2 = "//*[contains(text(), 'Keypad/Touchscreen(42) Silent Police Panic')]";
         ADC_verification(element_to_verify, element_to_verify2, element_to_verify3);
-    }
+        home.DISARM_from_away.click();
+        enter_default_user_code();
+           }
 
     @AfterTest
     public void tearDown () throws IOException, InterruptedException {
@@ -179,6 +182,7 @@ public class Keypad extends Setup{
             delete_from_primary(i);
         }
     }
+
 
     @AfterMethod
     public void webDriverQuit(){

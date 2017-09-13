@@ -150,16 +150,26 @@ public class PanelInfo_ServiceCalls extends Setup {
 
     public void get_AUTO_BYPASS() throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 19 i32 0 i32 0";
-        rt.exec(command);}
+        rt.exec(command);
+        String value = (execCmd(command)).toString();
+        //System.out.println(value);
+        if (value.contains("00000000 00000000 ")) {
+            System.out.println("Auto ByPass is Disabled");
+        } else if (value.contains("00000000 00000001 ")){
+            System.out.println("Auto ByPass is Enabled");
+        }
+    }
 
 
     public void set_AUTO_BYPASS(int state) throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 19 i32 " + state + " i32 0 i32 0";
-        rt.exec(command);}
+        rt.exec(command);
+    }
 
     public void get_AUTO_STAY() throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 37 i32 0 i32 0 i32 20 i32 0 i32 0";
         rt.exec(command);}
+
 
         //State: 0 = disable; 1 = enable
     public void set_AUTO_STAY(int state) throws IOException, InterruptedException {

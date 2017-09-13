@@ -4,9 +4,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class Home_Page {
-
+    @FindBy(id ="com.qolsys:id/t3_home_iv_SensorStatus")
+    public WebElement Sensor_status;
     @FindBy(id ="com.qolsys:id/t3_img_disarm")
     public WebElement DISARM;
+    @FindBy(id ="com.qolsys:id/main")
+    public WebElement DISARM_from_away;
     @FindBy(id="com.qolsys:id/img_arm_stay")
     public WebElement ARM_STAY;
     @FindBy(xpath = "//android.widget.TextView[@text='ARM STAY']")
