@@ -290,7 +290,7 @@ public class Auto_Bypass extends Setup{
     }
 
     @Test (dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
-        public void AB319_08() throws Exception {
+        public void aAB319_08() throws Exception {
         logger.info("Verify that sensor can be unslected from bypass and system can be armed as normal");
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         servcall.set_AUTO_BYPASS(1);
