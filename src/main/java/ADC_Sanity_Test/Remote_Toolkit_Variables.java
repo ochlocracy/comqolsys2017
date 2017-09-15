@@ -401,6 +401,7 @@ public class Remote_Toolkit_Variables {
     public WebElement Other_Z_Wave_Device_Limit;
 
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl21_rptSettingsCommands_ctl06_lbtnCommandSetting']")
+
     public WebElement Rediscover_Network;
 
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl21_rptSettingsCommands_ctl07_lbtnCommandSetting']")
