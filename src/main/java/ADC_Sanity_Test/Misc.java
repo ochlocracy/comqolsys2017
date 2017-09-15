@@ -380,8 +380,8 @@ public class Misc extends Setup {
         Thread.sleep(1000);
         adc.getDriver1().findElement(By.id("ctl00_phBody_ucsAddSensor_UcEligibleSensorName1_txtSN")).sendKeys(sensor1);
         adc.getDriver1().findElement(By.id("ctl00_phBody_ucsAddSensor_txtDL")).sendKeys(DL);
-        Select RF_type_menu = new Select(adc.getDriver1().findElement(By.id("ctl00_phBody_ucsAddSensor_ddlRFType")));
-        RF_type_menu.selectByVisibleText("GE 319 RF");
+       // Select RF_type_menu = new Select(adc.getDriver1().findElement(By.id("ctl00_phBody_ucsAddSensor_ddlRFType")));
+       // RF_type_menu.selectByVisibleText("GE 319 RF");
         Thread.sleep(1000);
         adc.getDriver1().findElement(By.id("ctl00_phBody_ucsAddSensor_btnAdd")).click();
         logger.info("Sensor1 added successfully");

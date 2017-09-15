@@ -109,11 +109,11 @@ public class Auto_Bypass extends Setup{
     @Test  (dependsOnMethods = {"addSensors"}, priority = 2)/*** Disarm mode/1)a sensor must be paired 2)Auto Bypass Enabled ***/
     public void AB319_02_AB319_04() throws Exception {
         Thread.sleep(2000);
-       // servcall.set_AUTO_BYPASS(1);
+        servcall.set_AUTO_BYPASS(1);
         logger.info("Verify that open sensor will be selected for bypass and at top of sensor list when pushing arm button.");
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         sensors.primary_call("65 00 0A", open);
-       // servcall.get_AUTO_BYPASS();
+        servcall.get_AUTO_BYPASS();
         servcall.set_AUTO_STAY(0);
         home_page.DISARM.click();
         driver.findElement(By.id("com.qolsys:id/img_expand")).click();
@@ -124,7 +124,8 @@ public class Auto_Bypass extends Setup{
           else
          logger.info("Fail: Sensor is not selected for bypass");
            Thread.sleep(two_sec);
-        driver.findElement(By.id("com.qolsys:id/img_arm_away")).click();
+           home_page.ARM_AWAY.click();
+       // driver.findElement(By.id("com.qolsys:id/img_arm_away")).click();
         Thread.sleep(13000);
         logger.info("Verify that bypassed sensors are really bypassed after panel is armed");
         sensors.primary_call("65 00 0A", close);
@@ -468,7 +469,7 @@ public class Auto_Bypass extends Setup{
     public void tearDown () throws IOException, InterruptedException {
         log.endTestCase(page_name);
         driver.quit();
-        for (int i= 24; i>0; i--) {
+       for (int i= 24; i>0; i--) {
             delete_from_primary(i);
         }
     }
