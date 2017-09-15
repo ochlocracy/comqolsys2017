@@ -2,10 +2,12 @@ package ADC_Sanity_Test;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
 
 
 public class Remote_Toolkit_Variables {
-    @FindBy(xpath = "//*[@id=ctl00_responsiveBody_ucCommands_butChange")
+
+    @FindBy(how = How.XPATH, xpath = "//*[@id=ctl00_responsiveBody_ucCommands_butChange")
     public WebElement Change;
 
     @FindBy (xpath = "//*[@id=ctl00_responsiveBody_ucCommands_txtNewValue")
