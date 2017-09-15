@@ -39,6 +39,8 @@ public class Auto_Bypass extends Setup{
     private int Long_Entry_Delay = 13;
     int two_sec = 2000;
 
+    private String log_path = "/home/qolsys/IdeaProjects/comqolsys2017/log/test.txt";
+
     public void add_primary_call(int zone, int group, int sensor_dec, int sensor_type) throws IOException {
         String add_primary = " shell service call qservice 50 i32 " + zone + " i32 " + group + " i32 " + sensor_dec + " i32 " + sensor_type;
         rt.exec(adbPath + add_primary);
@@ -152,9 +154,9 @@ public class Auto_Bypass extends Setup{
         Thread.sleep(4000);
         ARM_AWAY(Long_Exit_Delay);
         Thread.sleep(two_sec);
-        deleteLogFile("/home/olgak/IdeaProjects/comqolsys2017/log/test.txt");
+        deleteLogFile(log_path);
         Thread.sleep(two_sec);
-        eventLogsGenerating("/home/olgak/IdeaProjects/comqolsys2017/log/test.txt",new String[]{
+        eventLogsGenerating(log_path,new String[]{
                 "TtsUtil:: TTS processing:Door/Window 1, ByPassed"},1);
         Thread.sleep(4000);
         sensors.primary_call("65 00 0A", close);
@@ -166,9 +168,9 @@ public class Auto_Bypass extends Setup{
        Thread.sleep(two_sec);
        sensors.primary_call("65 00 0A", close);
        Thread.sleep(two_sec);
-       deleteLogFile("/home/olgak/IdeaProjects/comqolsys2017/log/test.txt");
+       deleteLogFile(log_path);
        Thread.sleep(two_sec);
-       eventLogsGenerating("/home/olgak/IdeaProjects/comqolsys2017/log/test.txt",new String[]{
+       eventLogsGenerating(log_path,new String[]{
                "TtsUtil:: TTS service received Door/Window 1,  ByPassed"},1);
        logger.info("No TTS message is into logs");
        Thread.sleep(2000);
@@ -182,9 +184,9 @@ public class Auto_Bypass extends Setup{
         Thread.sleep(two_sec);
         ARM_STAY();
         Thread.sleep(two_sec);
-        deleteLogFile("/home/olgak/IdeaProjects/comqolsys2017/log/test.txt");
+        deleteLogFile(log_path);
         Thread.sleep(two_sec);
-        eventLogsGenerating("/home/olgak/IdeaProjects/comqolsys2017/log/test.txt",new String[]{
+        eventLogsGenerating(log_path,new String[]{
                 "TtsUtil:: TTS processing:Door/Window 1  ByPassed"},1);
         Thread.sleep(two_sec);
         sensors.primary_call("65 00 0A", close);
@@ -195,9 +197,9 @@ public class Auto_Bypass extends Setup{
         Thread.sleep(two_sec);
         sensors.primary_call("65 00 0A", close);
         Thread.sleep(two_sec);
-        deleteLogFile("/home/olgak/IdeaProjects/comqolsys2017/log/test.txt");
+        deleteLogFile(log_path);
         Thread.sleep(two_sec);
-        eventLogsGenerating("/home/olgak/IdeaProjects/comqolsys2017/log/test.txt",new String[]{
+        eventLogsGenerating(log_path,new String[]{
                 "TtsUtil:: TTS service received Door/Window 1,  ByPassed"},1);
         logger.info("No TTS message is into logs");
         Thread.sleep(two_sec);
