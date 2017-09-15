@@ -65,7 +65,6 @@ public class Remote_Toolkit extends Setup {
     public void Remote_Advanced_Panel_Settings() throws java.lang.Exception {
         New_ADC_session(accountID);
         adc.getDriver1().manage().window().maximize();
-
         Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
 
         logger.info("Upload Logs Test begin");
