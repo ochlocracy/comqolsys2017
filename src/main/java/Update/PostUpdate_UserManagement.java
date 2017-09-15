@@ -91,11 +91,6 @@ public class PostUpdate_UserManagement extends Setup {
         Thread.sleep(1000);
         home.Home_button.click();
     }
-
-
-
-
-
     @AfterTest
     public void tearDown() throws IOException, InterruptedException {
         driver.quit();

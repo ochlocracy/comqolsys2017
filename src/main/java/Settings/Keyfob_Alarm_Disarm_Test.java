@@ -12,7 +12,7 @@ import Sensors.Sensors;
 
 public class Keyfob_Alarm_Disarm_Test extends  Setup{
 
-    String page_name = "Auto Stay testing";
+    String page_name = "Keyfob Alarm Disarm";
     Logger logger = Logger.getLogger(page_name);
     Sensors sensors = new Sensors();
     private String disarm = "08 01";

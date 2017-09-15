@@ -165,11 +165,13 @@ public class PreUpdate_UserManagement extends Setup {
         adc.getDriver1().findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
         Thread.sleep(3000);
         List<WebElement> li = adc.getDriver1().findElements(By.id("pinCode"));
-        List<String> expected = Arrays.asList("5643", "3331", "8800", "9998");;
+        List<String> expected = Arrays.asList("5643", "3331", "8800", "9998");
+        ;
 
         int size;
         size = li.size();
         checkCodes(li, expected, size);
+    }
 
     @Test (priority = 8)
     public void adcDelete() throws InterruptedException {
