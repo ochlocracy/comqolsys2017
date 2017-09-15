@@ -51,6 +51,7 @@ public class SystemTest_Dual_path_panel extends Setup{
     @Test (priority = 2)
     public void SASST_028() throws Exception {
         servcall.get_WiFi_name();
+        Thread.sleep(4000);
         Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
         System_Tests_page sys = PageFactory.initElements(driver, System_Tests_page.class);
         Dual_path_page_elements dual = PageFactory.initElements(driver, Dual_path_page_elements.class);
@@ -58,6 +59,7 @@ public class SystemTest_Dual_path_panel extends Setup{
         adv.SYSTEM_TESTS.click();
         sys.DUAL_PATH_TEST.click();
         dual.Dual_path_Control_check_box.click();
+        Thread.sleep(1000);
         element_verification(dual.chkbox_result_text, "Dual_path_checkbox_text");
         dual.start_button.click();
         Thread.sleep(6000);
