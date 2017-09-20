@@ -19,9 +19,11 @@ import java.io.IOException;
 
 public class Arm_Stay extends Setup{
     public Arm_Stay() throws IOException, BiffException {}
-    String page_name = "QTMS: Auto Bypass";
+    String page_name = "QTMS: ARM STAY";
     Logger logger = Logger.getLogger(page_name);
     Sensors sensors = new Sensors();
+    String login = "panAut";
+    String password = "qolsys123";
     private int Normal_Exit_Delay = 10;
     private int Normal_Entry_Delay = 11;
     private int Long_Exit_Delay = 12;
@@ -32,7 +34,11 @@ public class Arm_Stay extends Setup{
     String tamper = "01 01";
     private String restore = "04 01";
     private String active = "02 01";
+    private String log_path = "/home/olgak/IdeaProjects/comqolsys2017/log/test.txt";
     ADC adc = new ADC();
+    private String keyfobAway = "04 04";
+    private String keyfobStay = "04 01";
+    private String keyfobDisarm = "08 01";
     String AccountID = adc.getAccountId();
     public void add_primary_call(int zone, int group, int sensor_dec, int sensor_type) throws IOException {
         String add_primary = " shell service call qservice 50 i32 " + zone + " i32 " + group + " i32 " + sensor_dec + " i32 " + sensor_type;
@@ -58,11 +64,29 @@ public class Arm_Stay extends Setup{
     }
 
 
-    @Test (priority = 1)
-    public void AB319_01() throws Exception {
-        logger.info("AB319_01: Verify that Auto Bypass is enabled");
-        servcall.get_AUTO_BYPASS();
-        Thread.sleep(2000);
+    @Test
+    public void AS_02() throws Exception {
+        logger.info("Verify the panel can be disarmed from ADC");
+        servcall.set_ARM_STAY_NO_DELAY_enable();
+        Thread.sleep(1000);
+        servcall.EVENT_ARM_STAY();
+        Thread.sleep(3000);
+        verify_armstay();
+        adc.New_ADC_session_User(login,password);
+        Thread.sleep(3000);
+        if (adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_ArmingStateWidget_imgState"))).isDisplayed()) {
+            adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_ArmingStateWidget_btnDisarm"))).click();}
+        Thread.sleep(4000);
+        verify_disarm();
+        System.out.println("Pass");
+    }
+    @Test(priority = 1)
+    public void AS_04() throws Exception {
+        logger.info("Verify the panel can be disarmed using a keyfob: If KeyFob Instant Arming is disabled, panel should arm away after exit delay.\n" +
+                " If KeyFob Instant Arming is enabled, panel should arm away immediately.");
+        Home_Page home = PageFactory.initElements(driver, Home_Page.class);
+        servcall.set_KEYFOB_NO_DELAY_disable();
+        Thread.sleep(1000);
         servcall.set_SIA_LIMITS_disable();
         Thread.sleep(1000);
         servcall.set_NORMAL_ENTRY_DELAY(Normal_Entry_Delay);
@@ -72,43 +96,40 @@ public class Arm_Stay extends Setup{
         servcall.set_LONG_ENTRY_DELAY(Long_Entry_Delay);
         Thread.sleep(1000);
         servcall.set_LONG_EXIT_DELAY(Long_Exit_Delay);
-
-    }
-    @Test
-    public void Armstay_activate_Sensor() throws Exception {
-        logger.info("ArmStay -Trip glass break sensor during exit delay");
-       // add_primary_call(2,17,6750355,19);
-        servcall.set_ARM_STAY_NO_DELAY_enable();
-        ARM_STAY();
-        Thread.sleep(2000);
-        sensors.primary_call("67 00 39", active);
-        Thread.sleep(2000);
-        logger.info("Restore Glass Break");
-        sensors.primary_call("67 00 39", restore);
-        Thread.sleep(3000);
+        Thread.sleep(1000);
+        add_primary_call(38, 1, 6619386, 102);
+        Thread.sleep(1000);
+        sensors.primary_call("65 00 AF", keyfobStay);
+        Thread.sleep(15000);
         verify_armstay();
-        logger.info("Disarm System");
-        DISARM();
+        sensors.primary_call("65 00 AF", keyfobAway);
+        Thread.sleep(2000);
+        deleteLogFile(log_path);
+        Thread.sleep(2000);
+        eventLogsGenerating(log_path,new String[]{
+                " PanelAPI:: armAwayThePanelAfterExitDelay called"},1);
+        //Thread.sleep(4000);
 
-       /*** ADC website verification ***/
-        logger.info("ADC website verification");
-        adc.New_ADC_session(AccountID);
-        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.partialLinkText("History"))).click();
-        Thread.sleep(3000);
-        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_butSearch"))).click();
-        String   element_to_verify = "//*[contains(text(), ' Keyfob 39 Delayed Aux')]";
-        Thread.sleep(10000);
-        try {
-            WebElement history_message = adc.driver1.findElement(By.xpath(element_to_verify));
-            Assert.assertTrue(history_message.isDisplayed());
-            {
-                logger.info("Pass: message is displayed: " + history_message.getText());
-            }
-        } catch (Exception e) {
-            logger.info("***No such element found!***");
-        }
-    delete_from_primary(2);
-    }
+        Thread.sleep(15000);
+        verify_armaway();}
+     /*   home.ArwAway_State.click();
+        enter_default_user_code();
+        verify_disarm();
+        System.out.println("Pass:If KeyFob Instant Arming is disabled, panel armed away after exit delay.");
+        servcall.set_KEYFOB_NO_DELAY_enable();
+        Thread.sleep(1000);
+        sensors.primary_call("65 00 AF", keyfobStay);
+        Thread.sleep(1000);
+        verify_armstay();
+        sensors.primary_call("65 00 AF", keyfobAway);
+        Thread.sleep(1000);
+        verify_armaway();
+        home.ArwAway_State.click();
+        enter_default_user_code();
+        verify_disarm();
+        System.out.println("Pass: If KeyFob Instant Arming is enabled, panel should arm away immediately.");*/
+
+
     @Test
     public void addGlassBreakSensor() throws IOException, InterruptedException{
         logger.info("Addig Sensors");
@@ -121,10 +142,6 @@ public class Arm_Stay extends Setup{
         adc.driver1.findElement(By.partialLinkText("Sensors")).click();
         Thread.sleep(2000);
         adc.Request_equipment_list();
-    }
-    @Test(priority = 3)//dependsOnMethods = {"addGlassBreakSensor"})
-    public void Armstay_tamper_17() throws Exception{
-      //Armstay_tamper_Sensor_After_Exit_Delay(17,"67 00 39", "//*[contains(text(), 'Sensor 2 Tamper**')]");
     }
 
     @Test(priority = 92)
