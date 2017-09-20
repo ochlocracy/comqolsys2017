@@ -291,7 +291,7 @@ public class Auto_Bypass extends Setup{
         Thread.sleep(two_sec);
         sensors.primary_call("65 00 0A", open);
         Thread.sleep(11000);
-        verify_status_alarmed();
+         verify_in_alarm();
         Thread.sleep(500);
         logger.info("AB319_07 Pass: Verified that sensor will not Auto Bypass if sensor is opened after selecting arm button.");
         enter_default_user_code();
@@ -301,7 +301,7 @@ public class Auto_Bypass extends Setup{
 
     @Test //(dependsOnMethods = {"addSensors"}, priority = 5)
         public void AB319_08() throws Exception {
-        logger.info("Verify that sensor can be unslected from bypass and system can be armed as normal");
+        logger.info("Verify that sensor can be unselected from bypass and system can be armed as normal");
         Thread.sleep(2000);
         add_primary_call(1, 10, 6619296, 1);
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
@@ -523,11 +523,6 @@ public class Auto_Bypass extends Setup{
     @AfterTest
     public void tearDown () throws IOException, InterruptedException {
         log.endTestCase(page_name);
-       // driver.quit();
-    //   for (int i= 24; i>0; i--) {
-      //      delete_from_primary(i);
-      //  }
+        driver.quit();
     }
-
-
 }

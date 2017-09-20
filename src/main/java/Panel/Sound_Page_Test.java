@@ -99,10 +99,10 @@ public class Sound_Page_Test extends Setup {
         if (sound.All_chimes_summery_enabled.isDisplayed()) {
             logger.info("Pass: Correct All Chimes summery when ENABLED");
         }
-        sound.All_Chimes.click();
-        if (sound.All_chimes_summery_disabled.isDisplayed()) {
-            logger.info("Pass: Correct All Chimes summery when DISABLED");
-        }
+//        sound.All_Chimes.click();
+//        if (sound.All_chimes_summery_disabled.isDisplayed()) {
+//            logger.info("Pass: Correct All Chimes summery when DISABLED");
+//        }
         sound.All_Chimes.click();
         if (sound.Sensor_chime_summery_enabled.isDisplayed()) {
             logger.info("Pass: Correct Sensor Chime summery when ENABLED");
