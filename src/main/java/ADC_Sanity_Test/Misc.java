@@ -29,7 +29,7 @@ public class Misc extends Setup {
     Logger logger = Logger.getLogger(page_name);
     Sensors sensors = new Sensors();
     ADC adc = new ADC();
-
+    PanelInfo_ServiceCalls servcall = new PanelInfo_ServiceCalls();
     private String keyfobAway = "04 04";
     private String keyfobStay = "04 01";
     private String keyfobDisarm = "08 01";
@@ -74,6 +74,12 @@ public class Misc extends Setup {
 
     @Test
     public void addSensors() throws IOException, InterruptedException {
+        delete_from_primary(1);
+        delete_from_primary(38);
+        delete_from_primary(39);
+        delete_from_primary(40);
+        servcall.set_KEYFOB_DISARMING(1);
+        servcall.set_KEYFOB_NO_DELAY_enable();
         add_primary_call(38, 1, 6619386, 102);
         add_primary_call(39, 6, 6619387, 102);
         add_primary_call(40, 4, 6619388, 102);
@@ -511,10 +517,11 @@ public class Misc extends Setup {
         Settings_Page settings = PageFactory.initElements(driver, Settings_Page.class);
         Status_page_elements tabs = PageFactory.initElements(driver, Status_page_elements.class);
         logger.info("Checking for the notification in the Event History of Panel ");
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         menu.Slide_menu_open.click();
         Thread.sleep(2000);
         menu.Settings.click();
+        Thread.sleep(2000);
         settings.STATUS.click();
         Thread.sleep(2000);
         tabs.HISTORY_tab.click();
@@ -657,9 +664,9 @@ public class Misc extends Setup {
         Thread.sleep(2000);
         menu.Settings.click();
         settings.STATUS.click();
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         tabs.HISTORY_tab.click();
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         List<WebElement> events = driver.findElements(By.id("com.qolsys:id/textView3"));
         String event;
         String str;

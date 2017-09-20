@@ -46,6 +46,7 @@ public class SystemTest_WiFi_Cell extends Setup{
     @Test
     public void SASSY_004WifiEnabled() throws Exception {
         servcall.get_WiFi();
+        Thread.sleep(2000);
         Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
         System_Tests_page sys = PageFactory.initElements(driver, System_Tests_page.class);
         Cellular_test_page_elements cell = PageFactory.initElements(driver,Cellular_test_page_elements.class);
