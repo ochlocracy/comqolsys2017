@@ -1,8 +1,10 @@
 package ADC_Sanity_Test;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 
 public class Remote_Toolkit_Variables {
@@ -10,8 +12,11 @@ public class Remote_Toolkit_Variables {
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_butChange']")
     public WebElement Change;
 
-    @FindBy (how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_txtNewValue']")
+    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_txtNewValue']")
     public WebElement Txt_New_Value;
+
+
+   // adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ddlNewValue")));
 
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_ddlNewValue']")
     public WebElement New_Value;
