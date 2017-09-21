@@ -90,6 +90,7 @@ public class Remote_Toolkit extends Setup {
         remote.Advanced_Panel_Settings_Dropdown.click();
         remote.Auto_Upload_logs.click();
         NewWindowLoadWait();
+
         //adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ddlNewValue")));
         toolkit_options.selectByVisibleText("Off");
         remote.Change.click();
