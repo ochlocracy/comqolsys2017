@@ -2,14 +2,16 @@ package ADC_Sanity_Test;
 
 import ADC.ADC;
 import Panel.*;
+import com.google.common.base.Function;
+import com.thoughtworks.selenium.SeleniumException;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.*;
 import org.testng.annotations.*;
 import javax.swing.plaf.InternalFrameUI;
 import java.io.IOException;
@@ -26,8 +28,18 @@ public class Remote_Toolkit extends Setup {
     String accountID = adc.getAccountId();
     PanelInfo_ServiceCalls servcall = new PanelInfo_ServiceCalls();
 
+    public void NewWindowLoadWait() throws IOException, BiffException, NullPointerException {
 
+        Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
 
+                .withTimeout(60, TimeUnit.SECONDS)
+
+                .pollingEvery(2, TimeUnit.SECONDS)
+
+                .ignoring(NoSuchElementException.class);
+
+        WebElement FLOO = adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ddlNewValue")));
+    }
 
     /*** If you want to run tests only on the panel, please set ADCexecute value to false ***/
     String ADCexecute = "true";
@@ -77,6 +89,8 @@ public class Remote_Toolkit extends Setup {
         Thread.sleep(2000);
         remote.Advanced_Panel_Settings_Dropdown.click();
         remote.Auto_Upload_logs.click();
+        NewWindowLoadWait();
+        //adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ddlNewValue")));
         toolkit_options.selectByVisibleText("Off");
         remote.Change.click();
         Thread.sleep(2000);
