@@ -57,6 +57,17 @@ public class Remote_Toolkit extends Setup {
         Stoolkit_options.selectByVisibleText(linkText);
     }
 
+    public void selectTXTbox(String linkText) {
+        WebElement toolkit_options = (new WebDriverWait(adc.driver1, 20))
+                .until(ExpectedConditions.presenceOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_txtNewValue")));
+        Select Stoolkit_options = new Select(toolkit_options);
+        Stoolkit_options.selectByVisibleText(linkText);
+    }
+
+
+
+
+
     @BeforeTest
     public void capabilities_setup() throws Exception {
         //     setup_driver(get_UDID(), "http://127.0.1.1", "4723");
@@ -280,7 +291,10 @@ public class Remote_Toolkit extends Setup {
         logger.info("Dialer_Delay Test begin");
         remote.Arming_Setting_Dropdown.click();
         remote.Dialer_Delay.click();
-        remote.Txt_New_Value.sendKeys(Dialer_Delay);
+        //remote.Txt_New_Value.sendKeys(Dialer_Delay);
+        selectTXTbox("NewValue");
+
+        //ctl00_responsiveBody_ucCommands_txtNewValue
 
 //      having trouble finding the TXT box to send the keys, same spot thats used for "clickAnElementByLinkText" but isnt dropdown menu
 
