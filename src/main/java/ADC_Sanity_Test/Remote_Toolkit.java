@@ -31,7 +31,8 @@ public class Remote_Toolkit extends Setup {
     /*** If you want to run tests only on the panel, please set ADCexecute value to false ***/
     String ADCexecute = "true";
 
-    public Remote_Toolkit() throws IOException, BiffException {}
+    public Remote_Toolkit() throws IOException, BiffException {
+    }
 
     public void New_ADC_session(String accountID) throws InterruptedException {
         TimeUnit.SECONDS.sleep(2);
@@ -52,15 +53,15 @@ public class Remote_Toolkit extends Setup {
     public void clickAnElementByLinkText(String linkText) {
         WebElement toolkit_options = (new WebDriverWait(adc.driver1, 20))
                 .until(ExpectedConditions.presenceOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ddlNewValue")));
-        Select Stoolkit_options= new Select (toolkit_options);
-        SclickAnElementByLinkText(linkText);
+        Select Stoolkit_options = new Select(toolkit_options);
+        Stoolkit_options.selectByVisibleText(linkText);
     }
 
     @BeforeTest
     public void capabilities_setup() throws Exception {
-   //     setup_driver(get_UDID(), "http://127.0.1.1", "4723");
+        //     setup_driver(get_UDID(), "http://127.0.1.1", "4723");
         setup_logger(page_name);
-            adc.webDriverSetUp();
+        adc.webDriverSetUp();
     }
 
 //    @BeforeMethod
@@ -75,7 +76,7 @@ public class Remote_Toolkit extends Setup {
         Thread.sleep(3000);
     }
 
-    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =1)
+    @Test(dependsOnMethods = {"GetToRemoteKitPage"}, priority = 1)
     public void Remote_Advanced_Panel_Settings() throws InterruptedException, IOException, BiffException {
         Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
 
@@ -137,11 +138,15 @@ public class Remote_Toolkit extends Setup {
         remote.Change.click();
         Thread.sleep(2000);
         logger.info("Log Level Test finished");
+
+        logger.info("Remote_Advanced_Panel_Settings Test Suite finished");
+
     }
 
-    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =2)
+    @Test(dependsOnMethods = {"GetToRemoteKitPage"}, priority = 2)
     public void Remote_Alarm_Settings() throws InterruptedException, IOException, BiffException {
-        Remote_Toolkit_Variables remote = PageFactory.initElements(driver, Remote_Toolkit_Variables.class);
+        Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
+
         logger.info("Alarm Settings Test on/off begin");
         remote.Alarm_Settings_Dropdown.click();
         remote.Alarm_Photos.click();
@@ -150,7 +155,7 @@ public class Remote_Toolkit extends Setup {
         Thread.sleep(2000);
         remote.Alarm_Settings_Dropdown.click();
         remote.Alarm_Photos.click();
-        clickAnElementByLinkText("Of");
+        clickAnElementByLinkText("Off");
         remote.Change.click();
         Thread.sleep(2000);
         logger.info("Alarm Settings Test on/off finished");
@@ -247,11 +252,13 @@ public class Remote_Toolkit extends Setup {
         remote.Change.click();
         Thread.sleep(2000);
         logger.info("Siren Timeout Test 4-8 min finished");
+
+        logger.info("Remote_Alarm_Settings Test Suite finished");
     }
 
-    @Test
+    @Test(dependsOnMethods = {"GetToRemoteKitPage"}, priority = 3)
     public void Remote_Arming_Settings() throws java.lang.Exception {
-        Remote_Toolkit_Variables remote = PageFactory.initElements(driver, Remote_Toolkit_Variables.class);
+        Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
 
         String Dialer_Delay = "9";
         String Entry_Delay = "9";
@@ -274,6 +281,9 @@ public class Remote_Toolkit extends Setup {
         remote.Arming_Setting_Dropdown.click();
         remote.Dialer_Delay.click();
         remote.Txt_New_Value.sendKeys(Dialer_Delay);
+
+//      having trouble finding the TXT box to send the keys, same spot thats used for "clickAnElementByLinkText" but isnt dropdown menu
+
         remote.Change.click();
         Thread.sleep(2000);
         logger.info("Dialer_Delay Test finish");
@@ -345,34 +355,17 @@ public class Remote_Toolkit extends Setup {
         remote.Change.click();
         Thread.sleep(2000);
         logger.info("Secure_Delete_Images Test on/off finish");
+
+        logger.info("Remote_Arming_Settings Test Suite finished");
+
     }
 
-    @Test
+
+    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =4)
     public void Remote_Beeps_and_Speaker_Settings() throws java.lang.Exception {
-        Remote_Toolkit_Variables remote = PageFactory.initElements(driver, Remote_Toolkit_Variables.class);
+        Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
 
         String Trouble_Beeps = "5";
-
-       /*
-        Panel_Chimes
-        Panel_Siren (enable . disable)
-        Panel_Tamper_Trouble_Beep
-        Panel_Voice_Prompts
-        Safety_Sensor_Chimes
-        Safety_Sensor_Voice_Prompts
-        Sensor_Chimes
-        Sensor_Low Battery_Trouble_Beep
-        Sensor_Tamper_Trouble_Beep
-        Sensor_Voice_Prompts
-        Severe_Weather_Siren_Warning
-        Siren_Annunciation ( enable disable)
-        Touch_Sounds  ( enable disable)
-        Trouble_Beeps_Timeout STRING
-        Turn_On_Off_Trouble_Beeps
-        Voices_Volume (0-15)
-        Water_Freeze_Siren ( Enable disable)
-
-*/
 
         logger.info("All_Chimes Test on/off begin");
         remote.Beeps_And_Speakers_Dropdown.click();
@@ -499,13 +492,347 @@ public class Remote_Toolkit extends Setup {
         Thread.sleep(2000);
         logger.info("Media_Volume Test 0-7 lvl finished");
 
+        logger.info("Panel_Chimes Test on/off begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Panel_Chimes.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Panel_Chimes.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Panel_Chimes Test on/off finish");
+
+        logger.info("Panel_Siren Test enable/disable begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Panel_Siren.click();
+        clickAnElementByLinkText("enable");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Panel_Siren.click();
+        clickAnElementByLinkText("disable");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Panel_Siren Test enable/disable finish");
+
+        logger.info("Panel_Tamper_Trouble_Beep Test on/off begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Panel_Tamper_Trouble_Beep.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Panel_Tamper_Trouble_Beep.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Panel_Tamper_Trouble_Beep Test on/off finish");
+
+        logger.info("Panel_Voice_Prompts Test on/off begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Panel_Voice_Prompts.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Panel_Voice_Prompts.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Panel_Voice_Prompts Test on/off finish");
+
+        logger.info("Safety_Sensor_Chimes Test on/off begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Safety_Sensor_Chimes.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Safety_Sensor_Chimes.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Safety_Sensor_Chimes Test on/off finish");
+
+        logger.info("Safety_Sensor_Voice_Prompts Test on/off begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Safety_Sensor_Voice_Prompts.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Safety_Sensor_Voice_Prompts.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Safety_Sensor_Voice_Prompts Test on/off finish");
+
+        logger.info("Sensor_Chimes Test on/off begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Sensor_Chimes.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Sensor_Chimes.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Sensor_Chimes Test on/off finish");
+
+        logger.info("Sensor_Low_Battery_Trouble_Beep Test on/off begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Sensor_Low_Battery_Trouble_Beep.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Sensor_Low_Battery_Trouble_Beep.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Sensor_Low_Battery_Trouble_Beep Test on/off finish");
+
+        logger.info("Sensor_Tamper_Trouble_Beep Test on/off begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Sensor_Tamper_Trouble_Beep.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Sensor_Tamper_Trouble_Beep.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Sensor_Tamper_Trouble_Beep Test on/off finish");
+
+        logger.info("Sensor_Voice_Prompts Test on/off begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Sensor_Voice_Prompts.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Sensor_Voice_Prompts.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Sensor_Voice_Prompts Test on/off finish");
+
+        logger.info("Severe_Weather_Siren_Warning Test on/off begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Severe_Weather_Siren_Warning.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Severe_Weather_Siren_Warning.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Severe_Weather_Siren_Warning Test on/off finish");
+
+        logger.info("Siren_Annunciation Test enable/disable begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Siren_Annunciation.click();
+        clickAnElementByLinkText("enable");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Siren_Annunciation.click();
+        clickAnElementByLinkText("disable");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Siren_Annunciation Test enable/disable finish");
+
+        logger.info("Touch_Sounds Test enable/disable begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Touch_Sounds.click();
+        clickAnElementByLinkText("enable");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Touch_Sounds.click();
+        clickAnElementByLinkText("disable");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Touch_Sounds Test enable/disable finish");
+
+        logger.info("Trouble_Beeps_Timeout Test interval begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Trouble_Beeps_Timeout.click();
+        remote.Txt_New_Value.sendKeys(Trouble_Beeps);
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Trouble_Beeps_Timeout Test interval finish");
+
+        logger.info("Turn_On_Off_Trouble_Beeps Test on/off begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Turn_On_Off_Trouble_Beeps.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Turn_On_Off_Trouble_Beeps.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Turn_On_Off_Trouble_Beeps Test on/off finish");
+
+        logger.info("Voices_Volume Test 0-15 lvl begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("0");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("1");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("2");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("3");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("4");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("5");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("6");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("7");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("8");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("9");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("10");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("11");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("12");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("13");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("14");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("15");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Voices_Volume Test 0-15 lvl finished");
+
+        logger.info("Water_And_Freeze_Siren Test enable/disable begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Water_And_Freeze_Siren.click();
+        clickAnElementByLinkText("enable");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Water_And_Freeze_Siren.click();
+        clickAnElementByLinkText("disable");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Water_And_Freeze_Siren Test enable/disable finish");
+
+        logger.info("Remote_Beeps_and_Speaker_Settings Test suite finish");
     }
+
+    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =5)
+    public void Remote_Broadband_Settings() throws java.lang.Exception {
+        Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
+
+        String Set_Wifi_Network_Name = "The_Sandbox";
+
+        logger.info("Bluetooth_Disarming_Feature Test enable/disable begin");
+        remote.Broadband_Settings_Dropdown.click();
+        remote.Bluetooth_Disarming_Feature.click();
+        clickAnElementByLinkText("enable");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Broadband_Settings_Dropdown.click();
+        remote.Bluetooth_Disarming_Feature.click();
+        clickAnElementByLinkText("disable");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Bluetooth_Disarming_Feature Test enable/disable finish");
+
+        logger.info("Wi-Fi Test on/off begin");
+        remote.Broadband_Settings_Dropdown.click();
+        remote.Wi_Fi.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Broadband_Settings_Dropdown.click();
+        remote.Wi_Fi.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Wi-Fi Test on/off finish");
+
+        logger.info("Wi-Fi Test on/off begin");
+        remote.Broadband_Settings_Dropdown.click();
+        remote.Wi_Fi_Network_Name.click();
+        remote.Txt_New_Value.sendKeys(Set_Wifi_Network_Name);
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Wi-Fi Test on/off finish");
+
+
+
+
+
+    }
+
 
     @AfterTest
     public void tearDown() throws IOException, InterruptedException {
         adc.driver1.quit();
     }
-
+//
 //    @AfterMethod
 //    public void webDriverQuit(){
 //        adc.driver1.quit();
