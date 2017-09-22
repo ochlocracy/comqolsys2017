@@ -63,6 +63,13 @@ public class Remote_Toolkit extends Setup {
         adc.driver1.get("https://alarmadmin.alarm.com/Support/RemoteToolkit.aspx");
     }
 
+    public void clickAnElementByLinkText(String linkText) {
+        WebElement toolkit_options = (new WebDriverWait(adc.driver1, 20))
+                .until(ExpectedConditions.presenceOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ddlNewValue")));
+        Select Stoolkit_options= new Select (toolkit_options);
+        Stoolkit_options.selectByVisibleText(linkText);
+    }
+
     @BeforeTest
     public void capabilities_setup() throws Exception {
    //     setup_driver(get_UDID(), "http://127.0.1.1", "4723");
@@ -90,59 +97,55 @@ public class Remote_Toolkit extends Setup {
         remote.Advanced_Panel_Settings_Dropdown.click();
         remote.Auto_Upload_logs.click();
         System.out.println("TRY NEW STAFF");
-        WebElement toolkit_options1 = (new WebDriverWait(adc.driver1, 10))
-                .until(ExpectedConditions.presenceOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ddlNewValue")));
 
-        Select Stoolkit_options= new Select (toolkit_options1);
-
-        Select toolkit_options = new Select (adc.driver1.findElement(By.id("ctl00_responsiveBody_ucCommands_ddlNewValue")));
-
-        Stoolkit_options.selectByVisibleText("On");
+        clickAnElementByLinkText("On");
+        Thread.sleep(2000);
         remote.Change.click();
         Thread.sleep(2000);
         remote.Advanced_Panel_Settings_Dropdown.click();
+        Thread.sleep(2000);
         remote.Auto_Upload_logs.click();
-//        NewWindowLoadWait();
+        Thread.sleep(2000);
 
-        //adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ddlNewValue")));
-        toolkit_options.selectByVisibleText("Off");
+        clickAnElementByLinkText("Off");
+        Thread.sleep(2000);
         remote.Change.click();
         Thread.sleep(2000);
         logger.info("Upload Logs Test finished");
 
         remote.Advanced_Panel_Settings_Dropdown.click();
         remote.Log_Level.click();
-        toolkit_options.selectByVisibleText("No Log Output");
+        clickAnElementByLinkText("No Log Output");
         remote.Change.click();
         Thread.sleep(2000);
         remote.Advanced_Panel_Settings_Dropdown.click();
         remote.Log_Level.click();
-        toolkit_options.selectByVisibleText("Error");
+        clickAnElementByLinkText("Error");
         remote.Change.click();
         Thread.sleep(2000);
         remote.Advanced_Panel_Settings_Dropdown.click();
         remote.Log_Level.click();
-        toolkit_options.selectByVisibleText("Fatal");
+        clickAnElementByLinkText("Fatal");
         remote.Change.click();
         Thread.sleep(2000);
         remote.Advanced_Panel_Settings_Dropdown.click();
         remote.Log_Level.click();
-        toolkit_options.selectByVisibleText("Warn");
+        clickAnElementByLinkText("Warn");
         remote.Change.click();
         Thread.sleep(2000);
         remote.Advanced_Panel_Settings_Dropdown.click();
         remote.Log_Level.click();
-        toolkit_options.selectByVisibleText("Info");
+        clickAnElementByLinkText("Info");
         remote.Change.click();
         Thread.sleep(2000);
         remote.Advanced_Panel_Settings_Dropdown.click();
         remote.Log_Level.click();
-        toolkit_options.selectByVisibleText("Debug");
+        clickAnElementByLinkText("Debug");
         remote.Change.click();
         Thread.sleep(2000);
         remote.Advanced_Panel_Settings_Dropdown.click();
         remote.Log_Level.click();
-        toolkit_options.selectByVisibleText("Verbose");
+        clickAnElementByLinkText("Verbose");
         remote.Change.click();
         Thread.sleep(2000);
         logger.info("Log Level Test finished");
