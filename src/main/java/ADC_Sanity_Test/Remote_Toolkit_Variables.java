@@ -15,9 +15,6 @@ public class Remote_Toolkit_Variables {
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_txtNewValue']")
     public WebElement Txt_New_Value;
 
-
-   // adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ddlNewValue")));
-
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_ddlNewValue']")
     public WebElement New_Value;
 
