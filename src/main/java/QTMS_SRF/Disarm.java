@@ -624,6 +624,7 @@ public class Disarm extends Setup {
         TimeUnit.SECONDS.sleep(Long_Exit_Delay);
         verify_armstay();
         DISARM();
+        Thread.sleep(1000);
         delete_from_primary(1);
         Thread.sleep(1000);
     }
@@ -631,6 +632,7 @@ public class Disarm extends Setup {
     public void Disb_52_DW10() throws Exception {
         logger.info("*Disb-52* System will go into immediate alarm at the end of exit delay after tampering contact sensor group 10");
         add_primary_call(1, 10, 6619296, 1);
+        Thread.sleep(1000);
         ARM_STAY();
         TimeUnit.SECONDS.sleep(Long_Exit_Delay/2);
         sensors.primary_call(door_window10, tamper);
@@ -714,9 +716,10 @@ public class Disarm extends Setup {
         }
         Thread.sleep(2000);
         adc.driver1.findElement(By.id("ctl00_phBody_ArmingStateWidget_btnArmOptionAway")).click();
-        Thread.sleep(5000);
+        Thread.sleep(7000);
 
         verify_armaway();
+        Thread.sleep(3000);
         sensors.primary_call(door_window10, open);
         Thread.sleep(2000);
         verify_in_alarm();
@@ -874,9 +877,9 @@ public class Disarm extends Setup {
         sensors.add_primary_call(1, 4,  6619387, 102);
         Thread.sleep(2000);
         sensors.primary_call(keyfob4, "04 04");
-        Thread.sleep(2000);
+        Thread.sleep(3000);
         verify_armaway();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         home.ArwAway_State.click();
         enter_default_user_code();
         Thread.sleep(1000);
@@ -1152,8 +1155,9 @@ public class Disarm extends Setup {
             adc.driver1.findElement(By.id("ctl00_phBody_ArmingStateWidget_btnDisarm")).click();
         }catch ( org.openqa.selenium.NoSuchElementException e){}
 
-        Thread.sleep(5000);
+        Thread.sleep(7000);
         verify_disarm();
+        Thread.sleep(2000);
         delete_from_primary(1);
         Thread.sleep(2000);
     }

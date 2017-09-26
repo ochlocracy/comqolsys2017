@@ -16,14 +16,9 @@ import org.testng.annotations.*;
 
 import java.io.IOException;
 
-/**
- * Created by qolsysauto on 8/2/17.
- */
-
 public class ArmedAway_SmokeSensor extends Setup {
 
-    public ArmedAway_SmokeSensor() throws IOException, BiffException {
-    }
+    public ArmedAway_SmokeSensor() throws IOException, BiffException {}
 
     String page_name = "ADC Smoke Test: Smoke Sensor Arm Away";
     Logger logger = Logger.getLogger(page_name);
