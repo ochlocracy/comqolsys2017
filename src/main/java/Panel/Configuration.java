@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class Configuration {
-    private String config = "/home/qolsys/Documents/Intellij_src/Qolsys_Automation/comqolsys2017/config.xls";
+    private String config = "/home/olgak/IdeaProjects/comqolsys2017/config.xls";
     public String adbPath = getAdbPath();
     public File appDir = new File ("scr");
     public String udid_ = getudid_();
