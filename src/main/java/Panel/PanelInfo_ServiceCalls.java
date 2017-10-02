@@ -1,5 +1,6 @@
 package Panel;
 
+import Sensors.Sensors;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.testng.annotations.Test;
@@ -8,6 +9,7 @@ import java.io.IOException;
 
 public class PanelInfo_ServiceCalls extends Setup {
     Configuration c = new Configuration();
+    Sensors sens = new Sensors();
     public String adbPath = c.getAdbPath();
     public Logger logger = Logger.getLogger(this.getClass().getName());
     public Runtime rt = Runtime.getRuntime();
@@ -186,6 +188,9 @@ public class PanelInfo_ServiceCalls extends Setup {
 
     public void set_ARM_STAY_NO_DELAY_enable() throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 21 i32 1 i32 0 i32 0";
+        rt.exec(command);}
+    public void set_ARM_STAY_NO_DELAY_enable_Transmitter() throws IOException, InterruptedException {
+        String command = adbPath + " -s "+ sens.primary + " shell service call qservice 40 i32 0 i32 0 i32 21 i32 1 i32 0 i32 0";
         rt.exec(command);}
 
     public void get_KEYFOB_NO_DELAY() throws IOException, InterruptedException {
@@ -1117,6 +1122,9 @@ ADC can restart the QolSys apps: */
         rt.exec(command);}
     public void EVENT_ARM_STAY () throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 1 i32 0 i32 1 i32 0 i32 0 i32 0 i32 1 i32 0 i32 0 i32 1";
+        rt.exec(command);}
+    public void EVENT_ARM_STAY_Transmitter () throws IOException, InterruptedException {
+        String command = adbPath + " -s "+ sens.primary + " shell service call qservice 1 i32 0 i32 1 i32 0 i32 0 i32 0 i32 1 i32 0 i32 0 i32 1";
         rt.exec(command);}
     public void EVENT_ARM_AWAY () throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 1 i32 0 i32 2 i32 0 i32 0 i32 0 i32 1 i32 0 i32 0 i32 1";

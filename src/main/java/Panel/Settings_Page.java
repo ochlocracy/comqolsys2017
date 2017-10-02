@@ -45,4 +45,6 @@ public class Settings_Page {
     public WebElement Delete;
     @FindBy(id = "com.qolsys:id/tv_pin_number")
     public WebElement Invalid_User_Code;
+    @FindBy(id = "com.qolsys:id/uiTabName4")
+    public WebElement Panel_history;
 }
