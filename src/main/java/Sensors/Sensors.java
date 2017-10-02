@@ -15,8 +15,8 @@ import java.util.concurrent.TimeUnit;
 public class Sensors {
 
     Configuration c = new Configuration();
-    public String primary = "8ebdbc76";  //c.getudid_();
-    public static final String transmitter = "8f03bc79 ";
+    public String primary = "62964b68";  //c.getudid_();
+    public static final String transmitter = "8ec2bc5d ";
     public final String adbPath = c.getAdbPath();
 
     public Runtime rt = Runtime.getRuntime();
@@ -403,7 +403,7 @@ public class Sensors {
             int zone = i;
             String deleteFromPrimary = "shell service call qservice 51 i32 " + zone;
             rt.exec(adbPath + " -s " + primary + deleteFromPrimary);
-            System.out.println(deleteFromPrimary);
+            //System.out.println(adbPath + " -s " + primary + deleteFromPrimary);
         }
         for (int i = 2; i < SensorObject_ArrayList.size(); i++) {
             SensorObject temp_sensor = null;
@@ -411,7 +411,24 @@ public class Sensors {
             String DLID = temp_sensor.getDLID();
             String deleteFromTransmitter = "shell service call srftransmitservice 4 s16 " + DLID;
             rt.exec(adbPath + " -s " + transmitter + deleteFromTransmitter);
-      //      System.out.println(deleteFromTransmitter);
+           // System.out.println(deleteFromTransmitter);
+            TimeUnit.SECONDS.sleep(1);
+        }
+    }
+    public void deleteAllSensorsTransmitter() throws IOException, InterruptedException {
+        for (int i = 2; i < SensorObject_ArrayList.size(); i++) {
+            int zone = i;
+            String deleteFromPrimary = " shell service call qservice 51 i32 " + zone;
+            rt.exec(adbPath + " -s " + primary + deleteFromPrimary);
+            System.out.println(adbPath + " -s " + primary + deleteFromPrimary);
+        }
+        for (int i = 2; i < SensorObject_ArrayList.size(); i++) {
+            SensorObject temp_sensor = null;
+            temp_sensor = SensorObject_ArrayList.get(i);
+            String DLID = temp_sensor.getDLID();
+            String deleteFromTransmitter = "shell service call srftransmitservice 4 s16 " + DLID;
+            rt.exec(adbPath + " -s " + transmitter + deleteFromTransmitter);
+            System.out.println(deleteFromTransmitter);
             TimeUnit.SECONDS.sleep(1);
         }
     }

@@ -208,7 +208,13 @@ public class Setup {
         home_page.Three.click();
         home_page.Four.click();
     }
-
+    public void enter_default_dealer_code (){
+        Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        home_page.Two.click();
+        home_page.Two.click();
+        home_page.Two.click();
+        home_page.Two.click();
+    }
     public void verify_disarm() throws Exception {
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         if (home_page.Disarmed_text.getText().equals("DISARMED")) {
@@ -297,6 +303,14 @@ public class Setup {
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         if (home_page.Red_banner_sensor_status.getText().equals("Alarmed")) {
             logger.info("Pass: Correct status is Alarmed");
+        }else { take_screenshot();
+            logger.info("Failed: Incorrect status: " + home_page.Red_banner_sensor_status.getText());}
+    }
+
+    public void verify_sensorstatus_inAlarm(String Al_status) throws Exception {
+        Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        if (home_page.Red_banner_sensor_status.getText().equals(Al_status)) {
+            logger.info("Pass: Correct status is " + Al_status);
         }else { take_screenshot();
             logger.info("Failed: Incorrect status: " + home_page.Red_banner_sensor_status.getText());}
     }

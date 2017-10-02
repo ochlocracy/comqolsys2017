@@ -19,4 +19,5 @@ public class Installation_Page {
     public WebElement CAMERA_SETTINGS;
     @FindBy(xpath = "//android.widget.TextView[@text='Load Help Videos']")
     public WebElement LOAD_HELP_VIDEOS;
+
 }
