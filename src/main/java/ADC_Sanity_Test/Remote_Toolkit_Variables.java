@@ -12,11 +12,21 @@ public class Remote_Toolkit_Variables {
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_butChange']")
     public WebElement Change;
 
-    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_txtNewValue']")
+    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_ucTurnOnOffTroubleBeeps_btnSendCommand']")
+    public WebElement Trouble_Beeps_Send_Command;
+
+    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_ucDualPath_btnSendCommand']")
+    public WebElement Dual_Path_Send_Command;
+
+    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_ucRequestFirmware_btnSendCommand']")
+    public WebElement Request_Firmware_Send_Command;
+
+    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_ucRequestPanelTime_btnSendCommand']")
+    public WebElement Panel_Time_Send_Command;
+
+
+    @FindBy(how = How.ID, id = "ctl00_responsiveBody_ucCommands_txtNewValue")
     public WebElement Txt_New_Value;
-
-
-   // adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ddlNewValue")));
 
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_ddlNewValue']")
     public WebElement New_Value;
@@ -168,23 +178,11 @@ public class Remote_Toolkit_Variables {
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl05_rptSettingsCommands_ctl00_lbtnCommandSetting']")
     public WebElement Dual_Path_Communication_settings;
 
-    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl05_rptSettingsCommands_ctl01_lbtnCommandSetting']")
-    public WebElement Hard_Reset;
-
-    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl05_rptSettingsCommands_ctl02_lbtnCommandSetting']")
-    public WebElement Ping_Dual_Path_System;
-
-    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl05_rptSettingsCommands_ctl03_lbtnCommandSetting']")
-    public WebElement Ping_Module;
-
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl05_rptSettingsCommands_ctl04_lbtnCommandSetting']")
     public WebElement Request_Firmware_Version;
 
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl05_rptSettingsCommands_ctl05_lbtnCommandSetting']")
     public WebElement Date_and_Time_Dropdown;
-
-    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl06_rptSettingsCommands_ctl00_lbtnCommandSetting']")
-    public WebElement Location;
 
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl06_rptSettingsCommands_ctl01_lbtnCommandSetting']")
     public WebElement Request_Panel_Time;
@@ -199,7 +197,7 @@ public class Remote_Toolkit_Variables {
     public WebElement Automatic_Upgrade;
 
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl08_rptSettingsCommands_ctl01_lbtnCommandSetting']")
-    public WebElement Auxiliary_panic;
+    public WebElement Auxiliary_Panic;
 
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl08_rptSettingsCommands_ctl02_lbtnCommandSetting']")
     public WebElement Bluetooth;
@@ -235,7 +233,7 @@ public class Remote_Toolkit_Variables {
     public WebElement Verify_Daughterboard_Attachment;
 
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl10_lblCategoryName']")
-    public WebElement Keypad_Screen_Setting_Dropdown;
+    public WebElement Keypad_And_Screen_Settings_Dropdown;
 
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl10_rptSettingsCommands_ctl00_lbtnCommandSetting']")
     public WebElement Automatically_Turn_Off_display;
@@ -246,20 +244,11 @@ public class Remote_Toolkit_Variables {
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl10_rptSettingsCommands_ctl02_lbtnCommandSetting']")
     public WebElement Brightness;
 
-    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl10_rptSettingsCommands_ctl03_lbtnCommandSetting']")
-    public WebElement Country;
-
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl10_rptSettingsCommands_ctl04_lbtnCommandSetting']")
     public WebElement Display_Type;
 
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl10_rptSettingsCommands_ctl05_lbtnCommandSetting']")
     public WebElement Font_Size;
-
-    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl10_rptSettingsCommands_ctl06_lbtnCommandSetting']")
-    public WebElement Home_Screen;
-
-    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl10_rptSettingsCommands_ctl07_lbtnCommandSetting']")
-    public WebElement Language;
 
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl10_rptSettingsCommands_ctl08_lbtnCommandSetting']")
     public WebElement Photo_Frame_Duration;

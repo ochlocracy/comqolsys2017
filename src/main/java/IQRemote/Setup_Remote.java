@@ -1,6 +1,7 @@
 package IQRemote;
 
 import Panel.Configuration;
+import Panel.Home_Page;
 import Panel.Setup;
 import Sensors.EventConstants;
 import io.appium.java_client.android.AndroidDriver;
@@ -8,6 +9,7 @@ import jxl.read.biff.BiffException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
@@ -66,9 +68,35 @@ public class Setup_Remote {
     public void killLogcat() throws Exception{
         rt.exec(adbPath+" shell busybox pkill logcat");
     }
-
-
-
+    public void verify_disarm() throws Exception {
+        Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        if (home_page.Disarmed_text.getText().equals("DISARMED")) {
+            System.out.println("Pass: System is DISARMED");
+        } else {
+            System.out.println("Failed: System is not DISARMED " + home_page.Disarmed_text.getText());
+        }
+    }
+    public void verify_armstay() throws Exception {
+        Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        if (home_page.Disarmed_text.getText().equals("ARMED STAY")) {
+            System.out.println("Pass: System is ARM STAY");
+        } else {
+            System.out.println("Failed: System is NOT ARMED STAY");}
+    }
+    public void verify_armaway() throws Exception {
+        Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        if (home_page.ArwAway_State.isDisplayed()) {
+            System.out.println("Pass: Panel is in Arm Away mode");
+        } else {
+            System.out.println("Failed: Panel is not in Arm Away mode");}
+    }
+    public void enter_default_user_code (){
+        Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        home_page.One.click();
+        home_page.Two.click();
+        home_page.Three.click();
+        home_page.Four.click();
+    }
 
     @Test
     public void Test1 () throws Exception {

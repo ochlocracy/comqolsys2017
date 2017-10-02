@@ -28,24 +28,11 @@ public class Remote_Toolkit extends Setup {
     String accountID = adc.getAccountId();
     PanelInfo_ServiceCalls servcall = new PanelInfo_ServiceCalls();
 
-    public void NewWindowLoadWait() throws IOException, BiffException, NullPointerException {
-
-        Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
-
-                .withTimeout(60, TimeUnit.SECONDS)
-
-                .pollingEvery(2, TimeUnit.SECONDS)
-
-                .ignoring(NoSuchElementException.class);
-
-        WebElement FLOO = adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ddlNewValue")));
-    }
-
-
     /*** If you want to run tests only on the panel, please set ADCexecute value to false ***/
     String ADCexecute = "true";
 
-    public Remote_Toolkit() throws IOException, BiffException {}
+    public Remote_Toolkit() throws IOException, BiffException {
+    }
 
     public void New_ADC_session(String accountID) throws InterruptedException {
         TimeUnit.SECONDS.sleep(2);
@@ -66,15 +53,15 @@ public class Remote_Toolkit extends Setup {
     public void clickAnElementByLinkText(String linkText) {
         WebElement toolkit_options = (new WebDriverWait(adc.driver1, 20))
                 .until(ExpectedConditions.presenceOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ddlNewValue")));
-        Select Stoolkit_options= new Select (toolkit_options);
+        Select Stoolkit_options = new Select(toolkit_options);
         Stoolkit_options.selectByVisibleText(linkText);
     }
 
     @BeforeTest
     public void capabilities_setup() throws Exception {
-   //     setup_driver(get_UDID(), "http://127.0.1.1", "4723");
+        //     setup_driver(get_UDID(), "http://127.0.1.1", "4723");
         setup_logger(page_name);
-            adc.webDriverSetUp();
+        adc.webDriverSetUp();
     }
 
 //    @BeforeMethod
@@ -83,15 +70,16 @@ public class Remote_Toolkit extends Setup {
 //    }
 
     @Test
-    public void Get_ToRemoteKitPage() throws java.lang.Exception {
+    public void GetToRemoteKitPage() throws java.lang.Exception {
         New_ADC_session(accountID);
         adc.getDriver1().manage().window().maximize();
         Thread.sleep(3000);
     }
 
-    @Test (dependsOnMethods = {"Get_ToRemoteKitPage"}, priority =1)
-    public void AdvancedPanelSettings() throws InterruptedException, IOException, BiffException {
+    @Test(dependsOnMethods = {"GetToRemoteKitPage"}, priority = 1)
+    public void Remote_Advanced_Panel_Settings() throws InterruptedException, IOException, BiffException {
         Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
+
         logger.info("Upload Logs Test begin");
         Thread.sleep(3000);
         remote.Advanced_Panel_Settings_Dropdown.click();
@@ -113,6 +101,7 @@ public class Remote_Toolkit extends Setup {
         Thread.sleep(2000);
         logger.info("Upload Logs Test finished");
 
+        logger.info("Log Level Test Begin");
         remote.Advanced_Panel_Settings_Dropdown.click();
         remote.Log_Level.click();
         clickAnElementByLinkText("No Log Output");
@@ -149,379 +138,1035 @@ public class Remote_Toolkit extends Setup {
         remote.Change.click();
         Thread.sleep(2000);
         logger.info("Log Level Test finished");
+
+        logger.info("*Remote_Advanced_Panel_Settings Test Suite finished*");
+
     }
-//
-//    @Test
-//    public void Remote_Alarm_Settings() throws java.lang.Exception {
-//        Remote_Toolkit_Variables remote = PageFactory.initElements(driver, Remote_Toolkit_Variables.class);
-//        Select toolkit_options = new Select(adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ddlNewValue"))));
-//
-//        logger.info("Alarm Settings Test on/off begin");
-//        remote.Alarm_Settings_Dropdown.click();
-//        remote.Alarm_Photos.click();
-//        toolkit_options.selectByVisibleText("On");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Alarm_Settings_Dropdown.click();
-//        remote.Alarm_Photos.click();
-//        toolkit_options.selectByVisibleText("Of");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        logger.info("Alarm Settings Test on/off finished");
-//
-//        logger.info("Disarm Photos Test on/off begin");
-//        remote.Alarm_Settings_Dropdown.click();
-//        remote.Disarm_Photos.click();
-//        toolkit_options.selectByVisibleText("On");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Alarm_Settings_Dropdown.click();
-//        remote.Disarm_Photos.click();
-//        toolkit_options.selectByVisibleText("Off");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        logger.info("Disarm Photos Test on/off finished");
-//
-//        logger.info("Fire Panic Test on/off begin");
-//        remote.Alarm_Settings_Dropdown.click();
-//        remote.Fire_Panic.click();
-//        toolkit_options.selectByVisibleText("On");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Alarm_Settings_Dropdown.click();
-//        remote.Fire_Panic.click();
-//        toolkit_options.selectByVisibleText("Off");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        logger.info("Fire Panic Test on/off finished");
-//
-//        logger.info("Fire Verification Test on/off begin");
-//        remote.Alarm_Settings_Dropdown.click();
-//        remote.Fire_Verification.click();
-//        toolkit_options.selectByVisibleText("On");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Alarm_Settings_Dropdown.click();
-//        remote.Fire_Verification.click();
-//        toolkit_options.selectByVisibleText("Off");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        logger.info("Fire Verification Test on/off finished");
-//
-//        logger.info("Police Panic Test on/off begin");
-//        remote.Alarm_Settings_Dropdown.click();
-//        remote.Police_Panic.click();
-//        toolkit_options.selectByVisibleText("On");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Alarm_Settings_Dropdown.click();
-//        remote.Police_Panic.click();
-//        toolkit_options.selectByVisibleText("Off");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        logger.info("Police Panic Test on/off finish");
-//
-//        logger.info("RF Jam Detection Alarm Test on/off begin");
-//        remote.Alarm_Settings_Dropdown.click();
-//        remote.RF_Jam_Detection_Alarm.click();
-//        toolkit_options.selectByVisibleText("On");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Alarm_Settings_Dropdown.click();
-//        remote.RF_Jam_Detection_Alarm.click();
-//        toolkit_options.selectByVisibleText("Off");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        logger.info("RF Jam Detection Alarm Test on/off finished");
-//
-//        logger.info("Siren Timeout Test 4-8 min begin");
-//        remote.Alarm_Settings_Dropdown.click();
-//        remote.Siren_Timeout.click();
-//        toolkit_options.selectByVisibleText("4 min");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Alarm_Settings_Dropdown.click();
-//        remote.Siren_Timeout.click();
-//        toolkit_options.selectByVisibleText("5 min");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Alarm_Settings_Dropdown.click();
-//        remote.Siren_Timeout.click();
-//        toolkit_options.selectByVisibleText("6 min");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Alarm_Settings_Dropdown.click();
-//        remote.Siren_Timeout.click();
-//        toolkit_options.selectByVisibleText("7 min");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Alarm_Settings_Dropdown.click();
-//        remote.Siren_Timeout.click();
-//        toolkit_options.selectByVisibleText("8 min");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        logger.info("Siren Timeout Test 4-8 min finished");
-//    }
-//
-//    @Test
-//    public void Remote_Arming_Settings() throws java.lang.Exception {
-//        Remote_Toolkit_Variables remote = PageFactory.initElements(driver, Remote_Toolkit_Variables.class);
-//        Select toolkit_options = new Select(adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ddlNewValue"))));
-//
-//        String Dialer_Delay = "9";
-//        String Entry_Delay = "9";
-//        String Exit_Delay = "9";
-//
-//        logger.info("Auto Stay Test on/off begin");
-//        remote.Arming_Setting_Dropdown.click();
-//        remote.Auto_Stay.click();
-//        toolkit_options.selectByVisibleText("On");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Arming_Setting_Dropdown.click();
-//        remote.Auto_Stay.click();
-//        toolkit_options.selectByVisibleText("Off");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        logger.info("Auto Stay Test on/off finish");
-//
-//        logger.info("Dialer_Delay Test begin");
-//        remote.Arming_Setting_Dropdown.click();
-//        remote.Dialer_Delay.click();
-//        remote.Txt_New_Value.sendKeys(Dialer_Delay);
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        logger.info("Dialer_Delay Test finish");
-//
-//        logger.info("Entry_Delay Test begin");
-//        remote.Arming_Setting_Dropdown.click();
-//        remote.Entry_Delay.click();
-//        remote.Txt_New_Value.sendKeys(Entry_Delay);
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        logger.info("Entry_Delay Test finish");
-//
-//        logger.info("Exit_Delay Test begin");
-//        remote.Arming_Setting_Dropdown.click();
-//        remote.Entry_Delay.click();
-//        remote.Exit_Delay.sendKeys(Exit_Delay);
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        logger.info("Exit_Delay Test finish");
-//
-//        logger.info("Refuse_Arming_When_Battery_Low Test on/off begin");
-//        remote.Arming_Setting_Dropdown.click();
-//        remote.Refuse_Arming_When_Battery_Low.click();
-//        toolkit_options.selectByVisibleText("On");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Arming_Setting_Dropdown.click();
-//        remote.Refuse_Arming_When_Battery_Low.click();
-//        toolkit_options.selectByVisibleText("Off");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        logger.info("Refuse_Arming_When_Battery_Low Test on/off finish");
-//
-//        logger.info("Secure_Arming Test on/off begin");
-//        remote.Arming_Setting_Dropdown.click();
-//        remote.Secure_Arming.click();
-//        toolkit_options.selectByVisibleText("On");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Arming_Setting_Dropdown.click();
-//        remote.Secure_Arming.click();
-//        toolkit_options.selectByVisibleText("Off");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        logger.info("Secure_Arming Test on/off finish");
-//
-//        logger.info("Secure_Arming_Photos Test on/off begin");
-//        remote.Arming_Setting_Dropdown.click();
-//        remote.Secure_Arming_Photos.click();
-//        toolkit_options.selectByVisibleText("On");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Arming_Setting_Dropdown.click();
-//        remote.Secure_Arming_Photos.click();
-//        toolkit_options.selectByVisibleText("Off");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        logger.info("Secure_Arming_Photos Test on/off finish");
-//
-//        logger.info("Secure_Delete_Images Test on/off begin");
-//        remote.Arming_Setting_Dropdown.click();
-//        remote.Secure_Delete_Images.click();
-//        toolkit_options.selectByVisibleText("On");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Arming_Setting_Dropdown.click();
-//        remote.Secure_Delete_Images.click();
-//        toolkit_options.selectByVisibleText("Off");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        logger.info("Secure_Delete_Images Test on/off finish");
-//    }
-//
-//    @Test
-//    public void Remote_Beeps_and_Speaker_Settings() throws java.lang.Exception {
-//        Remote_Toolkit_Variables remote = PageFactory.initElements(driver, Remote_Toolkit_Variables.class);
-//        Select toolkit_options = new Select(adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ddlNewValue"))));
-//
-//        String Trouble_Beeps = "5";
-//
-//       /*
-//        Panel_Chimes
-//        Panel_Siren (enable . disable)
-//        Panel_Tamper_Trouble_Beep
-//        Panel_Voice_Prompts
-//        Safety_Sensor_Chimes
-//        Safety_Sensor_Voice_Prompts
-//        Sensor_Chimes
-//        Sensor_Low Battery_Trouble_Beep
-//        Sensor_Tamper_Trouble_Beep
-//        Sensor_Voice_Prompts
-//        Severe_Weather_Siren_Warning
-//        Siren_Annunciation ( enable disable)
-//        Touch_Sounds  ( enable disable)
-//        Trouble_Beeps_Timeout STRING
-//        Turn_On_Off_Trouble_Beeps
-//        Voices_Volume (0-15)
-//        Water_Freeze_Siren ( Enable disable)
-//
-//*/
-//
-//        logger.info("All_Chimes Test on/off begin");
-//        remote.Beeps_And_Speakers_Dropdown.click();
-//        remote.All_Chimes.click();
-//        toolkit_options.selectByVisibleText("On");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Beeps_And_Speakers_Dropdown.click();
-//        remote.All_Chimes.click();
-//        toolkit_options.selectByVisibleText("Off");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        logger.info("All_Chimes Test on/off finish");
-//
-//        logger.info("All_Trouble_Beeps Test on/off begin");
-//        remote.Beeps_And_Speakers_Dropdown.click();
-//        remote.All_Trouble_Beeps.click();
-//        toolkit_options.selectByVisibleText("On");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Beeps_And_Speakers_Dropdown.click();
-//        remote.All_Trouble_Beeps.click();
-//        toolkit_options.selectByVisibleText("Off");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        logger.info("All_Trouble_Beeps Test on/off finish");
-//
-//        logger.info("All_Voice_Prompts Test on/off begin");
-//        remote.Beeps_And_Speakers_Dropdown.click();
-//        remote.All_Voice_Prompts.click();
-//        toolkit_options.selectByVisibleText("On");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Beeps_And_Speakers_Dropdown.click();
-//        remote.All_Voice_Prompts.click();
-//        toolkit_options.selectByVisibleText("Off");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        logger.info("All_Voice_Prompts Test on/off finish");
-//
-//        logger.info("Beeps_And_Chimes_Volume Test 0-7 lvl begin");
-//        remote.Beeps_And_Speakers_Dropdown.click();
-//        remote.Beeps_And_Chimes_Volume.click();
-//        toolkit_options.selectByVisibleText("0");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Beeps_And_Speakers_Dropdown.click();
-//        remote.Beeps_And_Chimes_Volume.click();
-//        toolkit_options.selectByVisibleText("1");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Beeps_And_Speakers_Dropdown.click();
-//        remote.Beeps_And_Chimes_Volume.click();
-//        toolkit_options.selectByVisibleText("2");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Beeps_And_Speakers_Dropdown.click();
-//        remote.Beeps_And_Chimes_Volume.click();
-//        toolkit_options.selectByVisibleText("3");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Beeps_And_Speakers_Dropdown.click();
-//        remote.Beeps_And_Chimes_Volume.click();
-//        toolkit_options.selectByVisibleText("4");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Beeps_And_Speakers_Dropdown.click();
-//        remote.Beeps_And_Chimes_Volume.click();
-//        toolkit_options.selectByVisibleText("5");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Beeps_And_Speakers_Dropdown.click();
-//        remote.Beeps_And_Chimes_Volume.click();
-//        toolkit_options.selectByVisibleText("6");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Beeps_And_Speakers_Dropdown.click();
-//        remote.Beeps_And_Chimes_Volume.click();
-//        toolkit_options.selectByVisibleText("7");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        logger.info("Beeps_And_Chimes_Volume Test 0-7 lvl finished");
-//
-//        logger.info("Media_Volume Test 0-7 lvl begin");
-//        remote.Beeps_And_Speakers_Dropdown.click();
-//        remote.Media_Volume.click();
-//        toolkit_options.selectByVisibleText("0");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Beeps_And_Speakers_Dropdown.click();
-//        remote.Media_Volume.click();
-//        toolkit_options.selectByVisibleText("1");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Beeps_And_Speakers_Dropdown.click();
-//        remote.Media_Volume.click();
-//        toolkit_options.selectByVisibleText("2");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Beeps_And_Speakers_Dropdown.click();
-//        remote.Media_Volume.click();
-//        toolkit_options.selectByVisibleText("3");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Beeps_And_Speakers_Dropdown.click();
-//        remote.Media_Volume.click();
-//        toolkit_options.selectByVisibleText("4");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Beeps_And_Speakers_Dropdown.click();
-//        remote.Media_Volume.click();
-//        toolkit_options.selectByVisibleText("5");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Beeps_And_Speakers_Dropdown.click();
-//        remote.Media_Volume.click();
-//        toolkit_options.selectByVisibleText("6");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        remote.Beeps_And_Speakers_Dropdown.click();
-//        remote.Media_Volume.click();
-//        toolkit_options.selectByVisibleText("7");
-//        remote.Change.click();
-//        Thread.sleep(2000);
-//        logger.info("Media_Volume Test 0-7 lvl finished");
-//
-//    }
+
+    @Test(dependsOnMethods = {"GetToRemoteKitPage"}, priority = 2)
+    public void Remote_Alarm_Settings() throws InterruptedException, IOException, BiffException {
+        Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
+
+        logger.info("Alarm Settings Test on/off begin");
+        remote.Alarm_Settings_Dropdown.click();
+        remote.Alarm_Photos.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Alarm_Settings_Dropdown.click();
+        remote.Alarm_Photos.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Alarm Settings Test on/off finished");
+
+        logger.info("Disarm Photos Test on/off begin");
+        remote.Alarm_Settings_Dropdown.click();
+        remote.Disarm_Photos.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Alarm_Settings_Dropdown.click();
+        remote.Disarm_Photos.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Disarm Photos Test on/off finished");
+
+        logger.info("Fire Panic Test on/off begin");
+        remote.Alarm_Settings_Dropdown.click();
+        remote.Fire_Panic.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Alarm_Settings_Dropdown.click();
+        remote.Fire_Panic.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Fire Panic Test on/off finished");
+
+        logger.info("Fire Verification Test on/off begin");
+        remote.Alarm_Settings_Dropdown.click();
+        remote.Fire_Verification.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Alarm_Settings_Dropdown.click();
+        remote.Fire_Verification.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Fire Verification Test on/off finished");
+
+        logger.info("Police Panic Test on/off begin");
+        remote.Alarm_Settings_Dropdown.click();
+        remote.Police_Panic.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Alarm_Settings_Dropdown.click();
+        remote.Police_Panic.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Police Panic Test on/off finish");
+
+        logger.info("RF Jam Detection Alarm Test on/off begin");
+        remote.Alarm_Settings_Dropdown.click();
+        remote.RF_Jam_Detection_Alarm.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Alarm_Settings_Dropdown.click();
+        remote.RF_Jam_Detection_Alarm.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("RF Jam Detection Alarm Test on/off finished");
+
+        logger.info("Siren Timeout Test 4-8 min begin");
+        remote.Alarm_Settings_Dropdown.click();
+        remote.Siren_Timeout.click();
+        clickAnElementByLinkText("4 min");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Alarm_Settings_Dropdown.click();
+        remote.Siren_Timeout.click();
+        clickAnElementByLinkText("5 min");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Alarm_Settings_Dropdown.click();
+        remote.Siren_Timeout.click();
+        clickAnElementByLinkText("6 min");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Alarm_Settings_Dropdown.click();
+        remote.Siren_Timeout.click();
+        clickAnElementByLinkText("7 min");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Alarm_Settings_Dropdown.click();
+        remote.Siren_Timeout.click();
+        clickAnElementByLinkText("8 min");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Siren Timeout Test 4-8 min finished");
+
+        logger.info("*Remote_Alarm_Settings Test Suite finished*");
+    }
+
+    @Test(dependsOnMethods = {"GetToRemoteKitPage"}, priority = 3)
+    public void Remote_Arming_Settings() throws java.lang.Exception {
+        Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
+
+        String Dialer_Delay = "9";
+        String Entry_Delay = "9";
+        String Exit_Delay = "9";
+
+        logger.info("Auto Stay Test on/off begin");
+        remote.Arming_Setting_Dropdown.click();
+        remote.Auto_Stay.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Arming_Setting_Dropdown.click();
+        remote.Auto_Stay.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Auto Stay Test on/off finish");
+
+        logger.info("Dialer_Delay Test begin");
+        remote.Arming_Setting_Dropdown.click();
+        remote.Dialer_Delay.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_txtNewValue"))).clear();
+        remote.Txt_New_Value.sendKeys(Dialer_Delay);
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Dialer_Delay Test finish");
+
+        logger.info("Entry_Delay Test begin");
+        remote.Arming_Setting_Dropdown.click();
+        remote.Entry_Delay.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_txtNewValue"))).clear();
+        remote.Txt_New_Value.sendKeys(Entry_Delay);
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Entry_Delay Test finish");
+
+        logger.info("Exit_Delay Test begin");
+        remote.Arming_Setting_Dropdown.click();
+        remote.Entry_Delay.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_txtNewValue"))).clear();
+        remote.Txt_New_Value.sendKeys(Exit_Delay);
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Exit_Delay Test finish");
+
+        logger.info("Refuse_Arming_When_Battery_Low Test on/off begin");
+        remote.Arming_Setting_Dropdown.click();
+        remote.Refuse_Arming_When_Battery_Low.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Arming_Setting_Dropdown.click();
+        remote.Refuse_Arming_When_Battery_Low.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Refuse_Arming_When_Battery_Low Test on/off finish");
+
+        logger.info("Secure_Arming Test on/off begin");
+        remote.Arming_Setting_Dropdown.click();
+        remote.Secure_Arming.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Arming_Setting_Dropdown.click();
+        remote.Secure_Arming.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Secure_Arming Test on/off finish");
+
+        logger.info("Secure_Arming_Photos Test on/off begin");
+        remote.Arming_Setting_Dropdown.click();
+        remote.Secure_Arming_Photos.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Arming_Setting_Dropdown.click();
+        remote.Secure_Arming_Photos.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Secure_Arming_Photos Test on/off finish");
+
+        logger.info("Secure_Delete_Images Test on/off begin");
+        remote.Arming_Setting_Dropdown.click();
+        remote.Secure_Delete_Images.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Arming_Setting_Dropdown.click();
+        remote.Secure_Delete_Images.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Secure_Delete_Images Test on/off finish");
+
+        logger.info("*Remote_Arming_Settings Test Suite finished*");
+
+    }
+
+
+    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =4)
+    public void Remote_Beeps_and_Speaker_Settings() throws java.lang.Exception {
+        Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
+
+        String Trouble_Beeps = "5";
+
+        logger.info("All_Chimes Test on/off begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.All_Chimes.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.All_Chimes.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("All_Chimes Test on/off finish");
+
+        logger.info("All_Trouble_Beeps Test on/off begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.All_Trouble_Beeps.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.All_Trouble_Beeps.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("All_Trouble_Beeps Test on/off finish");
+
+        logger.info("All_Voice_Prompts Test on/off begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.All_Voice_Prompts.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.All_Voice_Prompts.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("All_Voice_Prompts Test on/off finish");
+
+        logger.info("Beeps_And_Chimes_Volume Test 0-7 lvl begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Beeps_And_Chimes_Volume.click();
+        clickAnElementByLinkText("0");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Beeps_And_Chimes_Volume.click();
+        clickAnElementByLinkText("1");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Beeps_And_Chimes_Volume.click();
+        clickAnElementByLinkText("2");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Beeps_And_Chimes_Volume.click();
+        clickAnElementByLinkText("3");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Beeps_And_Chimes_Volume.click();
+        clickAnElementByLinkText("4");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Beeps_And_Chimes_Volume.click();
+        clickAnElementByLinkText("5");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Beeps_And_Chimes_Volume.click();
+        clickAnElementByLinkText("6");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Beeps_And_Chimes_Volume.click();
+        clickAnElementByLinkText("7");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Beeps_And_Chimes_Volume Test 0-7 lvl finished");
+
+        logger.info("Media_Volume Test 0-7 lvl begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Media_Volume.click();
+        clickAnElementByLinkText("0");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Media_Volume.click();
+        clickAnElementByLinkText("1");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Media_Volume.click();
+        clickAnElementByLinkText("2");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Media_Volume.click();
+        clickAnElementByLinkText("3");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Media_Volume.click();
+        clickAnElementByLinkText("4");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Media_Volume.click();
+        clickAnElementByLinkText("5");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Media_Volume.click();
+        clickAnElementByLinkText("6");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Media_Volume.click();
+        clickAnElementByLinkText("7");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Media_Volume Test 0-7 lvl finished");
+
+        logger.info("Panel_Chimes Test on/off begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Panel_Chimes.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Panel_Chimes.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Panel_Chimes Test on/off finish");
+
+        logger.info("Panel_Siren Test Enable/Disable begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Panel_Siren.click();
+        clickAnElementByLinkText("Enable");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Panel_Siren.click();
+        clickAnElementByLinkText("Disable");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Panel_Siren Test Enable/Disable finish");
+
+        logger.info("Panel_Tamper_Trouble_Beep Test on/off begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Panel_Tamper_Trouble_Beep.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Panel_Tamper_Trouble_Beep.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Panel_Tamper_Trouble_Beep Test on/off finish");
+
+        logger.info("Panel_Voice_Prompts Test on/off begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Panel_Voice_Prompts.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Panel_Voice_Prompts.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Panel_Voice_Prompts Test on/off finish");
+
+        logger.info("Safety_Sensor_Chimes Test on/off begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Safety_Sensor_Chimes.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Safety_Sensor_Chimes.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Safety_Sensor_Chimes Test on/off finish");
+
+        logger.info("Safety_Sensor_Voice_Prompts Test on/off begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Safety_Sensor_Voice_Prompts.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Safety_Sensor_Voice_Prompts.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Safety_Sensor_Voice_Prompts Test on/off finish");
+
+        logger.info("Sensor_Chimes Test on/off begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Sensor_Chimes.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Sensor_Chimes.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Sensor_Chimes Test on/off finish");
+
+        logger.info("Sensor_Low_Battery_Trouble_Beep Test on/off begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Sensor_Low_Battery_Trouble_Beep.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Sensor_Low_Battery_Trouble_Beep.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Sensor_Low_Battery_Trouble_Beep Test on/off finish");
+
+        logger.info("Sensor_Tamper_Trouble_Beep Test on/off begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Sensor_Tamper_Trouble_Beep.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Sensor_Tamper_Trouble_Beep.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Sensor_Tamper_Trouble_Beep Test on/off finish");
+
+        logger.info("Sensor_Voice_Prompts Test on/off begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Sensor_Voice_Prompts.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Sensor_Voice_Prompts.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Sensor_Voice_Prompts Test on/off finish");
+
+        logger.info("Severe_Weather_Siren_Warning Test on/off begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Severe_Weather_Siren_Warning.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Severe_Weather_Siren_Warning.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Severe_Weather_Siren_Warning Test on/off finish");
+
+        logger.info("Siren_Annunciation Test Enable/Disable begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Siren_Annunciation.click();
+        clickAnElementByLinkText("Enable");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Siren_Annunciation.click();
+        clickAnElementByLinkText("Disable");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Siren_Annunciation Test Enable/Disable finish");
+
+        logger.info("Touch_Sounds Test Enable/Disable begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Touch_Sounds.click();
+        clickAnElementByLinkText("Enable");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Touch_Sounds.click();
+        clickAnElementByLinkText("Disable");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Touch_Sounds Test Enable/Disable finish");
+
+        logger.info("Trouble_Beeps_Timeout Test interval begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Trouble_Beeps_Timeout.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_txtNewValue"))).clear();
+        remote.Txt_New_Value.sendKeys(Trouble_Beeps);
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Trouble_Beeps_Timeout Test interval finish");
+
+        logger.info("Turn_On_Off_Trouble_Beeps Test on/off begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Turn_On_Off_Trouble_Beeps.click();
+        remote.Trouble_Beeps_Send_Command.click();
+        Thread.sleep(1000);
+        logger.info("Turn_On_Off_Trouble_Beeps Test on/off finish");
+
+        logger.info("Voices_Volume Test 0-15 lvl begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("0");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("1");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("2");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("3");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("4");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("5");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("6");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("7");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("8");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("9");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("10");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("11");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("12");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("13");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("14");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Voices_Volume.click();
+        clickAnElementByLinkText("15");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Voices_Volume Test 0-15 lvl finished");
+
+        logger.info("Water_And_Freeze_Siren Test Enable/Disable begin");
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Water_And_Freeze_Siren.click();
+        clickAnElementByLinkText("Enable");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Beeps_And_Speakers_Dropdown.click();
+        remote.Water_And_Freeze_Siren.click();
+        clickAnElementByLinkText("Disable");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Water_And_Freeze_Siren Test Enable/Disable finish");
+
+        logger.info("*Remote_Beeps_and_Speaker_Settings Test Suite finished*");
+    }
+
+    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =5)
+    public void Remote_Broadband_Settings() throws java.lang.Exception {
+        Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
+
+        String Set_Wifi_Network_Name = "The_Sandbox";
+
+        logger.info("Bluetooth_Disarming_Feature Test Enable/Disable begin");
+        remote.Broadband_Settings_Dropdown.click();
+        remote.Bluetooth_Disarming_Feature.click();
+        clickAnElementByLinkText("Enable");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Broadband_Settings_Dropdown.click();
+        remote.Bluetooth_Disarming_Feature.click();
+        clickAnElementByLinkText("Disable");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Bluetooth_Disarming_Feature Test Enable/Disable finish");
+
+        logger.info("Wi-Fi Test on/off begin");
+        remote.Broadband_Settings_Dropdown.click();
+        remote.Wi_Fi.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Broadband_Settings_Dropdown.click();
+        remote.Wi_Fi.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Wi-Fi Test on/off finish");
+
+        logger.info("Wi-Fi Test name change begin");
+        remote.Broadband_Settings_Dropdown.click();
+        remote.Wi_Fi_Network_Name.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_txtNewValue"))).clear();
+        remote.Txt_New_Value.sendKeys(Set_Wifi_Network_Name);
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Wi-Fi Test name change finish");
+    }
+
+        @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =6)
+        public void Communication_Settings() throws java.lang.Exception {
+            Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
+
+            logger.info("Dual_Path_Communication_settings Test DualPath/Cell begin");
+            remote.Communication_Dropdown.click();
+            remote.Dual_Path_Communication_settings.click();
+            clickAnElementByLinkText("Dual-Path");
+            remote.Dual_Path_Send_Command.click();
+            Thread.sleep(2000);
+            remote.Communication_Dropdown.click();
+            remote.Dual_Path_Communication_settings.click();
+            clickAnElementByLinkText("Cell");
+            remote.Dual_Path_Send_Command.click();
+            Thread.sleep(2000);
+            logger.info("Dual_Path_Communication_settings Test DualPath/Cell finish");
+
+            logger.info("Request_Firmware_Version Send begin");
+            remote.Communication_Dropdown.click();
+            remote.Request_Firmware_Version.click();
+            remote.Request_Firmware_Send_Command.click();
+            Thread.sleep(2000);
+            logger.info("Request_Firmware_Version Send finish");
+
+            logger.info("*Communication_Settings Test Suite finish*");
+    }
+
+    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =7)
+    public void Date_And_Time_Settings() throws java.lang.Exception {
+        Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
+
+        logger.info("Request_Panel_Time Test begin");
+        remote.Date_and_Time_Dropdown.click();
+        remote.Request_Panel_Time.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucRequestPanelTime_btnSendCommand"))).click();
+        logger.info("Request_Panel_Time Test finish");
+
+        logger.info("Set_Panel_Time Test begin");
+        remote.Date_and_Time_Dropdown.click();
+        remote.Set_Panel_Time.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucSetPanelTime_btnSendCommand"))).clear();
+        logger.info("Set_Panel_Time Test finish");
+
+        logger.info("*Date_And_Time_Settings Test Suite finish*");
+    }
+
+    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =8)
+    public void General_Settings() throws java.lang.Exception {
+        Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
+
+        logger.info("Automatic_Upgrade Test on/off begin");
+        remote.General_Dropdown.click();
+        remote.Automatic_Upgrade.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.General_Dropdown.click();
+        remote.Automatic_Upgrade.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Automatic_Upgrade Test on/off finish");
+
+        logger.info("Auxiliary_Panic Test on/off begin");
+        remote.General_Dropdown.click();
+        remote.Auxiliary_Panic.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.General_Dropdown.click();
+        remote.Auxiliary_Panic.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Auxiliary_Panic Test on/off finish");
+
+        logger.info("Bluetooth Test Enable/Disable begin");
+        remote.General_Dropdown.click();
+        remote.Bluetooth.click();
+        clickAnElementByLinkText("Enable");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.General_Dropdown.click();
+        remote.Bluetooth.click();
+        clickAnElementByLinkText("Disable");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Bluetooth Test Enable/Disable finish");
+
+        logger.info("Bluetooth_Disarm_Timeout Test 1,5,10,20 lvl begin");
+        remote.General_Dropdown.click();
+        remote.Bluetooth_Disarm_Timeout.click();
+        clickAnElementByLinkText("1");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.General_Dropdown.click();
+        remote.Bluetooth_Disarm_Timeout.click();
+        clickAnElementByLinkText("5");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.General_Dropdown.click();
+        remote.Bluetooth_Disarm_Timeout.click();
+        clickAnElementByLinkText("10");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.General_Dropdown.click();
+        remote.Bluetooth_Disarm_Timeout.click();
+        clickAnElementByLinkText("20");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Bluetooth_Disarm_Timeout Test 1,5,10,20 lvl finish");
+
+        logger.info("Request_Updated_Equipment_List  Test begin");
+        remote.General_Dropdown.click();
+        remote.Request_Updated_Equipment_List.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucReqEqList_btnSendCommand"))).clear();
+        logger.info("Request_Updated_Equipment_List Test finish");
+
+        logger.info("Resend_Panel_Location  Test begin");
+        remote.General_Dropdown.click();
+        remote.Resend_Panel_Location.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucPanelLocation_btnSendCommand"))).clear();
+        logger.info("Resend_Panel_Location Test finish");
+
+        logger.info("Send_Weather_Info  Test begin");
+        remote.General_Dropdown.click();
+        remote.Send_Weather_Info.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucSendWeather_btnSendCommand"))).clear();
+        logger.info("Send_Weather_Info Test finish");
+
+        logger.info("*General_Settings Test Suite finish*");
+    }
+
+    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =9)
+    public void Image_Sensor_Settings() throws java.lang.Exception {
+        Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
+
+        logger.info("Change_Extended_Range Test Enable/Disable begin");
+        remote.Image_Sensor_Dropdown.click();
+        remote.Change_Extended_Range.click();
+        clickAnElementByLinkText("Enable");
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucRange_btnSendCommand"))).clear();
+        Thread.sleep(2000);
+        remote.Image_Sensor_Dropdown.click();
+        remote.Change_Extended_Range.click();
+        clickAnElementByLinkText("Disable");
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucRange_btnSendCommand"))).click();
+        Thread.sleep(2000);
+        logger.info("Change_Extended_Range Test Enable/Disable finish");
+
+        logger.info("Disable_Automatic_Image_Uploads  Test begin");
+        remote.General_Dropdown.click();
+        remote.Disable_Automatic_Image_Uploads.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucAutoUpload_btnSendCommand"))).click();
+        logger.info("Disable_Automatic_Image_Uploads Test finish");
+
+        logger.info("Request_Latest_Image_Sensor_Info  Test begin");
+        remote.General_Dropdown.click();
+        remote.Request_Latest_Image_Sensor_Info.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucRequestIsInfo_btnSendCommand"))).click();
+        logger.info("Request_Latest_Image_Sensor_Info Test finish");
+
+        logger.info("Set_Trouble_Report_at_Panel  Test begin");
+        remote.General_Dropdown.click();
+        remote.Set_Trouble_Report_at_Panel.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucSetTroubleReportPanel_chk_ImageSensorMalFunction"))).click();
+
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucSetTroubleReportPanel_chk_ImageSensorTamper"))).click();
+
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucSetTroubleReportPanel_chk_HWZoneMalFunction"))).click();
+
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucSetTroubleReportPanel_chk_ImageSensorLowBattery"))).click();
+
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucSetTroubleReportPanel_chk_TestHWConnection"))).click();
+
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucSetTroubleReportPanel_btnSendCommand"))).click();
+        Thread.sleep(2000);
+        logger.info("Set_Trouble_Report_at_Panel Test finish");
+
+        logger.info("Verify_Daughterboard_Attachment  Test begin");
+        remote.General_Dropdown.click();
+        remote.Verify_Daughterboard_Attachment.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucVerifyDb_btnSendCommand"))).click();
+        logger.info("Verify_Daughterboard_Attachment Test finish");
+
+        logger.info("*Image Sensor Settings Test Suite finish*");
+    }
+
+    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =9)
+    public void Keypad_And_Screen_Settings() throws java.lang.Exception {
+        Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
+
+        String Automatically_Turn_Off_display = "22:00"; //(PM Military)
+        String Automatically_Turn_On_display = "5:00"; //(AM Military)
+        String Screen_Brightness = "254"; //(0-255)
+
+        logger.info("Automatically_Turn_Off_display Test time change begin");
+        remote.Keypad_And_Screen_Settings_Dropdown.click();
+        remote.Automatically_Turn_Off_display.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_txtNewValue"))).clear();
+        remote.Txt_New_Value.sendKeys(Automatically_Turn_Off_display);
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Automatically_Turn_Off_display Test time change finish");
+
+        logger.info("Automatically_Turn_On_display Test time change begin");
+        remote.Keypad_And_Screen_Settings_Dropdown.click();
+        remote.Automatically_Turn_On_display.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_txtNewValue"))).clear();
+        remote.Txt_New_Value.sendKeys(Automatically_Turn_On_display);
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Automatically_Turn_On_display Test time change finish");
+
+        logger.info("Automatically_Turn_On_display Test time change begin");
+        remote.Keypad_And_Screen_Settings_Dropdown.click();
+        remote.Brightness.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_txtNewValue"))).clear();
+        remote.Txt_New_Value.sendKeys(Screen_Brightness);
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Automatically_Turn_On_display Test time change finish");
+
+        logger.info("Display_Type Test Weather Clock / Photo Frame begin");
+        remote.Keypad_And_Screen_Settings_Dropdown.click();
+        remote.Display_Type.click();
+        clickAnElementByLinkText("Photo Frame");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Keypad_And_Screen_Settings_Dropdown.click();
+        remote.Display_Type.click();
+        clickAnElementByLinkText("Weather Clock");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Display_Type Test Weather Clock / Photo Frame finish");
+
+        logger.info("Font_Size Test Small, Normal, Large begin");
+        remote.Keypad_And_Screen_Settings_Dropdown.click();
+        remote.Font_Size.click();
+        clickAnElementByLinkText("Small");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Keypad_And_Screen_Settings_Dropdown.click();
+        remote.Font_Size.click();
+        clickAnElementByLinkText("Normal");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Keypad_And_Screen_Settings_Dropdown.click();
+        remote.Font_Size.click();
+        clickAnElementByLinkText("Large");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Font_Size Test Small, Normal, Large finish");
+
+        logger.info("Font_Size Test 1,2,5 begin");
+        remote.Keypad_And_Screen_Settings_Dropdown.click();
+        remote.Photo_Frame_Duration.click();
+        clickAnElementByLinkText("1");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Keypad_And_Screen_Settings_Dropdown.click();
+        remote.Photo_Frame_Duration.click();
+        clickAnElementByLinkText("2");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Keypad_And_Screen_Settings_Dropdown.click();
+        remote.Photo_Frame_Duration.click();
+        clickAnElementByLinkText("5");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Font_Size Test 1,2,5 finish");
+
+        logger.info("Photo_Frame_Duration Test on/off begin");
+        remote.Keypad_And_Screen_Settings_Dropdown.click();
+        remote.Photo_Frame_Shuffle.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Keypad_And_Screen_Settings_Dropdown.click();
+        remote.Photo_Frame_Shuffle.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Photo_Frame_Shuffle Test on/off finish");
+
+        logger.info("Photo_Frame_Start_Time Test 5/10/15/20/25/30 begin");
+        remote.Keypad_And_Screen_Settings_Dropdown.click();
+        remote.Photo_Frame_Start_Time.click();
+        clickAnElementByLinkText("5");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Keypad_And_Screen_Settings_Dropdown.click();
+        remote.Photo_Frame_Start_Time.click();
+        clickAnElementByLinkText("10");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Keypad_And_Screen_Settings_Dropdown.click();
+        remote.Photo_Frame_Start_Time.click();
+        clickAnElementByLinkText("15");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Keypad_And_Screen_Settings_Dropdown.click();
+        remote.Photo_Frame_Start_Time.click();
+        clickAnElementByLinkText("20");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Keypad_And_Screen_Settings_Dropdown.click();
+        remote.Photo_Frame_Start_Time.click();
+        clickAnElementByLinkText("25");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Keypad_And_Screen_Settings_Dropdown.click();
+        remote.Photo_Frame_Start_Time.click();
+        clickAnElementByLinkText("30");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Photo_Frame_Start_Time Test 5/10/15/20/25/30 finish");
+
+        logger.info("Setting_Photos Test Enable/Disable begin");
+        remote.Keypad_And_Screen_Settings_Dropdown.click();
+        remote.Setting_Photos.click();
+        clickAnElementByLinkText("Enable");
+        Thread.sleep(2000);
+        remote.Keypad_And_Screen_Settings_Dropdown.click();
+        remote.Setting_Photos.click();
+        clickAnElementByLinkText("Disable");
+        Thread.sleep(2000);
+        logger.info("Setting_Photos Test Enable/Disable finish");
+
+        logger.info("Setting_Photos Test Dissolve/Fade To Black begin");
+        remote.Keypad_And_Screen_Settings_Dropdown.click();
+        remote.Transition_Effect.click();
+        clickAnElementByLinkText("Dissolve");
+        Thread.sleep(2000);
+        remote.Keypad_And_Screen_Settings_Dropdown.click();
+        remote.Transition_Effect.click();
+        clickAnElementByLinkText("Fade To Black");
+        Thread.sleep(2000);
+        logger.info("Transition_Effect Test Dissolve/Fade To Black finish");
+
+        logger.info("Keypad_And_Screen_Settings Test Suite Finished");
+
+    }
 
     @AfterTest
     public void tearDown() throws IOException, InterruptedException {
         adc.driver1.quit();
     }
-
+//
 //    @AfterMethod
 //    public void webDriverQuit(){
 //        adc.driver1.quit();
