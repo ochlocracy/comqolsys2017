@@ -200,7 +200,12 @@ public class Setup {
         home_page.ARM_AWAY.click();
         TimeUnit.SECONDS.sleep(delay);
     }
-
+    public void enter_default_DURESS_code (){
+        Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        home_page.Nine.click();
+        home_page.Nine.click();
+        home_page.Nine.click();
+        home_page.Eight.click();}
     public void enter_default_user_code (){
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         home_page.One.click();

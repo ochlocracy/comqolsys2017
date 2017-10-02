@@ -866,7 +866,39 @@ public class Arm_Stay extends Setup{
             delete_from_primary(zone);
             Thread.sleep(1000);
         Thread.sleep(1000);}
+    @Test(priority = 38)
+    public void AS_40() throws Exception {
+        logger.info("Verify the system can not use a duress code if Duress Authentication is disabled(12 group). ");
+        Thread.sleep(3000);
+        add_primary_call(12, 12,6619297, 1);
+        servcall.set_DURESS_AUTHENTICATION_disable();
+        servcall.set_ARM_STAY_NO_DELAY_enable();
+        ARM_STAY();
+        Thread.sleep(1000);
+        sensors.primary_call(door_window12, open);
+        Thread.sleep(1000);
+        sensors.primary_call(door_window12, close);
+        Thread.sleep(15000);
+        enter_default_DURESS_code();
+        verify_in_alarm();
+        Thread.sleep(3000);
+        enter_default_user_code();
+        delete_from_primary(12);}
+    @Test(priority = 39)
+    public void AS_41() throws Exception {
+        logger.info("Verify the system is still responsive when the panel is in screensaver mode. ");
+        Thread.sleep(3000);
 
+        servcall.set_photo_frame_SCREEN_SAVER_TYPE();
+        servcall.set_ARM_STAY_NO_DELAY_enable();
+        ARM_STAY();
+        Thread.sleep(1000);
+        sensors.primary_call(door_window10, open);
+        Thread.sleep(1000);
+        verify_in_alarm();
+        Thread.sleep(3000);
+        enter_default_user_code();
+        delete_from_primary(10);}
 
 
 
