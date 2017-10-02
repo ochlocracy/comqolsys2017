@@ -630,6 +630,7 @@ public class Arm_Stay extends Setup{
         add_primary_call(35, 35,5570631, 2);
         disarm_during_entry_delay(10,35,door_window10,motion35, "Disarmed (Intrusion)","Idle","Activated","Closed","Open",15000, 1, 5, 5, 1, 2);
         }
+
     @Test(priority = 21)
     public void AS_29() throws Exception {
         logger.info("Verify the panel will report an immediate tamper alarm (8 group). ");
