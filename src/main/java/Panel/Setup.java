@@ -45,6 +45,7 @@ public class Setup {
 
     public AndroidDriver<WebElement> driver;
 
+
     public Log log = new Log();
     public Logger logger = Logger.getLogger(this.getClass().getName());
     public Runtime rt = Runtime.getRuntime();
@@ -75,7 +76,7 @@ public class Setup {
         else {
             val = "";
         }
-//        System.out.println(val);
+   //     System.out.println(val);
         return val;
     }
     public String split_method (  String str) {
@@ -98,6 +99,7 @@ public class Setup {
         cap.setCapability("appPackage", "com.qolsys");
         cap.setCapability("appActivity", "com.qolsys.activites.Theme3HomeActivity");
         cap.setCapability("newCommandTimeout", "1000");
+        cap.setCapability("clearSystemFiles", true);
         driver = new AndroidDriver<WebElement>(new URL(url_+":"+port_+"/wd/hub"), cap);
     }
 
@@ -168,12 +170,14 @@ public class Setup {
         menu.Settings.click();
     }
 
-    public void navigate_to_Advanced_Settings_page () {
+    public void navigate_to_Advanced_Settings_page () throws InterruptedException {
         Slide_Menu menu = PageFactory.initElements(driver, Slide_Menu.class);
         Settings_Page settings = PageFactory.initElements(driver, Settings_Page.class);
         menu.Slide_menu_open.click();
         menu.Settings.click();
+        Thread.sleep(1000);
         settings.ADVANCED_SETTINGS.click();
+        Thread.sleep(2000);
         settings.Two.click();
         settings.Two.click();
         settings.Two.click();
@@ -726,4 +730,27 @@ public class Setup {
         }
         Thread.sleep(1000);
     }
+    public static String captureScreenshot (AndroidDriver driver, String screenshotName) throws IOException {
+        try {
+            TakesScreenshot ts = (TakesScreenshot) driver;
+            File source = ts.getScreenshotAs((OutputType.FILE));
+            String dest = "/home/qolsys/IdeaProjects/comqolsys2017/Report/" + screenshotName + ".png";
+            File destination = new File(dest);
+            FileUtils.copyFile(source, destination);
+            System.out.println("Screenshot taken");
+            return dest;
+        } catch (Exception e) {
+            System.out.println("Exception while taking screenshot " + e.getMessage());
+            return e.getMessage();
+        }
+    }
+    public void verify_setting(String setting, String call, String expected) throws IOException {
+        String result = execCmd(adbPath + " shell service call qservice " + call).split(" ")[2];
+        if(result.equals(expected))
+            logger.info("[Pass] " + setting + " has value: " + expected);
+        else
+            logger.info("[Fail] " + setting + " has value: " + result + ". Expected:" + expected);
+
+    }
+
     }

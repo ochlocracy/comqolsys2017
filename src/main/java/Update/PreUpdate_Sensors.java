@@ -97,7 +97,7 @@ public class PreUpdate_Sensors extends Setup {
         Emergency_Page emergency =  PageFactory.initElements(driver, Emergency_Page.class);
         Contact_Us contact =  PageFactory.initElements(driver, Contact_Us.class);
         Home_Page home =  PageFactory.initElements(driver, Home_Page.class);
-        for (int i=1; i>0; i--) {
+        for (int i=15; i>0; i--) {
             open_close("65 00 0A");
             open_close("65 00 1A");
             open_close("65 00 2A");
