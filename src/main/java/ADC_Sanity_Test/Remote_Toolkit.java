@@ -2,8 +2,6 @@ package ADC_Sanity_Test;
 
 import ADC.ADC;
 import Panel.*;
-import com.google.common.base.Function;
-import com.thoughtworks.selenium.SeleniumException;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -13,9 +11,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.*;
 import org.testng.annotations.*;
-import javax.swing.plaf.InternalFrameUI;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 import org.testng.annotations.Test;
 
@@ -56,6 +52,14 @@ public class Remote_Toolkit extends Setup {
         Select Stoolkit_options = new Select(toolkit_options);
         Stoolkit_options.selectByVisibleText(linkText);
     }
+
+    public void DualPathSelectTextDropdown(String linkText) {
+        WebElement toolkit_options = (new WebDriverWait(adc.driver1, 20))
+                .until(ExpectedConditions.presenceOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucDualPath_DropDownMode")));
+        Select Stoolkit_options = new Select(toolkit_options);
+        Stoolkit_options.selectByVisibleText(linkText);
+    }
+
 
     @BeforeTest
     public void capabilities_setup() throws Exception {
@@ -257,7 +261,7 @@ public class Remote_Toolkit extends Setup {
     }
 
     @Test(dependsOnMethods = {"GetToRemoteKitPage"}, priority = 3)
-    public void Remote_Arming_Settings() throws java.lang.Exception {
+    public void Remote_Arming_Settings() throws InterruptedException, IOException, BiffException {
         Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
 
         String Dialer_Delay = "9";
@@ -333,12 +337,12 @@ public class Remote_Toolkit extends Setup {
         logger.info("Secure_Arming_Photos Test on/off begin");
         remote.Arming_Setting_Dropdown.click();
         remote.Secure_Arming_Photos.click();
-        clickAnElementByLinkText("On");
+        clickAnElementByLinkText("Enable");
         remote.Change.click();
         Thread.sleep(2000);
         remote.Arming_Setting_Dropdown.click();
         remote.Secure_Arming_Photos.click();
-        clickAnElementByLinkText("Off");
+        clickAnElementByLinkText("Disable");
         remote.Change.click();
         Thread.sleep(2000);
         logger.info("Secure_Arming_Photos Test on/off finish");
@@ -360,9 +364,8 @@ public class Remote_Toolkit extends Setup {
 
     }
 
-
     @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =4)
-    public void Remote_Beeps_and_Speaker_Settings() throws java.lang.Exception {
+    public void Remote_Beeps_and_Speaker_Settings() throws InterruptedException, IOException, BiffException {
         Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
 
         String Trouble_Beeps = "5";
@@ -673,6 +676,7 @@ public class Remote_Toolkit extends Setup {
         logger.info("Turn_On_Off_Trouble_Beeps Test on/off begin");
         remote.Beeps_And_Speakers_Dropdown.click();
         remote.Turn_On_Off_Trouble_Beeps.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucTurnOnOffTroubleBeeps_ddlTroubleBeeps"))).click();
         remote.Trouble_Beeps_Send_Command.click();
         Thread.sleep(1000);
         logger.info("Turn_On_Off_Trouble_Beeps Test on/off finish");
@@ -777,7 +781,7 @@ public class Remote_Toolkit extends Setup {
     }
 
     @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =5)
-    public void Remote_Broadband_Settings() throws java.lang.Exception {
+    public void Remote_Broadband_Settings() throws InterruptedException, IOException, BiffException {
         Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
 
         String Set_Wifi_Network_Name = "The_Sandbox";
@@ -818,35 +822,28 @@ public class Remote_Toolkit extends Setup {
         logger.info("Wi-Fi Test name change finish");
     }
 
-        @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =6)
-        public void Communication_Settings() throws java.lang.Exception {
+    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =6)
+    public void Remote_Communication_Settings() throws InterruptedException, IOException, BiffException {
             Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
 
             logger.info("Dual_Path_Communication_settings Test DualPath/Cell begin");
             remote.Communication_Dropdown.click();
             remote.Dual_Path_Communication_settings.click();
-            clickAnElementByLinkText("Dual-Path");
+            DualPathSelectTextDropdown("Cell");
             remote.Dual_Path_Send_Command.click();
             Thread.sleep(2000);
             remote.Communication_Dropdown.click();
             remote.Dual_Path_Communication_settings.click();
-            clickAnElementByLinkText("Cell");
+            DualPathSelectTextDropdown("Dual-Path");
             remote.Dual_Path_Send_Command.click();
             Thread.sleep(2000);
             logger.info("Dual_Path_Communication_settings Test DualPath/Cell finish");
-
-            logger.info("Request_Firmware_Version Send begin");
-            remote.Communication_Dropdown.click();
-            remote.Request_Firmware_Version.click();
-            remote.Request_Firmware_Send_Command.click();
-            Thread.sleep(2000);
-            logger.info("Request_Firmware_Version Send finish");
 
             logger.info("*Communication_Settings Test Suite finish*");
     }
 
     @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =7)
-    public void Date_And_Time_Settings() throws java.lang.Exception {
+    public void Remote_Date_And_Time_Settings() throws InterruptedException, IOException, BiffException {
         Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
 
         logger.info("Request_Panel_Time Test begin");
@@ -858,14 +855,14 @@ public class Remote_Toolkit extends Setup {
         logger.info("Set_Panel_Time Test begin");
         remote.Date_and_Time_Dropdown.click();
         remote.Set_Panel_Time.click();
-        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucSetPanelTime_btnSendCommand"))).clear();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucSetPanelTime_btnSendCommand"))).click();
         logger.info("Set_Panel_Time Test finish");
 
         logger.info("*Date_And_Time_Settings Test Suite finish*");
     }
 
     @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =8)
-    public void General_Settings() throws java.lang.Exception {
+    public void Remote_General_Settings() throws InterruptedException, IOException, BiffException {
         Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
 
         logger.info("Automatic_Upgrade Test on/off begin");
@@ -910,22 +907,22 @@ public class Remote_Toolkit extends Setup {
         logger.info("Bluetooth_Disarm_Timeout Test 1,5,10,20 lvl begin");
         remote.General_Dropdown.click();
         remote.Bluetooth_Disarm_Timeout.click();
-        clickAnElementByLinkText("1");
+        clickAnElementByLinkText("1 minute");
         remote.Change.click();
         Thread.sleep(2000);
         remote.General_Dropdown.click();
         remote.Bluetooth_Disarm_Timeout.click();
-        clickAnElementByLinkText("5");
+        clickAnElementByLinkText("5 minutes");
         remote.Change.click();
         Thread.sleep(2000);
         remote.General_Dropdown.click();
         remote.Bluetooth_Disarm_Timeout.click();
-        clickAnElementByLinkText("10");
+        clickAnElementByLinkText("10 minutes");
         remote.Change.click();
         Thread.sleep(2000);
         remote.General_Dropdown.click();
         remote.Bluetooth_Disarm_Timeout.click();
-        clickAnElementByLinkText("20");
+        clickAnElementByLinkText("20 minutes");
         remote.Change.click();
         Thread.sleep(2000);
         logger.info("Bluetooth_Disarm_Timeout Test 1,5,10,20 lvl finish");
@@ -933,26 +930,26 @@ public class Remote_Toolkit extends Setup {
         logger.info("Request_Updated_Equipment_List  Test begin");
         remote.General_Dropdown.click();
         remote.Request_Updated_Equipment_List.click();
-        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucReqEqList_btnSendCommand"))).clear();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucReqEqList_btnSendCommand"))).click();
         logger.info("Request_Updated_Equipment_List Test finish");
 
         logger.info("Resend_Panel_Location  Test begin");
         remote.General_Dropdown.click();
         remote.Resend_Panel_Location.click();
-        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucPanelLocation_btnSendCommand"))).clear();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucPanelLocation_btnSendCommand"))).click();
         logger.info("Resend_Panel_Location Test finish");
 
         logger.info("Send_Weather_Info  Test begin");
         remote.General_Dropdown.click();
         remote.Send_Weather_Info.click();
-        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucSendWeather_btnSendCommand"))).clear();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucSendWeather_btnSendCommand"))).click();
         logger.info("Send_Weather_Info Test finish");
 
         logger.info("*General_Settings Test Suite finish*");
     }
 
     @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =9)
-    public void Image_Sensor_Settings() throws java.lang.Exception {
+    public void Remote_Image_Sensor_Settings() throws InterruptedException, IOException, BiffException {
         Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
 
         logger.info("Change_Extended_Range Test Enable/Disable begin");
@@ -1006,8 +1003,8 @@ public class Remote_Toolkit extends Setup {
         logger.info("*Image Sensor Settings Test Suite finish*");
     }
 
-    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =9)
-    public void Keypad_And_Screen_Settings() throws java.lang.Exception {
+    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =10)
+    public void Remote_Keypad_And_Screen_Settings() throws InterruptedException, IOException, BiffException {
         Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
 
         String Automatically_Turn_Off_display = "22:00"; //(PM Military)
@@ -1072,23 +1069,23 @@ public class Remote_Toolkit extends Setup {
         Thread.sleep(2000);
         logger.info("Font_Size Test Small, Normal, Large finish");
 
-        logger.info("Font_Size Test 1,2,5 begin");
+        logger.info("Photo Frame Duration Test 1,2,5 begin");
         remote.Keypad_And_Screen_Settings_Dropdown.click();
         remote.Photo_Frame_Duration.click();
-        clickAnElementByLinkText("1");
+        clickAnElementByLinkText("1 minute");
         remote.Change.click();
         Thread.sleep(2000);
         remote.Keypad_And_Screen_Settings_Dropdown.click();
         remote.Photo_Frame_Duration.click();
-        clickAnElementByLinkText("2");
+        clickAnElementByLinkText("2 minutes");
         remote.Change.click();
         Thread.sleep(2000);
         remote.Keypad_And_Screen_Settings_Dropdown.click();
         remote.Photo_Frame_Duration.click();
-        clickAnElementByLinkText("5");
+        clickAnElementByLinkText("5 minutes");
         remote.Change.click();
         Thread.sleep(2000);
-        logger.info("Font_Size Test 1,2,5 finish");
+        logger.info("Photo_Frame_Duration Test 1,2,5 finish");
 
         logger.info("Photo_Frame_Duration Test on/off begin");
         remote.Keypad_And_Screen_Settings_Dropdown.click();
@@ -1106,32 +1103,32 @@ public class Remote_Toolkit extends Setup {
         logger.info("Photo_Frame_Start_Time Test 5/10/15/20/25/30 begin");
         remote.Keypad_And_Screen_Settings_Dropdown.click();
         remote.Photo_Frame_Start_Time.click();
-        clickAnElementByLinkText("5");
+        clickAnElementByLinkText("5 minutes");
         remote.Change.click();
         Thread.sleep(2000);
         remote.Keypad_And_Screen_Settings_Dropdown.click();
         remote.Photo_Frame_Start_Time.click();
-        clickAnElementByLinkText("10");
+        clickAnElementByLinkText("10 minutes");
         remote.Change.click();
         Thread.sleep(2000);
         remote.Keypad_And_Screen_Settings_Dropdown.click();
         remote.Photo_Frame_Start_Time.click();
-        clickAnElementByLinkText("15");
+        clickAnElementByLinkText("15 minutes");
         remote.Change.click();
         Thread.sleep(2000);
         remote.Keypad_And_Screen_Settings_Dropdown.click();
         remote.Photo_Frame_Start_Time.click();
-        clickAnElementByLinkText("20");
+        clickAnElementByLinkText("20 minutes");
         remote.Change.click();
         Thread.sleep(2000);
         remote.Keypad_And_Screen_Settings_Dropdown.click();
         remote.Photo_Frame_Start_Time.click();
-        clickAnElementByLinkText("25");
+        clickAnElementByLinkText("25 minutes");
         remote.Change.click();
         Thread.sleep(2000);
         remote.Keypad_And_Screen_Settings_Dropdown.click();
         remote.Photo_Frame_Start_Time.click();
-        clickAnElementByLinkText("30");
+        clickAnElementByLinkText("30 minutes");
         remote.Change.click();
         Thread.sleep(2000);
         logger.info("Photo_Frame_Start_Time Test 5/10/15/20/25/30 finish");
@@ -1159,8 +1156,9 @@ public class Remote_Toolkit extends Setup {
         logger.info("Transition_Effect Test Dissolve/Fade To Black finish");
 
         logger.info("Keypad_And_Screen_Settings Test Suite Finished");
-
     }
+
+
 
     @AfterTest
     public void tearDown() throws IOException, InterruptedException {
