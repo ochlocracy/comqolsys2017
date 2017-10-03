@@ -18,13 +18,6 @@ public class Remote_Toolkit_Variables {
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_ucDualPath_btnSendCommand']")
     public WebElement Dual_Path_Send_Command;
 
-    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_ucRequestFirmware_btnSendCommand']")
-    public WebElement Request_Firmware_Send_Command;
-
-    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_ucRequestPanelTime_btnSendCommand']")
-    public WebElement Panel_Time_Send_Command;
-
-
     @FindBy(how = How.ID, id = "ctl00_responsiveBody_ucCommands_txtNewValue")
     public WebElement Txt_New_Value;
 
@@ -178,10 +171,7 @@ public class Remote_Toolkit_Variables {
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl05_rptSettingsCommands_ctl00_lbtnCommandSetting']")
     public WebElement Dual_Path_Communication_settings;
 
-    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl05_rptSettingsCommands_ctl04_lbtnCommandSetting']")
-    public WebElement Request_Firmware_Version;
-
-    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl05_rptSettingsCommands_ctl05_lbtnCommandSetting']")
+    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl06_lblCategoryName']")
     public WebElement Date_and_Time_Dropdown;
 
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl06_rptSettingsCommands_ctl01_lbtnCommandSetting']")
