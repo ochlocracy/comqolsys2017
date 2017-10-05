@@ -18,6 +18,15 @@ public class Remote_Toolkit_Variables {
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_ucDualPath_btnSendCommand']")
     public WebElement Dual_Path_Send_Command;
 
+    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_ucRequestSensorNames_btnSendCommand']")
+    public WebElement Request_Sensor_List_Send_Command;
+
+    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_ucSysSensorStatus_btnSendCommand']")
+    public WebElement Update_System_And_Sensor_Status_Send_Command;
+
+    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_ucCodeNames_btnSendCommand']")
+    public WebElement Request_User_Codes_Send_Command;
+
     @FindBy(how = How.ID, id = "ctl00_responsiveBody_ucCommands_txtNewValue")
     public WebElement Txt_New_Value;
 
@@ -257,15 +266,6 @@ public class Remote_Toolkit_Variables {
 
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl14_lblCategoryName']")
     public WebElement Panel_Information_Dropdown;
-
-    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl14_rptSettingsCommands_ctl00_lbtnCommandSetting']")
-    public WebElement Account_Number;
-
-    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl14_rptSettingsCommands_ctl01_lbtnCommandSetting']")
-    public WebElement Hardware_Version;
-
-    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl14_rptSettingsCommands_ctl02_lbtnCommandSetting']")
-    public WebElement Partitions_Count;
 
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl14_rptSettingsCommands_ctl03_lbtnCommandSetting']")
     public WebElement Power_Management;
