@@ -18,15 +18,6 @@ public class Remote_Toolkit_Variables {
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_ucDualPath_btnSendCommand']")
     public WebElement Dual_Path_Send_Command;
 
-    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_ucRequestSensorNames_btnSendCommand']")
-    public WebElement Request_Sensor_List_Send_Command;
-
-    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_ucSysSensorStatus_btnSendCommand']")
-    public WebElement Update_System_And_Sensor_Status_Send_Command;
-
-    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_ucCodeNames_btnSendCommand']")
-    public WebElement Request_User_Codes_Send_Command;
-
     @FindBy(how = How.ID, id = "ctl00_responsiveBody_ucCommands_txtNewValue")
     public WebElement Txt_New_Value;
 
@@ -385,7 +376,6 @@ public class Remote_Toolkit_Variables {
     public WebElement Other_Z_Wave_Device_Limit;
 
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl21_rptSettingsCommands_ctl06_lbtnCommandSetting']")
-
     public WebElement Rediscover_Network;
 
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl21_rptSettingsCommands_ctl07_lbtnCommandSetting']")
