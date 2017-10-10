@@ -5,8 +5,6 @@ import Panel.*;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.*;
@@ -14,7 +12,6 @@ import org.testng.annotations.*;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import org.testng.annotations.Test;
-
 
 public class Remote_Toolkit extends Setup {
 
@@ -81,10 +78,10 @@ public class Remote_Toolkit extends Setup {
         adc.webDriverSetUp();
     }
 
-//    @BeforeMethod
-//    public void webDriver() {
-//        adc.webDriverSetUp();
-//    }
+    @BeforeMethod
+    public void webDriver() {
+        adc.webDriverSetUp();
+    }
 
     @Test
     public void GetToRemoteKitPage() throws java.lang.Exception {
@@ -93,7 +90,7 @@ public class Remote_Toolkit extends Setup {
         Thread.sleep(3000);
     }
 
-    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority = 1)
+    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =1)
     public void Remote_Advanced_Panel_Settings() throws InterruptedException, IOException, BiffException {
         Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
 
@@ -160,7 +157,7 @@ public class Remote_Toolkit extends Setup {
 
     }
 
-    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority = 2)
+    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =2)
     public void Remote_Alarm_Settings() throws InterruptedException, IOException, BiffException {
         Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
 
@@ -273,7 +270,7 @@ public class Remote_Toolkit extends Setup {
         logger.info("*Remote_Alarm_Settings Test Suite finished*");
     }
 
-    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority = 3)
+    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =3)
     public void Remote_Arming_Settings() throws InterruptedException, IOException, BiffException {
         Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
 
@@ -1679,11 +1676,12 @@ public class Remote_Toolkit extends Setup {
 
         @AfterTest
     public void tearDown() throws IOException, InterruptedException {
-            adc.driver1.quit();}}
+            adc.driver1.quit();}
 
-//
-//    @AfterMethod
-//    public void webDriverQuit(){
-//        adc.driver1.quit();
-//    }
+
+    @AfterMethod
+    public void webDriverQuit(){
+        adc.driver1.quit();
+    }
+}
 
