@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import org.testng.annotations.Test;
 
-
 public class Remote_Toolkit extends Setup {
 
     String page_name = "Remote Toolkit";
