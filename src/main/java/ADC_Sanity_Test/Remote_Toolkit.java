@@ -91,7 +91,7 @@ public class Remote_Toolkit extends Setup {
         Thread.sleep(3000);
     }
 
-    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority = 1)
+    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =1)
     public void Remote_Advanced_Panel_Settings() throws InterruptedException, IOException, BiffException {
         Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
 
@@ -158,7 +158,7 @@ public class Remote_Toolkit extends Setup {
 
     }
 
-    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority = 2)
+    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =2)
     public void Remote_Alarm_Settings() throws InterruptedException, IOException, BiffException {
         Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
 
@@ -271,7 +271,7 @@ public class Remote_Toolkit extends Setup {
         logger.info("*Remote_Alarm_Settings Test Suite finished*");
     }
 
-    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority = 3)
+    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =3)
     public void Remote_Arming_Settings() throws InterruptedException, IOException, BiffException {
         Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
 
