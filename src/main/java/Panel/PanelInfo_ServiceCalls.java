@@ -795,7 +795,9 @@ public class PanelInfo_ServiceCalls extends Setup {
     public void set_10minutes_SCREEN_SAVER_IDLE_TIME () throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 55 i32 600 i32 0 i32 0";
         rt.exec(command);}
-
+    public void set_5minutes_SCREEN_SAVER_IDLE_TIME () throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 55 i32 3Verify the panel will Arm Away at the end of the exit delay if Arm Away button is pressed by 1-group keyfob00 i32 0 i32 0";
+        rt.exec(command);}
 
     public void get_SCREEN_SAVER_PHOTO_FRAME_OFF() throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 38 i32 0 i32 0 i32 56 i32 0 i32 0";
