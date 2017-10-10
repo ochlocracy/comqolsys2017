@@ -60,6 +60,19 @@ public class Remote_Toolkit extends Setup {
         Stoolkit_options.selectByVisibleText(linkText);
     }
 
+    public void ImageSensorRangeSelectTextDropdown(String linkText) {
+        WebElement toolkit_options = (new WebDriverWait(adc.driver1, 20))
+                .until(ExpectedConditions.presenceOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucRange_ddlStatus")));
+        Select Stoolkit_options = new Select(toolkit_options);
+        Stoolkit_options.selectByVisibleText(linkText);
+    }
+
+    public void TurnOnTroubleBeepsDropdown(String linkText) {
+        WebElement toolkit_options = (new WebDriverWait(adc.driver1, 20))
+                .until(ExpectedConditions.presenceOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucTurnOnOffTroubleBeeps_ddlTroubleBeeps")));
+        Select Stoolkit_options = new Select(toolkit_options);
+        Stoolkit_options.selectByVisibleText(linkText);
+    }
 
     @BeforeTest
     public void capabilities_setup() throws Exception {
@@ -80,7 +93,7 @@ public class Remote_Toolkit extends Setup {
         Thread.sleep(3000);
     }
 
-    @Test(dependsOnMethods = {"GetToRemoteKitPage"}, priority = 1)
+    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority = 1)
     public void Remote_Advanced_Panel_Settings() throws InterruptedException, IOException, BiffException {
         Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
 
@@ -147,7 +160,7 @@ public class Remote_Toolkit extends Setup {
 
     }
 
-    @Test(dependsOnMethods = {"GetToRemoteKitPage"}, priority = 2)
+    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority = 2)
     public void Remote_Alarm_Settings() throws InterruptedException, IOException, BiffException {
         Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
 
@@ -260,7 +273,7 @@ public class Remote_Toolkit extends Setup {
         logger.info("*Remote_Alarm_Settings Test Suite finished*");
     }
 
-    @Test(dependsOnMethods = {"GetToRemoteKitPage"}, priority = 3)
+    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority = 3)
     public void Remote_Arming_Settings() throws InterruptedException, IOException, BiffException {
         Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
 
@@ -677,8 +690,9 @@ public class Remote_Toolkit extends Setup {
         remote.Beeps_And_Speakers_Dropdown.click();
         remote.Turn_On_Off_Trouble_Beeps.click();
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucTurnOnOffTroubleBeeps_ddlTroubleBeeps"))).click();
+        TurnOnTroubleBeepsDropdown("On");
         remote.Trouble_Beeps_Send_Command.click();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         logger.info("Turn_On_Off_Trouble_Beeps Test on/off finish");
 
         logger.info("Voices_Volume Test 0-15 lvl begin");
@@ -955,30 +969,30 @@ public class Remote_Toolkit extends Setup {
         logger.info("Change_Extended_Range Test Enable/Disable begin");
         remote.Image_Sensor_Dropdown.click();
         remote.Change_Extended_Range.click();
-        clickAnElementByLinkText("Enable");
-        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucRange_btnSendCommand"))).clear();
+        ImageSensorRangeSelectTextDropdown("Enable");
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucRange_btnSendCommand"))).click();
         Thread.sleep(2000);
         remote.Image_Sensor_Dropdown.click();
         remote.Change_Extended_Range.click();
-        clickAnElementByLinkText("Disable");
+        ImageSensorRangeSelectTextDropdown("Disable");
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucRange_btnSendCommand"))).click();
         Thread.sleep(2000);
         logger.info("Change_Extended_Range Test Enable/Disable finish");
 
         logger.info("Disable_Automatic_Image_Uploads  Test begin");
-        remote.General_Dropdown.click();
+        remote.Image_Sensor_Dropdown.click();
         remote.Disable_Automatic_Image_Uploads.click();
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucAutoUpload_btnSendCommand"))).click();
         logger.info("Disable_Automatic_Image_Uploads Test finish");
 
         logger.info("Request_Latest_Image_Sensor_Info  Test begin");
-        remote.General_Dropdown.click();
+        remote.Image_Sensor_Dropdown.click();
         remote.Request_Latest_Image_Sensor_Info.click();
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucRequestIsInfo_btnSendCommand"))).click();
         logger.info("Request_Latest_Image_Sensor_Info Test finish");
 
         logger.info("Set_Trouble_Report_at_Panel  Test begin");
-        remote.General_Dropdown.click();
+        remote.Image_Sensor_Dropdown.click();
         remote.Set_Trouble_Report_at_Panel.click();
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucSetTroubleReportPanel_chk_ImageSensorMalFunction"))).click();
 
@@ -995,7 +1009,7 @@ public class Remote_Toolkit extends Setup {
         logger.info("Set_Trouble_Report_at_Panel Test finish");
 
         logger.info("Verify_Daughterboard_Attachment  Test begin");
-        remote.General_Dropdown.click();
+        remote.Image_Sensor_Dropdown.click();
         remote.Verify_Daughterboard_Attachment.click();
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucVerifyDb_btnSendCommand"))).click();
         logger.info("Verify_Daughterboard_Attachment Test finish");
@@ -1137,37 +1151,539 @@ public class Remote_Toolkit extends Setup {
         remote.Keypad_And_Screen_Settings_Dropdown.click();
         remote.Setting_Photos.click();
         clickAnElementByLinkText("Enable");
+        remote.Change.click();
         Thread.sleep(2000);
         remote.Keypad_And_Screen_Settings_Dropdown.click();
         remote.Setting_Photos.click();
         clickAnElementByLinkText("Disable");
+        remote.Change.click();
         Thread.sleep(2000);
         logger.info("Setting_Photos Test Enable/Disable finish");
 
         logger.info("Setting_Photos Test Dissolve/Fade To Black begin");
         remote.Keypad_And_Screen_Settings_Dropdown.click();
         remote.Transition_Effect.click();
-        clickAnElementByLinkText("Dissolve");
-        Thread.sleep(2000);
+        clickAnElementByLinkText("Fade to Black");
+        remote.Change.click();
+        Thread.sleep(4000);
         remote.Keypad_And_Screen_Settings_Dropdown.click();
         remote.Transition_Effect.click();
-        clickAnElementByLinkText("Fade To Black");
+        clickAnElementByLinkText("Dissolve");
+        remote.Change.click();
         Thread.sleep(2000);
         logger.info("Transition_Effect Test Dissolve/Fade To Black finish");
 
         logger.info("Keypad_And_Screen_Settings Test Suite Finished");
     }
 
+    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =11)
+    public void Remote_Panel_Information() throws InterruptedException, IOException, BiffException {
+        Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
 
+        logger.info("Power_Management Test on/off begin");
+        remote.Panel_Information_Dropdown.click();
+        remote.Power_Management.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Panel_Information_Dropdown.click();
+        remote.Power_Management.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Power_Management Test on/off finish");
 
-    @AfterTest
-    public void tearDown() throws IOException, InterruptedException {
-        adc.driver1.quit();
+        logger.info("RF_Jam_Detection Test on/off begin");
+        remote.Panel_Information_Dropdown.click();
+        remote.RF_Jam_Detection.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Panel_Information_Dropdown.click();
+        remote.RF_Jam_Detection.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("RF_Jam_Detection Test on/off finish");
+
+        logger.info("Secondary_Panels Test Enable/Disable begin");
+        remote.Panel_Information_Dropdown.click();
+        remote.Secondary_Panels.click();
+        clickAnElementByLinkText("Disable");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Panel_Information_Dropdown.click();
+        remote.Secondary_Panels.click();
+        clickAnElementByLinkText("Enable");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Secondary_Panels Test Enable/Disable finish");
+
+        logger.info("Remote_Panel_Information Test suite finished");
     }
+
+    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =12)
+    public void Remote_Sensors() throws InterruptedException, IOException, BiffException {
+        Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
+
+        logger.info("Request_Sensor_List Test begin");
+        remote.Sensors_Dropdown.click();
+        remote.Request_Sensor_Names.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucRequestSensorNames_btnSendCommand"))).click();
+
+        Thread.sleep(2000);
+        logger.info("Request_Sensor_List Test finish");
+
+        logger.info("Update_System_And_Sensor_Status Test begin");
+        remote.Sensors_Dropdown.click();
+        remote.Update_System_And_Sensor_Status.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucSysSensorStatus_btnSendCommand"))).click();
+        Thread.sleep(2000);
+        logger.info("Update_System_And_Sensor_Status Test finish");
+
+        logger.info("Remote_Sensors Test suite finished");
+    }
+
+    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =13)
+    public void Remote_Timers() throws InterruptedException, IOException, BiffException {
+        Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
+
+        String Long_Entry_Delay = "11";
+        String Long_Exit_Delay = "10";
+
+        logger.info("Arm_Stay_No_Delay Test on/off begin");
+        remote.Timers_Dropdown.click();
+        remote.Arm_Stay_No_Delay.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Timers_Dropdown.click();
+        remote.Arm_Stay_No_Delay.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Arm_Stay_No_Delay Test on/off finish");
+
+        logger.info("Auto_Bypass Test on/off begin");
+        remote.Timers_Dropdown.click();
+        remote.Auto_Bypass.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Timers_Dropdown.click();
+        remote.Auto_Bypass.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Auto_Bypass Test on/off finish");
+
+        logger.info("Auto_Exit_Time_Extension Test on/off begin");
+        remote.Timers_Dropdown.click();
+        remote.Auto_Exit_Time_Extension.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Timers_Dropdown.click();
+        remote.Auto_Exit_Time_Extension.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Auto_Exit_Time_Extension Test on/off finish");
+
+        logger.info("Keyfob_No_Delay Test on/off begin");
+        remote.Timers_Dropdown.click();
+        remote.Keyfob_No_Delay.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Timers_Dropdown.click();
+        remote.Keyfob_No_Delay.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Keyfob_No_Delay Test on/off finish");
+
+        logger.info("Long_Entry_Delay_Toolkit Test time change begin");
+        remote.Timers_Dropdown.click();
+        remote.Long_Entry_Delay_Toolkit.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_txtNewValue"))).clear();
+        remote.Txt_New_Value.sendKeys(Long_Entry_Delay);
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Long_Entry_Delay_Toolkit Test time change finish");
+
+        logger.info("Long_Exit_Delay_Toolkit Test time change begin");
+        remote.Timers_Dropdown.click();
+        remote.Long_Exit_Delay_Toolkit.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_txtNewValue"))).clear();
+        remote.Txt_New_Value.sendKeys(Long_Exit_Delay);
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Long_Exit_Delay_Toolkit Test time change finish");
+
+        logger.info("SIA_Limits Test on/off begin");
+        remote.Timers_Dropdown.click();
+        remote.SIA_Limits.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Timers_Dropdown.click();
+        remote.SIA_Limits.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("SIA_Limits Test on/off finish");
+
+        logger.info("SIA_Power_Restoration Test on/off begin");
+        remote.Timers_Dropdown.click();
+        remote.SIA_Power_Restoration.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Timers_Dropdown.click();
+        remote.SIA_Power_Restoration.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("SIA_Power_Restoration Test on/off finish");
+
+        logger.info("Remote_Timers Test suite finished");
+
+    }
+
+    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =14)
+    public void Remote_Trouble_Condition_Settings() throws InterruptedException, IOException, BiffException {
+        Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
+
+        logger.info("Loss_Of_Supervisory_Signals_Emergency_only Test 4/12/24 begin");
+        remote.Trouble_Condition_Settings_Dropdown.click();
+        remote.Loss_Of_Supervisory_Signals_Emergency_only.click();
+        clickAnElementByLinkText("4 hours");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Trouble_Condition_Settings_Dropdown.click();
+        remote.Loss_Of_Supervisory_Signals_Emergency_only.click();
+        clickAnElementByLinkText("12 hours");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Trouble_Condition_Settings_Dropdown.click();
+        remote.Loss_Of_Supervisory_Signals_Emergency_only.click();
+        clickAnElementByLinkText("24 hours");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Loss_Of_Supervisory_Signals_Emergency_only Test 4/12/24 finish");
+
+
+        logger.info("Loss_Of_Supervisory_Signals_Non_Emergency_Sensors Test 4/12/24 begin");
+        remote.Trouble_Condition_Settings_Dropdown.click();
+        remote.Loss_Of_Supervisory_Signals_Non_Emergency_Sensors.click();
+        clickAnElementByLinkText("4 hours");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Trouble_Condition_Settings_Dropdown.click();
+        remote.Loss_Of_Supervisory_Signals_Non_Emergency_Sensors.click();
+        clickAnElementByLinkText("12 hours");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Trouble_Condition_Settings_Dropdown.click();
+        remote.Loss_Of_Supervisory_Signals_Non_Emergency_Sensors.click();
+        clickAnElementByLinkText("24 hours");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Loss_Of_Supervisory_Signals_Non_Emergency_Sensors Test 4/12/24 finish");
+
+
+        logger.info("Panel_Communication_Test_Frequency Test Weekly/Monthly/Never begin");
+        remote.Trouble_Condition_Settings_Dropdown.click();
+        remote.Panel_Communication_Test_Frequency.click();
+        clickAnElementByLinkText("Weekly");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Trouble_Condition_Settings_Dropdown.click();
+        remote.Panel_Communication_Test_Frequency.click();
+        clickAnElementByLinkText("Monthly");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Trouble_Condition_Settings_Dropdown.click();
+        remote.Panel_Communication_Test_Frequency.click();
+        clickAnElementByLinkText("Never");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Panel_Communication_Test_Frequency Test Weekly/Monthly/Never finish");
+
+        logger.info("Remote_Trouble_Condition_Settings Test suite finished");
+    }
+
+    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =15)
+    public void Remote_User_Codes_Settings() throws InterruptedException, IOException, BiffException {
+        Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
+
+        String Dealer_Code = "2222";
+        String Installer_Code = "1234";
+
+        logger.info("Allow_Master_Code_to_Access_Image_Settings Test on/off begin");
+        remote.User_Codes_Dropdown.click();
+        remote.Allow_Master_Code_to_Access_Image_Settings.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.User_Codes_Dropdown.click();
+        remote.Allow_Master_Code_to_Access_Image_Settings.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Allow_Master_Code_to_Access_Image_Settings Test on/off finish");
+
+        logger.info("Allow_Master_Code_to_Access_Security_and_Arming Test on/off begin");
+        remote.User_Codes_Dropdown.click();
+        remote.Allow_Master_Code_to_Access_Security_and_Arming.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.User_Codes_Dropdown.click();
+        remote.Allow_Master_Code_to_Access_Security_and_Arming.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Allow_Master_Code_to_Access_Security_and_Arming Test on/off finish");
+
+        logger.info("Allow_Master_Code_to_Access_Siren_and_Alarms Test on/off begin");
+        remote.User_Codes_Dropdown.click();
+        remote.Allow_Master_Code_to_Access_Siren_and_Alarms.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.User_Codes_Dropdown.click();
+        remote.Allow_Master_Code_to_Access_Siren_and_Alarms.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Allow_Master_Code_to_Access_Siren_and_Alarms Test on/off finish");
+
+        logger.info("Allow_Master_Code_ZWave_Management Test on/off begin");
+        remote.User_Codes_Dropdown.click();
+        remote.Allow_Master_Code_ZWave_Management.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.User_Codes_Dropdown.click();
+        remote.Allow_Master_Code_ZWave_Management.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Allow_Master_Code_ZWave_Management Test on/off finish");
+
+        logger.info("Allow_Master_Code_ZWave_Settings Test on/off begin");
+        remote.User_Codes_Dropdown.click();
+        remote.Allow_Master_Code_ZWave_Settings.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.User_Codes_Dropdown.click();
+        remote.Allow_Master_Code_ZWave_Settings.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Allow_Master_Code_ZWave_Settings Test on/off finish");
+
+        logger.info("Dealer_Code Change Test numeral change begin");
+        remote.User_Codes_Dropdown.click();
+        remote.Dealer_Code.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_txtNewValue"))).clear();
+        remote.Txt_New_Value.sendKeys(Dealer_Code);
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Dealer_Code Change Test numeral change finish");
+
+        logger.info("Duress_Authentication Test on/off begin");
+        remote.User_Codes_Dropdown.click();
+        remote.Duress_Authentication.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.User_Codes_Dropdown.click();
+        remote.Duress_Authentication.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Duress_Authentication Test on/off finish");
+
+        logger.info("Installer_Code Change Test numeral change begin");
+        remote.User_Codes_Dropdown.click();
+        remote.Installer_Code.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_txtNewValue"))).clear();
+        remote.Txt_New_Value.sendKeys(Installer_Code);
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Installer_Code Change Test numeral change finish");
+
+        logger.info("Remote_User_Codes_Settings Test suite finished");
+    }
+
+    @Test (dependsOnMethods = {"GetToRemoteKitPage"}, priority =16)
+    public void Remote_Z_Wave_Settings() throws InterruptedException, IOException, BiffException {
+        Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
+
+        String Door_Lock_Limit = "5";
+        String Light_Limit = "5";
+        String Other_Z_Wave_Device_Limit = "21";
+        String Smart_Socket_Limit = "15";
+        String Thermostat_Limit = "6";
+
+        logger.info("Door_Lock_Limit Change Test numeral change begin");
+        remote.Z_Wave_Dropdown.click();
+        remote.Door_Lock_Limit.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_txtNewValue"))).clear();
+        remote.Txt_New_Value.sendKeys(Door_Lock_Limit);
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Door_Lock_Limit Change Test numeral change finish");
+
+        logger.info("Garage_Doors Test 0-6 begin");
+        remote.Z_Wave_Dropdown.click();
+        remote.Garage_Doors.click();
+        clickAnElementByLinkText("0");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Z_Wave_Dropdown.click();
+        remote.Garage_Doors.click();
+        clickAnElementByLinkText("1");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Z_Wave_Dropdown.click();
+        remote.Garage_Doors.click();
+        clickAnElementByLinkText("2");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Z_Wave_Dropdown.click();
+        remote.Garage_Doors.click();
+        clickAnElementByLinkText("3");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Z_Wave_Dropdown.click();
+        remote.Garage_Doors.click();
+        clickAnElementByLinkText("4");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Z_Wave_Dropdown.click();
+        remote.Garage_Doors.click();
+        clickAnElementByLinkText("5");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Z_Wave_Dropdown.click();
+        remote.Garage_Doors.click();
+        clickAnElementByLinkText("6");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Garage_Doors Test 0-6 finish");
+
+        logger.info("Get_Equipment_List Test begin");
+        remote.Z_Wave_Dropdown.click();
+        remote.Get_Equipment_List.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ucUpdateZWaveList_btnSendCommand"))).click();
+
+        Thread.sleep(2000);
+        logger.info("Get_Equipment_List Test finish");
+
+        logger.info("Light_Limit Change Test numeral change begin");
+        remote.Z_Wave_Dropdown.click();
+        remote.Light_Limit.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_txtNewValue"))).clear();
+        remote.Txt_New_Value.sendKeys(Light_Limit);
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Light_Limit Change Test numeral change finish");
+
+        logger.info("Local_Z_Wave_Voice_Prompts Test Enable/Disable begin");
+        remote.Z_Wave_Dropdown.click();
+        remote.Local_Z_Wave_Voice_Prompts.click();
+        clickAnElementByLinkText("Disable");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Z_Wave_Dropdown.click();
+        remote.Local_Z_Wave_Voice_Prompts.click();
+        clickAnElementByLinkText("Enable");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Local_Z_Wave_Voice_Prompts Test Enable/Disable finish");
+
+        logger.info("Other_Z_Wave_Device_Limit Change Test numeral change begin");
+        remote.Z_Wave_Dropdown.click();
+        remote.Other_Z_Wave_Device_Limit.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_txtNewValue"))).clear();
+        remote.Txt_New_Value.sendKeys(Other_Z_Wave_Device_Limit);
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Other_Z_Wave_Device_Limit Change Test numeral change finish");
+
+        logger.info("Remote_Z_Wave_Voice_Prompts Test Enable/Disable begin");
+        remote.Z_Wave_Dropdown.click();
+        remote.Remote_Z_Wave_Voice_Prompts.click();
+        clickAnElementByLinkText("Disable");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Z_Wave_Dropdown.click();
+        remote.Remote_Z_Wave_Voice_Prompts.click();
+        clickAnElementByLinkText("Enable");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Remote_Z_Wave_Voice_Prompts Test Enable/Disable finish");
+
+        logger.info("Smart_Socket_Limit Change Test numeral change begin");
+        remote.Z_Wave_Dropdown.click();
+        remote.Smart_Socket_Limit.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_txtNewValue"))).clear();
+        remote.Txt_New_Value.sendKeys(Smart_Socket_Limit);
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Smart_Socket_Limit Change Test numeral change finish");
+
+        logger.info("Temperature Display Test Enable/Disable begin");
+        remote.Z_Wave_Dropdown.click();
+        remote.Temperature.click();
+        clickAnElementByLinkText("Celsius");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Z_Wave_Dropdown.click();
+        remote.Temperature.click();
+        clickAnElementByLinkText("Fahrenheit");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Temperature Display Test Enable/Disable finish");
+
+        logger.info("Smart_Socket_Limit Change Test numeral change begin");
+        remote.Z_Wave_Dropdown.click();
+        remote.Thermostat_Limit.click();
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_txtNewValue"))).clear();
+        remote.Txt_New_Value.sendKeys(Thermostat_Limit);
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Thermostat_Limit Change Test numeral change finish");
+
+        logger.info("Z_Wave signal Test on/off begin");
+        remote.Z_Wave_Dropdown.click();
+        remote.Z_Wave.click();
+        clickAnElementByLinkText("Off");
+        remote.Change.click();
+        Thread.sleep(2000);
+        remote.Z_Wave_Dropdown.click();
+        remote.Z_Wave.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+        logger.info("Z_Wave signal Test on/off finish");
+
+        logger.info("*Remote_Z_Wave_Settings signal Test suite finished*");
+    }
+
+
+        @AfterTest
+    public void tearDown() throws IOException, InterruptedException {
+            adc.driver1.quit();}}
+
 //
 //    @AfterMethod
 //    public void webDriverQuit(){
 //        adc.driver1.quit();
 //    }
-}
 

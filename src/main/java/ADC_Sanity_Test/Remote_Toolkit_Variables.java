@@ -258,15 +258,6 @@ public class Remote_Toolkit_Variables {
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl14_lblCategoryName']")
     public WebElement Panel_Information_Dropdown;
 
-    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl14_rptSettingsCommands_ctl00_lbtnCommandSetting']")
-    public WebElement Account_Number;
-
-    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl14_rptSettingsCommands_ctl01_lbtnCommandSetting']")
-    public WebElement Hardware_Version;
-
-    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl14_rptSettingsCommands_ctl02_lbtnCommandSetting']")
-    public WebElement Partitions_Count;
-
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl14_rptSettingsCommands_ctl03_lbtnCommandSetting']")
     public WebElement Power_Management;
 
@@ -385,7 +376,6 @@ public class Remote_Toolkit_Variables {
     public WebElement Other_Z_Wave_Device_Limit;
 
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl21_rptSettingsCommands_ctl06_lbtnCommandSetting']")
-
     public WebElement Rediscover_Network;
 
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl21_rptSettingsCommands_ctl07_lbtnCommandSetting']")
