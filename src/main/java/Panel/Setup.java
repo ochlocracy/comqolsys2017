@@ -261,6 +261,15 @@ public class Setup {
             take_screenshot();
             logger.info("Failed: Panel is not in Arm Away mode");}
     }
+
+
+    public void verify_photoframe_mode() throws Exception {
+        Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        if (home_page.PhotoFrame_Mode.isDisplayed()) {
+            logger.info("Pass: Panel is in Photo Frame mode");
+        } else {
+            take_screenshot();
+            logger.info("Failed: Panel is not in Photo Frame mode");}}
     public void verify_in_alarm() throws Exception {
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         if (home_page.ALARM.isDisplayed()) {
