@@ -5,8 +5,6 @@ import Panel.*;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.*;
@@ -81,10 +79,10 @@ public class Remote_Toolkit extends Setup {
         adc.webDriverSetUp();
     }
 
-//    @BeforeMethod
-//    public void webDriver() {
-//        adc.webDriverSetUp();
-//    }
+    @BeforeMethod
+    public void webDriver() {
+        adc.webDriverSetUp();
+    }
 
     @Test
     public void GetToRemoteKitPage() throws java.lang.Exception {
@@ -1679,11 +1677,12 @@ public class Remote_Toolkit extends Setup {
 
         @AfterTest
     public void tearDown() throws IOException, InterruptedException {
-            adc.driver1.quit();}}
+            adc.driver1.quit();}
 
-//
-//    @AfterMethod
-//    public void webDriverQuit(){
-//        adc.driver1.quit();
-//    }
+
+    @AfterMethod
+    public void webDriverQuit(){
+        adc.driver1.quit();
+    }
+}
 
