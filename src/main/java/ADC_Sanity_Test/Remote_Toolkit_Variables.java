@@ -6,11 +6,18 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.logging.Logger;
+
+
+
 
 public class Remote_Toolkit_Variables {
 
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_butChange']")
     public WebElement Change;
+
+    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_ErrorControl1']/div/a")
+    public WebElement Remote_Back;
 
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_ucTurnOnOffTroubleBeeps_btnSendCommand']")
     public WebElement Trouble_Beeps_Send_Command;
@@ -271,7 +278,7 @@ public class Remote_Toolkit_Variables {
     public WebElement Sensors_Dropdown;
 
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl15_rptSettingsCommands_ctl00_lbtnCommandSetting']")
-    public WebElement Change_Sensor_Name;
+    public WebElement AFX_Change_Sensor_Name;
 
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl15_rptSettingsCommands_ctl01_lbtnCommandSetting']")
     public WebElement Request_Sensor_Names;
@@ -392,5 +399,41 @@ public class Remote_Toolkit_Variables {
 
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_responsiveBody_ucCommands_rptCommandCategories_ctl21_rptSettingsCommands_ctl11_lbtnCommandSetting']")
     public WebElement Z_Wave;
+
+    //"Now its AIR_FX_QTMS_VARIABLES"
+
+    @FindBy(how = How.ID, id = "ctl00_phBody_UcSensorSettings_lbtnAddSensor")
+    public WebElement Add_Sensors;
+
+    @FindBy(how = How.ID, id = "ctl00_phBody_UcSensorSettings_lbtnSensorDelete")
+    public WebElement Delete_Sensors;
+
+    @FindBy(how = How.ID, id = "ctl00_phBody_UcSensorSettings_lbtnSensorGroup")
+    public WebElement Change_Sensor_Type_Or_Group;
+
+    @FindBy(how = How.ID, id = "ctl00_phBody_UcSensorSettings_lbtnSensorName")
+    public WebElement Change_Sensor_Name;
+
+    @FindBy(how = How.ID, id = "ctl00_phBody_UcSensorSettings_lbtnPeripheralName")
+    public WebElement Change_Peripheral_Name;
+
+    @FindBy(how = How.ID, id = "ctl00_phBody_UcSensorSettings_lbViewChangeSensorActMon")
+    public WebElement Sensor_Activity_Monitoring;
+
+    @FindBy(how = How.ID, id = "ctl00_phBody_UcSensorSettings_lbtnViewChangeWaterSensors")
+    public WebElement Water_Sensors;
+
+    @FindBy(how = How.ID, id = "ctl00_phBody_ucsAddSensor_btnAdd")
+    public WebElement Add_Sensor_Change;
+
+    @FindBy(how = How.ID, id = "ctl00_phBody_ucDelete_dgDevices_ctl02_chkDelete")
+    public WebElement Check_Box_Delete;
+
+    @FindBy(how = How.ID, id = "ctl00_phBody_ucDelete_btnSubmit")
+    public WebElement Send_Command_FX;
+
+    @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_phBody_sensorList_AlarmDataGridSensor']/tbody/tr[2]/td[9]/a")
+    public WebElement Sensor_Change_Page;
+
 
 }
