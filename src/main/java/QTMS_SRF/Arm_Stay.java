@@ -23,7 +23,7 @@ public class Arm_Stay extends Setup{
     String page_name = "QTMS: ARM STAY";
     Logger logger = Logger.getLogger(page_name);
     Sensors sensors = new Sensors();
-    String login = "panAut";
+    String login = "pan7Aut";
     String password = "qolsys123";
     private int Normal_Exit_Delay = 10;
     private int Normal_Entry_Delay = 11;
@@ -108,7 +108,7 @@ public class Arm_Stay extends Setup{
     }
 
 
-    @Test
+    @Test(priority = 1)
     public void AS_02() throws Exception {
         logger.info("Verify the panel can be disarmed from ADC");
         servcall.set_ARM_STAY_NO_DELAY_enable();
@@ -123,28 +123,28 @@ public class Arm_Stay extends Setup{
         Thread.sleep(4000);
         verify_disarm();
         System.out.println("Pass");
-        Thread.sleep(2000);
+        Thread.sleep(4000);
     }
 
-    @Test(priority = 1)
+    @Test
     public void AS_04() throws Exception {
         logger.info("Verify the panel can be disarmed using a keyfob: If KeyFob Instant Arming is disabled, panel should arm away after exit delay.\n" +
                 " If KeyFob Instant Arming is enabled, panel should arm away immediately.");
         Home_Page home = PageFactory.initElements(driver, Home_Page.class);
         servcall.set_KEYFOB_NO_DELAY_disable();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         servcall.set_SIA_LIMITS_disable();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         servcall.set_NORMAL_ENTRY_DELAY(Normal_Entry_Delay);
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         servcall.set_NORMAL_EXIT_DELAY(Normal_Exit_Delay);
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         servcall.set_LONG_ENTRY_DELAY(Long_Entry_Delay);
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         servcall.set_LONG_EXIT_DELAY(Long_Exit_Delay);
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         add_primary_call(38, 1, 6619386, 102);
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         sensors.primary_call("65 00 AF", keyfobStay);
         deleteLogFile(log_path);
          Thread.sleep(1000);
@@ -188,7 +188,10 @@ public class Arm_Stay extends Setup{
         Thread.sleep(2000);
         verify_disarm();
         Thread.sleep(2000);
-        System.out.println("*** Pass: If KeyFob Instant Arming is enabled, panel should arm away immediately. ***");}
+        System.out.println("*** Pass: If KeyFob Instant Arming is enabled, panel should arm away immediately. ***");
+        Thread.sleep(4000);
+    delete_from_primary(38);
+        Thread.sleep(4000);}
 
         @Test(priority = 2)
     public void AS_05() throws Exception {
@@ -200,20 +203,25 @@ public class Arm_Stay extends Setup{
         verify_armstay();
         Thread.sleep(2000);
         sensors.primary_call("65 00 AF", keyfobDisarm);
-        Thread.sleep(2000);
+        Thread.sleep(6000);
+            delete_from_primary(38);
+            Thread.sleep(4000);
     }
 
     public void arm_stay_sensor_event(int zone,int group,String DLID) throws Exception {
         servcall.set_ARM_STAY_NO_DELAY_enable();
         Thread.sleep(2000);
-        ARM_STAY();
+      //  add_primary_call(38, 1, 6619386, 102);
+        Thread.sleep(2000);
+        servcall.EVENT_ARM_STAY();
+        //ARM_STAY();
         Thread.sleep(2000);
         verify_armstay();
         Thread.sleep(2000);
         sensors.primary_call(DLID, open);
         Thread.sleep(2000);
         sensors.primary_call(DLID, close);
-        Thread.sleep(2000);
+        Thread.sleep(4000);
          }
 
     public void user_history_arm_stay_sensor_event_verification(int zone) throws Exception {
@@ -231,7 +239,7 @@ public class Arm_Stay extends Setup{
         }
         Thread.sleep(3000);
         delete_from_primary(zone);
-        Thread.sleep(3000);}
+        Thread.sleep(6000);}
     @Test(priority = 3)
     public void AS_06() throws Exception {
         logger.info("Verify the system will go into alarm at the end of the entry delay if a sensor in group 10 is opened in Arm Stay");
@@ -248,7 +256,7 @@ public class Arm_Stay extends Setup{
         Thread.sleep(2000);
         sensor_status_check(door_window10,"Closed", "Open",3,4);
         user_history_arm_stay_sensor_event_verification(zone);
-        Thread.sleep(2000);}
+        Thread.sleep(6000);}
     @Test(priority = 4)
     public void AS_07() throws Exception {
         logger.info("Verify the system will go into alarm at the end of the entry delay if a sensor in group 12 is opened in Arm Stay");
@@ -265,7 +273,7 @@ public class Arm_Stay extends Setup{
         Thread.sleep(2000);
         sensor_status_check(door_window12,"Closed", "Open",3,4);
         user_history_arm_stay_sensor_event_verification(zone);
-        Thread.sleep(2000);}
+        Thread.sleep(6000);}
     @Test(priority = 5)
     public void AS_08() throws Exception {
         logger.info("Verify the system will go into immediate alarm if a sensor in group 14 is opened in Arm Stay");
@@ -282,7 +290,7 @@ public class Arm_Stay extends Setup{
         Thread.sleep(2000);
         sensor_status_check(door_window14,"Closed", "Open",2,4);
         user_history_arm_stay_sensor_event_verification(zone);
-        Thread.sleep(2000);}
+        Thread.sleep(6000);}
     @Test(priority = 6)
     public void AS_09() throws Exception {
         logger.info("Verify the system will go into immediate alarm if a sensor in group 13 is opened in Arm Stay");
@@ -299,7 +307,7 @@ public class Arm_Stay extends Setup{
         Thread.sleep(2000);
         sensor_status_check(door_window13,"Closed", "Open",2,4);
         user_history_arm_stay_sensor_event_verification(zone);
-        Thread.sleep(2000);}
+        Thread.sleep(6000);}
     @Test(priority = 7)
     public void AS_10() throws Exception {
         logger.info("Verify the system will NOT go into  alarm if a sensor in group 16 is opened in Arm Stay");
@@ -313,8 +321,9 @@ public class Arm_Stay extends Setup{
         verify_armstay();
         DISARM();
         sensor_status_check(door_window16,"Closed", "Open",2,3);
+        Thread.sleep(4000);
         delete_from_primary(zone);
-        Thread.sleep(2000);}
+        Thread.sleep(6000);}
     @Test(priority = 8)
     public void AS_12() throws Exception {
         logger.info("Verify the system will NOT go into  alarm if a sensor in group 17 is activated in Arm Stay");
@@ -333,8 +342,9 @@ public class Arm_Stay extends Setup{
         verify_armstay();
         DISARM();
         sensor_status_check(motion17,"Idle", "Activated",2,3);
+        Thread.sleep(4000);
         delete_from_primary(zone);
-        Thread.sleep(2000);}
+        Thread.sleep(6000);}
     @Test(priority = 9)
     public void AS_11() throws Exception {
         logger.info("Verify the system will go into immediate alarm if a sensor in group 15 is activated in Arm Stay");
@@ -355,8 +365,9 @@ public class Arm_Stay extends Setup{
         Thread.sleep(2000);
         enter_default_user_code();
         sensor_status_check(motion15,"Idle", "Activated",2,4);
+        Thread.sleep(4000);
         user_history_arm_stay_sensor_event_verification(zone);
-        Thread.sleep(2000);}
+        Thread.sleep(6000);}
     @Test(priority = 10)
     public void AS_13() throws Exception {
         logger.info("Verify the system will NOT go into  alarm if a sensor in group 20 is activated in Arm Stay");
@@ -375,10 +386,13 @@ public class Arm_Stay extends Setup{
         sensors.primary_call(motion20, idle);
         Thread.sleep(2000);
         verify_armstay();
+        Thread.sleep(4000);
         DISARM();
+        Thread.sleep(4000);
         sensor_status_check(motion20,"Idle", "Activated",2,3);
+        Thread.sleep(4000);
         delete_from_primary(zone);
-        Thread.sleep(2000);
+        Thread.sleep(6000);
     }
     @Test(priority = 11)
     public void AS_14() throws Exception {
@@ -389,14 +403,20 @@ public class Arm_Stay extends Setup{
         Thread.sleep(2000);
         ARM_STAY();
         verify_armstay();
+        Thread.sleep(4000);
         sensors.primary_call(motion35, active);
+        Thread.sleep(2000);
         sensors.primary_call(motion35, idle);
         Thread.sleep(13000);
         verify_in_alarm();
+        Thread.sleep(4000);
         verify_sensorstatus_inAlarm("Activated");
         enter_default_user_code();
+        Thread.sleep(4000);
         sensor_status_check(motion20,"Idle", "Activated",3,4);
-        user_history_arm_stay_sensor_event_verification(35);}
+        Thread.sleep(4000);
+        user_history_arm_stay_sensor_event_verification(35);
+        Thread.sleep(4000);}
     @Test(priority = 12)
     public void AS_15() throws Exception {
         logger.info("Verify the system will go into immediate alarm if a sensor in group 15 is activate and that the system can be disarmed before the dialer delay.");
@@ -422,7 +442,9 @@ public class Arm_Stay extends Setup{
         servcall.set_ARM_STAY_NO_DELAY_enable();
         Thread.sleep(2000);
         ARM_STAY();
+        Thread.sleep(4000);
         verify_armstay();
+        Thread.sleep(4000);
         sensors.primary_call(DLID1, open);
         Thread.sleep(1000);
         sensors.primary_call(DLID1, close);
@@ -451,9 +473,11 @@ public class Arm_Stay extends Setup{
         verify_in_alarm();
         Thread.sleep(1000);
         enter_default_user_code();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         delete_from_primary(zone1);
+        Thread.sleep(4000);
         delete_from_primary(zone2);
+        Thread.sleep(4000);
         adc.New_ADC_session_User(login,password);
         Thread.sleep(60000);
         adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
@@ -481,24 +505,28 @@ public class Arm_Stay extends Setup{
         logger.info("Verify the system reports alarm on both sensors (10 and 12 groups) at the end of the entry delay ");
         add_primary_call(10, 10,6619296, 1);
         add_primary_call(12, 12,6619297, 1);
+        Thread.sleep(4000);
         arm_stay_2sensors_event(10,12,door_window10,door_window12, "Open","Open",15000);}
     @Test(priority = 14)
     public void AS_17() throws Exception {
         logger.info("Verify the system reports alarm on both sensors (10 and 14 groups) at the end of the entry delay ");
         add_primary_call(10, 10,6619296, 1);
         add_primary_call(14, 14,6619299, 1);
+        Thread.sleep(4000);
         arm_stay_2sensors_event(10,14,door_window10,door_window14, "Open","Open",15000);}
     @Test(priority = 15)
     public void AS_18() throws Exception {
         logger.info("Verify the panel goes into immediate alarm when a sensor in group 13 is activated and reports alarm on both sensors ");
         add_primary_call(10, 10,6619296, 1);
         add_primary_call(13, 13,6619298, 1);
+        Thread.sleep(4000);
         arm_stay_2sensors_event(10,13,door_window10,door_window13, "Open","Open",1000);}
     @Test(priority = 16)
     public void AS_19() throws Exception {
         logger.info("Verify the system reports alarm on  only the sensor in group 10 at the end of the entry delay. Verify the system does not report alarm on group 16 ");
         add_primary_call(10, 10,6619296, 1);
         add_primary_call(16, 16,6619300, 1);
+        Thread.sleep(4000);
         arm_stay_2sensors_event(10,16,door_window10,door_window16, "Open","Open",15000);
         System.out.println("passed if only 1 status shown in Alarm page and 'Door/Window 16 (Sensor 16) Pending Alarm' event " +
                 "is not present in User website history"); }
@@ -507,18 +535,21 @@ public class Arm_Stay extends Setup{
         logger.info("Verify the system reports alarm on both sensors(10 and 15 groups)  at the end of the entry delay ");
         add_primary_call(10, 10,6619296, 1);
         add_primary_call(15, 15,5570628, 2);
+        Thread.sleep(4000);
         arm_stay_2sensors_event(10,15,door_window10,motion15,"Open","Activated",15000);}
     @Test(priority = 18)
     public void AS_21()throws Exception {
         logger.info("Verify the system reports alarm on both sensors(10 and 35 groups)  at the end of the entry delay ");
         add_primary_call(10, 10,6619296, 1);
         add_primary_call(35, 35,5570631, 2);
+        Thread.sleep(4000);
         arm_stay_2sensors_event(10,35,door_window10,motion35,"Open","Activated",15000);}
    @Test(priority = 19)
     public void AS_22a()throws Exception {
         logger.info("Verify the system reports alarm on  only the sensor in group 10 at the end of the entry delay. Verify the system does not report alarm on group 20");
         add_primary_call(10, 10,6619296, 1);
         add_primary_call(20, 20,5570630, 2);
+       Thread.sleep(4000);
         arm_stay_2sensors_event(10,20,door_window10,motion20,"Open","Activated",15000);
     logger.info("Passed.The system does not report alarm on group 20. Event not present in Alarm page and User website history");}
     @Test(priority = 20)
@@ -526,6 +557,7 @@ public class Arm_Stay extends Setup{
         logger.info("Verify the system reports alarm on  only the sensor in group 10 at the end of the entry delay. Verify the system does not report alarm on group 17");
         add_primary_call(10, 10,6619296, 1);
         add_primary_call(17, 17,5570629, 2);
+        Thread.sleep(4000);
         arm_stay_2sensors_event(10,17,door_window10,motion17,"Open","Activated",15000);
         logger.info("Passed.The system does not report alarm on group 17. Event not present in Alarm page and User website history");}
   @Test(priority = 15)
@@ -533,6 +565,7 @@ public class Arm_Stay extends Setup{
       logger.info("Verify the system can be disarmed during the entry delay (10 and 10 groups). ");
       add_primary_call(10, 10,6619296, 1);
       add_primary_call(13, 10,6619298, 1);
+      Thread.sleep(4000);
       disarm_during_entry_delay(10,13,door_window10,door_window13, "Disarmed (Intrusion)","Open","Closed","Open","Arm-Stay",15000, 1, 4, 5, 1, 2);
      }
     public void disarm_during_entry_delay(int zone1, int zone2, String DLID1,String DLID2,String Status, String Status1, String Status2, String Status3,String Status4, int entry_delay,int n0, int n, int n1,int n3, int n4) throws Exception {
@@ -629,6 +662,7 @@ public class Arm_Stay extends Setup{
         logger.info("Verify the system can be disarmed during the entry delay (10 and 12 groups). ");
         add_primary_call(10, 10,6619296, 1);
         add_primary_call(12, 12,6619297, 1);
+        Thread.sleep(4000);
         disarm_during_entry_delay(10,12,door_window10,door_window12, "Disarmed (Intrusion)","Open","Closed","Open","Arm-Stay",15000, 1, 4, 5, 1, 2);
     }
     @Test(priority = 17)
@@ -636,6 +670,7 @@ public class Arm_Stay extends Setup{
         logger.info("Verify the system can be disarmed during the entry delay (10 and 15 groups). ");
         add_primary_call(10, 10,6619296, 1);
         add_primary_call(15, 15,5570628, 2);
+        Thread.sleep(4000);
         disarm_during_entry_delay(10,15,door_window10,motion15, "Disarmed (Intrusion)","Idle","Activated","Closed","Open",15000, 1, 4, 5, 1, 2);
     }
     @Test(priority = 18)
@@ -643,6 +678,7 @@ public class Arm_Stay extends Setup{
         logger.info("Verify the system can be disarmed during the entry delay (10 and 17 groups). ");
         add_primary_call(10, 10,6619296, 1);
         add_primary_call(17, 17,5570629, 2);
+        Thread.sleep(4000);
         disarm_during_entry_delay(10,17,door_window10,motion17, "Disarmed (Intrusion)","Idle","Activated","Open","Arm-Stay",15000, 1, 3, 4, 1, 2);
         logger.info("Pass: No event for Sensor group 17 on User website");}
     @Test(priority = 19)
@@ -650,6 +686,7 @@ public class Arm_Stay extends Setup{
         logger.info("Verify the system can be disarmed during the entry delay (10 and 20 groups). ");
         add_primary_call(10, 10,6619296, 1);
         add_primary_call(20, 20,5570630, 2);
+        Thread.sleep(4000);
         disarm_during_entry_delay(10,20,door_window10,motion20, "Disarmed (Intrusion)","Idle","Activated","Open","Arm-Stay",15000, 1, 3, 4, 1, 2);
         logger.info("Pass: No event for Sensor group 20 on User website");}
     @Test(priority = 20)
@@ -657,98 +694,132 @@ public class Arm_Stay extends Setup{
         logger.info("Verify the system can be disarmed during the entry delay (10 and 35 groups). ");
         add_primary_call(10, 10,6619296, 1);
         add_primary_call(35, 35,5570631, 2);
+        Thread.sleep(4000);
         disarm_during_entry_delay(10,35,door_window10,motion35, "Disarmed (Intrusion)","Idle","Activated","Closed","Open",15000, 1, 5, 5, 1, 2);
         }
     @Test(priority = 21)
     public void AS_29() throws Exception {
         logger.info("Verify the panel will report an immediate tamper alarm (8 group). ");
         add_primary_call(8, 8,6619302, 1);
-    immediate_tamper_alarm(8,8, door_window8,"Tampered","Closed", 4,2);}
+        Thread.sleep(4000);
+         immediate_tamper_alarm(8,8, door_window8,"Tampered","Closed", 4,2);
+        Thread.sleep(4000);}
      @Test(priority = 22)
     public void AS_30() throws Exception {
         logger.info("Verify the panel will report an immediate tamper alarm (9 group). ");
         add_primary_call(9, 9,6619303, 1);
+         Thread.sleep(4000);
         immediate_tamper_alarm(9,9, door_window9,"Tampered","Closed", 4,2);
+         Thread.sleep(4000);
     }
       @Test(priority = 23)
       public void AS_31() throws Exception {
           logger.info("Verify the panel will report an immediate tamper alarm (10 group). ");
           add_primary_call(10, 10,6619296, 1);
-          immediate_tamper_alarm(10,10, door_window10,"Tampered","Closed", 4,2);}
+          Thread.sleep(4000);
+          immediate_tamper_alarm(10,10, door_window10,"Tampered","Closed", 4,2);
+          Thread.sleep(4000);}
      @Test(priority = 24)
      public void AS_32() throws Exception {
          logger.info("Verify the panel will report an immediate tamper alarm (12 group). ");
          add_primary_call(12, 12,6619297, 1);
-         immediate_tamper_alarm(12,12, door_window12,"Tampered","Closed", 4,2);}
+         Thread.sleep(4000);
+         immediate_tamper_alarm(12,12, door_window12,"Tampered","Closed", 4,2);
+         Thread.sleep(4000);}
      @Test(priority = 25)
       public void AS_33() throws Exception {
           logger.info("Verify the panel will report an immediate tamper alarm (13 group). ");
           add_primary_call(13, 13,6619298, 1);
-          immediate_tamper_alarm(13,13, door_window13,"Tampered","Closed", 4,2);}
+         Thread.sleep(4000);
+          immediate_tamper_alarm(13,13, door_window13,"Tampered","Closed", 4,2);
+         Thread.sleep(4000);}
     @Test(priority = 26)
       public void AS_34() throws Exception {
         logger.info("Verify the panel will report an immediate tamper alarm (14 group). ");
         add_primary_call(14, 14,6619299, 1);
-        immediate_tamper_alarm(14,14, door_window14,"Tampered","Closed", 4,2);}
+        Thread.sleep(4000);
+        immediate_tamper_alarm(14,14, door_window14,"Tampered","Closed", 4,2);
+        Thread.sleep(4000);}
     @Test(priority = 27)
      public void AS_35() throws Exception {
          logger.info("Verify the panel will report an immediate tamper alarm (15 group). ");
          add_primary_call(15, 15,5570628, 2);
-         immediate_tamper_alarm(15,15, motion15,"Tampered" ,"Idle", 4,2);}
+         Thread.sleep(4000);
+         immediate_tamper_alarm(15,15, motion15,"Tampered" ,"Idle", 4,2);
+         Thread.sleep(4000);}
      @Test(priority = 28)
     public void AS_36() throws Exception {
         logger.info("Verify the panel will report an immediate tamper alarm (35 group). ");
         add_primary_call(35, 35,5570631, 2);
-        immediate_tamper_alarm(35,35, motion35,"Tampered","Idle", 4,2);}
+         Thread.sleep(4000);
+        immediate_tamper_alarm(35,35, motion35,"Tampered","Idle", 4,2);
+         Thread.sleep(4000);}
      @Test(priority = 29)
       public void AS_37a() throws Exception {
           logger.info("Verify the panel will not report a tamper alarm (16 group). ");
           add_primary_call(16, 16, 6619300, 1);
-          NO_tamper_alarm(16,16, door_window16,"Tampered","Closed", 3,2);}
+         Thread.sleep(4000);
+          NO_tamper_alarm(16,16, door_window16,"Tampered","Closed", 3,2);
+         Thread.sleep(4000);}
       @Test(priority = 30)
        public void AS_37b() throws Exception {
            logger.info("Verify the panel will notvreport an immediate tamper alarm (17 group). ");
            add_primary_call(17, 17, 5570629, 2);
-           NO_tamper_alarm(17,17, motion17,"Tampered","Idle", 3,2);}
+          Thread.sleep(4000);Thread.sleep(4000);
+           NO_tamper_alarm(17,17, motion17,"Tampered","Idle", 3,2);
+          Thread.sleep(4000);}
       @Test(priority = 31)
       public void AS_37c() throws Exception {
           logger.info("Verify the panel will not report an immediate tamper alarm (20 group). ");
           add_primary_call(20, 20,5570630, 2);
-          NO_tamper_alarm(20,20, motion20,"Tampered","Idle", 3,2);}
+          Thread.sleep(4000);
+          NO_tamper_alarm(20,20, motion20,"Tampered","Idle", 3,2);
+          Thread.sleep(4000);}
     @Test(priority = 32)
     public void AS_37d() throws Exception {
         logger.info("Verify the panel will not report an immediate tamper alarm (26 group). ");
         add_primary_call(26, 26, 6750242, 5);
-        NO_tamper_alarm(26,26, Smoke,"Tampered","Normal", 3,2);}
+        Thread.sleep(4000);
+        NO_tamper_alarm(26,26, Smoke,"Tampered","Normal", 3,2);
+        Thread.sleep(4000);}
    @Test(priority = 33)
     public void AS_37e() throws Exception {
         logger.info("Verify the panel will not report an immediate tamper alarm (52 group Freeze sensor). ");
         add_primary_call(52, 52,  7536801, 17);
-        NO_tamperM_alarm(52,52, Freeze,"Tampered","Normal", 3,1);}
+       Thread.sleep(4000);
+        NO_tamperM_alarm(52,52, Freeze,"Tampered","Normal", 3,1);
+       Thread.sleep(4000);}
   @Test(priority = 34)
     public void AS_37h() throws Exception {
         logger.info("Verify the panel will not report an immediate tamper alarm (34 group). ");
         add_primary_call(34, 34, 7667882, 6);
-        NO_tamper_alarm(34,34, CO,"Tampered","Normal", 3,2);}
+      Thread.sleep(4000);
+        NO_tamper_alarm(34,34, CO,"Tampered","Normal", 3,2);
+      Thread.sleep(4000);}
     @Test(priority = 35)
     public void AS_37waterM() throws Exception {
         logger.info("Verify the panel will not report an immediate tamper alarm (38 group, subtype_ multi). ");
         add_primary_call(38, 38, 7672224, 22);
-        NO_tamperM_alarm(38,38, Water,"Tampered","Normal", 3,1);}
+        Thread.sleep(4000);
+        NO_tamperM_alarm(38,38, Water,"Tampered","Normal", 3,1);
+        Thread.sleep(4000);}
     @Test(priority = 36)
     public void AS_37waterF() throws Exception {
         logger.info("Verify the panel will not report an immediate tamper alarm (38 group, subtype_ flood). ");
         add_primary_call(36, 38, 7672224, 23);
-        NO_tamperM_alarm(36,38, Water,"Tampered","Normal", 3,1);}
+        Thread.sleep(4000);
+        NO_tamperM_alarm(36,38, Water,"Tampered","Normal", 3,1);
+        Thread.sleep(4000);}
     public void NO_tamperM_alarm(int zone, int group, String DLID, String Status,String Status1, int n0, int n1 ) throws Exception {
         Thread.sleep(6000);
-        ARM_STAY();
+        servcall.EVENT_ARM_STAY();
+        Thread.sleep(4000);
         sensors.primary_call(DLID, tamperM);
         Thread.sleep(2000);
-        Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        //Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         verify_armstay();
+        Thread.sleep(4000);
        // sensors.primary_call(DLID, restore);
-        verify_armstay();
         adc.New_ADC_session_User(login,password);
         Thread.sleep(60000);
         adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
@@ -770,13 +841,15 @@ public class Arm_Stay extends Setup{
         } catch (Exception e) {
             System.out.println("No such element found!!!"); }
         DISARM();
-        Thread.sleep(1000);
+        Thread.sleep(3000);
         sensors.primary_call(DLID, restore);
-        Home_Page home = PageFactory.initElements(driver, Home_Page.class);
+        Thread.sleep(4000);
+        //Home_Page home = PageFactory.initElements(driver, Home_Page.class);
         Settings_Page sett = PageFactory.initElements(driver, Settings_Page.class);
         navigate_to_Settings_page();
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         sett.STATUS.click();
+        Thread.sleep(2000);
         sett.Panel_history.click();
         List<WebElement> li_status1 = driver.findElements(By.id("com.qolsys:id/textView3"));
         if (li_status1.get(n0).getText().equals(Status)){
@@ -786,11 +859,13 @@ public class Arm_Stay extends Setup{
         if (li_status1.get(n1).getText().equals(Status1)){
             logger.info("Pass: sensor status is displayed correctly: ***" + li_status1.get(n1).getText()+ "***");
         }else {logger.info("Failed: sensor status is displayed in correct: ***" + li_status1.get(n1).getText()+ "***");}
-        Thread.sleep(2000);
-        delete_from_primary(zone);}
+        Thread.sleep(3000);
+        delete_from_primary(zone);
+        Thread.sleep(4000);}
     public void NO_tamper_alarm(int zone, int group, String DLID, String Status,String Status1, int n0, int n1 ) throws Exception {
         Thread.sleep(1000);
-        ARM_STAY();
+        servcall.EVENT_ARM_STAY();
+        Thread.sleep(3000);
         sensors.primary_call(DLID, tamper);
         Thread.sleep(3000);
         verify_armstay();
@@ -798,6 +873,7 @@ public class Arm_Stay extends Setup{
         sensors.primary_call(DLID, restore);
         Thread.sleep(4000);
         verify_armstay();
+        Thread.sleep(4000);
         adc.New_ADC_session_User(login,password);
         Thread.sleep(60000);
         adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
@@ -837,11 +913,11 @@ public class Arm_Stay extends Setup{
         }else {logger.info("Failed: sensor status is displayed in correct: ***" + li_status1.get(n1).getText()+ "***");}
         Thread.sleep(2000);
         delete_from_primary(zone);
-        Thread.sleep(3000);}
+        Thread.sleep(4000);}
 
         public void immediate_tamper_alarm(int zone, int group, String DLID, String Status,String Status1, int n0, int n1 ) throws Exception {
             Thread.sleep(3000);
-            ARM_STAY();
+            servcall.EVENT_ARM_STAY();
             Thread.sleep(3000);
             sensors.primary_call(DLID, tamper);
             Thread.sleep(3000);
@@ -906,9 +982,10 @@ public class Arm_Stay extends Setup{
         Thread.sleep(5000);
         add_primary_call(12, 12,6619297, 1);
         servcall.set_DURESS_AUTHENTICATION_disable();
+                Thread.sleep(3000);
         servcall.set_ARM_STAY_NO_DELAY_enable();
         Thread.sleep(6000);
-        ARM_STAY();
+        servcall.EVENT_ARM_STAY();
         Thread.sleep(6000);
         sensors.primary_call(door_window12, open);
         Thread.sleep(1000);
@@ -918,7 +995,9 @@ public class Arm_Stay extends Setup{
         verify_in_alarm();
         Thread.sleep(3000);
         enter_default_user_code();
-        delete_from_primary(12);}
+                Thread.sleep(4000);
+        delete_from_primary(12);
+                Thread.sleep(4000);}
 
     @Test(priority = 39) /***Please Set 5 min PhotoFrame start time manually ***/
     public void AS_41() throws Exception {
@@ -931,6 +1010,7 @@ public class Arm_Stay extends Setup{
         TimeUnit.MINUTES.sleep(1);
         ARM_STAY();
         TimeUnit.MINUTES.sleep(5);
+        Thread.sleep(1000);
         verify_photoframe_mode();
         Thread.sleep(1000);
         sensors.primary_call(door_window10, open);
@@ -938,7 +1018,9 @@ public class Arm_Stay extends Setup{
         verify_in_alarm();
         Thread.sleep(3000);
         enter_default_user_code();
+        Thread.sleep(4000);
         delete_from_primary(10);
+        Thread.sleep(4000);
         adc.New_ADC_session_User(login,password);
         Thread.sleep(60000);
         adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
@@ -981,7 +1063,9 @@ public class Arm_Stay extends Setup{
         verify_in_alarm();
         Thread.sleep(3000);
         enter_default_user_code();
+        Thread.sleep(4000);
         delete_from_primary(13);
+        Thread.sleep(4000);
         adc.New_ADC_session_User(login,password);
         Thread.sleep(60000);
         adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
@@ -1010,6 +1094,7 @@ public class Arm_Stay extends Setup{
         Thread.sleep(5000);
         add_primary_call(10, 10,6619296, 1);
         add_primary_call(12, 12,6619297, 1);
+        Thread.sleep(4000);
         servcall.set_photo_frame_SCREEN_SAVER_TYPE();
         servcall.set_ARM_STAY_NO_DELAY_enable();
         // servcall.set_5minutes_SCREEN_SAVER_IDLE_TIME();
@@ -1027,8 +1112,11 @@ public class Arm_Stay extends Setup{
         verify_in_alarm();
         Thread.sleep(3000);
         enter_default_user_code();
+        Thread.sleep(4000);
         delete_from_primary(10);
+        Thread.sleep(4000);
         delete_from_primary(12);
+        Thread.sleep(4000);
         adc.New_ADC_session_User(login,password);
         Thread.sleep(60000);
         adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
@@ -1089,7 +1177,9 @@ public class Arm_Stay extends Setup{
         verify_in_alarm();
         Thread.sleep(3000);
         enter_default_user_code();
+        Thread.sleep(4000);
         delete_from_primary(10);
+        Thread.sleep(4000);
           adc.New_ADC_session_User(login,password);
         Thread.sleep(20000);
         adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
@@ -1103,37 +1193,13 @@ public class Arm_Stay extends Setup{
             System.out.println("No such element found!!!");
      }}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @Test(priority = 44)
     public void AS_49() throws Exception {
         logger.info("Verify the panel will Arm Stay at the end of the exit delay if Arm Stay button is pressed by 1-group keyfob ");
         add_primary_call(38, 1, 6619386, 102);
+        Thread.sleep(4000);
         servcall.set_KEYFOB_NO_DELAY_disable();
+        Thread.sleep(4000);
         logger.info("Keyfob group 1: Disarm, panic = Police");
         Thread.sleep(4000);
         sensors.primary_call("65 00 AF", keyfobStay);
@@ -1143,6 +1209,7 @@ public class Arm_Stay extends Setup{
         sensors.primary_call("65 00 AF", keyfobDisarm);
         Thread.sleep(4000);
         verify_disarm();
+        Thread.sleep(4000);
         adc.New_ADC_session_User(login,password);
         Thread.sleep(5000);
         adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
@@ -1166,7 +1233,7 @@ public class Arm_Stay extends Setup{
         }
 
     delete_from_primary(38);
-
+        Thread.sleep(4000);
     }
     @Test(priority = 45)
     public void AS_50_52() throws Exception {
@@ -1186,6 +1253,7 @@ public class Arm_Stay extends Setup{
         sensors.primary_call("65 00 BF", keyfobDisarm);
         Thread.sleep(4000);
         verify_disarm();
+        Thread.sleep(4000);
         adc.New_ADC_session_User(login,password);
         Thread.sleep(5000);
         adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
@@ -1209,7 +1277,9 @@ public class Arm_Stay extends Setup{
         }
         Thread.sleep(15000);
         delete_from_primary(38);
+        Thread.sleep(4000);
         delete_from_primary(39);
+        Thread.sleep(4000);
     }
     @Test(priority = 46)
     public void AS_56() throws Exception {
@@ -1227,6 +1297,7 @@ public class Arm_Stay extends Setup{
         enter_default_user_code();
         Thread.sleep(4000);
         verify_disarm();
+        Thread.sleep(4000);
         adc.New_ADC_session_User(login,password);
         Thread.sleep(5000);
         adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
@@ -1250,11 +1321,13 @@ public class Arm_Stay extends Setup{
         }
         Thread.sleep(15000);
         delete_from_primary(39);
+        Thread.sleep(4000);
     }
     @Test(priority = 47)
     public void AS_58() throws Exception {
         logger.info("Verify the panel will Disarm instantly if Disarm button is pressed by 4-group keyfob");
         add_primary_call(40, 4, 6619388, 102);
+        Thread.sleep(4000);
         servcall.set_KEYFOB_NO_DELAY_enable();
         logger.info("Keyfob group 4: ArmStay-ArmAway-Disarm, panic = Fixed Auxiliary");;
         Thread.sleep(5000);
@@ -1265,6 +1338,7 @@ public class Arm_Stay extends Setup{
         sensors.primary_call("65 00 CF", keyfobDisarm);
         Thread.sleep(4000);
         verify_disarm();
+        Thread.sleep(4000);
         adc.New_ADC_session_User(login,password);
         Thread.sleep(5000);
         adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
@@ -1288,12 +1362,14 @@ public class Arm_Stay extends Setup{
         }
         Thread.sleep(1000);
         delete_from_primary(40);
+        Thread.sleep(4000);
     }
 
     @Test(priority = 48)
     public void AS_59() throws Exception {
         logger.info("Verify the panel will Arm Away at the end of the exit delay if Arm Away button is pressed by 4-group keyfob");
         add_primary_call(40, 4, 6619388, 102);
+        Thread.sleep(4000);
         servcall.set_KEYFOB_NO_DELAY_disable();
         logger.info("Keyfob group 4: ArmStay-ArmAway-Disarm, panic = Fixed Auxiliary");;
         Thread.sleep(5000);
@@ -1304,6 +1380,7 @@ public class Arm_Stay extends Setup{
         sensors.primary_call("65 00 CF", keyfobDisarm);
         Thread.sleep(4000);
         verify_disarm();
+        Thread.sleep(4000);
         adc.New_ADC_session_User(login,password);
         Thread.sleep(5000);
         adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
@@ -1327,6 +1404,7 @@ public class Arm_Stay extends Setup{
         }
         Thread.sleep(1000);
         delete_from_primary(40);
+        Thread.sleep(4000);
     }
 
     @Test(priority = 50)
@@ -1338,6 +1416,7 @@ public class Arm_Stay extends Setup{
         ARM_STAY();
         Thread.sleep(2000);
         verify_armstay();
+        Thread.sleep(4000);
         home.Quick_exit.click();
         Thread.sleep(2000);
         sensors.primary_call("66 00 C9", tamperM);
@@ -1345,6 +1424,7 @@ public class Arm_Stay extends Setup{
         verify_in_alarm();
         Thread.sleep(2000);
         enter_default_user_code();
+        Thread.sleep(4000);
         adc.New_ADC_session_User(login,password);
         Thread.sleep(60000);
         adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
@@ -1370,6 +1450,7 @@ public class Arm_Stay extends Setup{
         }
         Thread.sleep(1000);
         delete_from_primary(33);
+        Thread.sleep(4000);
     }
 
     @Test(priority = 52)
@@ -1381,6 +1462,7 @@ public class Arm_Stay extends Setup{
         ARM_STAY();
         Thread.sleep(2000);
         verify_armstay();
+        Thread.sleep(4000);
         home.Quick_exit.click();
         Thread.sleep(2000);
         sensors.primary_call("66 00 C9", tamperM);
@@ -1388,6 +1470,7 @@ public class Arm_Stay extends Setup{
         verify_in_alarm();
         Thread.sleep(2000);
         enter_default_user_code();
+        Thread.sleep(4000);
         adc.New_ADC_session_User(login,password);
         Thread.sleep(60000);
         adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
@@ -1413,6 +1496,7 @@ public class Arm_Stay extends Setup{
         }
         Thread.sleep(1000);
         delete_from_primary(33);
+        Thread.sleep(4000);
     }
     @Test(priority = 53)
     public void AS_69() throws Exception {
@@ -1430,6 +1514,7 @@ public class Arm_Stay extends Setup{
         verify_in_alarm();
         Thread.sleep(2000);
         enter_default_user_code();
+        Thread.sleep(4000);
         adc.New_ADC_session_User(login,password);
         Thread.sleep(60000);
         adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
@@ -1455,15 +1540,17 @@ public class Arm_Stay extends Setup{
         }
         Thread.sleep(1000);
         delete_from_primary(33);
+        Thread.sleep(4000);
     }
 
     @Test(priority = 54)
     public void AS_70() throws Exception {
         logger.info("Verify the panel will go into immediate alarm if shock-detector in group 13 is activated");
         add_primary_call(33, 13, 6684828, 107);
+        Thread.sleep(4000);
         add_primary_call(10, 10,6619296, 1);
         Thread.sleep(3000);
-        ARM_STAY();
+        servcall.EVENT_ARM_STAY();
         Thread.sleep(2000);
         verify_armstay();
         Thread.sleep(2000);
@@ -1491,6 +1578,7 @@ public class Arm_Stay extends Setup{
             }
         } catch (Exception e) {logger.info("Sensor 33 event is not present on Alarm page");}
        enter_default_user_code();
+        Thread.sleep(4000);
       adc.New_ADC_session_User(login,password);
         Thread.sleep(60000);
         adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
@@ -1514,18 +1602,21 @@ public class Arm_Stay extends Setup{
         } catch (Exception e) {
             System.out.println("No such element found!!!");
         }
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         delete_from_primary(33);
+        Thread.sleep(4000);
         delete_from_primary(10);
+        Thread.sleep(4000);
 }
 
         @Test(priority = 55)
         public void AS_71() throws Exception {
             logger.info("Verify the panel will go into immediate alarm if shock-detector in group 13 is activated");
             add_primary_call(33, 13, 6684828, 107);
+            Thread.sleep(4000);
             add_primary_call(12, 12,6619297, 1);
             Thread.sleep(3000);
-            ARM_STAY();
+            servcall.EVENT_ARM_STAY();
             Thread.sleep(2000);
             verify_armstay();
             Thread.sleep(2000);
@@ -1552,7 +1643,9 @@ public class Arm_Stay extends Setup{
                     logger.info("Failed: Incorrect status: " + home_page.Red_banner_sensor_status.getText());
                 }
             } catch (Exception e) {logger.info("Sensor 33 event is not present on Alarm page");}
+            Thread.sleep(4000);
             enter_default_user_code();
+            Thread.sleep(4000);
             adc.New_ADC_session_User(login,password);
             Thread.sleep(60000);
             adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
@@ -1578,7 +1671,9 @@ public class Arm_Stay extends Setup{
             }
             Thread.sleep(1000);
             delete_from_primary(33);
+            Thread.sleep(4000);
             delete_from_primary(12);
+            Thread.sleep(4000);
         }
 
     @Test(priority = 57)
@@ -1586,7 +1681,7 @@ public class Arm_Stay extends Setup{
         logger.info("Verify the panel will go into immediate alarm if shock-detector in group 13 is activated");
         add_primary_call(33, 13, 6684828, 107);
         Thread.sleep(3000);
-        ARM_STAY();
+        servcall.EVENT_ARM_STAY();
         Thread.sleep(2000);
         verify_armstay();
         Thread.sleep(2000);
@@ -1604,6 +1699,7 @@ public class Arm_Stay extends Setup{
             logger.info("Failed: Incorrect status: " + home_page.Red_banner_sensor_status.getText());
         }
         enter_default_user_code();
+        Thread.sleep(4000);
         adc.New_ADC_session_User(login,password);
         Thread.sleep(60000);
         adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
@@ -1629,13 +1725,14 @@ public class Arm_Stay extends Setup{
         }
         Thread.sleep(1000);
         delete_from_primary(33);
+        Thread.sleep(4000);
        }
     @Test(priority = 60)
     public void AS_73() throws Exception {
         logger.info("Verify the panel will go into immediate tamper alarm if a shock-detector in group 13 is tampered");
         add_primary_call(33, 13, 6684828, 107);
         Thread.sleep(3000);
-        ARM_STAY();
+        servcall.EVENT_ARM_STAY();
         Thread.sleep(2000);
         verify_armstay();
         Thread.sleep(2000);
@@ -1654,6 +1751,7 @@ public class Arm_Stay extends Setup{
         }
 
         enter_default_user_code();
+        Thread.sleep(4000);
         adc.New_ADC_session_User(login,password);
         Thread.sleep(60000);
         adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
@@ -1679,6 +1777,7 @@ public class Arm_Stay extends Setup{
         }
         Thread.sleep(1000);
         delete_from_primary(33);
+        Thread.sleep(4000);
     }
 
     @Test(priority = 58)
@@ -1687,7 +1786,7 @@ public class Arm_Stay extends Setup{
         logger.info("Verify the panel will just create notification if a shock-detector in group 17 is activated");
         add_primary_call(34, 17,  6684829 , 107);
         Thread.sleep(3000);
-        ARM_STAY();
+        servcall.EVENT_ARM_STAY();
         Thread.sleep(2000);
         verify_armstay();
         Thread.sleep(2000);
@@ -1700,15 +1799,18 @@ public class Arm_Stay extends Setup{
         DISARM();
         Thread.sleep(2000);
         sensors.primary_call("66 00 D9", restore);
+        Thread.sleep(4000);
         sensor_status_check("66 00 D9","Activated","Normal", 3, 1);
-        delete_from_primary(34);}
+        Thread.sleep(4000);
+        delete_from_primary(34);
+        Thread.sleep(4000);}
     @Test(priority = 59)
     public void AS_76() throws Exception {
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         logger.info("Verify the panel will will just create notification if a shock-detector in group 17 is tampered");
         add_primary_call(34, 17,  6684829 , 107);
         Thread.sleep(3000);
-        ARM_STAY();
+        servcall.EVENT_ARM_STAY();
         Thread.sleep(2000);
         verify_armstay();
         Thread.sleep(2000);
@@ -1721,8 +1823,11 @@ public class Arm_Stay extends Setup{
         DISARM();
         Thread.sleep(2000);
         sensors.primary_call("66 00 D9", restore);
+        Thread.sleep(4000);
         sensor_status_check("66 00 D9","Tampered","Normal", 3, 1);
-        delete_from_primary(34);}
+        Thread.sleep(4000);
+        delete_from_primary(34);
+        Thread.sleep(4000);}
 
     @Test(priority = 61)
     public void AS_77() throws Exception {
@@ -1730,7 +1835,7 @@ public class Arm_Stay extends Setup{
         logger.info("Verify the panel will will just create notification if a shock-detector in group 17 is tampered");
         add_primary_call(34, 17,  6684829 , 107);
         Thread.sleep(3000);
-        ARM_STAY();
+        servcall.EVENT_ARM_STAY();
         Thread.sleep(2000);
         verify_armstay();
         Thread.sleep(2000);
@@ -1747,30 +1852,35 @@ public class Arm_Stay extends Setup{
         delete_from_primary(34);}
     @Test(priority = 62)
     public void AS_78() throws Exception {
-        logger.info("Verify the panel will go into immediate alarm if a Glass-break detector in group 13 is activated");
+        logger.info("Verify the panel will go into immediate alarm if a Glass-break detector in group 17 is activated");
         add_primary_call(34, 17,  6684829 , 107);
         Thread.sleep(3000);
-        ARM_STAY();
+        servcall.EVENT_ARM_STAY();
         Thread.sleep(2000);
         verify_armstay();
+        Thread.sleep(4000);
         sensors.primary_call("66 00 D9", active);
         Thread.sleep(20000);
         verify_armstay();
         Thread.sleep(2000);
         DISARM();
-        Thread.sleep(2000);
+        Thread.sleep(4000);
         sensors.primary_call("66 00 D9", restore);
+        Thread.sleep(4000);
         sensor_status_check("66 00 D9","Activated","Normal", 3, 1);
-        delete_from_primary(34);}
+        Thread.sleep(4000);
+        delete_from_primary(34);
+        Thread.sleep(4000);}
 
     @Test(priority = 63)
     public void AS_79() throws Exception {
         logger.info("Verify the panel will will just create notification if a shock-detector in group 17 is tampered");
         add_primary_call(34, 17,  6684829 , 107);
         Thread.sleep(3000);
-        ARM_STAY();
+        servcall.EVENT_ARM_STAY();
         Thread.sleep(2000);
         verify_armstay();
+        Thread.sleep(4000);
         sensors.primary_call("66 00 D9", tamperM);
         Thread.sleep(20000);
         verify_armstay();
@@ -1778,15 +1888,18 @@ public class Arm_Stay extends Setup{
         DISARM();
         Thread.sleep(2000);
         sensors.primary_call("66 00 D9", restore);
+        Thread.sleep(4000);
         sensor_status_check("66 00 D9","Tampered","Normal", 3, 1);
-        delete_from_primary(34);}
+        Thread.sleep(4000);
+        delete_from_primary(34);
+        Thread.sleep(4000);}
 
     @Test(priority = 65)
     public void AS_80() throws Exception {
         logger.info("Verify the panel will just create notification if a shock-detector in group 17 is activated");
         add_primary_call(34, 17,  6684829 , 107);
         Thread.sleep(3000);
-        ARM_STAY();
+        servcall.EVENT_ARM_STAY();
         Thread.sleep(2000);
         verify_armstay();
         Thread.sleep(2000);
@@ -1800,8 +1913,11 @@ public class Arm_Stay extends Setup{
         DISARM();
         Thread.sleep(2000);
         sensors.primary_call("66 00 D9", restore);
+        Thread.sleep(4000);
         sensor_status_check("66 00 D9","Activated","Normal", 3, 1);
-        delete_from_primary(34);}
+        Thread.sleep(4000);
+        delete_from_primary(34);
+        Thread.sleep(4000);}
     @Test(priority = 64)
     public void AS_81() throws Exception {
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
@@ -1809,7 +1925,7 @@ public class Arm_Stay extends Setup{
         //add_primary_call(28, 13,  6750361 , 19);
         add_primary_call(28,13,6750361,19);
         Thread.sleep(3000);
-        ARM_STAY();
+        servcall.EVENT_ARM_STAY();
         Thread.sleep(2000);
         verify_armstay();
         Thread.sleep(2000);
@@ -1828,6 +1944,7 @@ public class Arm_Stay extends Setup{
             logger.info("Failed: Incorrect status: " + home_page.Red_banner_sensor_status.getText());
         }
         enter_default_user_code();
+        Thread.sleep(4000);
         adc.New_ADC_session_User(login,password);
         Thread.sleep(10000);
         adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
@@ -1842,6 +1959,7 @@ public class Arm_Stay extends Setup{
         }
         Thread.sleep(1000);
         delete_from_primary(28);
+        Thread.sleep(4000);
     }
 
     @Test(priority = 66)
@@ -1851,7 +1969,7 @@ public class Arm_Stay extends Setup{
         //add_primary_call(28, 13,  6750361 , 19);
         add_primary_call(28,13,6750361,19);
         Thread.sleep(3000);
-        ARM_STAY();
+        servcall.EVENT_ARM_STAY();
         Thread.sleep(2000);
         verify_armstay();
         Thread.sleep(2000);
@@ -1884,14 +2002,16 @@ public class Arm_Stay extends Setup{
         }
         Thread.sleep(1000);
         delete_from_primary(28);
+        Thread.sleep(4000);
     }
     @Test(priority = 67)
     public void AS_83() throws Exception {
         logger.info("Verify the panel will go into immediate alarm if Glass-breakdetector in group 13 is activated");
         add_primary_call(28,13,6750361,19);
+        Thread.sleep(4000);
         add_primary_call(10, 10,6619296, 1);
         Thread.sleep(3000);
-        ARM_STAY();
+        servcall.EVENT_ARM_STAY();
         Thread.sleep(2000);
         verify_armstay();
         Thread.sleep(2000);
@@ -1919,6 +2039,7 @@ public class Arm_Stay extends Setup{
             }
         } catch (Exception e) {logger.info("Sensor 28 event is not present on Alarm page");}
         enter_default_user_code();
+        Thread.sleep(4000);
         adc.New_ADC_session_User(login,password);
         Thread.sleep(60000);
         adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
@@ -1944,15 +2065,18 @@ public class Arm_Stay extends Setup{
         }
         Thread.sleep(1000);
         delete_from_primary(28);
-        delete_from_primary(10);}
+        Thread.sleep(4000);
+        delete_from_primary(10);
+        Thread.sleep(4000);}
 
     @Test(priority = 69)
     public void AS_84() throws Exception {
         logger.info("Verify the panel will go into immediate alarm if Glass-breakdetector in group 13 is activated");
         add_primary_call(28,13,6750361,19);
+        Thread.sleep(4000);
         add_primary_call(12, 12,6619297, 1);
         Thread.sleep(3000);
-        ARM_STAY();
+        servcall.EVENT_ARM_STAY();
         Thread.sleep(2000);
         verify_armstay();
         Thread.sleep(2000);
@@ -1980,6 +2104,7 @@ public class Arm_Stay extends Setup{
             }
         } catch (Exception e) {logger.info("Sensor 33 event is not present on Alarm page");}
         enter_default_user_code();
+        Thread.sleep(4000);
         adc.New_ADC_session_User(login,password);
         Thread.sleep(60000);
         adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
@@ -2005,14 +2130,16 @@ public class Arm_Stay extends Setup{
         }
         Thread.sleep(1000);
         delete_from_primary(28);
-        delete_from_primary(12);}
+        Thread.sleep(4000);
+        delete_from_primary(12);
+        Thread.sleep(4000);}
 
     @Test(priority = 70)
     public void AS_85() throws Exception {
         logger.info("Verify the panel will go into immediate alarm if Glass-breakdetector in group 13 is activated");
         add_primary_call(28,13,6750361,19);
         Thread.sleep(3000);
-        ARM_STAY();
+        servcall.EVENT_ARM_STAY();
         Thread.sleep(2000);
         verify_armstay();
         Thread.sleep(2000);
@@ -2029,6 +2156,7 @@ public class Arm_Stay extends Setup{
             logger.info("Failed: Incorrect status: " + home_page.Red_banner_sensor_status.getText());
         }
         enter_default_user_code();
+        Thread.sleep(4000);
         adc.New_ADC_session_User(login,password);
         Thread.sleep(60000);
         adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
@@ -2053,6 +2181,7 @@ public class Arm_Stay extends Setup{
             System.out.println("No such element found!!!");
         }
           delete_from_primary(28);
+        Thread.sleep(4000);
        }
 
     @Test(priority = 71)
@@ -2060,13 +2189,14 @@ public class Arm_Stay extends Setup{
         logger.info("Verify the panel will go into immediate tamper alarm if a Glass-break detector in group 13 is tampered");
         add_primary_call(28,13,6750361,19);
         Thread.sleep(3000);
-        ARM_STAY();
+        servcall.EVENT_ARM_STAY();
         Thread.sleep(2000);
         verify_armstay();
         Thread.sleep(2000);
         sensors.primary_call("67 00 99", tamperM);
         Thread.sleep(2000);
         verify_in_alarm();
+        Thread.sleep(4000);
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         List<WebElement> events = driver.findElements(By.id("com.qolsys:id/tv_status"));
         // for (int j = 0; j < events.size(); j++)
@@ -2101,6 +2231,7 @@ public class Arm_Stay extends Setup{
             System.out.println("No such element found!!!");
         }
         delete_from_primary(28);
+        Thread.sleep(4000);
     }
 
     @Test(priority = 72)
@@ -2109,9 +2240,10 @@ public class Arm_Stay extends Setup{
         add_primary_call(28,13,6750361,19);
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         Thread.sleep(3000);
-        ARM_STAY();
+        servcall.EVENT_ARM_STAY();
         Thread.sleep(2000);
         verify_armstay();
+        Thread.sleep(4000);
         home_page.DISARM.click();
         Thread.sleep(2000);
         sensors.primary_call("67 00 99", active);
@@ -2119,6 +2251,7 @@ public class Arm_Stay extends Setup{
         verify_in_alarm();
         Thread.sleep(2000);
         enter_default_user_code();
+        Thread.sleep(4000);
         adc.New_ADC_session_User(login,password);
         Thread.sleep(60000);
         adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
@@ -2144,6 +2277,7 @@ public class Arm_Stay extends Setup{
     }
         Thread.sleep(1000);
     delete_from_primary(28);
+        Thread.sleep(4000);
 }
     @Test(priority = 73)
     public void AS_88() throws Exception {
@@ -2151,7 +2285,7 @@ public class Arm_Stay extends Setup{
         add_primary_call(28,13,6750361,19);
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         Thread.sleep(3000);
-        ARM_STAY();
+        servcall.EVENT_ARM_STAY();
         Thread.sleep(2000);
         verify_armstay();
         home_page.Quick_exit.click();
@@ -2161,6 +2295,7 @@ public class Arm_Stay extends Setup{
         verify_in_alarm();
         Thread.sleep(2000);
         enter_default_user_code();
+        Thread.sleep(4000);
         adc.New_ADC_session_User(login,password);
         Thread.sleep(60000);
         adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
@@ -2186,6 +2321,7 @@ public class Arm_Stay extends Setup{
         }
         Thread.sleep(1000);
         delete_from_primary(28);
+        Thread.sleep(4000);
     }
     @Test(priority = 74)
     public void AS_89() throws Exception {
@@ -2193,7 +2329,7 @@ public class Arm_Stay extends Setup{
         add_primary_call(28,13,6750361,19);
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         Thread.sleep(3000);
-        ARM_STAY();
+        servcall.EVENT_ARM_STAY();
         Thread.sleep(2000);
         verify_armstay();
         home_page.Quick_exit.click();
@@ -2228,14 +2364,15 @@ public class Arm_Stay extends Setup{
         }
         Thread.sleep(1000);
         delete_from_primary(28);
+        Thread.sleep(4000);
     }
 
     @Test(priority = 75)
     public void AS_90() throws Exception {
-        logger.info("Verify the panel will just create notification if a shock-detector in group 17 is tampered");
+        logger.info("Verify the panel will just create notification if a shock-detector in group 17 is activated");
         add_primary_call(29,17,6750355,19);
         Thread.sleep(3000);
-        ARM_STAY();
+        servcall.EVENT_ARM_STAY();
         Thread.sleep(2000);
         verify_armstay();
         Thread.sleep(2000);
@@ -2249,14 +2386,17 @@ public class Arm_Stay extends Setup{
         DISARM();
         Thread.sleep(2000);
         sensors.primary_call("67 00 39", restore);
+        Thread.sleep(4000);
         sensor_status_check("67 00 39","Activated","Normal", 3, 1);
-        delete_from_primary(29);}
+        Thread.sleep(4000);
+        delete_from_primary(29);
+        Thread.sleep(4000);}
     @Test(priority = 76)
     public void AS_91() throws Exception {
         logger.info("Verify the panel will just create notification if a shock-detector in group 17 is tampered");
         add_primary_call(29,17,6750355,19);
         Thread.sleep(3000);
-        ARM_STAY();
+        servcall.EVENT_ARM_STAY();
         Thread.sleep(2000);
         verify_armstay();
         Thread.sleep(2000);
@@ -2267,8 +2407,11 @@ public class Arm_Stay extends Setup{
         DISARM();
         Thread.sleep(2000);
         sensors.primary_call("67 00 39", restore);
+        Thread.sleep(4000);
         sensor_status_check("67 00 39","Activated","Normal", 3, 1);
-        delete_from_primary(29);}
+        Thread.sleep(4000);
+        delete_from_primary(29);
+        Thread.sleep(4000);}
     @Test(priority = 92)
     public void AS_92() throws Exception {
         logger.info("verify the panel will not go into immediate alarm when group 13 d/w sensor is tripped during 'Quick Exit' ");
@@ -2286,6 +2429,7 @@ public class Arm_Stay extends Setup{
         DISARM();
         Thread.sleep(2000);
         delete_from_primary(2);
+        Thread.sleep(4000);
     }
     @Test(priority = 93)
     public void AS_93() throws Exception {
@@ -2301,9 +2445,11 @@ public class Arm_Stay extends Setup{
         sensors.primary_call("65 00 2A", close);
         Thread.sleep(20000);
         verify_armstay();
+        Thread.sleep(4000);
         DISARM();
         Thread.sleep(2000);
         delete_from_primary(3);
+        Thread.sleep(4000);
     }
     @Test(priority = 94)
     public void AS_94() throws Exception {
@@ -2322,6 +2468,7 @@ public class Arm_Stay extends Setup{
         DISARM();
         Thread.sleep(2000);
         delete_from_primary(4);
+        Thread.sleep(4000);
     }
 
     @Test(priority = 95)
@@ -2339,6 +2486,7 @@ public class Arm_Stay extends Setup{
         enter_default_user_code();
         Thread.sleep(2000);
         delete_from_primary(6);
+        Thread.sleep(4000);
     }
 
     @Test(priority = 96)
@@ -2353,9 +2501,11 @@ public class Arm_Stay extends Setup{
         sensors.primary_call("65 00 6A", open);
         Thread.sleep(16000);
         verify_in_alarm();
+        Thread.sleep(4000);
         enter_default_user_code();
         Thread.sleep(2000);
         delete_from_primary(7);
+        Thread.sleep(4000);
         }
 
     @AfterTest
