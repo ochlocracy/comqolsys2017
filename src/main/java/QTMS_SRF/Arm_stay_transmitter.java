@@ -14,6 +14,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -32,7 +33,7 @@ public class Arm_stay_transmitter extends Setup {
     PanelInfo_ServiceCalls servcall = new PanelInfo_ServiceCalls();
     Sensors MySensors = new Sensors();
     ADC adc = new ADC();
-
+  //  Sensors.SensorObject sensOb = new SensorObject();
 
     int Activate = 1;
     int Idle = 0;
@@ -131,8 +132,66 @@ public class Arm_stay_transmitter extends Setup {
         //  MySensors.deleteAllSensorsTransmitter();
 
     }
+    public void sendPacket_selectedZone(int Zone, int Group, String Status) throws IOException, InterruptedException {
+
+    }
+
+    public void sendPacket_allSensors_selectedGroup(List<Integer> input_sens_zones, int input_group_number, int z) throws IOException, InterruptedException {
 
 
+
+
+
+ /*
+        List<Integer> foundSensorsInGroup;
+        foundSensorsInGroup = new ArrayList();
+        for (int i = 0; i < input_sens_zones.size(); i++) {
+           SensorObject sensor = null;
+            sensor = SensorObject_ArrayList.get(input_sens_zones.get(i));
+            int found_group = sensor.getSensorGroup();
+            if (found_group == input_group_number) {
+                foundSensorsInGroup.add(input_sens_zones.get(i));
+                //       System.out.println(foundSensorsInGroup);
+            }
+        }
+        for (int l = 0; l < foundSensorsInGroup.size(); l++) {
+            Sensors.SensorObject temp_sensor = null;
+            temp_sensor = SensorObject_ArrayList.get(foundSensorsInGroup.get(l));
+            String newDLID = temp_sensor.getDLID();
+            //       System.out.println(newDLID);
+            String sensor_type = temp_sensor.getSensorType();
+//            initialize_transmitter_sensor_int_map();
+            String send_packet = "shell service call srftransmitservice 1 s16 " + newDLID + " i32 0 i32 " + MySensors.transmitter_sensor_int_map.get(sensor_type) + " i32 0 i32 0 i32 " + z;
+            rt.exec(adbPath + " -s " + MySensors.transmitter + send_packet);
+            //     System.out.println(send_packet);
+            TimeUnit.SECONDS.sleep(2);
+        }
+    }
+   public void sendTamper_allSensors_selectedGroup(List<Integer> input_sens_zones, int input_group_number) throws IOException, InterruptedException {
+        List<Integer> foundSensorsInGroup;
+        foundSensorsInGroup = new ArrayList();
+        for (int i = 0; i < input_sens_zones.size(); i++) {
+            Sensors.SensorObject sensor = null;
+            sensor = SensorObject_ArrayList.get(input_sens_zones.get(i));
+            int found_group = sensor.getSensorGroup();
+            if (found_group == input_group_number) {
+                foundSensorsInGroup.add(input_sens_zones.get(i));
+                //       System.out.println(foundSensorsInGroup);
+            }
+        }
+        for (int l = 0; l < foundSensorsInGroup.size(); l++) {
+            Sensors.SensorObject temp_sensor = null;
+            temp_sensor = SensorObject_ArrayList.get(foundSensorsInGroup.get(l));
+            String newDLID = temp_sensor.getDLID();
+            //       System.out.println(newDLID);
+            String sensor_type = temp_sensor.getSensorType();
+//            initialize_transmitter_sensor_int_map();
+            String send_packet = "shell service call srftransmitservice 1 s16 " + newDLID + " i32 0 i32 " + transmitter_sensor_int_map.get(sensor_type) + " i32 1 i32 0";
+            rt.exec(adbPath + " -s " + transmitter + send_packet);
+            //      System.out.println(send_packet);
+            TimeUnit.SECONDS.sleep(2);
+        }*/
+    }
 
 
 

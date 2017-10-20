@@ -217,6 +217,13 @@ public class Setup {
         home_page.Three.click();
         home_page.Four.click();
     }
+    public void enter_guest_code (){
+        Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        home_page.One.click();
+        home_page.Two.click();
+        home_page.Three.click();
+        home_page.Three.click();
+    }
     public void enter_default_dealer_code (){
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         home_page.Two.click();
@@ -541,7 +548,13 @@ public class Setup {
         driver.findElement(By.id("com.qolsys:id/wire_less_toggle")).click();
         Thread.sleep(3000);
     }
-
+    public void swipe_right() throws InterruptedException {
+        int starty = 400;
+        int endx = 660;
+        int startx = 360;
+        driver.swipe(startx, starty, endx, starty, 500);
+        Thread.sleep(2000);
+    }
 
     public void swipe_left() throws InterruptedException {
         int starty = 400;
