@@ -279,9 +279,9 @@ public class IQShock extends Setup {
     @AfterTest
     public void tearDown() throws IOException, InterruptedException {
         driver.quit();
-//        for (int i = 2; i > 0; i--) {
-//            delete_from_primary(i);
-//        }
+        for (int i = 2; i > 0; i--) {
+            delete_from_primary(i);
+        }
     }
 }
 

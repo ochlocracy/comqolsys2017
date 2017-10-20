@@ -20,6 +20,8 @@ import java.util.concurrent.TimeUnit;
 
 public class Disarm extends Setup {
 
+    public static Object navigate_to_Security_Sensors_page;
+
     public Disarm() throws IOException, BiffException { }
 
     private int Normal_Exit_Delay = 10;
