@@ -76,6 +76,8 @@ public class ARM_AWAY extends Setup {
     public void AA_01() throws Exception {
         logger.info("Verify the panel can be disarmed from ADC");
         servcall.set_AUTO_STAY(0);
+        Thread.sleep(3000);
+        servcall.set_DIALER_DELAY(7);
         Thread.sleep(1000);
         servcall.EVENT_ARM_AWAY();
         Thread.sleep(3000);
@@ -937,7 +939,7 @@ public class ARM_AWAY extends Setup {
 
     public void tamper_alarm_ver(int zone) throws Exception {
         adc.New_ADC_session_User(login,password);
-        Thread.sleep(60000);
+        Thread.sleep(5000);
         adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
         try {
             WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), ' (Sensor " + zone+") Pending Alarm ')]"));
@@ -948,7 +950,7 @@ public class ARM_AWAY extends Setup {
         } catch (Exception e) {
             System.out.println("No such element found!!!");
         }
-        Thread.sleep(10000);
+        Thread.sleep(5000);
         adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
         try {
             WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), ' Tamper Alarm')]"));
@@ -1643,7 +1645,8 @@ public void AA_63() throws Exception {
         logger.info("Verify the panel will go into immediate alarm is a Glass-break detector in group 13 is activated");
         add_primary_call(28,13,6750361,19);
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
-        Thread.sleep(3000);
+        servcall.set_DIALER_DELAY(6);
+        Thread.sleep(5000);
         servcall.EVENT_ARM_STAY();
         Thread.sleep(2000);
         verify_armstay();
@@ -1664,7 +1667,7 @@ public void AA_63() throws Exception {
         enter_default_user_code();
         Thread.sleep(4000);
         adc.New_ADC_session_User(login,password);
-        Thread.sleep(60000);
+        Thread.sleep(6000);
         adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
         try {
             WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), ' (Sensor 28) Pending Alarm ')]"));
@@ -1675,10 +1678,10 @@ public void AA_63() throws Exception {
         } catch (Exception e) {
             System.out.println("No such element found!!!");
         }
-        Thread.sleep(30000);
-        adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
+        Thread.sleep(3000);
+        adc.driver1.findElement(By.id("ctl00_phBody_RecentEventsWidget_btnEventsRefresh")).click();
         try {
-            WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Alarm')]"));
+            WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), '  (Sensor 28) Tamper Alarm')]"));
             Assert.assertTrue(history_message_alarm.isDisplayed());
             {
                 System.out.println("User website history -> " + " Sensor 28 event: " + history_message_alarm.getText());
@@ -1788,7 +1791,7 @@ public void AA_63() throws Exception {
         Thread.sleep(4000);
         adc.driver1.findElement(By.id("ctl00_HeaderLinks1_imgReload")).click();
         try {
-            WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), ' Alarm')]"));
+            WebElement history_message_alarm = adc.driver1.findElement(By.xpath("//*[contains(text(), 'Alarm')]"));
             Assert.assertTrue(history_message_alarm.isDisplayed());
             {
                 System.out.println("User website history -> " + " Sensor 28 event: " + history_message_alarm.getText());

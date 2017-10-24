@@ -113,6 +113,8 @@ public class Arm_Stay extends Setup{
         logger.info("Verify the panel can be disarmed from ADC");
         servcall.set_ARM_STAY_NO_DELAY_enable();
         Thread.sleep(1000);
+        servcall.set_DIALER_DELAY(6);
+        Thread.sleep(3000);
         servcall.EVENT_ARM_STAY();
         Thread.sleep(3000);
         verify_armstay();

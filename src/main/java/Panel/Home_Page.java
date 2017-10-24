@@ -66,7 +66,7 @@ public class Home_Page {
     public WebElement PhotoFrame_Mode;
     @FindBy(id="com.qolsys:id/main")
     public WebElement ArwAway_State;
-    @FindBy(xpath = "//android.widget.TextView[@text='ALARM']")
+    @FindBy(id = "com.qolsys:id/txt_title")
     public WebElement ALARM;
     @FindBy(id="com.qolsys:id/tv_keyOne")
     public WebElement One;
@@ -108,5 +108,13 @@ public class Home_Page {
     public WebElement Tamper_Status;
     @FindBy(id = "com.qolsys:id/img_quick_exit")
     public WebElement Quick_exit;
+    @FindBy(id = "com.qolsys:id/tv_fire_title")
+    public WebElement Fire_Alarm;
+    @FindBy(id = "com.qolsys:id/tv_police_title")
+    public WebElement police_Alarm;
+    @FindBy(id = "com.qolsys:id/tv_medical_title")
+    public WebElement Aux_Alarm;
+    @FindBy(id = "com.qolsys:id/tv_img_action_text")
+    public WebElement panel_Alarm;
 }
 

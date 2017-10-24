@@ -96,10 +96,12 @@ public class PanelInfo_ServiceCalls extends Setup {
 
     public void get_DIALER_DELAY() throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 36 i32 0 i32 0 i32 12 i32 0 i32 0";
-        rt.exec(command);}
+        rt.exec(command);
+        String value = (execCmd(command)).toString();
+        System.out.println(value);}
 
     public void set_DIALER_DELAY(int VALUE) throws IOException, InterruptedException {
-        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 12 i32 20 " + VALUE + " i32 0 i32 0";
+        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 12 i32 " + VALUE + " i32 0 i32 0";
         rt.exec(command);}
 
     public void get_SIREN_TIMEOUT() throws IOException, InterruptedException {

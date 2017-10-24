@@ -285,6 +285,14 @@ public class Setup {
             take_screenshot();
             logger.info("Failed: System is NOT in ALARM");}
     }
+    public void verify_panel_alarm() throws Exception {
+        Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        if (home_page.panel_Alarm.isDisplayed()) {
+            logger.info("Pass: System is in ALARM");
+        } else {
+            take_screenshot();
+            logger.info("Failed: System is NOT in ALARM");}
+    }
     public void verify_sensor_is_displayed(WebElement sensor_name) throws Exception {
         if (sensor_name.isDisplayed()) {
             logger.info(sensor_name.getText() +" is successfully opened/activated");
