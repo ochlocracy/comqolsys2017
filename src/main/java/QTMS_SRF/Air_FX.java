@@ -104,15 +104,15 @@ public class Air_FX extends Setup {
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_ucsAddSensor_txtDL"))).sendKeys(SensorDL);
         remote.Add_Sensor_Change.click();
         Thread.sleep(2000);
-
     }
+
     @Test (dependsOnMethods = {"ADC_Add_A_Sensor"}, priority =2)
     public void Check_Panel_For_Added_Sensor() throws InterruptedException, IOException, BiffException {
 
         Navigate_To_Edit_Sensor_Page();
-        Assert.assertTrue(driver.findElement(By.id("com.qolsys:id/textView5")).getText().contains("Door Window"));
+        Assert.assertTrue(driver.findElement(By.id("com.qolsys:id/textView4")).getText().contains("Door/Window"));
+        Assert.assertTrue(driver.findElement(By.id("com.qolsys:id/textView5")).getText().contains("Door/Window 1"));
         Assert.assertTrue(driver.findElement(By.id("com.qolsys:id/textView6")).getText().contains("10-Entry-Exit-Normal Delay"));
-
     }
 
     @Test (dependsOnMethods = {"Check_Panel_For_Added_Sensor"}, priority =3)
@@ -132,23 +132,19 @@ public class Air_FX extends Setup {
         String alertText = simpleAlert.getText();
         System.out.println("Alert text is " + alertText);
         simpleAlert.accept();
+
         Sensor_Data_Change("Change Sensor Type");
         SensorTypeDropDown("Orientation");
         remote.Send_Command_Update.click();
-        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_backToHyperLink"))).click();
-        remote.Sensor_Change_Page.click();
-
 
         Sensor_Data_Change("Change Sensor Group");
-        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_backToHyperLink"))).click();
-        remote.Sensor_Change_Page.click();
         SensorGroupDropDown("12");
-        remote.Sensor_Change_Page.click();
+        remote.Send_Command_Change.click();
 
         Sensor_Data_Change("Change Sensor Activity Monitoring Status");
-        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_backToHyperLink"))).click();
-        remote.Sensor_Change_Page.click();
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_rbtMonitoring_1"))).click();
+        remote.Send_Command_Change.click();
+        Thread.sleep(120000);
     }
 
 
@@ -162,8 +158,6 @@ public class Air_FX extends Setup {
     @Test (dependsOnMethods = {"Check_Panel_For_Updated_Sensor"}, priority =5)
     public void ADC_Delete_A_Sensor() throws InterruptedException, IOException, BiffException {
         Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
-
-        remote.Sensor_Change_Page.click();
 
         Sensor_Data_Change("Delete Sensor");
         remote.Send_Command_Change.click();
@@ -198,9 +192,10 @@ Verify Sensor activity monitor can be changed from ADC dealersite CHECK
 (1. go to ADC  Airfx sensor page to change a sensor activity monitoring  2 After command is being sent, check for sensor actvity monitoring )
 should be reflected on the user site too.
 
+
 Verify Auto-bypass can be enable/disable from ADC dealersite
 
-Verifiy Turn On/Off Auto Stay command can be send to panel from ADC dealer site
+Verify Turn On/Off Auto Stay command can be send to panel from ADC dealer site
 
 */
 
