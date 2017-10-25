@@ -44,6 +44,7 @@ public class Setup {
     public String projectPath = c.getProjectPath(); //
 
     public AndroidDriver<WebElement> driver;
+    public AndroidDriver<WebElement> driverRF;
 
 
     public Log log = new Log();
@@ -101,6 +102,17 @@ public class Setup {
         cap.setCapability("newCommandTimeout", "1000");
         cap.setCapability("clearSystemFiles", true);
         driver = new AndroidDriver<WebElement>(new URL(url_+":"+port_+"/wd/hub"), cap);
+    }
+
+    public void setup_driver_Transmitter(String getUdid, String url_, String port_) throws Exception {
+        DesiredCapabilities cap = new DesiredCapabilities();
+        cap.setCapability("deviceName", "RF Transmitter");
+        cap.setCapability("BROWSER_NAME", "Android");
+        cap.setCapability("udid", getUdid);
+        cap.setCapability("appPackage", "com.qolsys");
+        cap.setCapability("appActivity", "com.qolsys.activites.Theme3HomeActivity");
+        cap.setCapability("newCommandTimeout", "1000");
+        driverRF = new AndroidDriver<WebElement>(new URL(url_+":"+port_+"/wd/hub"), cap);
     }
 
     public void setup_logger(String test_case_name) throws Exception {
