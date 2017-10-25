@@ -185,6 +185,7 @@ public class Setup {
     public void navigate_to_Advanced_Settings_page () throws InterruptedException {
         Slide_Menu menu = PageFactory.initElements(driver, Slide_Menu.class);
         Settings_Page settings = PageFactory.initElements(driver, Settings_Page.class);
+
         menu.Slide_menu_open.click();
         menu.Settings.click();
         Thread.sleep(1000);
@@ -194,6 +195,18 @@ public class Setup {
         settings.Two.click();
         settings.Two.click();
         settings.Two.click();
+    }
+    public void Navigate_To_Edit_Sensor_Page() throws IOException, InterruptedException {
+        Installation_Page instal = PageFactory.initElements(driver, Installation_Page.class);
+        Devices_Page dev = PageFactory.initElements(driver, Devices_Page.class);
+        Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
+        Security_Sensors_Page sec = PageFactory.initElements(driver, Security_Sensors_Page.class);
+
+        navigate_to_Advanced_Settings_page();
+        adv.INSTALLATION.click();
+        instal.DEVICES.click();
+        dev.Security_Sensors.click();
+        sec.Edit_Sensor.click();
     }
     public void DISARM (){
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
@@ -771,7 +784,9 @@ public class Setup {
             }
         }
         Thread.sleep(1000);
+
     }
+
     public static String captureScreenshot (AndroidDriver driver, String screenshotName) throws IOException {
         try {
             TakesScreenshot ts = (TakesScreenshot) driver;

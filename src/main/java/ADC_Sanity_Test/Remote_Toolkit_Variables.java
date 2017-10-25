@@ -435,5 +435,13 @@ public class Remote_Toolkit_Variables {
     @FindBy(how = How.XPATH, xpath = "//*[@id='ctl00_phBody_sensorList_AlarmDataGridSensor']/tbody/tr[2]/td[9]/a")
     public WebElement Sensor_Change_Page;
 
+    @FindBy(how = How.ID, id = "ctl00_phBody_btnSubmit")
+    public WebElement Send_Command_Change;
+
+    @FindBy(how = How.ID, id = "ctl00_phBody_butUpdateDeviceType")
+    public WebElement Send_Command_Update;
+
+
+
 
 }
