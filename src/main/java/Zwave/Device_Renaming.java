@@ -30,7 +30,7 @@ public class Device_Renaming extends Setup{
     public Device_Renaming() throws IOException, BiffException {
     }
 
-    public void navigate_to_ZWave_Page(){
+    public void navigate_to_ZWave_Page() throws InterruptedException {
         navigate_to_Advanced_Settings_page();
         driver.findElement(By.xpath("//android.widget.TextView[@text='Installation']")).click();
         driver.findElement(By.xpath("//android.widget.TextView[@text='Devices']")).click();

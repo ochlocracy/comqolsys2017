@@ -49,7 +49,7 @@ public class EventsCheck extends Setup_Remote {
     public void Test2 () throws Exception {
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         System.out.println("Arm Stay - Disarm");
-        for (int i =10; i>0; i--) {
+        for (int i =5; i>0; i--) {
             Thread.sleep(15000);
             home_page.DISARM.click();
             home_page.ARM_STAY.click();
@@ -65,7 +65,9 @@ public class EventsCheck extends Setup_Remote {
             verify_disarm();
             eventLogsGenerating(logcat, new String[]{
                     EventContains.DISARM_event,
-                    EventContains.DISARM_Ui},2);
+                    EventContains.DISARM_Ui,
+                    EventContains.Exception},3);
+
             Thread.sleep(15000);
             System.out.println("Counter: "+i);
         }

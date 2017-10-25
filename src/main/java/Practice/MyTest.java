@@ -32,7 +32,7 @@ public class MyTest extends Setup {
         Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
         Installation_Page inst = PageFactory.initElements(driver, Installation_Page.class);
         User_Management_Page user = PageFactory.initElements(driver, User_Management_Page.class);
-        navigate_to_Advanced_Settings_page();
+     //   navigate_to_Advanced_Settings_page();
 
 
 

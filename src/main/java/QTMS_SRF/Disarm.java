@@ -55,7 +55,7 @@ public class Disarm extends Setup {
     PanelInfo_ServiceCalls servcall = new PanelInfo_ServiceCalls();
     String AccountID = adc.getAccountId();
 
-    public void navigate_to_Security_Sensors_page() {
+    public void navigate_to_Security_Sensors_page() throws InterruptedException {
         Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
         Installation_Page inst = PageFactory.initElements(driver, Installation_Page.class);
         Devices_Page dev = PageFactory.initElements(driver, Devices_Page.class);

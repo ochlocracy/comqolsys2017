@@ -44,6 +44,8 @@ public class Setup {
     public String projectPath = c.getProjectPath(); //
 
     public AndroidDriver<WebElement> driver;
+    public AndroidDriver<WebElement> driverRF;
+
 
     public Log log = new Log();
     public Logger logger = Logger.getLogger(this.getClass().getName());
@@ -75,7 +77,7 @@ public class Setup {
         else {
             val = "";
         }
-//        System.out.println(val);
+   //     System.out.println(val);
         return val;
     }
     public String split_method (  String str) {
@@ -98,7 +100,19 @@ public class Setup {
         cap.setCapability("appPackage", "com.qolsys");
         cap.setCapability("appActivity", "com.qolsys.activites.Theme3HomeActivity");
         cap.setCapability("newCommandTimeout", "1000");
+        cap.setCapability("clearSystemFiles", true);
         driver = new AndroidDriver<WebElement>(new URL(url_+":"+port_+"/wd/hub"), cap);
+    }
+
+    public void setup_driver_Transmitter(String getUdid, String url_, String port_) throws Exception {
+        DesiredCapabilities cap = new DesiredCapabilities();
+        cap.setCapability("deviceName", "RF Transmitter");
+        cap.setCapability("BROWSER_NAME", "Android");
+        cap.setCapability("udid", getUdid);
+        cap.setCapability("appPackage", "com.qolsys");
+        cap.setCapability("appActivity", "com.qolsys.activites.Theme3HomeActivity");
+        cap.setCapability("newCommandTimeout", "1000");
+        driverRF = new AndroidDriver<WebElement>(new URL(url_+":"+port_+"/wd/hub"), cap);
     }
 
     public void setup_logger(String test_case_name) throws Exception {
@@ -168,13 +182,15 @@ public class Setup {
         menu.Settings.click();
     }
 
-    public void navigate_to_Advanced_Settings_page () {
+    public void navigate_to_Advanced_Settings_page () throws InterruptedException {
         Slide_Menu menu = PageFactory.initElements(driver, Slide_Menu.class);
         Settings_Page settings = PageFactory.initElements(driver, Settings_Page.class);
 
         menu.Slide_menu_open.click();
         menu.Settings.click();
+        Thread.sleep(1000);
         settings.ADVANCED_SETTINGS.click();
+        Thread.sleep(2000);
         settings.Two.click();
         settings.Two.click();
         settings.Two.click();
@@ -213,7 +229,12 @@ public class Setup {
         home_page.ARM_AWAY.click();
         TimeUnit.SECONDS.sleep(delay);
     }
-
+    public void enter_default_DURESS_code (){
+        Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        home_page.Nine.click();
+        home_page.Nine.click();
+        home_page.Nine.click();
+        home_page.Eight.click();}
     public void enter_default_user_code (){
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         home_page.One.click();
@@ -221,7 +242,20 @@ public class Setup {
         home_page.Three.click();
         home_page.Four.click();
     }
-
+    public void enter_guest_code (){
+        Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        home_page.One.click();
+        home_page.Two.click();
+        home_page.Three.click();
+        home_page.Three.click();
+    }
+    public void enter_default_dealer_code (){
+        Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        home_page.Two.click();
+        home_page.Two.click();
+        home_page.Two.click();
+        home_page.Two.click();
+    }
     public void verify_disarm() throws Exception {
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         if (home_page.Disarmed_text.getText().equals("DISARMED")) {
@@ -259,9 +293,26 @@ public class Setup {
             take_screenshot();
             logger.info("Failed: Panel is not in Arm Away mode");}
     }
+
+
+    public void verify_photoframe_mode() throws Exception {
+        Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        if (home_page.PhotoFrame_Mode.isDisplayed()) {
+            logger.info("Pass: Panel is in Photo Frame mode");
+        } else {
+            take_screenshot();
+            logger.info("Failed: Panel is not in Photo Frame mode");}}
     public void verify_in_alarm() throws Exception {
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         if (home_page.ALARM.isDisplayed()) {
+            logger.info("Pass: System is in ALARM");
+        } else {
+            take_screenshot();
+            logger.info("Failed: System is NOT in ALARM");}
+    }
+    public void verify_panel_alarm() throws Exception {
+        Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        if (home_page.panel_Alarm.isDisplayed()) {
             logger.info("Pass: System is in ALARM");
         } else {
             take_screenshot();
@@ -310,6 +361,14 @@ public class Setup {
         Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
         if (home_page.Red_banner_sensor_status.getText().equals("Alarmed")) {
             logger.info("Pass: Correct status is Alarmed");
+        }else { take_screenshot();
+            logger.info("Failed: Incorrect status: " + home_page.Red_banner_sensor_status.getText());}
+    }
+
+    public void verify_sensorstatus_inAlarm(String Al_status) throws Exception {
+        Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        if (home_page.Red_banner_sensor_status.getText().equals(Al_status)) {
+            logger.info("Pass: Correct status is " + Al_status);
         }else { take_screenshot();
             logger.info("Failed: Incorrect status: " + home_page.Red_banner_sensor_status.getText());}
     }
@@ -522,7 +581,13 @@ public class Setup {
         driver.findElement(By.id("com.qolsys:id/wire_less_toggle")).click();
         Thread.sleep(3000);
     }
-
+    public void swipe_right() throws InterruptedException {
+        int starty = 400;
+        int endx = 660;
+        int startx = 360;
+        driver.swipe(startx, starty, endx, starty, 500);
+        Thread.sleep(2000);
+    }
 
     public void swipe_left() throws InterruptedException {
         int starty = 400;
@@ -722,9 +787,27 @@ public class Setup {
 
     }
 
+    public static String captureScreenshot (AndroidDriver driver, String screenshotName) throws IOException {
+        try {
+            TakesScreenshot ts = (TakesScreenshot) driver;
+            File source = ts.getScreenshotAs((OutputType.FILE));
+            String dest = "/home/qolsys/IdeaProjects/comqolsys2017/Report/" + screenshotName + ".png";
+            File destination = new File(dest);
+            FileUtils.copyFile(source, destination);
+            System.out.println("Screenshot taken");
+            return dest;
+        } catch (Exception e) {
+            System.out.println("Exception while taking screenshot " + e.getMessage());
+            return e.getMessage();
+        }
+    }
+    public void verify_setting(String setting, String call, String expected) throws IOException {
+        String result = execCmd(adbPath + " shell service call qservice " + call).split(" ")[2];
+        if(result.equals(expected))
+            logger.info("[Pass] " + setting + " has value: " + expected);
+        else
+            logger.info("[Fail] " + setting + " has value: " + result + ". Expected:" + expected);
 
-
-
-
+    }
 
     }

@@ -1,6 +1,7 @@
 package Settings;
 
 import Panel.*;
+import io.appium.java_client.android.AndroidDriver;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.support.PageFactory;
@@ -14,14 +15,13 @@ public class Alarm_Photos_Test extends Setup{
     String page_name = "Alarm Photos testing";
     Logger logger = Logger.getLogger(page_name);
 
-    public Alarm_Photos_Test() throws IOException, BiffException {
-    }
+    public Alarm_Photos_Test() throws IOException, BiffException {}
 
-    @BeforeMethod
-    public void capabilities_setup() throws Exception {
-        setup_driver(get_UDID(),"http://127.0.1.1", "4723");
-        setup_logger(page_name);
-    }
+//    @BeforeMethod
+//    public void capabilities_setup() throws Exception {
+//        setup_driver(get_UDID(),"http://127.0.1.1", "4723");
+//        setup_logger(page_name);
+//    }
 
     @Test
     public void Verify_Alarm_Photos_works() throws Exception {
@@ -83,9 +83,9 @@ public class Alarm_Photos_Test extends Setup{
         settings.Home_button.click();
         Thread.sleep(2000);
     }
-    @AfterMethod
-    public void tearDown () throws IOException, InterruptedException {
-        log.endTestCase(page_name);
-        driver.quit();
-    }
+//    @AfterMethod
+//    public void tearDown () throws IOException, InterruptedException {
+//        log.endTestCase(page_name);
+//        driver.quit();
+//    }
 }

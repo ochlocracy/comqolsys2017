@@ -10,9 +10,6 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-/**
- * Created by nchortek on 8/10/17.
- */
 public class PostUpdate_Settings extends Setup{
     String page_name = "Post-Update Panel Settings";
     Logger logger = Logger.getLogger(page_name);

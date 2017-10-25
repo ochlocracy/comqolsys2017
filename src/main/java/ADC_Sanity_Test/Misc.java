@@ -93,7 +93,7 @@ public class Misc extends Setup {
     }
 
     /***** ARM AWAY BY KEY FOB *****/
-    @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
+    @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class, priority = 1)
     public void ArmAway_by_keyfob_group1() throws Exception {
         Home_Page home = PageFactory.initElements(driver, Home_Page.class);
         logger.info("****************************ARM AWAY BY KEY FOB****************************");
@@ -122,7 +122,7 @@ public class Misc extends Setup {
         Thread.sleep(3000);
     }
 
-    @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
+    @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class, priority = 2)
     public void ArmAway_by_keyfob_group6() throws Exception {
         Home_Page home = PageFactory.initElements(driver, Home_Page.class);
         logger.info("****************************ARM AWAY BY KEY FOB****************************");
@@ -151,7 +151,7 @@ public class Misc extends Setup {
         Thread.sleep(3000);
     }
 
-    @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
+    @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class, priority = 3)
     public void ArmAway_by_keyfob_group4() throws Exception {
         Home_Page home = PageFactory.initElements(driver, Home_Page.class);
         logger.info("****************************ARM AWAY BY KEY FOB****************************");
@@ -181,7 +181,7 @@ public class Misc extends Setup {
     }
 
     /***** ARM STAY BY KEY FOB *****/
-    @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
+    @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class, priority = 4)
     public void ArmStay_by_keyfob_group1() throws Exception {
         Home_Page home = PageFactory.initElements(driver, Home_Page.class);
         logger.info("****************************ARM STAY BY KEY FOB****************************");
@@ -210,7 +210,7 @@ public class Misc extends Setup {
         Thread.sleep(3000);
     }
 
-    @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
+    @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class, priority = 5)
     public void ArmStay_by_keyfob_group6() throws Exception {
         Home_Page home = PageFactory.initElements(driver, Home_Page.class);
         logger.info("****************************ARM STAY BY KEY FOB****************************");
@@ -239,7 +239,7 @@ public class Misc extends Setup {
         Thread.sleep(3000);
     }
 
-    @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
+    @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class, priority = 6)
     public void ArmStay_by_keyfob_group4() throws Exception {
         Home_Page home = PageFactory.initElements(driver, Home_Page.class);
         logger.info("****************************ARM STAY BY KEY FOB****************************");
@@ -270,7 +270,7 @@ public class Misc extends Setup {
 
     /**** DISARM BY KEY FOB *****/
     //normal delay 30, 31; long delay 32, 33
-    @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
+    @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class, priority = 7)
     public void Disarm_by_keyfob_group1() throws Exception {
         Home_Page home = PageFactory.initElements(driver, Home_Page.class);
         logger.info("****************************DISARM BY KEY FOB****************************");
@@ -299,7 +299,7 @@ public class Misc extends Setup {
         Thread.sleep(2000);
     }
 
-    @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
+    @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class, priority = 8)
     public void Disarm_by_keyfob_group6() throws Exception {
         Home_Page home = PageFactory.initElements(driver, Home_Page.class);
         logger.info("****************************DISARM BY KEY FOB****************************");
@@ -328,7 +328,7 @@ public class Misc extends Setup {
         Thread.sleep(2000);
     }
 
-    @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class)
+    @Test(dependsOnMethods = {"addSensors"}, retryAnalyzer = RetryAnalizer.class, priority = 9)
     public void Disarm_by_keyfob_group4() throws Exception {
         Home_Page home = PageFactory.initElements(driver, Home_Page.class);
         logger.info("****************************DISARM BY KEY FOB****************************");
@@ -359,7 +359,7 @@ public class Misc extends Setup {
 
 
     /**** AirFX - Sensor Addition ****/
-    @Test (priority = 1)
+    @Test (priority = 10)
     public void AirFX_sensor_addition() throws IOException, InterruptedException {
         TimeUnit.SECONDS.sleep(2);
         String ID = "1";
@@ -465,7 +465,7 @@ public class Misc extends Setup {
     }
 
     /**** AirFX - Change Sensor Type and Sensor Group ****/
-    @Test (priority = 2)
+    @Test (priority = 12)
     public void AirFX_change_sensor_group() throws InterruptedException, IOException {
         adc.getDriver1().manage().window().maximize();
         String ADC_URL = "https://alarmadmin.alarm.com/Support/CustomerInfo.aspx?customer_Id=" + adc.getAccountId();
@@ -540,7 +540,7 @@ public class Misc extends Setup {
 
 
     /**** AirFX - Change Sensor Name ****/
-    @Test (priority = 3)
+    @Test (priority = 13)
     public void AirFX_change_sensor_name() throws InterruptedException, IOException {
         adc.getDriver1().manage().window().maximize();
         String ADC_URL = "https://alarmadmin.alarm.com/Support/CustomerInfo.aspx?customer_Id=" + adc.getAccountId();
@@ -611,7 +611,7 @@ public class Misc extends Setup {
          }
 
     /**** AirFX - Sensor Deletion ****/
-    @Test (priority = 4)
+    @Test (priority = 14)
     public void AirFX_sensor_deletion() throws InterruptedException, IOException {
         adc.getDriver1().manage().window().maximize();
         String ADC_URL = "https://alarmadmin.alarm.com/Support/CustomerInfo.aspx?customer_Id=" + adc.getAccountId();
