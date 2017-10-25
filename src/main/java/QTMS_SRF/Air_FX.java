@@ -156,6 +156,14 @@ public class Air_FX extends Setup {
     }
 
     @Test (dependsOnMethods = {"Check_Panel_For_Updated_Sensor"}, priority =5)
+    public void Check_USER_Site_For_Data() throws InterruptedException, IOException, BiffException {
+        Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
+
+
+
+    }
+
+        @Test (dependsOnMethods = {""}, priority =5)
     public void ADC_Delete_A_Sensor() throws InterruptedException, IOException, BiffException {
         Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
 
@@ -189,6 +197,7 @@ Verify sensor name can be changed from ADC dealer site and synced to panel
 (in disarm and arm stay and away) CHECK
 
 Verify Sensor activity monitor can be changed from ADC dealersite CHECK
+
 (1. go to ADC  Airfx sensor page to change a sensor activity monitoring  2 After command is being sent, check for sensor actvity monitoring )
 should be reflected on the user site too.
 
