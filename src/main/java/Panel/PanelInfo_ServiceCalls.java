@@ -1,5 +1,6 @@
 package Panel;
 
+import Sensors.Sensors;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.testng.annotations.Test;
@@ -8,6 +9,7 @@ import java.io.IOException;
 
 public class PanelInfo_ServiceCalls extends Setup {
     Configuration c = new Configuration();
+    Sensors sens = new Sensors();
     public String adbPath = c.getAdbPath();
     public Logger logger = Logger.getLogger(this.getClass().getName());
     public Runtime rt = Runtime.getRuntime();
@@ -94,10 +96,12 @@ public class PanelInfo_ServiceCalls extends Setup {
 
     public void get_DIALER_DELAY() throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 36 i32 0 i32 0 i32 12 i32 0 i32 0";
-        rt.exec(command);}
+        rt.exec(command);
+        String value = (execCmd(command)).toString();
+        System.out.println(value);}
 
     public void set_DIALER_DELAY(int VALUE) throws IOException, InterruptedException {
-        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 12 i32 20 " + VALUE + " i32 0 i32 0";
+        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 12 i32 " + VALUE + " i32 0 i32 0";
         rt.exec(command);}
 
     public void get_SIREN_TIMEOUT() throws IOException, InterruptedException {
@@ -186,6 +190,9 @@ public class PanelInfo_ServiceCalls extends Setup {
 
     public void set_ARM_STAY_NO_DELAY_enable() throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 40 i32 0 i32 0 i32 21 i32 1 i32 0 i32 0";
+        rt.exec(command);}
+    public void set_ARM_STAY_NO_DELAY_enable_Transmitter() throws IOException, InterruptedException {
+        String command = adbPath + " -s "+ sens.primary + " shell service call qservice 40 i32 0 i32 0 i32 21 i32 1 i32 0 i32 0";
         rt.exec(command);}
 
     public void get_KEYFOB_NO_DELAY() throws IOException, InterruptedException {
@@ -790,7 +797,9 @@ public class PanelInfo_ServiceCalls extends Setup {
     public void set_10minutes_SCREEN_SAVER_IDLE_TIME () throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 55 i32 600 i32 0 i32 0";
         rt.exec(command);}
-
+    public void set_5minutes_SCREEN_SAVER_IDLE_TIME () throws IOException, InterruptedException {
+        String command = adbPath + " shell service call qservice 39 i32 0 i32 0 i32 55 i32 3Verify the panel will Arm Away at the end of the exit delay if Arm Away button is pressed by 1-group keyfob00 i32 0 i32 0";
+        rt.exec(command);}
 
     public void get_SCREEN_SAVER_PHOTO_FRAME_OFF() throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 38 i32 0 i32 0 i32 56 i32 0 i32 0";
@@ -1117,6 +1126,9 @@ ADC can restart the QolSys apps: */
         rt.exec(command);}
     public void EVENT_ARM_STAY () throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 1 i32 0 i32 1 i32 0 i32 0 i32 0 i32 1 i32 0 i32 0 i32 1";
+        rt.exec(command);}
+    public void EVENT_ARM_STAY_Transmitter () throws IOException, InterruptedException {
+        String command = adbPath + " -s "+ sens.primary + " shell service call qservice 1 i32 0 i32 1 i32 0 i32 0 i32 0 i32 1 i32 0 i32 0 i32 1";
         rt.exec(command);}
     public void EVENT_ARM_AWAY () throws IOException, InterruptedException {
         String command = adbPath + " shell service call qservice 1 i32 0 i32 2 i32 0 i32 0 i32 0 i32 1 i32 0 i32 0 i32 1";

@@ -32,7 +32,7 @@ public class Smoke_Test_Motion extends Setup {
 
     @BeforeMethod
     public void capabilitiesSetup() throws Exception {
-        setup_driver(get_UDID(),"http://127.0.1.1", "4723");
+        setup_driver("62964b68","http://127.0.1.1", "4723");
         setup_logger(page_name);
     }
 
@@ -132,6 +132,7 @@ public class Smoke_Test_Motion extends Setup {
         ARM_AWAY(Long_Exit_Delay);
         TimeUnit.SECONDS.sleep(3);
         MySensors.sendPacket_allSensors_selectedGroup(MySensors.motion_zones, 25,Activate);
+
         verify_armaway();
         home_page.ArwAway_State.click();
         enter_default_user_code();
