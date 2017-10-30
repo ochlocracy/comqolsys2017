@@ -14,4 +14,5 @@ public class UIRepo {
     public WebElement Arm_Stay_state;
     @FindBy(xpath = "//button[contains(@id, 'ember') and contains(@class, 'disarmed btn ember-view')]")
     public WebElement Disarm;
+
 }
