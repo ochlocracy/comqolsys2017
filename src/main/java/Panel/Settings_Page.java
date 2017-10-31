@@ -5,6 +5,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class Settings_Page {
 
+
     @FindBy(xpath = "//android.widget.TextView[@text='DISPLAY']")
     public WebElement DISPLAY;
     @FindBy(xpath = "//android.widget.TextView[@text='SD CARD']")

@@ -1,55 +1,53 @@
 package Practice;
+import Panel.Setup;
 
-import Panel.*;
 import jxl.read.biff.BiffException;
-import org.junit.AfterClass;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Sleeper;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.Test;
+
 import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-/**
- * Created by qolsys on 7/18/17.
- */
-public class MyTest extends Setup {
 
-    public MyTest () throws IOException, BiffException{
+public class MyTest {
 
-    }
+    WebDriver driver = new FirefoxDriver();
+    Setup  setup = new Setup();
 
-    @BeforeMethod
-    public void capabilities_setup() throws Exception {
-        setup_driver(get_UDID(),"http://127.0.1.1", "4723");
+    public MyTest() throws IOException, BiffException {}
+
+    public void getListOfLinks() {
+        List<WebElement> list = driver.findElements(By.className(""));
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i).getText());
+        }
     }
 
     @Test
-    public void Test1(){
-        Settings_Page settings =  PageFactory.initElements(driver, Settings_Page.class);
-        Security_Arming_Page arming = PageFactory.initElements(driver, Security_Arming_Page.class);
-        Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
-        Installation_Page inst = PageFactory.initElements(driver, Installation_Page.class);
-        User_Management_Page user = PageFactory.initElements(driver, User_Management_Page.class);
-     //   navigate_to_Advanced_Settings_page();
-
-
-
-
-
-        System.out.println("***************Disarming panel ***************");
-        //DISARM();
-
-    }
-
-
-
-
-
-    @AfterMethod
-    public void tearDown () throws IOException, InterruptedException {
+    public void dynamicXPATH() throws InterruptedException {
+//        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+//        //start_with
+//        driver.findElement(By.xpath("//*[starts-with(@id,'oooooo')]/a"));
+//        //contains
+//        driver.findElement(By.xpath("//*[contains(@id,'oooooo')]/a"));
+        driver.get("https://alarmadmin.alarm.com/Support/CustomerInfo.aspx?action=select&customer_Id=4679473");
+        driver.manage().window().maximize();
+        driver.findElement(By.xpath("//*[@id='txtUsername']")).sendKeys("qautomation");
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//*[@id='txtPassword']")).sendKeys("Qolsys123");
+        driver.findElement(By.xpath("//*[@id='butLogin']")).click();
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+//        List <WebElement> list = driver.findElements(By.xpath("//*[@id='ctl00_navLinks']"));
+//        for (int i=0; i<list.size(); i++){
+//            System.out.println(list.get(i).getText());
+//        }
+        Thread.sleep(3000);
+        driver.findElement(By.xpath("//a[@title='See equipment list for a customer']")).click();
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         driver.quit();
     }
-
 }

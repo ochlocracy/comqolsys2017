@@ -1,9 +1,14 @@
 package Panel;
 
+import io.appium.java_client.android.AndroidDriver;
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class About_page {
+
     @FindBy(xpath = "//android.widget.TextView[@text='Battery']")
     public WebElement Battery;
     @FindBy(xpath = "//android.widget.TextView[@text='Battery Status']")
@@ -114,4 +119,5 @@ public class About_page {
     public WebElement Videos_About;
     @FindBy(xpath = "//android.widget.TextView[@text='Logs']")
     public WebElement Logs;
+
 }

@@ -1,5 +1,6 @@
 package Panel;
 
+import io.appium.java_client.android.AndroidDriver;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -16,9 +17,11 @@ public class About_Page_Test extends Setup {
 
     String page_name = "About page testing";
     Logger logger = Logger.getLogger(page_name);
-    Setup s = new Setup();
+    About_page about;
+    Advanced_Settings_Page adv;
 
-    public About_Page_Test() throws IOException, BiffException {
+
+    public About_Page_Test(AndroidDriver driver) throws IOException, BiffException {
     }
 
     public void swipe_vertical1() throws InterruptedException {
@@ -37,8 +40,8 @@ public class About_Page_Test extends Setup {
 
     @Test
     public void Check_all_elements_on_About_page() throws Exception {
-        About_page about = PageFactory.initElements(driver, About_page.class);
-        Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
+        about = PageFactory.initElements(driver, About_page.class);
+        adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
         logger.info("Verifying elements on the page...");
         navigate_to_Advanced_Settings_page();
         adv.ABOUT.click();

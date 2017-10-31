@@ -2,6 +2,7 @@ package IQRemote;
 
 import Panel.Configuration;
 import Panel.Home_Page;
+import Panel.Panel_Camera_Page;
 import Panel.Setup;
 import Sensors.EventConstants;
 import io.appium.java_client.android.AndroidDriver;
@@ -37,6 +38,13 @@ public class Setup_Remote {
         cap.setCapability("appActivity", "com.qolsys.activites.MainActivity");
         driver = new AndroidDriver<WebElement>(new URL(url_+":"+port_+"/wd/hub"), cap);
     }
+    public void ARM_STAY() {
+        Home_Page home_page = PageFactory.initElements(driver, Home_Page.class);
+        System.out.println("Arm Stay");
+        home_page.DISARM.click();
+        home_page.ARM_STAY.click();
+    }
+
 
     public void eventLogsGenerating(String fileName,String[] findEvent, int length) throws Exception{
         List<LogEntry> logEntries = driver.manage().logs().get("logcat").getAll();
@@ -96,6 +104,37 @@ public class Setup_Remote {
         home_page.Two.click();
         home_page.Three.click();
         home_page.Four.click();
+    }
+    public void swipeFromLefttoRight() throws Exception {
+        Thread.sleep(2000);
+        int sx = (int) (driver.manage().window().getSize().width * 0.90);
+        int ex = (int) (driver.manage().window().getSize().width * 0.10);
+        int sy = driver.manage().window().getSize().height / 2;
+        driver.swipe(ex, sy, sx, sy, 3000);
+        Thread.sleep(2000);
+    }
+    public void swipeFromRighttoLeft() throws Exception {
+        Thread.sleep(2000);
+        int sx = (int) (driver.manage().window().getSize().width * 0.90);
+        int ex = (int) (driver.manage().window().getSize().width * 0.10);
+        int sy = driver.manage().window().getSize().height / 2;
+        driver.swipe(sx, sy, ex, sy, 3000);
+        Thread.sleep(2000);
+    }
+    public void delete_all_camera_photos() throws Exception {
+        Panel_Camera_Page camera = PageFactory.initElements(driver, Panel_Camera_Page.class);
+        swipeFromLefttoRight();
+        Thread.sleep(3000);
+        try {
+            while (camera.Photo_lable.isDisplayed()){
+                camera.Camera_delete.click();
+                camera.Camera_delete_yes.click();
+                enter_default_user_code();}
+        }catch (Exception e) {
+            System.out.println("No photos to delete...");
+        } finally {
+        }
+        swipeFromRighttoLeft();
     }
 
     @Test

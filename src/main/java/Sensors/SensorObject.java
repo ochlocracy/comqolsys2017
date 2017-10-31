@@ -11,8 +11,7 @@ public class SensorObject  {
     int Protocol_Int;
     String Protocol_String;
 
-    public SensorObject(){
-    }
+    public SensorObject(){}
 
     public SensorObject(int input_Zone, String input_DLID, String input_SensorType, int input_SensorGroup, int input_SupervisoryTime, int input_Protocol){
         Zone = input_Zone;
