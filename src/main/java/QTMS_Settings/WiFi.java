@@ -84,7 +84,8 @@ public class WiFi extends Setup{
         adv.WI_FI.click();
         wifi.Back_button.click();
         element_verification(adv.WI_FI, "WiFi icon");
-        logger.info("SASW_010 Pass: User is taken back to the previous page."); }
+        logger.info("SASW_010 Pass: User is taken back to the previous page.");
+        Thread.sleep(5000);}
 
 /*** WiFi setting is disabled, One network has known ***/
 @Test(priority = 2)
@@ -117,6 +118,7 @@ public void Connect_toKnown_WiFiNetwork_SASW_001() throws Exception {
     String value1 = li.get(0).getText();
     logger.info("WiFi network name: " + value1);
     logger.info("SASW 001 Pass: User is able to connect to the known wi-fi network. ");
+    Thread.sleep(5000);
  }
     /*** WiFi is connected ***/
     @Test (priority = 1)
@@ -133,7 +135,8 @@ public void Connect_toKnown_WiFiNetwork_SASW_001() throws Exception {
         wifi.Checkbox.click();
         Thread.sleep(5000);
         servcall.get_WiFi();
-        logger.info("SASW 002 Pass: user can not connect to the wifi network, network notification grayed out");}
+        logger.info("SASW 002 Pass: user can not connect to the wifi network, network notification grayed out");
+        Thread.sleep(5000);}
 
     /*** WiFi is connected ***/
     @Test (priority = 3)
@@ -156,6 +159,7 @@ public void Connect_toKnown_WiFiNetwork_SASW_001() throws Exception {
         Thread.sleep(5000);
         servcall.get_WiFi_name();
         logger.info(" SASW 003 Pass: user is able to forget the selected network");
+        Thread.sleep(5000);
     }
     @AfterTest
     public void tearDown () throws IOException, InterruptedException {
