@@ -1139,7 +1139,7 @@ ADC can restart the QolSys apps: */
         String value = (execCmd(command)).toString();
         System.out.println(value);}
     public void data_verification () throws IOException, InterruptedException {
-        String command = adbPath + " shell busybox route ";
+        String command = adbPath + " shell toybox route ";
         rt.exec(command);
         String value = (execCmd(command)).toString();
         System.out.println(value);}

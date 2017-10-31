@@ -3,9 +3,7 @@ package QTMS_Settings;
 import ADC.ADC;
 import Cellular.Dual_path_page_elements;
 import Cellular.System_Tests_page;
-import Panel.Advanced_Settings_Page;
-import Panel.PanelInfo_ServiceCalls;
-import Panel.Setup;
+import Panel.*;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -18,7 +16,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
-
+import ADC.UIRepo;
 import java.io.IOException;
 
 
@@ -28,6 +26,7 @@ public class SystemTest_DualPath_ADC extends Setup{
     String page_name = "QTMS SystemTest_DualPath test cases";
     Logger logger = Logger.getLogger(page_name);
     ADC adc = new ADC();
+   UIRepo repo ;
     PanelInfo_ServiceCalls servcall = new PanelInfo_ServiceCalls();
     String AccountID = adc.getAccountId();
     String ADCexecute = "true";
@@ -126,6 +125,7 @@ public class SystemTest_DualPath_ADC extends Setup{
     }
     @Test
     public void SASST_030_usersitearming() throws Exception {
+        repo = PageFactory.initElements(driver, UIRepo.class);
         Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
         System_Tests_page sys = PageFactory.initElements(driver, System_Tests_page.class);
         Dual_path_page_elements dual = PageFactory.initElements(driver, Dual_path_page_elements.class);
@@ -138,7 +138,8 @@ public class SystemTest_DualPath_ADC extends Setup{
         adc.getDriver1().manage().window().maximize();
         String ADC_URL = "https://www.alarm.com/login.aspx";
         adc.getDriver1().get(ADC_URL);
-        String login = "panAut";
+        String login = "LeBron_James";
+       // String login = "panAut";
         String password = "qolsys123";
         Thread.sleep(2000);
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_ContentPlaceHolder1_loginform_txtUserName")));
@@ -147,22 +148,27 @@ public class SystemTest_DualPath_ADC extends Setup{
         adc.getDriver1().findElement(By.id("ctl00_ContentPlaceHolder1_loginform_signInButton")).click();
         Thread.sleep(2000);
         try {
-            if (adc.driver1.findElement(By.id("ctl00_responsiveBody_pageInfoActions_buttonSave")).isDisplayed()) {
-                adc.driver1.findElement(By.id("ctl00_responsiveBody_pageInfoActions_buttonSave")).click();
+            if (adc.driver1.findElement(By.xpath("//*[@id='ember735']")).isDisplayed()) {
+                adc.driver1.findElement(By.xpath("//*[@id='ember735']")).click();
             }
         } catch (NoSuchElementException e) {}
-        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_ArmingStateWidget_btnArmStay"))).click();
+//        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_ArmingStateWidget_btnArmStay"))).click();
         Thread.sleep(2000);
+        adc.driver1.findElement(By.xpath("//div[contains(@class, 'icon ') and contains(@title, 'Disarmed ')]")).click();
+        Thread.sleep(2000);
+        adc.driver1.findElement(By.xpath("//button[contains(@id, 'ember') and contains(@class, 'armed-stay btn ember-view')]")).click();
       // adc.getDriver1().findElement(By.id("ctl00_phBody_ArmingStateWidget_cbArmOptionSilent")).click();
        // adc.getDriver1().findElement(By.id("ctl00_phBody_ArmingStateWidget_cbArmOptionNoEntryDelay")).click();
-        adc.getDriver1().findElement(By.id("ctl00_phBody_ArmingStateWidget_btnArmOptionStay")).click();
-        Thread.sleep(2000);
-            if (adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_ArmingStateWidget_imgState"))).isDisplayed()) {
-                verify_armstay();}
+       // adc.getDriver1().findElement(By.id("ctl00_phBody_ArmingStateWidget_btnArmOptionStay")).click();
+       Thread.sleep(5000);
+        System.out.println("status verification");
+
+       // if (adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("//div[contains(@class, 'icon ') and contains(@title, 'Armed Stay today ')]"))).isDisplayed()) {
+        verify_armstay();
         Thread.sleep(4000);
-        System.out.println("Please wait 5 minutes to get update of User site");
-        logger.info("SASST_030 Pass:Remote arming takes less than 5 minutes after Dual path test passed.");
-        servcall.EVENT_DISARM();}
+      // System.out.println("Please wait 5 minutes to get update of User site");
+       logger.info("SASST_030 Pass:Remote arming takes less than 5 minutes after Dual path test passed.");
+       servcall.EVENT_DISARM();}
 
        @AfterTest
     public void tearDown () throws IOException, InterruptedException {
