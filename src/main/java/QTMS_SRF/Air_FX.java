@@ -51,8 +51,6 @@ public class Air_FX extends Setup {
         adc.driver1.get("https://alarmadmin.alarm.com/Support/Commands/GetSensorNames.aspx");
     }
 
-
-
     public void Sensor_Data_Change(String linkText) {
         WebElement toolkit_options = (new WebDriverWait(adc.driver1, 20))
                 .until(ExpectedConditions.presenceOfElementLocated(By.id("ctl00_phBody_ddlActions")));
@@ -159,7 +157,8 @@ public class Air_FX extends Setup {
     public void Check_USER_Site_For_Data() throws InterruptedException, IOException, BiffException {
         Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
 
-
+//sensor activity monitoring
+        //
 
     }
 
@@ -200,9 +199,15 @@ Verify Sensor activity monitor can be changed from ADC dealersite CHECK
 
 (1. go to ADC  Airfx sensor page to change a sensor activity monitoring  2 After command is being sent, check for sensor actvity monitoring )
 should be reflected on the user site too.
+https://www.alarm.com/web/Security/Sensors.aspx
+security/sensors/
 
+		Boolean Enable = driver.findElement(By.xpath("//*[@id='next']")).isEnabled();
+				System.out.println("Element enabled is :"+Enable);
+		Boolean Select = driver.findElement(By.xpath("//*[@id='PersistentCookie']")).isSelected();
 
-Verify Auto-bypass can be enable/disable from ADC dealersite
+or
+selenium.check("//input[@name=’checkboxes[]’ and @value=’cb3’]");
 
 Verify Turn On/Off Auto Stay command can be send to panel from ADC dealer site
 
