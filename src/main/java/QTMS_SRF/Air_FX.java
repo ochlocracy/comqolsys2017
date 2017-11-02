@@ -228,19 +228,7 @@ Verify sensor name can be changed from ADC dealer site and synced to panel
 
 Verify Sensor activity monitor can be changed from ADC dealersite CHECK
 
-(1. go to ADC  Airfx sensor page to change a sensor activity monitoring  2 After command is being sent, check for sensor actvity monitoring )
-should be reflected on the user site too.
-https://www.alarm.com/web/Security/Sensors.aspx
-security/sensors/
-
-		Boolean Enable = driver.findElement(By.xpath("//*[@id='next']")).isEnabled();
-				System.out.println("Element enabled is :"+Enable);
-		Boolean Select = driver.findElement(By.xpath("//*[@id='PersistentCookie']")).isSelected();
-
-or
-selenium.check("//input[@name=’checkboxes[]’ and @value=’cb3’]");
-
-Verify Turn On/Off Auto Stay command can be send to panel from ADC dealer site
+Verify Turn On/Off Auto Stay command can be send to panel from ADC dealer site CHECK
 
 */
 
