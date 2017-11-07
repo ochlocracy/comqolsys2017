@@ -103,8 +103,7 @@ public class SystemTest_DualPath_ADC extends Setup{
         logger.info("ADC AirFX");
         adc.getDriver1().manage().window().maximize();
         String ADC_URL = "https://alarmadmin.alarm.com/Support/CustomerInfo.aspx?customer_Id=" + adc.getAccountId();
-        String new_name = "New custom name";
-        adc.getDriver1().get(ADC_URL);
+         adc.getDriver1().get(ADC_URL);
         String login = "qapple";
         String password = "qolsys123";
         Thread.sleep(2000);
