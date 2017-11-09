@@ -183,7 +183,7 @@ public class Air_FX extends Setup {
         Assert.assertTrue(driver.findElement(By.id("com.qolsys:id/textView5")).getText().contains("Cool Door Window"));
         Assert.assertTrue(driver.findElement(By.id("com.qolsys:id/textView6")).getText().contains("12-Entry-Exit-Long Delay"));
 
-        ARM_AWAY(Long_Exit_Delay/3);
+        ARM_AWAY(Long_Exit_Delay/5);
         verify_armaway();
         sensors.primary_call(DLID, activate);
         Thread.sleep(2000);
@@ -213,8 +213,6 @@ public class Air_FX extends Setup {
         adc.driver1.quit();
         driver.quit();
     }
-
-
 }
 
 /*
