@@ -10,8 +10,8 @@ import java.io.IOException;
 
 public class ZWave extends Setup{
     Configuration c = new Configuration();
-    private String transmitter = c.getTransmitterUDID();//"416659d";
-    private String Gen2 = c.getgGen2UDID();//"ac82129c";
+    private String transmitter = transmitterUDID;
+    private String Gen2 = gen2UDID;
 
     String remoteNodeAdd = " shell service call qservice 1 i32 0 i32 1560 i32 0 i32 0 i32 0 i32 0 i32 0 i32 0 i32 0";
     String remoteNodeAbort = " shell service call qservice 1 i32 0 i32 1561 i32 0 i32 0 i32 0 i32 0 i32 0 i32 0 i32 0";
