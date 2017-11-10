@@ -8,9 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.*;
 import org.testng.annotations.Test;
-
 import java.io.IOException;
-
 import java.util.List;
 
 public class About_Page_Test extends Setup {
@@ -21,7 +19,7 @@ public class About_Page_Test extends Setup {
     Advanced_Settings_Page adv;
 
 
-    public About_Page_Test(AndroidDriver driver) throws IOException, BiffException {
+    public About_Page_Test() throws IOException, BiffException {
     }
 
     public void swipe_vertical1() throws InterruptedException {
@@ -32,7 +30,7 @@ public class About_Page_Test extends Setup {
         Thread.sleep(2000);
     }
 
-        @BeforeClass
+    @BeforeMethod
     public void capabilities_setup() throws Exception {
         setup_driver(get_UDID(),"http://127.0.1.1", "4723");
         setup_logger(page_name);
