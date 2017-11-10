@@ -1,15 +1,18 @@
 package ADC_Sanity_Test;
 
+import Panel.Configuration;
 import Panel.Setup;
 import jxl.read.biff.BiffException;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 
 public class ZWave extends Setup{
+    Configuration c = new Configuration();
+    private String transmitter = c.getTransmitterUDID();//"416659d";
+    private String Gen2 = c.getgGen2UDID();//"ac82129c";
 
-    private String transmitter = "416659d";
-    private String Gen2 = "ac82129c";
     String remoteNodeAdd = " shell service call qservice 1 i32 0 i32 1560 i32 0 i32 0 i32 0 i32 0 i32 0 i32 0 i32 0";
     String remoteNodeAbort = " shell service call qservice 1 i32 0 i32 1561 i32 0 i32 0 i32 0 i32 0 i32 0 i32 0 i32 0";
 
@@ -47,11 +50,12 @@ public class ZWave extends Setup{
         rt.exec(adbPath + " -s " + transmitter + " shell service call zwavetransmitservice 3 i32 3");
     }
 
-//    @BeforeMethod
-//    public void capabilities_setup() throws Exception {
-////        setup_driver(get_UDID(), "http://127.0.1.1", "4723");
-//////        setup_logger(page_name);
-//    }
+    @BeforeMethod
+    public void capabilities_setup() throws Exception {
+        setup_driver(gen2UDID, "http://127.0.1.1", "4723");
+////        setup_logger(page_name);
+    }
+
 
     @Test
     public void addTranmitter () throws IOException, InterruptedException {
