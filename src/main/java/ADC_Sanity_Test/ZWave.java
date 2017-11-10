@@ -62,5 +62,9 @@ public class ZWave extends Setup{
        includeBridge();
 
     }
+    @Test
+    public void addLigth() throws IOException, InternalError{
+
+    }
 
 }
