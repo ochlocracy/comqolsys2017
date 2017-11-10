@@ -34,17 +34,17 @@ public class Configuration {
         String CellGetContent = sh.getCell(1,1).getContents();
         return CellGetContent;
     }
-//    public String getgGen2UDID() throws IOException, BiffException{
-//        Workbook wb =Workbook.getWorkbook(new File(config));
-//        Sheet sh = wb.getSheet(0);
-//        String CellGetContent = sh.getCell(1,0).getContents();
-//        return CellGetContent;
-//    }
-//    public String getTransmitterUDID() throws IOException, BiffException{
-//        Workbook wb =Workbook.getWorkbook(new File(config));
-//        Sheet sh = wb.getSheet(0);
-//        String CellGetContent = sh.getCell(1,0).getContents();
-//        return CellGetContent;
-//    }
+    public String getgGen2UDID() throws IOException, BiffException{
+        Workbook wb =Workbook.getWorkbook(new File(config));
+        Sheet sh = wb.getSheet(0);
+        String CellGetContent = sh.getCell(0,3).getContents();
+        return CellGetContent;
+    }
+    public String getTransmitterUDID() throws IOException, BiffException{
+        Workbook wb =Workbook.getWorkbook(new File(config));
+        Sheet sh = wb.getSheet(0);
+        String CellGetContent = sh.getCell(0,2).getContents();
+        return CellGetContent;
+    }
 
 }
