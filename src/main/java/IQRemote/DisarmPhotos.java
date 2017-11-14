@@ -44,19 +44,12 @@ public class DisarmPhotos extends  Setup_Remote {
         }
         swipeFromRighttoLeft();
         Thread.sleep(3000);
-        Thread.sleep(3000);
-        rt.exec(adbPath + "adb shell");
-        rt.exec(adbPath + "cd /sdcard");
-        rt.exec(adbPath + "ls");
-        rt.exec(adbPath + "cd DisarmPhotos");
-        rt.exec(adbPath + "adb shell");
-
-        //adb shell ls -l /storage/sdcard0/DisarmPhotos | busybox1.11  wc -l
+        rt.exec("ls -l /storage/sdcard0/DisarmPhotos | busybox1.11  wc -l");
     }
 
     @Test
     public void Add_Disarm_Photos() throws Exception {
-        System.out.println("Delete_All_Photos Begin");
+        System.out.println("Add_All_Photos Begin");
 
     }
     }
