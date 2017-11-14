@@ -2,6 +2,8 @@ package Panel;
 
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
+import jxl.Sheet;
+import jxl.Workbook;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -40,8 +42,12 @@ public class Setup {
     Configuration c = new Configuration();
     public String adbPath = c.getAdbPath();
     public File appDir = new File("src");
-    public String udid_ =  c.getudid_(); //"8ebdbc27";
-    public String projectPath = c.getProjectPath(); //
+    public String udid_ =  c.getudid_();
+    public String projectPath = c.getProjectPath();
+    public String transmitterUDID = c.getTransmitterUDID();
+    public String gen2UDID = c.getgGen2UDID();
+
+
 
     public AndroidDriver<WebElement> driver;
     public AndroidDriver<WebElement> driverRF;
@@ -92,6 +98,7 @@ public class Setup {
         return panel_UDID;
     }
 
+
     public void setup_driver(String getUdid, String url_, String port_) throws Exception {
         DesiredCapabilities cap = new DesiredCapabilities();
         cap.setCapability("deviceName", "IQPanel2");
@@ -104,16 +111,16 @@ public class Setup {
         driver = new AndroidDriver<WebElement>(new URL(url_+":"+port_+"/wd/hub"), cap);
     }
 
-    public void setup_driver_Transmitter(String getUdid, String url_, String port_) throws Exception {
-        DesiredCapabilities cap = new DesiredCapabilities();
-        cap.setCapability("deviceName", "RF Transmitter");
-        cap.setCapability("BROWSER_NAME", "Android");
-        cap.setCapability("udid", getUdid);
-        cap.setCapability("appPackage", "com.qolsys");
-        cap.setCapability("appActivity", "com.qolsys.activites.Theme3HomeActivity");
-        cap.setCapability("newCommandTimeout", "1000");
-        driverRF = new AndroidDriver<WebElement>(new URL(url_+":"+port_+"/wd/hub"), cap);
-    }
+//    public void setup_driver_transmitter(String transmitterUDID, String url_, String port_) throws Exception {
+//        DesiredCapabilities cap = new DesiredCapabilities();
+//        cap.setCapability("deviceName", "RF Transmitter");
+//        cap.setCapability("BROWSER_NAME", "Android");
+//        cap.setCapability("udid", transmitterUDID);
+//        cap.setCapability("appPackage", "com.qolsys");
+//        cap.setCapability("appActivity", "com.qolsys.activites.Theme3HomeActivity");
+//        cap.setCapability("newCommandTimeout", "1000");
+//        driverRF = new AndroidDriver<WebElement>(new URL(url_+":"+port_+"/wd/hub"), cap);
+//    }
 
     public void setup_logger(String test_case_name) throws Exception {
         PropertyConfigurator.configure(new File(appDir, "log4j.properties").getAbsolutePath());
