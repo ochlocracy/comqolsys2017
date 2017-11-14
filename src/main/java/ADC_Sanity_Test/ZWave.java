@@ -9,9 +9,9 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 
 public class ZWave extends Setup{
-    Configuration c = new Configuration();
-    private String transmitter = transmitterUDID;
-    private String Gen2 = gen2UDID;
+//    Configuration c = new Configuration();
+//    private String transmitter = transmitterUDID;
+//    private String Gen2 = gen2UDID;
 
     String remoteNodeAdd = " shell service call qservice 1 i32 0 i32 1560 i32 0 i32 0 i32 0 i32 0 i32 0 i32 0 i32 0";
     String remoteNodeAbort = " shell service call qservice 1 i32 0 i32 1561 i32 0 i32 0 i32 0 i32 0 i32 0 i32 0 i32 0";
@@ -22,32 +22,32 @@ public class ZWave extends Setup{
     // bridge will be included to the Gen2 an nodeID 2
     public void includeBridge() throws IOException, InterruptedException {
         Thread.sleep(3000);
-        rt.exec(adbPath + " -s " + Gen2 + remoteNodeAdd);
-        System.out.println(adbPath + " -s " + Gen2 + remoteNodeAdd);
+        rt.exec(adbPath + " -s " + gen2UDID + remoteNodeAdd);
+        System.out.println(adbPath + " -s " + gen2UDID + remoteNodeAdd);
         Thread.sleep(3000);
 
-        rt.exec(adbPath + " -s " + transmitter + " shell service call zwavetransmitservice 2");
+        rt.exec(adbPath + " -s " + transmitterUDID + " shell service call zwavetransmitservice 2");
         Thread.sleep(50000);
-        rt.exec(adbPath + " -s " + Gen2 + remoteNodeAbort);
-        System.out.println(adbPath + " -s " + Gen2 + remoteNodeAbort);
+        rt.exec(adbPath + " -s " + gen2UDID + remoteNodeAbort);
+        System.out.println(adbPath + " -s " + gen2UDID + remoteNodeAbort);
     }
     public void addLights(int Lights_number) throws IOException, InterruptedException {
         Thread.sleep(3000);
-        rt.exec(adbPath + " -s " + Gen2 + remoteNodeAdd);
-        System.out.println(adbPath + " -s " + Gen2 + remoteNodeAdd);
+        rt.exec(adbPath + " -s " + gen2UDID + remoteNodeAdd);
+        System.out.println(adbPath + " -s " + gen2UDID + remoteNodeAdd);
         Thread.sleep(3000);
 
         for (int i = Lights_number; i>0; i--){
-        rt.exec(adbPath + " -s " + transmitter + " shell service call zwavetransmitservice 3 i32 1");
-        System.out.println(adbPath + " -s " + transmitter + " shell service call zwavetransmitservice 3 i32 1");
+        rt.exec(adbPath + " -s " + transmitterUDID + " shell service call zwavetransmitservice 3 i32 1");
+        System.out.println(adbPath + " -s " + transmitterUDID + " shell service call zwavetransmitservice 3 i32 1");
         Thread.sleep(20000);
         }
-        rt.exec(adbPath + " -s " + Gen2 + remoteNodeAbort);
-        System.out.println(adbPath + " -s " + Gen2 + remoteNodeAbort);
+        rt.exec(adbPath + " -s " + gen2UDID + remoteNodeAbort);
+        System.out.println(adbPath + " -s " + gen2UDID + remoteNodeAbort);
 
     }
     public void addThermostat() throws IOException {
-        rt.exec(adbPath + " -s " + transmitter + " shell service call zwavetransmitservice 3 i32 3");
+        rt.exec(adbPath + " -s " + transmitterUDID + " shell service call zwavetransmitservice 3 i32 3");
     }
 
     @BeforeMethod
