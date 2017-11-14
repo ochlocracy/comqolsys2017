@@ -13,11 +13,10 @@ import Panel.Setup;
 import java.util.List;
 /**
  * Created by nchortek on 6/22/17.
- * PRECONDITION: 3 lights must be paired and turned off before
- * executing this test. The highest light must be set to full brightness
+ * Edited by JMAUS 11/3/17
  */
 public class Lights_Test extends Setup{
-    String page_name = "Lights_Page";
+    String page_name = "Z-Wave Lights and Switches Test";
     Logger logger = Logger.getLogger(page_name);
 
 
@@ -31,33 +30,33 @@ public class Lights_Test extends Setup{
         setup_logger(page_name);
     }
 
-    @Test
-    public void Check_all_elements_on_Lights_Page() throws Exception {
-        Lights_Page lights = PageFactory.initElements(driver, Lights_Page.class);
-        swipe_left();
-
-        element_verification(lights.On_Button, "On Button");
-        element_verification(lights.Off_Button, "Off Button");
-        element_verification(lights.Get_Status_Button, "Get Status Button");
-
-        List<WebElement> li1 = driver.findElements(By.id("com.qolsys:id/lightSelect"));
-        List<WebElement> li2 = driver.findElements(By.id("com.qolsys:id/uiName"));
-        List<WebElement> li3 = driver.findElements(By.id("com.qolsys:id/statusButton"));
-
-        element_verification(li1.get(0), "Light1 Select Button");
-        element_verification(li1.get(1), "Light2 Select Button");
-        element_verification(li1.get(2), "Light3 Select Button");
-        element_verification(li2.get(0), "Light1 Name");
-        element_verification(li2.get(1), "Light2 Name");
-        element_verification(li2.get(2), "Light3 Name");
-        element_verification(li3.get(0), "Light1 Status");
-        element_verification(li3.get(1), "Light2 Status");
-        element_verification(li3.get(2), "Light3 Status");
-
-        li1.clear();
-        li2.clear();
-        li3.clear();
-    }
+//    @Test
+//    public void Check_all_elements_on_Lights_Page() throws Exception {
+//        Lights_Page lights = PageFactory.initElements(driver, Lights_Page.class);
+//        swipe_left();
+//
+//        element_verification(lights.On_Button, "On Button");
+//        element_verification(lights.Off_Button, "Off Button");
+//        element_verification(lights.Get_Status_Button, "Get Status Button");
+//
+//        List<WebElement> li1 = driver.findElements(By.id("com.qolsys:id/lightSelect"));
+//        List<WebElement> li2 = driver.findElements(By.id("com.qolsys:id/uiName"));
+//        List<WebElement> li3 = driver.findElements(By.id("com.qolsys:id/statusButton"));
+//
+//        element_verification(li1.get(0), "Light1 Select Button");
+//        element_verification(li1.get(1), "Light2 Select Button");
+//        element_verification(li1.get(2), "Light3 Select Button");
+//        element_verification(li2.get(0), "Light1 Name");
+//        element_verification(li2.get(1), "Light2 Name");
+//        element_verification(li2.get(2), "Light3 Name");
+//        element_verification(li3.get(0), "Light1 Status");
+//        element_verification(li3.get(1), "Light2 Status");
+//        element_verification(li3.get(2), "Light3 Status");
+//
+//        li1.clear();
+//        li2.clear();
+//        li3.clear();
+//    }
 
     @Test (priority = 1)
     public void Test_Lights_Page() throws Exception {
@@ -169,6 +168,135 @@ public class Lights_Test extends Setup{
         Thread.sleep(6000);
     }
 
+    public void Z_Wave_Lights_Disarm_Mode(String UDID_) throws Exception {
+
+
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Verify that a Light can be paired with a Panel");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Verify that a new Light appears on the ADC websites");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Verify that multiple Lights can be paired with a Panel");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Verify that you can pair max of Lights according to the set current number");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Verify that you can edit a device name (panel)");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Verify that you can edit a device name (ADC");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Verify that when the device is unreachable a Panel recognizes the status correctly");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Verify that the history events are displayed on the Home Control Status page");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Verify that  a Light can be deleted from a Panel");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Verify that  a Light can be deleted from the ADC website");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Verify that a light can be turned ON from a panel");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Verify that a light can be turned OFF from a panel");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Verify that multiple lights can be turned ON from a panel");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Verify that multiple lights can be turned OFF from a panel");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Verify that dimming level can be changed from a panel");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Verify that a new Light appears on the ADC websites");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Verify that the set dimming level remains after the light been turned  ON/OFF");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Verify that panel recognizes status change (ON)");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Verify that panel recognizes status change (OFF)");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Verify that only 10 lights are being monitored on ADC");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Verify that you can change the 10 lights being monitored on ADC");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Verify that the Light can be turned On from the User website");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Verify that the Light can be turned Off from the User website");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Verify that the dimming level can be changed from the User website");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Create rule engine for lights with alarm condition: When this event occurs: Alarm (Intrusion Sensor Alarm), During these time frames: At all times, Select devices, Turn ON");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Create rule engine for lights with alarm condition:  When this event occurs: Alarm (Intrusion Sensor Alarm), During these time frames: At all times, Select devices, Turn OFF");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Create rule engine for lights with arm/disarm conditions: When this event occurs: Arm/Dis arm (Dis armed), Perform this action: Turn On for 5 mins, During these time frames: At all times, Select devices");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Create rule engine for lights with arm/disarm conditions: When this event occurs: Arm/Dis arm (Dis armed), Perform this action: Turn Off, During these time frames: At all times, Select devices");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Create rule engine for lights with  Alarm condition: When this event occurs: Alarm (Panel Alarm), During these time frames: At all times, Select devices, Turn ON");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Create rule engine for lights with  Alarm condition: When this event occurs: Alarm (Panel Alarm), During these time frames: At all times, Select devices, Turn OFF");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Create rule engine for lights with  Alarm condition: When this event occurs: Arm (Panel Arm A way), During these time frames: At all times, Select devices, Turn ON");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Create rule engine for lights with  Alarm condition: When this event occurs: Arm (Panel Arm S tay), During these time frames: At all times, Select devices, Turn ON");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Create rule engine for lights with  Geo-fencing condition: When this event occurs: People cross a Geo-Fence (Exits Home), During these time frames: At all times, Select devices, Turn OFF");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Create rule engine for lights with  Geo-fencing condition: When this event occurs: People cross a Geo-Fence (Enters Home), During these time frames: At all times, Select devices, Turn ON");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Create a group of lights");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Power Metering on Panel");
+
+        logger.info("********************************************************");
+        logger.info("Disarm mode: Power Metering on ADC";
+    }
+    public void Z_Wave_Lights_Arm_Stay_Mode(String UDID_) throws Exception {}
+    public void Z_Wave_Lights_Arm_Away_Mode(String UDID_) throws Exception {}
+
+    public void Z_Wave_Lights_Scedules(String UDID_) throws Exception {
+
+        logger.info("********************************************************");
+        logger.info("Schedules: Add a schedule: On these days: select; Perform these scheduled actions: Turn On based on: Time of day at -select");
+
+        logger.info("********************************************************");
+        logger.info("Schedules: Add a schedule: On these days: select; Perform these scheduled actions: Dim based on: Time of day at -select");
+
+        logger.info("********************************************************");
+        logger.info("Schedules: Add a schedule:  On these days: select; Perform these scheduled actions: Turn Off based on: Time of day at -select");
+    }
     @AfterMethod
     public void tearDown () throws IOException, InterruptedException {
         log.endTestCase(page_name);
