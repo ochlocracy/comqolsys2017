@@ -15,6 +15,7 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.Delayed;
 import java.util.concurrent.TimeUnit;
 import org.testng.annotations.Test;
 
@@ -28,6 +29,9 @@ public class Air_FX extends Setup {
     String accountID = adc.getAccountId();
     PanelInfo_ServiceCalls servcall = new PanelInfo_ServiceCalls();
     Sensors sensors = new Sensors();
+    private int Long_Exit_Delay = 12;
+    private String activate = "02 01";
+
 
     /*** If you want to run tests only on the panel, please set ADCexecute value to false ***/
     String ADCexecute = "true";
@@ -51,8 +55,6 @@ public class Air_FX extends Setup {
         adc.driver1.get("https://alarmadmin.alarm.com/Support/Commands/GetSensorNames.aspx");
     }
 
-
-
     public void Sensor_Data_Change(String linkText) {
         WebElement toolkit_options = (new WebDriverWait(adc.driver1, 20))
                 .until(ExpectedConditions.presenceOfElementLocated(By.id("ctl00_phBody_ddlActions")));
@@ -74,6 +76,25 @@ public class Air_FX extends Setup {
         Stoolkit_options.selectByVisibleText(linkText);
     }
 
+    public void clickAnElementByLinkText(String linkText) {
+        WebElement toolkit_options = (new WebDriverWait(adc.driver1, 20))
+                .until(ExpectedConditions.presenceOfElementLocated(By.id("ctl00_responsiveBody_ucCommands_ddlNewValue")));
+        Select Stoolkit_options = new Select(toolkit_options);
+        Stoolkit_options.selectByVisibleText(linkText);
+    }
+
+    public void history_verification (String message) {
+        adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_butSearch"))).click();
+        try {
+            WebElement history_message = adc.driver1.findElement(By.xpath(message));
+            Assert.assertTrue(history_message.isDisplayed());
+            {
+                System.out.println("Pass: message is displayed " + history_message.getText());
+            }
+        } catch (Exception e) {
+            System.out.println("***No such element found!***");
+        }
+    }
 
     @BeforeClass
     public void webDriver() throws Exception {
@@ -145,17 +166,34 @@ public class Air_FX extends Setup {
         adc.wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_phBody_rbtMonitoring_1"))).click();
         remote.Send_Command_Change.click();
         Thread.sleep(120000);
+
+        adc.driver1.get("https://alarmadmin.alarm.com/Support/RemoteToolkit.aspx");
+        remote.Arming_Setting_Dropdown.click();
+        remote.Auto_Stay.click();
+        clickAnElementByLinkText("On");
+        remote.Change.click();
+        Thread.sleep(2000);
+
     }
 
 
     @Test (dependsOnMethods = {"ADC_Change_Sensor_Data"}, priority =4)
-    public void Check_Panel_For_Updated_Sensor() throws InterruptedException, IOException, BiffException {
+    public void Check_Panel_For_Updated_Sensor(String DLID, String element_to_verify, int sensor) throws Exception {
         Navigate_To_Edit_Sensor_Page();
         Assert.assertTrue(driver.findElement(By.id("com.qolsys:id/textView5")).getText().contains("Cool Door Window"));
         Assert.assertTrue(driver.findElement(By.id("com.qolsys:id/textView6")).getText().contains("12-Entry-Exit-Long Delay"));
+
+        ARM_AWAY(Long_Exit_Delay/5);
+        verify_armaway();
+        sensors.primary_call(DLID, activate);
+        Thread.sleep(2000);
+        verify_armstay();
+        adc.getDriver1().findElement(By.id("ctl00_phBody_butSearch")).click();
+        history_verification("//*[contains(text(), '(Sensor " + sensor + ") Alarm')]");
+        enter_default_user_code();
     }
 
-    @Test (dependsOnMethods = {"Check_Panel_For_Updated_Sensor"}, priority =5)
+        @Test (dependsOnMethods = {"Check_Panel_For_Updated_Sensor"}, priority =4)
     public void ADC_Delete_A_Sensor() throws InterruptedException, IOException, BiffException {
         Remote_Toolkit_Variables remote = PageFactory.initElements(adc.driver1, Remote_Toolkit_Variables.class);
 
@@ -175,8 +213,6 @@ public class Air_FX extends Setup {
         adc.driver1.quit();
         driver.quit();
     }
-
-
 }
 
 /*
@@ -189,13 +225,8 @@ Verify sensor name can be changed from ADC dealer site and synced to panel
 (in disarm and arm stay and away) CHECK
 
 Verify Sensor activity monitor can be changed from ADC dealersite CHECK
-(1. go to ADC  Airfx sensor page to change a sensor activity monitoring  2 After command is being sent, check for sensor actvity monitoring )
-should be reflected on the user site too.
 
-
-Verify Auto-bypass can be enable/disable from ADC dealersite
-
-Verify Turn On/Off Auto Stay command can be send to panel from ADC dealer site
+Verify Turn On/Off Auto Stay command can be send to panel from ADC dealer site CHECK
 
 */
 
