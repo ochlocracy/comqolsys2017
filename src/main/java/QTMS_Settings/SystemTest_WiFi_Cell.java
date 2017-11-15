@@ -32,6 +32,7 @@ public class SystemTest_WiFi_Cell extends Setup{
     @Test
     public void SASSY_001_SASST_002() throws Exception {
         servcall.get_WiFi_name();
+        Thread.sleep(2000);
         Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
         System_Tests_page sys = PageFactory.initElements(driver, System_Tests_page.class);
         navigate_to_Advanced_Settings_page();
@@ -42,11 +43,13 @@ public class SystemTest_WiFi_Cell extends Setup{
         element_verification(sys.WiFiTest_result, "Test result");
         element_verification(sys.WiFiTest_time, "Test time");
         element_verification(sys.WiFiTest_status, "Test status");
-         logger.info(" SASST_001, SASST_002 Pass: Wi-Fi test can be passed when connecting to a router/hotspot network");}
-    @Test
+         logger.info(" SASST_001, SASST_002 Pass: Wi-Fi test can be passed when connecting to a router/hotspot network");
+        Thread.sleep(5000);
+    }
+    @Test(priority = 1)
     public void SASSY_004WifiEnabled() throws Exception {
         servcall.get_WiFi();
-        Thread.sleep(2000);
+        Thread.sleep(5000);
         Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
         System_Tests_page sys = PageFactory.initElements(driver, System_Tests_page.class);
         Cellular_test_page_elements cell = PageFactory.initElements(driver,Cellular_test_page_elements.class);
@@ -61,13 +64,15 @@ public class SystemTest_WiFi_Cell extends Setup{
         element_verification(cell.signal_strength, "signal strength");
         element_verification(cell.start_button, "start_button");
         element_verification(cell.cancel_button, "cancel_button");
-        logger.info(" SASST_4 Pass: Cellular test passed successfully when wifi is enabled");}
+        logger.info(" SASST_4 Pass: Cellular test passed successfully when wifi is enabled");
+        Thread.sleep(5000);}
 
-    @Test
+    @Test(priority = 2)
     public void SASSY_004WifiDisabled() throws Exception {
         servcall.Wifi_disable();
-        Thread.sleep(2000);
+        Thread.sleep(5000);
         servcall.get_WiFi();
+        Thread.sleep(2000);
         Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
         System_Tests_page sys = PageFactory.initElements(driver, System_Tests_page.class);
         Cellular_test_page_elements cell = PageFactory.initElements(driver,Cellular_test_page_elements.class);
@@ -97,8 +102,13 @@ public class SystemTest_WiFi_Cell extends Setup{
         element_verification(cell.test_result, "Test Result");
         logger.info(" SASST_4 Pass: Cellular test passed successfully when wifi is disabled");
         servcall.data_verification();
+        Thread.sleep(2000);
         servcall.get_Cell_data();
+        System.out.println("1");
+        Thread.sleep(2000);
         servcall.Wifi_enable();
+        System.out.println("1");
+        Thread.sleep(5000);
         }
 
     @AfterTest

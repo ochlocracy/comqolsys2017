@@ -162,7 +162,9 @@ public class ADC extends Setup {
             accountId = "5222509";
         }else  if (get_UDID().equals("62964b68")) { //Olga AT&T
             accountId = "5389996";
-    }
+        }else  if (get_UDID().equals("62964b68")) { //Olga AT&T
+         accountId = " 5389996";
+        }
         return  accountId;
     }
 
@@ -271,7 +273,20 @@ public class ADC extends Setup {
         }
     }
 
-
+    public void New_ADC_session_emPower_Page(String accountID) throws InterruptedException {
+        TimeUnit.SECONDS.sleep(2);
+        getDriver1().manage().window().maximize();
+        String ADC_URL = "https://alarmadmin.alarm.com/Support/DeviceAutomation.aspx" + accountID;
+        getDriver1().get(ADC_URL);
+        String login = "qautomation";
+        String password = "Qolsys123";
+        Thread.sleep(2000);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("txtUsername")));
+        getDriver1().findElement(By.id("txtUsername")).sendKeys(login);
+        getDriver1().findElement(By.id("txtPassword")).sendKeys(password);
+        getDriver1().findElement(By.id("butLogin")).click();
+        TimeUnit.SECONDS.sleep(2);
+    }
 
     //must be on the Equipment page
     public void get_image_sensors() throws InterruptedException {

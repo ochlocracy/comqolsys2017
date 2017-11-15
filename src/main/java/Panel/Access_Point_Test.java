@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Access_Point_Test extends  Setup{
 
+
     String page_name = "Qolsys Access Point testing";
     Logger logger = Logger.getLogger(page_name);
 

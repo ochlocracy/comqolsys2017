@@ -1,5 +1,6 @@
 package Panel;
 
+import io.appium.java_client.android.AndroidDriver;
 import jxl.read.biff.BiffException;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -7,16 +8,16 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.*;
 import org.testng.annotations.Test;
-
 import java.io.IOException;
-
 import java.util.List;
 
 public class About_Page_Test extends Setup {
 
     String page_name = "About page testing";
     Logger logger = Logger.getLogger(page_name);
-    Setup s = new Setup();
+    About_page about;
+    Advanced_Settings_Page adv;
+
 
     public About_Page_Test() throws IOException, BiffException {
     }
@@ -29,16 +30,16 @@ public class About_Page_Test extends Setup {
         Thread.sleep(2000);
     }
 
-        @BeforeClass
+    @BeforeMethod
     public void capabilities_setup() throws Exception {
-        setup_driver(get_UDID(),"http://127.0.1.1", "4723");
+        setup_driver(gen2UDID,"http://127.0.1.1", "4723");
         setup_logger(page_name);
     }
 
     @Test
     public void Check_all_elements_on_About_page() throws Exception {
-        About_page about = PageFactory.initElements(driver, About_page.class);
-        Advanced_Settings_Page adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
+        about = PageFactory.initElements(driver, About_page.class);
+        adv = PageFactory.initElements(driver, Advanced_Settings_Page.class);
         logger.info("Verifying elements on the page...");
         navigate_to_Advanced_Settings_page();
         adv.ABOUT.click();
