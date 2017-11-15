@@ -27,6 +27,7 @@ public class DisarmPhotos extends  Setup_Remote {
 
     @Test
     public void Delete_All_Photos() throws Exception {
+
         System.out.println("Delete_All_Photos Begin");
         Thread.sleep(3000);
 
@@ -44,7 +45,7 @@ public class DisarmPhotos extends  Setup_Remote {
         }
         swipeFromRighttoLeft();
         Thread.sleep(3000);
-        rt.exec("ls -l /storage/sdcard0/DisarmPhotos | busybox1.11  wc -l");
+        rt.exec(adbPath + " ls -l /storage/sdcard0/DisarmPhotos | busybox1.11  wc -l");
     }
 
     @Test
