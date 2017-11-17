@@ -106,6 +106,7 @@ public class Setup_Remote {
         home_page.Four.click();
     }
     public void swipeFromLefttoRight() throws Exception {
+        System.out.println("swipe");
         Thread.sleep(2000);
         int sx = (int) (driver.manage().window().getSize().width * 0.90);
         int ex = (int) (driver.manage().window().getSize().width * 0.10);
@@ -137,22 +138,6 @@ public class Setup_Remote {
         swipeFromRighttoLeft();
     }
 
-    public void swipeFromLefttoRight() throws Exception {
-        Thread.sleep(2000);
-        int sx = (int) (driver.manage().window().getSize().width * 0.90);
-        int ex = (int) (driver.manage().window().getSize().width * 0.10);
-        int sy = driver.manage().window().getSize().height / 2;
-        driver.swipe(ex, sy, sx, sy, 3000);
-        Thread.sleep(2000);
-    }
-    public void swipeFromRighttoLeft() throws Exception {
-        Thread.sleep(2000);
-        int sx = (int) (driver.manage().window().getSize().width * 0.90);
-        int ex = (int) (driver.manage().window().getSize().width * 0.10);
-        int sy = driver.manage().window().getSize().height / 2;
-        driver.swipe(sx, sy, ex, sy, 3000);
-        Thread.sleep(2000);
-    }
 
     @Test
     public void Test1 () throws Exception {

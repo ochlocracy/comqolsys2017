@@ -3,7 +3,10 @@ package IQRemote;
 
 import Panel.Panel_Camera_Page;
 import Panel.Setup;
+import io.appium.java_client.android.AndroidDriver;
 import jxl.read.biff.BiffException;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -16,22 +19,20 @@ public class DisarmPhotos extends  Setup_Remote {
     }
 
     EventContains EventContaints = new EventContains();
-    Setup setup = new Setup();
     String logcat = "/home/qolsys/IdeaProjects/comqolsys2017/log/test.txt";
 
     @BeforeMethod
-    public void Setup() throws Exception {
+    public void setup_driver() throws Exception {
         setup_driver("6NJUMEQPGZ", "http://127.0.1.1", "4723");
         // deleteLogFile(logcat);
     }
 
-    @Test
+    @Test (priority = 0)
     public void Delete_All_Photos() throws Exception {
-
-        System.out.println("Delete_All_Photos Begin");
-        Thread.sleep(3000);
-
         Panel_Camera_Page camera = PageFactory.initElements(driver, Panel_Camera_Page.class);
+        System.out.println("Delete_All_Photos Begin");
+        Thread.sleep(15000);
+
         swipeFromLefttoRight(); //check
         Thread.sleep(3000);
         try {
@@ -48,13 +49,26 @@ public class DisarmPhotos extends  Setup_Remote {
         rt.exec(adbPath + " ls -l /storage/sdcard0/DisarmPhotos | busybox1.11  wc -l");
     }
 
-    @Test
+    @Test(priority = 1)
     public void Add_Disarm_Photos() throws Exception {
         System.out.println("Add_All_Photos Begin");
 
+        Thread.sleep(15000);
+        driver.findElement(By.id("com.qolsys:id/t3_img_disarm")).click();
+        driver.findElement(By.id("com.qolsys:id/img_arm_stay")).click();
+        Thread.sleep(10000);
+        driver.findElement(By.id("com.qolsys:id/t3_img_disarm")).click();
+        Thread.sleep(3000);
+        driver.findElement(By.id("com.qolsys:id/tv_keyOne")).click();
+        driver.findElement(By.id("com.qolsys:id/tv_keyTwo")).click();
+        driver.findElement(By.id("com.qolsys:id/tv_keyThree")).click();
+        driver.findElement(By.id("com.qolsys:id/tv_keyFour")).click();
+        Thread.sleep(5000);
+
+
+
     }
     }
-//check qtms for testing rules examples
 
 //precondition; delete all photos
 //verify from ui and from internal SD
